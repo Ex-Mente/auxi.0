@@ -2,7 +2,7 @@ language: cpp
 compiler: gcc
 before_script:
   - sudo apt-get update -qq
-  - sudo apt-get install libboost-date-time1.54-dev libboost-system1.54-dev libboost-filesystem1.54-dev libboost-python1.54-dev
+  - sudo apt-get install libboost-dev=1.54.0
 script:
   - b2
 
