@@ -1,0 +1,37 @@
+{
+    "Compound": {
+        "Formula": "FeTi2O5",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-2152814.4399999999",
+                "S": "176.569402",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1728",
+                        "Terms": [
+                            {
+                                "Coefficient": "247.154",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-4502760.0999999996",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1026.1500000000001",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "455516013",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,145 @@
+{
+    "Compound": {
+        "Formula": "Ti2O3",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-1520884",
+                "S": "77.252973999999995",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "470",
+                        "Terms": [
+                            {
+                                "Coefficient": "730.23380999999995",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "18808385",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-14604.866",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "470",
+                        "Tmax": "2115",
+                        "Terms": [
+                            {
+                                "Coefficient": "169.96110999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "1609648.8999999999",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-750.21869000000004",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-1565521000",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2115",
+                        "Tmax": "2500",
+                        "Terms": [
+                            {
+                                "Coefficient": "156.90000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-1519375.3799999999",
+                "S": "80.529126000000005",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2115",
+                        "Terms": [
+                            {
+                                "Coefficient": "169.96110999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "1609648.8999999999",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-750.21869000000004",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-1565521000",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2115",
+                        "Tmax": "2500",
+                        "Terms": [
+                            {
+                                "Coefficient": "156.90000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-1414375.3",
+                "S": "130.174487",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2115",
+                        "Terms": [
+                            {
+                                "Coefficient": "169.96110999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "1609648.8999999999",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-750.21869000000004",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-1565521000",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2115",
+                        "Tmax": "2500",
+                        "Terms": [
+                            {
+                                "Coefficient": "156.90000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

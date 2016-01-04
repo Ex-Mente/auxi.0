@@ -1,0 +1,105 @@
+{
+    "Compound": {
+        "Formula": "TiCl4",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-815026",
+                "S": "209.06899999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "500",
+                        "Terms": [
+                            {
+                                "Coefficient": "137.32608999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0281033358",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-1444421.8999999999",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "500",
+                        "Tmax": "501",
+                        "Terms": [
+                            {
+                                "Coefficient": "108",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-804165",
+                "S": "252.404",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "800",
+                        "Terms": [
+                            {
+                                "Coefficient": "142.49941999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0091278324200000007",
+                                "Exponent": "1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "800",
+                        "Tmax": "801",
+                        "Terms": [
+                            {
+                                "Coefficient": "108",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-763162",
+                "S": "354.77955600000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "108.02889",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-1590928.5",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "4.3942411999999997",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "138331981",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

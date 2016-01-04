@@ -1,0 +1,37 @@
+{
+    "Compound": {
+        "Formula": "CaAl2O4",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-2324157.8199999998",
+                "S": "115.060013",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1877",
+                        "Terms": [
+                            {
+                                "Coefficient": "227.03999999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-560800.01000000001",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1669.0999999999999",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-85540001",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

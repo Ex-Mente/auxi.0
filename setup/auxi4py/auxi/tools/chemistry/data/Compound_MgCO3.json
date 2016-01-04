@@ -1,0 +1,25 @@
+{
+    "Compound": {
+        "Formula": "MgCO3",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "298.14999999999998",
+                "S": "1000",
+                "CpRecords": [
+                    {
+                        "Tmin": "128",
+                        "Tmax": "149",
+                        "Terms": [
+                            {
+                                "Coefficient": "3.008",
+                                "Exponent": "128"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

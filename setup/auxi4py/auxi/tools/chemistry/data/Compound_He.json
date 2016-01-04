@@ -1,0 +1,25 @@
+{
+    "Compound": {
+        "Formula": "He",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "0",
+                "S": "126.042556",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "20.786000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,115 @@
+{
+    "Compound": {
+        "Formula": "H2",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "0",
+                "S": "130.57055600000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1200",
+                        "Terms": [
+                            {
+                                "Coefficient": "19.825631000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0030777274600000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-295179.90000000002",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "1.42984494e-06",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "194.86124000000001",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1200",
+                        "Tmax": "4100",
+                        "Terms": [
+                            {
+                                "Coefficient": "14.387460000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0020641075900000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "20833155",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-74353.403999999995",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "2134.8346000000001",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "4100",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "-42.957059999999998",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "730731789",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-931953.90000000002",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "17037.945",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "Aq",
+                "Code": "Aq",
+                "DH": "-4184",
+                "S": "57.738999999999997",
+                "CpRecords": [
+                    {
+                        "Tmin": "289",
+                        "Tmax": "573",
+                        "Terms": [
+                            {
+                                "Coefficient": "-305.31099999999998",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.68570299999999995",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "26420300",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
