@@ -5,6 +5,12 @@ dist: trusty
 before_script:
   - sudo apt-get update -qq
   - sudo apt-get install -y libboost1.54-all-dev
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build
+  - cd boost/tools/build && ./bootstrap.sh && ./b2 install --prefix=${DEPS_DIR}/b2)
+  - export PATH=${DEPS_DIR}/b2/bin:${PATH}
 script:
   - b2
 
