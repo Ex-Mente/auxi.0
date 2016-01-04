@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="cpRecord"
+    targetNamespace="auxi::tools::chemistry::thermochemistry"
+    elementFormDefault="qualified"
+    xmlns="thermochemistry"
+    xmlns:mstns="auxi::tools::chemistry::thermochemistry"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.tools.chemistry.thermochemistry.Phase" type="Phase"/>
+
+<xs:complexType name="Phase" additional_includes="CpRecord" to_string_function="to_string" doc="Represents a phase of a chemical compound.">
+<function name="Phase" returnType="" custom_constructor="true">
+    <param name="name" type="std::string" doc="The phase's name, e.g. solid, liquid, gas, etc." />
+    <param name="symbol" type="std::string" doc="The phase's symbol, e.g. S1 = solid 1, L = liquid, etc." />
+    <param name="DHref" type="double" doc="The formation enthalpy of the phase at Tref. [J/mol]" />
+    <param name="Sref" type="double" doc="The standard entropy of the phase at Tref. [J/mol/K]" />
+    <param name="cpRecordMap" type="std::map&lt;double, CpRecord&gt;" doc="A dictionary containing the phase's Cp records." />
+</function>
+<function name="to_string" returnType="std::string" />
+<function name="Cp" returnType="double" forceCaps="true" doc="Calculate the heat capacity of the compound phase at the specified
+        temperature." doc_return="The heat capacity of the compound phase. [J/mol/K]">
+    <param name="temperature" type="double" doc="[K]" />
+</function>
+<function name="H" returnType="double" forceCaps="true" doc="Calculate the enthalpy of the compound phase at the specified
+        temperature." doc_return="The heat capacity of the compound phase. [J/mol/K]">
+    <param name="temperature" type="double" doc="[K]" />
+</function>
+<function name="S" returnType="double" forceCaps="true" doc="Calculate the entropy of the compound phase at the specified
+        temperature." doc_return="The heat capacity of the compound phase. [J/mol/K]">
+    <param name="temperature" type="double" doc="[K]" />
+</function>
+<function name="G" returnType="double" forceCaps="true" doc="Calculate the Gibbs free energy of the compound phase at the specified
+        temperature." doc_return="The heat capacity of the compound phase. [J/mol/K]">
+    <param name="temperature" type="double" doc="[K]" />
+</function>
+<xs:sequence>
+    <xs:element name="CpRecord" type="double, CpRecord" minOccurs="0" maxOccurs="unbounded" dict="true" private="true"/>
+    <xs:element name="SortedKeysCpRecord" type="double" minOccurs="0" maxOccurs="unbounded" private="true"/>
+</xs:sequence>
+<xs:attribute name="Symbol" type="std::string" doc="The phase's symbol, e.g. S1 = solid 1, L = liquid, etc."/>
+<xs:attribute name="Tref" type="double" forceCaps="true" doc="The reference temperature of the phase. [K]" />
+<xs:attribute name="DHref" type="double" forceCaps="true" doc="The formation enthalpy of the phase at Tref. [J/mol]" />
+<xs:attribute name="Sref" type="double" forceCaps="true" doc="The standard entropy of the phase at Tref. [J/mol/K]" />
+
+</xs:complexType>
+
+</xs:schema>
