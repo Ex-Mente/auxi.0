@@ -5,12 +5,16 @@ dist: trusty
 before_script:
   - sudo apt-get update -qq
   - sudo apt-get install -y libboost1.54-all-dev
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
-  - cd ${TRAVIS_BUILD_DIR}
-  - mkdir build
-  - cd boost/tools/build && ./bootstrap.sh && ./b2 install --prefix=${DEPS_DIR}/b2
-  - export PATH=${DEPS_DIR}/b2/bin:${PATH}
+  - wget https://github.com/ned14/boost-trunk/archive/release/Boost_1_54_0.tar.gz
+  - tar zxf Boost_1_54_0.tar.gz
+  - mv boost-trunk-release-Boost_1_54_0 $HOME/boost-trunk
+  - BOOST="$HOME/boost-trunk/"
+  - BOOST_ROOT="$HOME/boost-trunk/"
+  - export BOOST_ROOT
+  - export BOOST
+  - cd $BOOST/tools/build/v2
+  - ./bootstrap.sh
+  - sudo ./b2 install
 script:
   - b2
 
