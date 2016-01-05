@@ -1,6 +1,9 @@
 # Specify the path to the Boost project.  If you move this project,
 # adjust this path to refer to the Boost root directory.
-use-project boost : /home/christoff/Software/boost/boost_1_54_0 ;
+import os ;
+local BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+use-project boost : $(BOOST_ROOT) ;
+#use-project boost : /home/christoff/Software/boost/boost_1_54_0 ;
 use-project /auxi/core : auxi/core ;
 use-project /auxi/tools/chemistry : auxi/tools/chemistry ;
 use-project /auxi/tools/chemistry/stoichiometry : auxi/tools/chemistry/stoichiometry ;
