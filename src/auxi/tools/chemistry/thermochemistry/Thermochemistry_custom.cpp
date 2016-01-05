@@ -248,7 +248,10 @@ std::map<std::string, Compound> read_compounds(std::string file_path_str){
     if (exists(p))    // does path p actually exist?
     {
         if (is_directory(p)) {
-            for (auto&& x: directory_iterator(p)) {
+            vector<path> v;
+
+            copy(directory_iterator(p), directory_iterator(), back_inserter(v));
+            for (auto&& x: v) {
                 auto item_path = x.path();
                 if (is_regular_file(item_path)) {
                     std::string file_name = item_path.filename().string();
