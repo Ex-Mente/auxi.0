@@ -35,7 +35,7 @@ script:
 deploy:
   provider: releases
   api_key: "9f13b12b716f6f675f066989fe2462ae2c8d1347"
-  file: "auxi-0.0.0.tar.gz"
+  file: "auxi-0.0.0-ubuntu.tar.gz"
   skip_cleanup: true
   on:
     tags: true
