@@ -20,5 +20,16 @@ script:
   - BOOST_ROOT="$HOME/boost-trunk"
   - export BOOST_ROOT
   - echo $BOOST_ROOT
+  - cd auxi/core
+  - sudo b2
+  - cd ../tools/chemistry/stoichiometry
+  - sudo b2
+  - cd ../thermochemistry
+  - sudo b2
+  - cd ../../../../auxi4py/core
+  - sudo b2 -d2
+  - cd ../tools/chemistry/stoichiometry
+  - b2
+  - cd ../thermochemistry
   - sudo b2
 
