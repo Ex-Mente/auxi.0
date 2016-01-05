@@ -11,6 +11,7 @@ python-extension stoichiometry : ElementWrapper.cpp
                                  /auxi/tools/chemistry/stoichiometry//stoichiometry
                                  boost_dt boost_py
                                  :
+                                 <include>/usr/include/boost
                                  <include>../../../../auxi/core
                                  <include>../../../../auxi/tools/chemistry/stoichiometry
                                 ;

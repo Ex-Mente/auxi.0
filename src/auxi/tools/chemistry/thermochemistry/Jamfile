@@ -20,6 +20,7 @@ lib thermochemistry :
          /auxi/tools/chemistry/stoichiometry//stoichiometry
          boost_dt boost_fs boost_sy
          :
+         <include>/usr/include/boost
          <include>../../../core
          <include>../../../tools/chemistry/stoichiometry
          ;

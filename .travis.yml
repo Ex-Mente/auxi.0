@@ -9,17 +9,15 @@ before_script:
   - tar zxf Boost_1_54_0.tar.gz
   - mv boost-trunk-release-Boost_1_54_0 $HOME/boost-trunk
   - BOOST="$HOME/boost-trunk/"
-  - BOOST_ROOT="$HOME/boost-trunk/"
+  - BOOST_ROOT="$HOME/boost-trunk"
   - export BOOST_ROOT
   - export BOOST
   - cd $BOOST/tools/build/v2
   - ./bootstrap.sh
   - sudo ./b2 install
 script:
+  - dir $BOOST_ROOT
   - cd $TRAVIS_BUILD_DIR/src
-  - BOOST_ROOT="$HOME/boost-trunk"
-  - export BOOST_ROOT
-  - echo $BOOST_ROOT
   - cd auxi/core
   - sudo b2
   - cd ../tools/chemistry/stoichiometry

@@ -11,5 +11,6 @@ lib stoichiometry :
          /auxi/core//core
          boost_dt
          :
+         <include>/usr/include/boost
          <include>../../../core
          ;
