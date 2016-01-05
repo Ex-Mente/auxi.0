@@ -29,4 +29,13 @@ script:
   - b2
   - cd ../thermochemistry
   - sudo b2
-
+  - cd ../../../../../setup/auxi4py
+  - sh build_distribution.sh
+  - cd dist
+deploy:
+  provider: releases
+  api_key: "9f13b12b716f6f675f066989fe2462ae2c8d1347"
+  file: "auxi-0.0.0.tar.gz"
+  skip_cleanup: true
+  on:
+    tags: true
