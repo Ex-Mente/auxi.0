@@ -17,7 +17,7 @@ before_script:
   - sudo ./b2 install
 script:
   - cd $TRAVIS_BUILD_DIR/src
-  - dir /usr/lib/x86_64-linux-gnu/
+  - dir /usr/include/boost
   - cd auxi/core
   - sudo b2
   - cd ../tools/chemistry/stoichiometry
