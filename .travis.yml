@@ -18,7 +18,8 @@ before_script:
   - ./bootstrap.sh
   - sudo ./b2 install
 script:
-  - cd $PROJECTPATH
+  - cd $TRAVIS_BUILD_DIR
+  - pwd
   - dir
   - sudo b2
 
