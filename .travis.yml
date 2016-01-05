@@ -16,8 +16,8 @@ before_script:
   - ./bootstrap.sh
   - sudo ./b2 install
 script:
-  - dir $BOOST_ROOT
   - cd $TRAVIS_BUILD_DIR/src
+  - dir /usr/lib/x86_64-linux-gnu/
   - cd auxi/core
   - sudo b2
   - cd ../tools/chemistry/stoichiometry
