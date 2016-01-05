@@ -1,8 +1,8 @@
 # Specify the path to the Boost project.  If you move this project,
 # adjust this path to refer to the Boost root directory.
-import os ;
-local BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
-use-project boost : $(BOOST_ROOT) ;
+#import os ;
+#local BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+#use-project boost : $(BOOST_ROOT) ;
 #use-project boost : /home/travis/boost-trunk ;
 #use-project boost : /home/christoff/Software/boost/boost_1_54_0 ;
 use-project /auxi/core : auxi/core ;
