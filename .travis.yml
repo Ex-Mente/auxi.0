@@ -34,7 +34,7 @@ script:
   - cd dist
 deploy:
   provider: releases
-  api_key: "9f13b12b716f6f675f066989fe2462ae2c8d1347"
+  api_key: "d5524d3be5d4183aa1dfbab0fd4563fba7fe4998"
   file: "auxi-0.0.0-ubuntu.tar.gz"
   skip_cleanup: true
   on:
