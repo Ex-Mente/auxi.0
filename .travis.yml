@@ -16,6 +16,7 @@ before_script:
   - ./bootstrap.sh
   - sudo ./b2 install
 script:
+  - cd $PROJECTPATH
   - dir
   - sudo b2
 
