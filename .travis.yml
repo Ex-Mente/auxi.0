@@ -1,41 +1,43 @@
 language: cpp
+python:
+- 3.4
 compiler: gcc
 sudo: required
 dist: trusty
 before_script:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libboost1.54-all-dev
-  - wget https://github.com/ned14/boost-trunk/archive/release/Boost_1_54_0.tar.gz
-  - tar zxf Boost_1_54_0.tar.gz
-  - mv boost-trunk-release-Boost_1_54_0 $HOME/boost-trunk
-  - BOOST="$HOME/boost-trunk/"
-  - BOOST_ROOT="$HOME/boost-trunk"
-  - export BOOST_ROOT
-  - export BOOST
-  - cd $BOOST/tools/build/v2
-  - ./bootstrap.sh
-  - sudo ./b2 install
+- sudo apt-get update -qq
+- sudo apt-get install -y libboost1.54-all-dev
+- wget https://github.com/ned14/boost-trunk/archive/release/Boost_1_54_0.tar.gz
+- tar zxf Boost_1_54_0.tar.gz
+- mv boost-trunk-release-Boost_1_54_0 $HOME/boost-trunk
+- BOOST="$HOME/boost-trunk/"
+- BOOST_ROOT="$HOME/boost-trunk"
+- export BOOST_ROOT
+- export BOOST
+- cd $BOOST/tools/build/v2
+- ./bootstrap.sh
+- sudo ./b2 install
 script:
-  - cd $TRAVIS_BUILD_DIR/src
-  - cd auxi/core
-  - sudo b2
-  - cd ../tools/chemistry/stoichiometry
-  - sudo b2
-  - cd ../thermochemistry
-  - sudo b2
-  - cd ../../../../auxi4py/core
-  - sudo b2 -d2
-  - cd ../tools/chemistry/stoichiometry
-  - b2
-  - cd ../thermochemistry
-  - sudo b2
-  - cd ../../../../../setup/auxi4py
-  - sh build_distribution.sh
-  - cd dist
+- cd $TRAVIS_BUILD_DIR/src
+- cd auxi/core
+- sudo b2
+- cd ../tools/chemistry/stoichiometry
+- sudo b2
+- cd ../thermochemistry
+- sudo b2
+- cd ../../../../auxi4py/core
+- sudo b2 -d2
+- cd ../tools/chemistry/stoichiometry
+- b2
+- cd ../thermochemistry
+- sudo b2
+- cd ../../../../../setup/auxi4py
+- sh build_distribution.sh
 deploy:
-  provider: releases
-  api_key: "d5524d3be5d4183aa1dfbab0fd4563fba7fe4998"
-  file: "auxi-0.0.0-ubuntu.tar.gz"
+  provider: pypi
+  user: emdev
+  password:
+    secure: BqD5GHrm1RMe3F69sdh7YdN2uXnYT0qBp40z40OYQb0efHB08zBD4ZJWMccjWm7pYwtefO2Jv7x3huKLLH8u811E5e50yJ3jiEJbjAB8VijDwQjWqzELe1jxITGoee0zECBjVgJPcJOkICSC38hamrlYOQGfqqg4rhTbVhUbTbSbPna8S84Cdm/N6kzi9hgdhqDetxXhSfDIhYxREJJScCUxfY8rK3o69qZHlffzboK25xkDhagpuUY/1mW1QOHvIxa/p6TnE9hS5nf4RSZnvvsQqehVjrlIlMP8qa9JlMBlIYcX13PQh34OEg0KbYUzkS0kRacE0Ol2AS7aFmA8erdAWOPvbixmffiTm2U3zsT7Rxc5aCDhBYQanocqpAmEzJ+dmi5yrzq++je0plS0v+WY5TTyh21RyROB6E+43JoSMenh0NDpvod3qsSjLCf8GEt/vDKuY3KRkQQbmirAv/J3H88rPIG6KH3UJIMTL0mXClbwU3HMmPQtJ4pit8Nwdhjg6L/jzSFa0zL801zQBiRLXIutBZK6kQDfwFwJ8HVe1ihAiy3AME8YBFrEPZdLOKr5y0gG0SvAvZ/pV7W1u0Yc1m7JXDRTUyhw5qMRq+uxMKjoBUM19mRAgxt2KLftVEjKGAMyUWknPIfgt9D5O6SJLtyxPUT1ixh9XDM0MXI=
   skip_cleanup: true
   on:
-    tags: true
+    branch: master
