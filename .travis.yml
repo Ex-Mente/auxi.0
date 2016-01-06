@@ -7,6 +7,8 @@ dist: trusty
 before_script:
 - wget http://nixos.org/releases/patchelf/patchelf-0.8/patchelf-0.8.tar.gz
 - tar zxf patchelf-0.8.tar.gz
+- pwd
+- dir
 - export PATCHELF="$HOME/patchelf-0.8"
 - sudo apt-get update -qq
 - sudo apt-get install -y libboost1.54-all-dev
