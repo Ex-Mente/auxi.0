@@ -10,6 +10,7 @@ import os
 import sys
 import shutil
 import glob
+import sys
 
 
 # =============================================================================
@@ -71,7 +72,7 @@ def deleteFileOrFolder(directory):
 # main program
 # =============================================================================
 
-patchelf_path = "/home/christoff/Software/patchelf-0.8/src/patchelf"
+patchelf_path = sys.argv[1]
 if patchelf_path == "":
     patchelf_path = input('Enter the path to the patchelf executable: ')
 
