@@ -34,7 +34,6 @@ script:
 - cd ../../../../../setup/auxi4py
 - sh build_distribution.sh
 deploy:
-  - pwd
   provider: pypi
   user: emdev
   password:
