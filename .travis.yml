@@ -1,8 +1,8 @@
 language: cpp
 python:
-- 3.4
+- "3.4"
 compiler: gcc
-sudo: required
+sudo: d
 dist: trusty
 before_script:
 - sudo apt-get update -qq
