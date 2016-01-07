@@ -75,7 +75,7 @@ def deleteFileOrFolder(directory):
 #patchelf_path = sys.argv[1]
 #if patchelf_path == "":
 #    patchelf_path = input('Enter the path to the patchelf executable: ')
-patchelf_path = "/home/travis/.local/bin/patchelf"
+patchelf_path = "~/.local/bin/patchelf"
 # create path strings
 project_path = os.path.dirname(os.path.abspath(__file__))
 dep_path_auxi = os.path.join(project_path, 'auxi')
@@ -136,14 +136,14 @@ new_thermochem_mod_path = os.path.join(dep_path__tools_chemistry, "thermochemist
 new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochemistry.so")
 
 print("  patchelf")
-call([patchelf_path, "--set-rpath", "'$ORIGIN'", new_core_mod_path])
+'''call([patchelf_path, "--set-rpath", "'$ORIGIN'", new_core_mod_path])
 call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_stoichiometry_mod_path])
 call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermochem_mod_path])
-call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermochem_lib_path])
-'''call([patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
+call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermochem_lib_path])'''
+call([patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
 call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
 call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
-call([ patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)'''
+call([ patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
 
 
 print('COPY DATA FILES')
