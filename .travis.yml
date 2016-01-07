@@ -40,6 +40,7 @@ script:
 - cd ../thermochemistry
 - sudo b2
 - cd ../../../../../setup/auxi4py
+- dir /home/travis/patchelf-0.8/src/
 - sudo python3 copy_distribution_files.py $HOME/patchelf-0.8/src/patchelf
 - sudo python3 setup.py sdist
 deploy:
