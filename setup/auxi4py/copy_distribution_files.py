@@ -81,7 +81,6 @@ project_path = os.path.dirname(os.path.abspath(__file__))
 dep_path_auxi = os.path.join(project_path, 'auxi')
 dep_path__core = os.path.join(dep_path_auxi, 'core')
 dep_path__tools_chemistry = os.path.join(dep_path_auxi, 'tools', 'chemistry')
-doc_path = os.path.join(dep_path_auxi, 'doc')
 
 dep_path_thermo_data_files = os.path.join(dep_path__tools_chemistry, 'data')
 
@@ -94,7 +93,6 @@ boost_sy_lib_path = "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.54.0"
 print("REMOVE OLD FILES")
 remove_old_files(dep_path_auxi)
 deleteFileOrFolder(dep_path_thermo_data_files)
-deleteFileOrFolder(doc_path)
 print()
 
 core_mod_path = os.path.join(project_path, r"../../src/auxi4py/core/bin/gcc-c++11/debug/core.so")
@@ -150,11 +148,6 @@ print('COPY DATA FILES')
 thermo_data_files_path = r"../../src/auxi/tools/chemistry/thermochemistry/data/"
 shutil.copytree(thermo_data_files_path, dep_path_thermo_data_files)
 
-print('COPY DOCUMENTATION')
-to_copy_doc_path = os.path.join(project_path, '../../doc/auxi4py/user/build/html')
-shutil.copytree(to_copy_doc_path, doc_path)
-#shutil.move(os.path.join(doc_html_path, 'auxipyUserDocumentation.pdf'), doc_path)
-
 print()
 
 # build the distribution
@@ -165,8 +158,7 @@ setup(name="auxi",
       packages=["auxi", "auxi.core", "auxi.tools", "auxi.tools.chemistry"],
       package_data={'auxi.core': ['*.so*'],
                     'auxi.tools.chemistry': ['*.so*', r'data/*']}#,
-     #               'auxi' : [r'datafiles/*',
-     #                         'doc/*.pdf', 'doc/html/*', 'doc/html/_static/*', 'doc/html/_sources/*']}
+     #               'auxi' : [r'datafiles/*']}
 )
 
 print("Done")
