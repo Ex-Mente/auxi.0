@@ -13,8 +13,6 @@ before_script:
 - sudo make install
 - sudo strip ~/.local/bin/patchelf
 - sudo gzip -9 ~/.local/share/man/man1/patchelf.1
-- ls -alR ~/.local
-- export PATH=${PATH}:${HOME}/patchelf-0.8/src
 - cd $HOME
 - sudo apt-get update -qq
 - sudo apt-get install -y libboost1.54-all-dev
