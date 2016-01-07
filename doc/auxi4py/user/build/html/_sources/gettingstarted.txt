@@ -1,8 +1,3 @@
-Getting the Package Distribution File
-=====================================
-The auxi Python package is distributed as an archive with a name such as "auxi-0.0.0.tar.gz". The installer can be obtained from Ex Mente.
-
-
 auxi Installation
 =================
 Currently, auxi only runs on Linux.
@@ -14,23 +9,17 @@ You need the following before starting your auxi Python package installation:
 * Python 3.4
 * sudo apt-get update
 * sudo apt-get install -y python3-pip
-* sudo pip3 install prettytable
-* sudo pip3 install pandas
-* sudo pip3 install xlrd
-* sudo pip3 install openpyxl
-* sudo apt-get install python3-matplotlib
 
 Installation
 ------------
 
-To install pmpy, follow these steps:
+To install auxi::
 
-* Copy the pmpy package distribution file to your hard disk.
-* Extract the contents of the distribution file.
-* Open a console window so that you can use the command line.
-* Navigate to where the package distribution was extracted.
-* Type the command "sudo python3.4 setup.py install".
-* When prompted, type your sudo password.
+sudo pip3 install auxi
+
+To uninstall auxi::
+
+sudo pip3 uninstall auxi
 
 
 Importing auxi Components
