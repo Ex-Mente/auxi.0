@@ -95,12 +95,12 @@ remove_old_files(dep_path_auxi)
 deleteFileOrFolder(dep_path_thermo_data_files)
 print()
 
-core_mod_path = os.path.join(project_path, r"../../src/auxi4py/core/bin/gcc-c++11/debug/core.so")
-stoi_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/stoichiometry/bin/gcc-c++11/debug/stoichiometry.so")
-thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/thermochemistry/bin/gcc-c++11/debug/thermochemistry.so")
+core_mod_path = os.path.join(project_path, r"../../src/auxi4py/core/bin/gcc-c++11/release/core.so")
+stoi_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/stoichiometry/bin/gcc-c++11/release/stoichiometry.so")
+thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/thermochemistry/bin/gcc-c++11/release/thermochemistry.so")
 
 core_dependencies_paths = [
-os.path.join(project_path, r"../../src/auxi/core/bin/gcc-c++11/debug/libcore.so"),
+os.path.join(project_path, r"../../src/auxi/core/bin/gcc-c++11/release/libcore.so"),
 boost_py_lib_path,
 boost_dt_lib_path,
 boost_fs_lib_path,
@@ -109,13 +109,13 @@ core_mod_path
 ]
 
 stoi_dependencies_paths = [
-os.path.join(project_path, r"../../src/auxi/tools/chemistry/stoichiometry/bin/gcc-c++11/debug/libstoichiometry.so"),
+os.path.join(project_path, r"../../src/auxi/tools/chemistry/stoichiometry/bin/gcc-c++11/release/libstoichiometry.so"),
 boost_fs_lib_path,
 stoi_mod_path
 ]
 
 thermochem_dependencies_paths = [
-os.path.join(project_path, r"../../src/auxi/tools/chemistry/thermochemistry/bin/gcc-c++11/debug/libthermochemistry.so"),
+os.path.join(project_path, r"../../src/auxi/tools/chemistry/thermochemistry/bin/gcc-c++11/release/libthermochemistry.so"),
 thermochem_mod_path
 ]
 
