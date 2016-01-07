@@ -143,7 +143,7 @@ call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermoch
 call([patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
 call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
 call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
-call([ patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
+call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
 
 
 print('COPY DATA FILES')
