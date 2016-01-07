@@ -75,7 +75,7 @@ def deleteFileOrFolder(directory):
 #patchelf_path = sys.argv[1]
 #if patchelf_path == "":
 #    patchelf_path = input('Enter the path to the patchelf executable: ')
-patchelf_path = "/hometravis/.local/bin/patchelf"
+patchelf_path = "/home/travis/.local/bin/patchelf"
 # create path strings
 project_path = os.path.dirname(os.path.abspath(__file__))
 dep_path_auxi = os.path.join(project_path, 'auxi')
