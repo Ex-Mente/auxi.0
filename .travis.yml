@@ -11,8 +11,6 @@ before_script:
 - cd patchelf-0.8/
 - sudo ./configure --prefix="$HOME/.local"
 - sudo make install
-- strip ~/.local/bin/patchelf
-- gzip -9 ~/.local/share/man/man1/patchelf.1
 - export PATH=${PATH}:${HOME}/patchelf-0.8/src
 - cd $HOME
 - sudo apt-get update -qq
