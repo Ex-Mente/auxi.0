@@ -7,7 +7,7 @@ from distutils.core import setup
 
 # build the distribution
 setup(name="auxi",
-      version="0.0.0",
+      version="0.0.1",
       description="auxi for Python",
       package_dir={'auxi': 'auxi'},
       packages=["auxi", "auxi.core", "auxi.tools", "auxi.tools.chemistry"],
