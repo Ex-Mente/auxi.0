@@ -43,7 +43,7 @@ script:
 - cd ../thermochemistry
 - sudo b2
 - cd ../../../../../setup/auxi4py
-- sudo python3 copy_distribution_files.py ~/.local/bin/patchelf
+- sudo python3 copy_distribution_files.py
 - sudo python3 setup.py sdist
 deploy:
   provider: pypi
