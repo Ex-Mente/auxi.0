@@ -11,6 +11,9 @@ before_script:
 - cd patchelf-0.8/
 - sudo ./configure --prefix="$HOME/.local"
 - sudo make install
+- sudo strip ~/.local/bin/patchelf
+- sudo gzip -9 ~/.local/share/man/man1/patchelf.1
+- ls -alR ~/.local
 - export PATH=${PATH}:${HOME}/patchelf-0.8/src
 - cd $HOME
 - sudo apt-get update -qq
@@ -41,7 +44,7 @@ script:
 - sudo b2
 - cd ../../../../../setup/auxi4py
 - dir /home/travis/patchelf-0.8/src/
-- sudo python3 copy_distribution_files.py $HOME/patchelf-0.8/src/patchelf
+- sudo python3 copy_distribution_files.py ~/bin/patchelf
 - sudo python3 setup.py sdist
 deploy:
   provider: pypi
