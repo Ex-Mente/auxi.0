@@ -135,10 +135,10 @@ new_stoichiometry_mod_path = os.path.join(dep_path__tools_chemistry, "stoichiome
 new_thermochem_mod_path = os.path.join(dep_path__tools_chemistry, "thermochemistry.so")
 new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochemistry.so")
 
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
+call([patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
+call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
+call([patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
+call([ patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
 
 
 print('COPY DATA FILES')
@@ -163,3 +163,5 @@ setup(name="auxi",
      #               'auxi' : [r'datafiles/*',
      #                         'doc/*.pdf', 'doc/html/*', 'doc/html/_static/*', 'doc/html/_sources/*']}
 )
+
+print("Done")
