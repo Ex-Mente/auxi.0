@@ -1,21 +1,6 @@
 # Specify the path to the Boost project.  If you move this project,
 # adjust this path to refer to the Boost root directory.
-#import os ;
-#local BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
-#use-project boost : $(BOOST_ROOT) ;
-#use-project boost : /home/travis/boost-trunk ;
-#use-project boost : /home/christoff/Software/boost/boost_1_54_0 ;
 use-project /auxi/core : auxi/core ;
 use-project /auxi/tools/chemistry : auxi/tools/chemistry ;
 use-project /auxi/tools/chemistry/stoichiometry : auxi/tools/chemistry/stoichiometry ;
 use-project /auxi/tools/chemistry/thermochemistry : auxi/tools/chemistry/thermochemistry ;
-
-
-# Set up the project-wide requirements that everything uses the
-# boost_python library from the project whose global ID is
-# /boost/python.
-#project
-#  : requirements <library>/boost/python//boost_python
-#
-#<library>/usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0
-#;
