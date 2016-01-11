@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="stockTransactionTemplate"
+    targetNamespace="auxi::modelling::accounting::stock"
+    elementFormDefault="qualified"
+    xmlns="stock"
+    xmlns:mstns="auxi::modelling::accounting::stock"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.stock.StockTransactionTemplate" type="StockTransactionTemplate"/>
+
+<xs:complexType name="StockTransactionTemplate" additional_includes="StockLedgerAccount">
+<xs:attribute name="FromAccountName" type="std::string"/>
+<xs:attribute name="ToAccountName" type="std::string"/>
+
+</xs:complexType>
+
+</xs:schema>

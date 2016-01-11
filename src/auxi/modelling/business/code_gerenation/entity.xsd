@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="entity"
+    targetNamespace="auxi::modelling::business"
+    elementFormDefault="qualified"
+    xmlns="business"
+    xmlns:mstns="auxi::modelling::business"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.business.Entity" type="Entity"/>
+
+
+<xs:complexType name="Entity" base="ExecutionObject" additional_includes="StockLedger,GeneralLedger,TaxRuleSet,Transaction,Units,VariableGroup,Component">
+<function name="create_component" returnType="Component*">
+  <param name="name" type="std::string"/>
+</function>
+<function name="remove_component" returnType="void">
+  <param name="name" type="std::string"/>
+</function>
+<function name="prepare_to_run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="totalIntervalsToRun" type="int" />
+</function>
+<function name="perform_year_end_procedure_gross_profit_and_income_summary" returnType="double" private="true">
+    <param name="yearEndDate" type="dateTime" />
+    <param name="currency" type="Units" />
+    <param name="grossProfitAccountsToWriteOff" type="std::map&lt;std::string, double&gt;" />
+    <param name="incomeSummaryAccountsToWriteOff" type="std::map&lt;std::string, double&gt;" />
+</function>
+<function name="perform_year_end_procedure_gross_profit" returnType="double" private="true">
+    <param name="yearEndDate" type="dateTime" />
+    <param name="currency" type="Units" />
+    <param name="grossProfitAccountsToWriteOff" type="std::map&lt;std::string, double&gt;" />
+</function>
+<function name="perform_year_end_procedure_income_summary" returnType="double" private="true">
+    <param name="yearEndDate" type="dateTime" />
+    <param name="currency" type="Units" />
+    <param name="grossProfit" type="double" />
+    <param name="incomeSummaryAccountsToWriteOff" type="std::map&lt;std::string, double&gt;" />
+</function>
+<function name="perform_year_end_procedure_income_tax" returnType="double" private="true">
+    <param name="yearEndDate" type="dateTime" />
+    <param name="currency" type="Units" />
+    <param name="incomeSummaryAmount" type="double" />
+</function>
+<function name="perform_year_end_procedure_retained_earnings" returnType="void" private="true">
+    <param name="yearEndDate" type="dateTime" />
+    <param name="currency" type="Units" />
+    <param name="incomeSummaryAmount" type="double" />
+</function>
+<function name="perform_year_end_procedure" returnType="void" private="true">
+    <param name="clock" type="Clock*" />
+    <param name="ix_interval" type="int" />
+    <param name="currency" type="Units" />
+</function>
+<function name="run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="ix_interval" type="int" />
+    <param name="currency" type="Units" />
+</function>
+<function name="getSalesAccounts" returnType="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;">
+    <param name="currentAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*" />
+    <param name="salesAccounts" type="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;()"/>
+</function>
+<function name="getCostOfSalesAccounts" returnType="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;">
+    <param name="currentAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*" />
+    <param name="costOfSalesAccounts" type="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;()"/>
+</function>
+<xs:sequence>
+    <xs:element name="VariableGroup" type="VariableGroup*" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="Component" type="Component*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="TaxRuleSet" type="auxi::modelling::accounting::financial::TaxRuleSet"/>
+<xs:attribute name="NegativeIncomeTaxTotal" type="xs:double" py_set="False"/>
+<xs:attribute name="prev_year_end_date" type="dateTime" private="true"/>
+<xs:attribute name="curr_year_end_date" type="dateTime" private="true"/>
+<xs:attribute name="execution_end_date" type="dateTime" private="true"/>
+<xs:attribute name="TotalIntervalsToRun" type="xs:int" py_set="False"/>
+<xs:attribute name="StockLedger" type="auxi::modelling::accounting::stock::StockLedger"/>
+<xs:attribute name="GeneralLedger" type="auxi::modelling::accounting::financial::GeneralLedger"/>
+
+</xs:complexType>
+
+</xs:schema>

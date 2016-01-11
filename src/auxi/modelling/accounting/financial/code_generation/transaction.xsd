@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="transaction"
+    targetNamespace="auxi::modelling::accounting::financial"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::accounting::financial"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.financial.Transaction" type="Transaction"/>
+
+
+<xs:complexType name="Transaction" additional_includes="Units,GeneralLedgerAccount">
+<xs:attribute name="Date" type="dateTime"/>
+<xs:attribute name="CreditAccountName" type="std::string"/>
+<xs:attribute name="DebitAccountName" type="std::string"/>
+<xs:attribute name="Currency" type="Units"/>
+<xs:attribute name="Source" type="xs:string"/>
+<xs:attribute name="IsClosingCreditAccount" type="bool" default="false"/>
+<xs:attribute name="IsClosingDebitAccount" type="bool" default="false"/>
+<xs:attribute name="Amount" type="xs:double" default="0"/>
+
+</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="stockCalculationEngine"
+    targetNamespace="auxi::modelling::accounting::stock"
+    elementFormDefault="qualified"
+    xmlns="stock"
+    xmlns:mstns="auxi::modelling::accounting::stock"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.stock.StockCalculationEngine" type="StockCalculationEngine"/>
+
+<xs:complexType name="StockCalculationEngine" additional_includes="StockLedgerStructure" to_string_function="to_string" destructor_clean_function="clean">
+<xs:sequence>
+    <xs:element name="StockLedgerStructure" type="StockLedgerStructure*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<function name="create_stockLedgerStructure" returnType="StockLedgerStructure*">
+  <param name="name" type="std::string"/>
+</function>
+<function name="remove_stockLedgerStructure" returnType="void">
+  <param name="name" type="std::string"/>
+</function>
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+</xs:complexType>
+
+</xs:schema>

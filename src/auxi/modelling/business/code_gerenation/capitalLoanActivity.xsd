@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="capitalLoanActivity"
+    targetNamespace="auxi::modelling::business"
+    elementFormDefault="qualified"
+    xmlns="business"
+    xmlns:mstns="auxi::modelling::business"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.business.CapitalLoanActivity" type="CapitalLoanActivity"/>
+
+<xs:complexType name="CapitalLoanActivity" base="Activity" additional_includes="TransactionTemplate,Clock" constructor_init_function="initialize">
+<function name="initialize" returnType="void" />
+<function name="OnExecute_MeetExecutionCriteria" returnType="bool" virtual="true">
+  <param name="executionInterval" type="int"/>
+</function>
+<function name="prepare_to_run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="totalIntervalsToRun" type="int" />
+</function>
+<function name="run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="ix_interval" type="int" />
+    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+</function>
+
+<xs:attribute name="Date" type="dateTime"/>
+<xs:attribute name="GeneralLedgerLiabilityAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
+<xs:attribute name="GeneralLedgerExpenseAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
+<xs:attribute name="MakeLoanTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="ConsiderInterestTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="PayMonthlyLoanAmountTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="LoanAmount" type="double" default="0.0"/>
+<xs:attribute name="InterestRate" type="double" default="0.0" set="custom"/>
+<xs:attribute name="MonthlyInterestRate" type="double" private="true"/>
+<xs:attribute name="PeriodInMonths" type="double" default="0.0"/>
+<xs:attribute name="AmountLeft" type="double" default="0.0" set="false"/>
+<xs:attribute name="MonthsLeft" type="double" default="0.0" set="false"/>
+<xs:attribute name="MonthlyPayment" type="double" set="false" get="custom"/>
+<xs:attribute name="CurrentInterestAmount" type="double" set="false" get="custom"/>
+
+</xs:complexType>
+
+</xs:schema>

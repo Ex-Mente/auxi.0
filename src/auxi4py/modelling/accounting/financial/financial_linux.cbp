@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="auxi4py.modelling.accounting.financial" />
+		<Option platforms="Unix;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option platforms="Unix;" />
+				<Option output="bin/Debug/financial.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DBUILD_DLL" />
+				</Compiler>
+				<Linker>
+					<Add directory="/home/christoff/em/software/auxi.1/trunk/1.0/src/auxi/core/bin/Debug/" />
+					<Add directory="/home/christoff/em/software/auxi.1/trunk/1.0/src/auxi/modelling/accounting/financial/bin/Debug/" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/financial.so" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-DBUILD_DLL" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="/home/christoff/em/software/auxi.1/trunk/1.0/src/auxi/core/bin/Release/" />
+					<Add directory="/home/christoff/em/software/auxi.1/trunk/1.0/src/auxi/modelling/accounting/financial/bin/Release/" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fPIC" />
+			<Add directory="../../../../auxi/core" />
+			<Add directory="../../../../auxi/modelling/accounting/financial" />
+			<Add directory="/usr/include/python3.4m/" />
+		</Compiler>
+		<Linker>
+			<Add option="-Wl,-rpath,$ORIGIN" />
+			<Add library="libmodelling_accounting_financial_linux" />
+			<Add library="libcore_linux" />
+			<Add library="libboost_python-py34" />
+			<Add library="libpython3.4m" />
+			<Add library="libboost_date_time" />
+			<Add directory="/usr/lib/x86_64-linux-gnu/" />
+			<Add directory="/usr/lib/python3.4/config-3.4m-x86_64-linux-gnu/" />
+		</Linker>
+		<Unit filename="CapitalGainsTaxRuleWrapper.cpp" />
+		<Unit filename="FinancialCalculationEngineWrapper.cpp" />
+		<Unit filename="GeneralLedgerAccountWrapper.cpp" />
+		<Unit filename="GeneralLedgerStructureWrapper.cpp" />
+		<Unit filename="GeneralLedgerWrapper.cpp" />
+		<Unit filename="IncomeTaxRuleWrapper.cpp" />
+		<Unit filename="SalesTaxRuleWrapper.cpp" />
+		<Unit filename="TaxRuleSetWrapper.cpp" />
+		<Unit filename="TaxRuleWrapper.cpp" />
+		<Unit filename="TransactionTemplateWrapper.cpp" />
+		<Unit filename="TransactionWrapper.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

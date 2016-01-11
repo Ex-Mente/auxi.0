@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="financialTransactionResultSet"
+    targetNamespace="auxi::modelling::accounting::financial"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::accounting::financial"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.financial.FinancialTransactionResultSet" type="FinancialTransactionResultSet"/>
+
+
+<xs:complexType name="FinancialTransactionResultSet" base="BusinessObject" additional_includes="GeneralLedger,FinancialTransaction,FinancialTransactionResultSet" constructor_init_function="initialize" to_string_function="to_string" destructor_clean_function="clean">
+<function name="DoPrepareToRun_New" returnType="void">
+</function>
+<function name="DoPrepareToRun_Completed" returnType="void">
+</function>
+<function name="DoPrepareToRun_NewOrCompleted" returnType="void">
+</function>
+<function name="DoRun_Completed" returnType="FinancialBusinessObject*">
+</function>
+<function name="remove_account" returnType="void">
+  <param name="account_number" type="std::string"/>
+</function>
+<function name="initialize" returnType="void" />
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="currentExecutionFinancialTransaction" type="FinancialTransaction*" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="financialTransaction" type="FinancialTransaction*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="negativeIncomeTaxTotal" type="xs:double"/>
+<xs:attribute name="totalMonthsToRun" type="xs:int"/>
+<xs:attribute name="generalLedger" type="GeneralLedger"/>
+
+</xs:complexType>
+
+</xs:schema>

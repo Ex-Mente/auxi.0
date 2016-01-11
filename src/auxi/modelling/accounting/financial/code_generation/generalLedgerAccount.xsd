@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="generalLedgerAccount"
+    targetNamespace="auxi::modelling::accounting::financial"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::accounting::financial"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.financial.GeneralLedgerAccount" type="GeneralLedgerAccount"/>
+
+<xs:simpleType name="GeneralLedgerAccountType">
+    <xs:restriction base="xs:token">
+          <xs:enumeration value="Asset"/>
+          <xs:enumeration value="Equity"/>
+          <xs:enumeration value="Expense"/>
+          <xs:enumeration value="Liability"/>
+          <xs:enumeration value="Revenue"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="GeneralLedgerAccount" forwardDeclareClasses="GeneralLedger" to_string_function="to_string"  destructor_clean_function="clean">
+<function name="create_account" returnType="GeneralLedgerAccount*">
+  <param name="name" type="std::string"/>
+  <param name="number" type="std::string"/>
+  <param name="type" type="GeneralLedgerAccountType::GeneralLedgerAccountType"/>
+</function>
+<function name="remove_account" returnType="void">
+  <param name="number" type="std::string"/>
+</function>
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="Account" type="GeneralLedgerAccount*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Number" type="xs:string"/>
+<xs:attribute name="Type" type="GeneralLedgerAccountType::GeneralLedgerAccountType"/>
+</xs:complexType>
+
+</xs:schema>

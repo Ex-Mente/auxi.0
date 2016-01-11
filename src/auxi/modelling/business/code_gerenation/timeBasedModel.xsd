@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="timeBasedModel"
+    targetNamespace="auxi::modelling::business"
+    elementFormDefault="qualified"
+    xmlns="business"
+    xmlns:mstns="auxi::modelling::business"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.business.TimeBasedModel" type="TimeBasedModel"/>
+
+<xs:complexType name="TimeBasedModel" base="Model" additional_includes="Entity,Units,Clock"  constructor_init_function="initialize" custom_code="using NamedObject::GetName;">
+<function name="initialize" returnType="void" />
+<function name="create_entity" returnType="Entity*">
+  <param name="name" type="std::string"/>
+</function>
+<function name="remove_entity" returnType="void">
+  <param name="name" type="std::string"/>
+</function>
+<function name="prepare_to_run" returnType="void" virtual="true"/>
+<function name="run" returnType="void"/>
+
+<xs:sequence>
+    <xs:element name="Entity" type="Entity*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Currency" type="Units"/>
+<xs:attribute name="TotalIntervalsToRun" type="xs:int" default="12"/>
+<xs:attribute name="Clock" type="Clock" set="false"/>
+
+</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="stockLedgerAccount"
+    targetNamespace="auxi::modelling::accounting::stock"
+    elementFormDefault="qualified"
+    xmlns="stock"
+    xmlns:mstns="auxi::modelling::accounting::stock"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.stock.StockLedgerAccount" type="StockLedgerAccount"/>
+
+<xs:simpleType name="StockLedgerAccountType">
+    <xs:restriction base="xs:token">
+          <xs:enumeration value="RawMaterial"/>
+          <xs:enumeration value="MROSupplies"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="StockLedgerAccount" forwardDeclareClasses="StockLedger" to_string_function="to_string"  destructor_clean_function="clean">
+<function name="create_account" returnType="StockLedgerAccount*">
+  <param name="name" type="std::string"/>
+  <param name="number" type="std::string"/>
+  <param name="type" type="StockLedgerAccountType::StockLedgerAccountType"/>
+</function>
+<function name="remove_account" returnType="void">
+  <param name="number" type="std::string"/>
+</function>
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="Account" type="StockLedgerAccount*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Number" type="xs:string"/>
+<xs:attribute name="Type" type="StockLedgerAccountType::StockLedgerAccountType"/>
+</xs:complexType>
+
+</xs:schema>

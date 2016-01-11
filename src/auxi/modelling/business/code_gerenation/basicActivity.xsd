@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="basicActivity"
+    targetNamespace="auxi::modelling::business"
+    elementFormDefault="qualified"
+    xmlns="business"
+    xmlns:mstns="auxi::modelling::business"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.business.BasicActivity" type="BasicActivity"/>
+
+<xs:complexType name="BasicActivity" base="Activity" additional_includes="TransactionTemplate,Clock" constructor_init_function="initialize">
+<function name="initialize" returnType="void" />
+<function name="OnExecute_MeetExecutionCriteria" returnType="bool" virtual="true">
+  <param name="executionMonth" type="int"/>
+</function>
+<function name="prepare_to_run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="totalIntervalsToRun" type="int" />
+</function>
+<function name="run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="ix_interval" type="int" />
+    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+</function>
+<xs:attribute name="Date" type="dateTime"/>
+<xs:attribute name="TransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="Amount" type="double" default="0.0"/>
+
+</xs:complexType>
+
+</xs:schema>

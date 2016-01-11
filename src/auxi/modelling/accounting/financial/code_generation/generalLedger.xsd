@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="generalLedger"
+    targetNamespace="auxi::modelling::accounting::financial"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::accounting::financial"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.financial.GeneralLedger" type="GeneralLedger"/>
+
+
+<xs:complexType name="GeneralLedger" additional_includes="GeneralLedgerStructure,Transaction" to_string_function="to_string" destructor_clean_function="clean">
+<function name="create_transaction" returnType="Transaction*">
+  <param name="name" type="std::string"/>
+  <param name="description" type="std::string"/>
+  <param name="creditAccount" type="std::string"/>
+  <param name="debitAccount" type="std::string"/>
+  <param name="source" type="std::string"/>
+</function>
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="Transaction" type="Transaction*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Structure" type="GeneralLedgerStructure*" default="nullptr"/>
+</xs:complexType>
+
+</xs:schema>

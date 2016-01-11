@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="transactionTemplate"
+    targetNamespace="auxi::modelling::accounting::financial"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::accounting::financial"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.financial.TransactionTemplate" type="TransactionTemplate"/>
+
+
+<xs:complexType name="TransactionTemplate" additional_includes="GeneralLedgerAccount">
+<xs:attribute name="DebitAccountName" type="std::string"/>
+<xs:attribute name="CreditAccountName" type="std::string"/>
+
+</xs:complexType>
+
+</xs:schema>

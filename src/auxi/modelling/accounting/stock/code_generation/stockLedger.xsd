@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="stockLedger"
+    targetNamespace="auxi::modelling::accounting::stock"
+    elementFormDefault="qualified"
+    xmlns="stock"
+    xmlns:mstns="auxi::modelling::accounting::stock"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.accounting.stock.StockLedger" type="StockLedger"/>
+
+
+<xs:complexType name="StockLedger" additional_includes="StockLedgerStructure,StockTransaction" to_string_function="to_string" destructor_clean_function="clean">
+<function name="create_transaction" returnType="StockTransaction*">
+  <param name="name" type="std::string"/>
+  <param name="description" type="std::string"/>
+  <param name="toAccount" type="std::string"/>
+  <param name="fromAccount" type="std::string"/>
+  <param name="source" type="std::string"/>
+</function>
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="StockTransaction" type="StockTransaction*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Structure" type="StockLedgerStructure*" default="nullptr"/>
+</xs:complexType>
+
+</xs:schema>
