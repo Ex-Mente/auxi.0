@@ -1,0 +1,30 @@
+
+#import python python-extension ;
+
+alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+python-extension _business :
+                ActivityWrapper.cpp
+                AssetPurchaseActivityWrapper.cpp
+                BasicActivityWrapper.cpp
+                CapitalLoanActivityWrapper.cpp
+                ClockWrapper.cpp
+                ComponentWrapper.cpp
+                CustomPythonActivity.cpp
+                CustomPythonActivity.h
+                EntityWrapper.cpp
+                TimeBasedModelWrapper.cpp
+                business_module.cpp
+                /auxi/core//core
+                /auxi/modelling/accounting/financial//financial
+                /auxi/modelling/accounting/stock//stock
+                /auxi/modelling/business//business
+                boost_dt boost_py
+                :
+                <include>/usr/include/boost
+                <include>../../../auxi/core
+                <include>../../../auxi/modelling/accounting/financial
+                <include>../../../auxi/modelling/accounting/stock
+                <include>../../../auxi/modelling/business
+                ;

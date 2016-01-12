@@ -81,6 +81,11 @@ project_path = os.path.dirname(os.path.abspath(__file__))
 dep_path_auxi = os.path.join(project_path, 'auxi')
 dep_path__core = os.path.join(dep_path_auxi, 'core')
 dep_path__tools_chemistry = os.path.join(dep_path_auxi, 'tools', 'chemistry')
+dep_path__modelling_acc_fin = os.path.join(dep_path_auxi, 'modelling', 'accounting', 'financial')
+dep_path__modelling_acc_stock = os.path.join(dep_path_auxi, 'modelling', 'accounting', 'stock')
+dep_path__modelling_business = os.path.join(dep_path_auxi, 'modelling', 'business')
+dep_path__simulation = os.path.join(dep_path_auxi, 'simulation')
+dep_path__simulation_io = os.path.join(dep_path__simulation, 'io')
 
 dep_path_thermo_data_files = os.path.join(dep_path__tools_chemistry, 'data')
 
@@ -98,6 +103,9 @@ print()
 core_mod_path = os.path.join(project_path, r"../../src/auxi4py/core/bin/gcc-c++11/release/core.so")
 stoi_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/stoichiometry/bin/gcc-c++11/release/stoichiometry.so")
 thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/thermochemistry/bin/gcc-c++11/release/thermochemistry.so")
+financial_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/accounting/financial/bin/gcc-c++11/release/_financial.so")
+stock_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/accounting/stock/bin/gcc-c++11/release/_stock.so")
+business_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/business/bin/gcc-c++11/release/_business.so")
 
 core_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/core/bin/gcc-c++11/release/libcore.so"),
@@ -119,6 +127,21 @@ os.path.join(project_path, r"../../src/auxi/tools/chemistry/thermochemistry/bin/
 thermochem_mod_path
 ]
 
+financial_dependencies_paths = [
+os.path.join(project_path, r"../../src/auxi/modelling/accounting/financial/bin/gcc-c++11/release/libfinancial.so"),
+financial_mod_path
+]
+
+stock_dependencies_paths = [
+os.path.join(project_path, r"../../src/auxi/modelling/accounting/stock/bin/gcc-c++11/release/libstock.so"),
+stock_mod_path
+]
+
+business_dependencies_paths = [
+os.path.join(project_path, r"../../src/auxi/modelling/business/bin/gcc-c++11/release/libbusiness.so"),
+business_mod_path
+]
+
 
 print('COPY DEPENDENCIES')
 for dep in core_dependencies_paths:
@@ -127,25 +150,43 @@ for dep in stoi_dependencies_paths:
     shutil.copy(dep, dep_path__tools_chemistry)
 for dep in thermochem_dependencies_paths:
     shutil.copy(dep, dep_path__tools_chemistry)
+for dep in financial_dependencies_paths:
+    shutil.copy(dep, dep_path__modelling_acc_fin)
+for dep in stock_dependencies_paths:
+    shutil.copy(dep, dep_path__modelling_acc_stock)
+for dep in business_dependencies_paths:
+    shutil.copy(dep, dep_path__modelling_business)
 
 new_core_mod_path = os.path.join(dep_path__core, "core.so")
 new_stoichiometry_mod_path = os.path.join(dep_path__tools_chemistry, "stoichiometry.so")
 new_thermochem_mod_path = os.path.join(dep_path__tools_chemistry, "thermochemistry.so")
 new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochemistry.so")
+new_financial_mod_path = os.path.join(dep_path__modelling_acc_fin, "_financial.so")
+new_stock_mod_path = os.path.join(dep_path__modelling_acc_stock, "_stock.so")
+new_business_mod_path = os.path.join(dep_path__modelling_business, "_business.so")
 
-print("  patchelf")
-'''call([patchelf_path, "--set-rpath", "'$ORIGIN'", new_core_mod_path])
-call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_stoichiometry_mod_path])
-call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermochem_mod_path])
-call([patchelf_path, "--set-rpath", "'$ORIGIN:$ORIGIN/../../core'", new_thermochem_lib_path])'''
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../../core' "+ new_financial_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../../core' "+ new_stock_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core:$ORIGIN/../accounting/financial:$ORIGIN/../accounting/stock' "+ new_business_mod_path], shell=True)
 
+print('COPY REPORTS')
+shutil.copy(r"../../src/auxi4py/modelling/accounting/financial/reports/balance_sheet_report.py", dep_path__modelling_acc_fin)
+shutil.copy(r"../../src/auxi4py/modelling/accounting/financial/reports/income_statement_report.py", dep_path__modelling_acc_fin)
+shutil.copy(r"../../src/auxi4py/modelling/accounting/financial/reports/financial_transactions_report.py", dep_path__modelling_acc_fin)
+shutil.copy(r"../../src/auxi4py/modelling/accounting/financial/reports/classes_report.py", dep_path__modelling_acc_fin)
+
+print('COPY INVESTIGATION')
+copy_files(r"../../src/auxi4py/simulation/py/*.py", dep_path__simulation)
+copy_files(r"../../src/auxi4py/simulation/py/io/*.py", dep_path__simulation_io)
 
 print('COPY DATA FILES')
 thermo_data_files_path = r"../../src/auxi/tools/chemistry/thermochemistry/data/"
+if not os.path.exists(thermo_data_files_path):
+    os.makedirs(thermo_data_files_path)
 shutil.copytree(thermo_data_files_path, dep_path_thermo_data_files)
 
 print()
@@ -155,8 +196,14 @@ setup(name="auxi",
       version="0.0.0",
       description="auxi for Python",
       package_dir={'auxi': 'auxi'},
-      packages=["auxi", "auxi.core", "auxi.tools", "auxi.tools.chemistry"],
+      packages=["auxi", "auxi.core",
+                "auxi.modelling", "auxi.modelling.business", "auxi.modelling.accounting.financial", "auxi.modelling.accounting.stock", "auxi.simulation",
+                "auxi.tools", "auxi.tools.chemistry"],
       package_data={'auxi.core': ['*.so*'],
+                    'auxi.modelling.accounting.financial': ['*.a', '*.so*', '*_report.py'],
+                    'auxi.modelling.accounting.stock': ['*.a', '*.so*', '*_report.py'],
+                    'auxi.modelling.business': ['*.a', '*.so*', '*_report.py'],
+                    'auxi.simulation': ['*.py', r'io/*'],
                     'auxi.tools.chemistry': ['*.so*', r'data/*']}#,
      #               'auxi' : [r'datafiles/*']}
 )

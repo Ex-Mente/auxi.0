@@ -4,3 +4,6 @@ use-project /auxi/core : auxi/core ;
 use-project /auxi/tools/chemistry : auxi/tools/chemistry ;
 use-project /auxi/tools/chemistry/stoichiometry : auxi/tools/chemistry/stoichiometry ;
 use-project /auxi/tools/chemistry/thermochemistry : auxi/tools/chemistry/thermochemistry ;
+use-project /auxi/modelling/accounting/financial : auxi/modelling/accounting/financial ;
+use-project /auxi/modelling/accounting/stock : auxi/modelling/accounting/stock ;
+use-project /auxi/modelling/business : auxi/modelling/business ;

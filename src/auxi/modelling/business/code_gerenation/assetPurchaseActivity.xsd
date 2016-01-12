@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="assetPurchaseActivity"
+    targetNamespace="auxi::modelling::business"
+    elementFormDefault="qualified"
+    xmlns="business"
+    xmlns:mstns="auxi::modelling::business"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.business.AssetPurchaseActivity" type="AssetPurchaseActivity"/>
+
+<xs:complexType name="AssetPurchaseActivity" base="Activity" additional_includes="TransactionTemplate,Clock" constructor_init_function="initialize">
+<function name="initialize" returnType="void" />
+<function name="OnExecute_MeetExecutionCriteria" returnType="bool" virtual="true">
+  <param name="executionIntervals" type="int"/>
+</function>
+<function name="prepare_to_run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="totalIntervalsToRun" type="int" />
+</function>
+<function name="run" returnType="void">
+    <param name="clock" type="Clock*" />
+    <param name="ix_interval" type="int" />
+    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+</function>
+<function name="updatePeriodicDepreciationAmount" returnType="void" private="true"/>
+
+<xs:attribute name="Date" type="dateTime"/>
+<xs:attribute name="GeneralLedgerExpenseAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
+<xs:attribute name="GeneralLedgerAssetAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
+<xs:attribute name="AssetPurchaseTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="AddDepreciationTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="PurchaseAmount" type="double" default="0.0" set="custom"/>
+<xs:attribute name="WriteOffAmount" type="double" default="0.0"/>
+<xs:attribute name="MonthsTillWrittenOff" type="double" default="0.0" set="custom"/>
+<xs:attribute name="PeriodicDepreciationAmount" type="double" default="0.0" set="false"/>
+<xs:attribute name="AmountLeft" type="double" default="0.0" set="false"/>
+<xs:attribute name="MonthsLeft" type="double" default="0.0" set="false"/>
+<xs:attribute name="CurrentAssetValue" type="double" default="0.0"/>
+
+</xs:complexType>
+
+</xs:schema>

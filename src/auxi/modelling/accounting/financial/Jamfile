@@ -1,0 +1,36 @@
+
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+lib financial :
+         CapitalGainsTaxRule.cpp
+         CapitalGainsTaxRule.h
+         FinancialCalculationEngine.cpp
+         FinancialCalculationEngine.h
+         FinancialCalculationEngine_custom.cpp
+         GeneralLedger.cpp
+         GeneralLedger.h
+         GeneralLedgerAccount.cpp
+         GeneralLedgerAccount.h
+         GeneralLedgerAccount_custom.cpp
+         GeneralLedgerStructure.cpp
+         GeneralLedgerStructure.h
+         GeneralLedgerStructure_custom.cpp
+         GeneralLedger_custom.cpp
+         IncomeTaxRule.cpp
+         IncomeTaxRule.h
+         SalesTaxRule.cpp
+         SalesTaxRule.h
+         TaxRule.cpp
+         TaxRule.h
+         TaxRuleSet.cpp
+         TaxRuleSet.h
+         Transaction.cpp
+         Transaction.h
+         TransactionTemplate.cpp
+         TransactionTemplate.h
+         /auxi/core//core
+         boost_dt
+         :
+         <include>/usr/include/boost
+         <include>../../../core
+         ;
