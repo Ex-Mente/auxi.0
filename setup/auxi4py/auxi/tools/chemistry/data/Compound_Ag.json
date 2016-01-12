@@ -1,0 +1,83 @@
+{
+    "Compound": {
+        "Formula": "Ag",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "0",
+                "S": "42.6768",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "600",
+                        "Terms": [
+                            {
+                                "Coefficient": "23.819512",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0051170319999999997",
+                                "Exponent": "1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "600",
+                        "Tmax": "1234",
+                        "Terms": [
+                            {
+                                "Coefficient": "19.731743999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0095980960000000004",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "533041.59999999998",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "6402.1400000000003",
+                "S": "43.368715000000002",
+                "CpRecords": [
+                    {
+                        "Tmin": "1234",
+                        "Tmax": "2436",
+                        "Terms": [
+                            {
+                                "Coefficient": "33.472000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "284144.27000000002",
+                "S": "172.898055",
+                "CpRecords": [
+                    {
+                        "Tmin": "2436",
+                        "Tmax": "2800",
+                        "Terms": [
+                            {
+                                "Coefficient": "20.786111999999999",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

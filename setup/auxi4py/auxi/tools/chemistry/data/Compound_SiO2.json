@@ -1,0 +1,451 @@
+{
+    "Compound": {
+        "Formula": "SiO2",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-910699.93999999994",
+                "S": "41.460002000000003",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "373",
+                        "Terms": [
+                            {
+                                "Coefficient": "80.011992000000006",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-3546684",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-240.27600000000001",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "491568369",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "373",
+                        "Tmax": "848",
+                        "Terms": [
+                            {
+                                "Coefficient": "80.011992000000006",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0084400216999999996",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-3546684",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-4.5212701500000002e-05",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "6.0550446299999998e-08",
+                                "Exponent": "3"
+                            },
+                            {
+                                "Coefficient": "-240.27600000000001",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "491568369",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "848",
+                        "Tmax": "850",
+                        "Terms": [
+                            {
+                                "Coefficient": "0.041840000000000002",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-908626.77000000002",
+                "S": "44.206800999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1996",
+                        "Terms": [
+                            {
+                                "Coefficient": "80.011992000000006",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-3546684",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-240.27600000000001",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "491568369",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1996",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "85.772000000000006",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S3",
+                "Code": "S3",
+                "DH": "-907605.16000000003",
+                "S": "43.770201",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "390",
+                        "Terms": [
+                            {
+                                "Coefficient": "75.372668000000004",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.18207707000000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-5958095.0999999996",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-0.0012338172099999999",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "2.0901930100000002e-06",
+                                "Exponent": "3"
+                            },
+                            {
+                                "Coefficient": "958246123",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "390",
+                        "Tmax": "392",
+                        "Terms": [
+                            {
+                                "Coefficient": "0.041840000000000002",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S4",
+                "Code": "S4",
+                "DH": "-907045.13",
+                "S": "45.523698000000003",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1991",
+                        "Terms": [
+                            {
+                                "Coefficient": "75.372668000000004",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-5958095.0999999996",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "958246123",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1991",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "85.772000000000006",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S5",
+                "Code": "S5",
+                "DH": "-907753.35999999999",
+                "S": "43.394302000000003",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "535",
+                        "Terms": [
+                            {
+                                "Coefficient": "83.513598000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.020209996099999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-2455360",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-0.000125506189",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "1.94851621e-07",
+                                "Exponent": "3"
+                            },
+                            {
+                                "Coefficient": "-374.69299999999998",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "280072194",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "535",
+                        "Tmax": "537",
+                        "Terms": [
+                            {
+                                "Coefficient": "0.041840000000000002",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S6",
+                "Code": "S6",
+                "DH": "-906377.22999999998",
+                "S": "46.028798999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1996",
+                        "Terms": [
+                            {
+                                "Coefficient": "83.513598000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-2455360",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-374.69299999999998",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "280072194",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1996",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "85.772000000000006",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S7",
+                "Code": "S7",
+                "DH": "-906898.73999999999",
+                "S": "40.499999000000003",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "78.000011000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-3100000.8999999999",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "585800166",
+                                "Exponent": "-3"
+                            },
+                            {
+                                "Coefficient": "-6688.9984999999997",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S8",
+                "Code": "S8",
+                "DH": "-864000.18000000005",
+                "S": "29.499998999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "58.119985999999997",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0070019993099999997",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-12588987",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "1792797980",
+                                "Exponent": "-3"
+                            },
+                            {
+                                "Coefficient": "17010.009999999998",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-896795.87",
+                "S": "50.829101999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1996",
+                        "Terms": [
+                            {
+                                "Coefficient": "83.513598000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-2455360",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-374.69299999999998",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "280072194",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1996",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "85.772000000000006",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-305430",
+                "S": "228.866556",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1000",
+                        "Terms": [
+                            {
+                                "Coefficient": "76.030000000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-556",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1000",
+                        "Tmax": "2400",
+                        "Terms": [
+                            {
+                                "Coefficient": "67.5",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-281",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2400",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "61.359999999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.00015970000000000001",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

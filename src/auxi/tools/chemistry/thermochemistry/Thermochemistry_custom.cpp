@@ -248,12 +248,13 @@ std::map<std::string, Compound> read_compounds(std::string file_path_str){
     if (exists(p))    // does path p actually exist?
     {
         if (is_directory(p)) {
-            for (auto&& x: directory_iterator(p)) {
-                auto item_path = x.path();
-                if (is_regular_file(item_path)) {
-                    std::string file_name = item_path.filename().string();
-                    if(file_name.substr(0, 9) == "Compound_" && extension(item_path) == ".json")
-                        read_compound(result, item_path.string());
+            vector<path> v;
+            copy(directory_iterator(p), directory_iterator(), back_inserter(v));
+            for (auto&& x: v) {
+                if (is_regular_file(x)) {
+                    std::string file_name = x.filename().string();
+                    if(file_name.substr(0, 9) == "Compound_" && extension(x) == ".json")
+                        read_compound(result, x.string());
                 }
             }
         }

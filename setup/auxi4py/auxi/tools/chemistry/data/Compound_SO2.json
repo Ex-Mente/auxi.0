@@ -1,0 +1,97 @@
+{
+    "Compound": {
+        "Formula": "SO2",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-296842",
+                "S": "248.10255599999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1700",
+                        "Terms": [
+                            {
+                                "Coefficient": "53.027971999999998",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "4.3429183099999999e-05",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "2282495.2999999998",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-24439.258000000002",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "744.87386000000004",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1700",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "76.542277999999996",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-22531507",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "56025.936999999998",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "-1819.153",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "Aq",
+                "Code": "Aq",
+                "DH": "-322793.70000000001",
+                "S": "161.92099999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "400",
+                        "Terms": [
+                            {
+                                "Coefficient": "41.735410000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.041036700000000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "302130.90000000002",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-6.7661600000000003e-06",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "-79.161600000000007",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

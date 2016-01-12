@@ -1,10 +1,17 @@
 
 #import python python-extension ;
 
-alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
-alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
-alias boost_fs : /usr/lib/x86_64-linux-gnu/libboost_filesystem.so ;
-alias boost_sy : /usr/lib/x86_64-linux-gnu/libboost_system.so ;
+alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 : <target-os>linux ;
+alias boost_py : ..\..\..\..\..\lib\boost_python3-vc100-mt-1_54.dll : <target-os>windows ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so : <target-os>linux ;
+alias boost_dt : ..\..\..\..\..\lib\boost_date_time-vc100-mt-gd-1_54.dll : <target-os>windows ;
+alias boost_fs : /usr/lib/x86_64-linux-gnu/libboost_filesystem.so : <target-os>linux ;
+alias boost_fs : ..\..\..\..\..\lib\boost_filesystem-vc100-mt-gd-1_54.dll : <target-os>windows ;
+alias boost_sy : /usr/lib/x86_64-linux-gnu/libboost_system.so : <target-os>linux ;
+alias boost_sy : ..\..\..\..\..\lib\boost_system-vc100-mt-gd-1_54.dll : <target-os>windows ;
+
+alias boost : /usr/include/boost : <target-os>linux ;
+alias boost : C:\boost_1_54_0\boost_1_54_0\boost : <target-os>windows ;
 
 python-extension thermochemistry : CpRecordWrapper.cpp
                              PhaseWrapper.cpp
@@ -16,6 +23,7 @@ python-extension thermochemistry : CpRecordWrapper.cpp
                              /auxi/tools/chemistry/thermochemistry//thermochemistry
                              boost_dt boost_py boost_fs boost_sy
                              :
+                             <include>boost
                              <include>../../../../auxi/core
                              <include>../../../../auxi/tools/chemistry/stoichiometry
                              <include>../../../../auxi/tools/chemistry/thermochemistry

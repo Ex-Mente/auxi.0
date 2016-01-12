@@ -1,0 +1,55 @@
+{
+    "Compound": {
+        "Formula": "Mn2O3",
+        "Phases": [
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-951318.55000000005",
+                "S": "118.75220400000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "320",
+                        "Terms": [
+                            {
+                                "Coefficient": "5081",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-31.111000000000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "0.048611000000000001",
+                                "Exponent": "2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "320",
+                        "Tmax": "1161",
+                        "Terms": [
+                            {
+                                "Coefficient": "133.5",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.012",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-286304.76000000001",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-10000",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

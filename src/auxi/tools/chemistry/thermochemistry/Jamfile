@@ -1,7 +1,13 @@
 
-alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
-alias boost_fs : /usr/lib/x86_64-linux-gnu/libboost_filesystem.so ;
-alias boost_sy : /usr/lib/x86_64-linux-gnu/libboost_system.so ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so : <target-os>linux ;
+alias boost_dt : ..\..\..\..\..\lib\boost_date_time-vc100-mt-gd-1_54.dll : <target-os>windows ;
+alias boost_fs : /usr/lib/x86_64-linux-gnu/libboost_filesystem.so : <target-os>linux ;
+alias boost_fs : ..\..\..\..\..\lib\boost_filesystem-vc100-mt-gd-1_54.dll : <target-os>windows ;
+alias boost_sy : /usr/lib/x86_64-linux-gnu/libboost_system.so : <target-os>linux ;
+alias boost_sy : ..\..\..\..\..\lib\boost_system-vc100-mt-gd-1_54.dll : <target-os>windows ;
+
+alias boost : /usr/include/boost : <target-os>linux ;
+alias boost : C:\boost_1_54_0\boost_1_54_0\boost : <target-os>windows ;
 
 lib thermochemistry :
          CpRecord.h
@@ -20,6 +26,7 @@ lib thermochemistry :
          /auxi/tools/chemistry/stoichiometry//stoichiometry
          boost_dt boost_fs boost_sy
          :
+         <include>boost
          <include>../../../core
          <include>../../../tools/chemistry/stoichiometry
          ;
