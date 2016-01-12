@@ -1,0 +1,21 @@
+
+#import python python-extension ;
+
+alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+python-extension stock :
+                StockCalculationEngineWrapper.cpp
+                StockLedgerAccountWrapper.cpp
+                StockLedgerStructureWrapper.cpp
+                StockLedgerWrapper.cpp
+                StockTransactionTemplateWrapper.cpp
+                StockTransactionWrapper.cpp
+                /auxi/core//core
+                /auxi/modelling/accounting/stock//stock
+                boost_dt boost_py
+                :
+                <include>/usr/include/boost
+                <include>../../../../auxi/core
+                <include>../../../../auxi/modelling/accounting/stock
+                ;
