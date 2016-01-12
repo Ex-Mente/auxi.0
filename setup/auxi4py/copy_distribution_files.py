@@ -94,6 +94,11 @@ boost_dt_lib_path = "/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.54.0"
 boost_fs_lib_path = "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.54.0"
 boost_sy_lib_path = "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.54.0"
 
+win_boost_py_lib_path = os.path.join(project_path, "lib/libboost_date_time-mgw48-mt-1_58.a")
+win_boost_dt_lib_path = os.path.join(project_path, "lib/libboost_filesystem-mgw48-mt-1_58.a")
+win_boost_fs_lib_path = os.path.join(project_path, "lib/libboost_python3-mgw48-1_58.dll")
+win_boost_sy_lib_path = os.path.join(project_path, "lib/libboost_system-mgw48-mt-1_58.a")
+
 # delete old files from package structure and add new ones
 print("REMOVE OLD FILES")
 remove_old_files(dep_path_auxi)
@@ -113,12 +118,28 @@ boost_py_lib_path,
 boost_dt_lib_path,
 boost_fs_lib_path,
 boost_sy_lib_path,
+os.path.join(project_path, r"lib/core.pyd"),
+os.path.join(project_path, r"lib/core_win.dll"),
+win_boost_py_lib_path,
+win_boost_dt_lib_path,
+win_boost_fs_lib_path,
+win_boost_sy_lib_path,
 core_mod_path
 ]
 
 stoi_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/tools/chemistry/stoichiometry/bin/gcc-c++11/release/libstoichiometry.so"),
 boost_fs_lib_path,
+os.path.join(project_path, r"lib/core.pyd"),
+os.path.join(project_path, r"lib/core_win.dll"),
+os.path.join(project_path, r"lib/stoichiometry.pyd"),
+os.path.join(project_path, r"lib/stoichiometry_win.dll"),
+os.path.join(project_path, r"lib/thermochemistry.pyd"),
+os.path.join(project_path, r"lib/thermochemistry_win.dll"),
+win_boost_py_lib_path,
+win_boost_dt_lib_path,
+win_boost_fs_lib_path,
+win_boost_sy_lib_path,
 stoi_mod_path
 ]
 
@@ -129,16 +150,28 @@ thermochem_mod_path
 
 financial_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/modelling/accounting/financial/bin/gcc-c++11/release/libfinancial.so"),
+win_boost_py_lib_path,
+win_boost_dt_lib_path,
+win_boost_fs_lib_path,
+win_boost_sy_lib_path,
 financial_mod_path
 ]
 
 stock_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/modelling/accounting/stock/bin/gcc-c++11/release/libstock.so"),
+win_boost_py_lib_path,
+win_boost_dt_lib_path,
+win_boost_fs_lib_path,
+win_boost_sy_lib_path,
 stock_mod_path
 ]
 
 business_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/modelling/business/bin/gcc-c++11/release/libbusiness.so"),
+win_boost_py_lib_path,
+win_boost_dt_lib_path,
+win_boost_fs_lib_path,
+win_boost_sy_lib_path,
 business_mod_path
 ]
 
@@ -199,12 +232,12 @@ setup(name="auxi",
       packages=["auxi", "auxi.core",
                 "auxi.modelling", "auxi.modelling.business", "auxi.modelling.accounting.financial", "auxi.modelling.accounting.stock", "auxi.simulation",
                 "auxi.tools", "auxi.tools.chemistry"],
-      package_data={'auxi.core': ['*.so*'],
-                    'auxi.modelling.accounting.financial': ['*.a', '*.so*', '*_report.py'],
-                    'auxi.modelling.accounting.stock': ['*.a', '*.so*', '*_report.py'],
-                    'auxi.modelling.business': ['*.a', '*.so*', '*_report.py'],
+      package_data={'auxi.core': ['*.so*', '*.a', '*.dll', '*.pyd'],
+                    'auxi.modelling.accounting.financial': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
+                    'auxi.modelling.accounting.stock': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
+                    'auxi.modelling.business': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
                     'auxi.simulation': ['*.py', r'io/*'],
-                    'auxi.tools.chemistry': ['*.so*', r'data/*']}#,
+                    'auxi.tools.chemistry': ['*.so*', '*.a', '*.dll', '*.pyd', r'data/*']}#,
      #               'auxi' : [r'datafiles/*']}
 )
 

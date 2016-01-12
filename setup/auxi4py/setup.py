@@ -7,7 +7,7 @@ from distutils.core import setup
 
 # build the distribution
 setup(name="auxi",
-      version="0.1.0rc1",
+      version="0.1.0rc4",
       description="A toolkit to help metallurgical process engineers to rapidly do day-to-day calculations.",
       long_description=open('README.txt').read(),
       author="Ex Mente (Pty) Ltd",
@@ -23,11 +23,11 @@ setup(name="auxi",
       packages=["auxi", "auxi.core",
                 "auxi.modelling", "auxi.modelling.business", "auxi.modelling.accounting.financial", "auxi.modelling.accounting.stock", "auxi.simulation",
                 "auxi.tools", "auxi.tools.chemistry"],
-      package_data={'auxi.core': ['*.so*','*.so.1.54.0*'],
-                    'auxi.modelling.accounting.financial': ['*.a', '*.so*', '*_report.py'],
+      package_data={'auxi.core': ['*.so*','*.so.1.54.0*', '*.a', '*.dll', '*.pyd'],
+                    'auxi.modelling.accounting.financial': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
                     'auxi.modelling.accounting.stock': ['*.a', '*.so*', '*_report.py'],
-                    'auxi.modelling.business': ['*.a', '*.so*', '*_report.py'],
+                    'auxi.modelling.business': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
                     'auxi.simulation': ['*.py', r'io/*'],
-                    'auxi.tools.chemistry': ['*.so*','*.so.1.54.0*', r'data/*'],
+                    'auxi.tools.chemistry': ['*.so*', '*.a', '*.dll', '*.pyd','*.so.1.54.0*', r'data/*'],
                     'auxi' : [r'*.txt']}
       )
