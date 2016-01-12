@@ -4,13 +4,14 @@
 alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
 alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
 
-python-extension stock :
+python-extension _stock :
                 StockCalculationEngineWrapper.cpp
                 StockLedgerAccountWrapper.cpp
                 StockLedgerStructureWrapper.cpp
                 StockLedgerWrapper.cpp
                 StockTransactionTemplateWrapper.cpp
                 StockTransactionWrapper.cpp
+                stock_module.cpp
                 /auxi/core//core
                 /auxi/modelling/accounting/stock//stock
                 boost_dt boost_py

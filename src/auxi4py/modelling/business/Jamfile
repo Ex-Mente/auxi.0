@@ -4,7 +4,7 @@
 alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
 alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
 
-python-extension business :
+python-extension _business :
                 ActivityWrapper.cpp
                 AssetPurchaseActivityWrapper.cpp
                 BasicActivityWrapper.cpp
@@ -15,7 +15,7 @@ python-extension business :
                 CustomPythonActivity.h
                 EntityWrapper.cpp
                 TimeBasedModelWrapper.cpp
-                businessWrapper.cpp
+                business_module.cpp
                 /auxi/core//core
                 /auxi/modelling/accounting/financial//financial
                 /auxi/modelling/accounting/stock//stock

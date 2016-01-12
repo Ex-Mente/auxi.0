@@ -1,13 +1,9 @@
 
 #import python python-extension ;
 
-alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 : <target-os>linux ;
-alias boost_py : ..\..\..\..\..\lib\boost_python3-vc100-mt-1_54.dll : <target-os>windows ;
-alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so : <target-os>linux ;
-alias boost_dt : ..\..\..\..\..\lib\boost_date_time-vc100-mt-gd-1_54.dll : <target-os>windows ;
+alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
 
-alias boost : /usr/include/boost : <target-os>linux ;
-alias boost : C:\boost_1_54_0\boost_1_54_0\boost : <target-os>windows ;
 
 python-extension stoichiometry : ElementWrapper.cpp
                                  StoichiometryWrapper.cpp
@@ -16,7 +12,7 @@ python-extension stoichiometry : ElementWrapper.cpp
                                  /auxi/tools/chemistry/stoichiometry//stoichiometry
                                  boost_dt boost_py
                                  :
-                                 <include>boost
+                                 <include>/usr/include/boost
                                  <include>../../../../auxi/core
                                  <include>../../../../auxi/tools/chemistry/stoichiometry
                                 ;

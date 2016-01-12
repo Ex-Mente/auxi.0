@@ -4,7 +4,7 @@
 alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
 alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
 
-python-extension financial :
+python-extension _financial :
                 CapitalGainsTaxRuleWrapper.cpp
                 FinancialCalculationEngineWrapper.cpp
                 GeneralLedgerAccountWrapper.cpp
@@ -16,6 +16,7 @@ python-extension financial :
                 TaxRuleWrapper.cpp
                 TransactionTemplateWrapper.cpp
                 TransactionWrapper.cpp
+                financial_module.cpp
                 /auxi/core//core
                 /auxi/modelling/accounting/financial//financial
                 boost_dt boost_py

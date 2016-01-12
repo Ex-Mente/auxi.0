@@ -1,5 +1,5 @@
-#ifndef MODELING_BUSINESS_WRAPPER_CPP
-#define MODELING_BUSINESS_WRAPPER_CPP
+#ifndef BUSINESS_MODULE_CPP
+#define BUSINESS_MODULE_CPP
 
 #include "../../core/stdWrapperCode.h"
 #include <boost/python/operators.hpp>
@@ -10,30 +10,6 @@
 
 using namespace boost::python;
 
-void export_core();
-
-// Export the C++ sim.modelling.stock namespace
-void export_auxi_modelling_accounting_stock_StockLedgerAccount();
-void export_auxi_modelling_accounting_stock_StockLedgerStructure();
-void export_auxi_modelling_accounting_stock_StockTransaction();
-void export_auxi_modelling_accounting_stock_StockTransactionTemplate();
-void export_auxi_modelling_accounting_stock_StockCalculationEngine();
-void export_auxi_modelling_accounting_stock_StockLedger();
-
-// Export the C++ sim.modelling.financial namespace
-void export_auxi_modelling_accounting_financial_GeneralLedgerAccount();
-void export_auxi_modelling_accounting_financial_GeneralLedgerStructure();
-void export_auxi_modelling_accounting_financial_TaxRule();
-void export_auxi_modelling_accounting_financial_TaxRuleSet();
-void export_auxi_modelling_accounting_financial_IncomeTaxRule();
-void export_auxi_modelling_accounting_financial_SalesTaxRule();
-void export_auxi_modelling_accounting_financial_CapitalGainsTaxRule();
-void export_auxi_modelling_accounting_financial_Transaction();
-void export_auxi_modelling_accounting_financial_TransactionTemplate();
-void export_auxi_modelling_accounting_financial_FinancialCalculationEngine();
-void export_auxi_modelling_accounting_financial_GeneralLedger();
-
-// Export the C++ sim.modelling.business namespace
 void export_auxi_modelling_business_Activity();
 void export_auxi_modelling_business_Component();
 void export_auxi_modelling_business_Entity();
@@ -189,47 +165,23 @@ struct tduration_from_python_delta
      }
 };
 
-BOOST_PYTHON_MODULE(business)
+BOOST_PYTHON_MODULE(_business)
 {
-
     using namespace auxi::py;
 
     // Converters
-    PyDateTime_IMPORT;
+    /*PyDateTime_IMPORT;
 
     ptime_from_python_datetime();
     to_python_converter<const boost::posix_time::ptime,ptime_to_python_datetime>();
 
     tduration_from_python_delta();
     to_python_converter<const boost::posix_time::time_duration,tduration_to_python_delta>();
-
+*/
     // Set the document generation options
     boost::python::docstring_options local_docstring_options(true, true, false);
-
-    //export_core();
-
-    // Export the C++ auxi.modelling.accounting.stock namespace
-    export_auxi_modelling_accounting_stock_StockLedgerAccount();
-    export_auxi_modelling_accounting_stock_StockLedgerStructure();
-    export_auxi_modelling_accounting_stock_StockTransaction();
-    export_auxi_modelling_accounting_stock_StockTransactionTemplate();
-    export_auxi_modelling_accounting_stock_StockCalculationEngine();
-    export_auxi_modelling_accounting_stock_StockLedger();
-
-    // Export the C++ auxi.modelling.accounting.financial namespace
-    export_auxi_modelling_accounting_financial_GeneralLedgerAccount();
-    export_auxi_modelling_accounting_financial_GeneralLedgerStructure();
-    export_auxi_modelling_accounting_financial_TaxRule();
-    export_auxi_modelling_accounting_financial_TaxRuleSet();
-    export_auxi_modelling_accounting_financial_IncomeTaxRule();
-    export_auxi_modelling_accounting_financial_SalesTaxRule();
-    export_auxi_modelling_accounting_financial_CapitalGainsTaxRule();
-    export_auxi_modelling_accounting_financial_Transaction();
-    export_auxi_modelling_accounting_financial_TransactionTemplate();
-    export_auxi_modelling_accounting_financial_FinancialCalculationEngine();
-    export_auxi_modelling_accounting_financial_GeneralLedger();
-
-    // Export the C++ auxi.modelling.business namespace
+    scope().attr("__doc__") = "This module provides a classes to create a business structure as well as to aid in business operations.";
+    // The modules classes
     export_auxi_modelling_business_Activity();
     export_auxi_modelling_business_Component();
     export_auxi_modelling_business_Entity();
@@ -252,6 +204,6 @@ BOOST_PYTHON_MODULE(business)
     implicitly_convertible<CustomPythonActivity*,Activity*>();
 }
 
-#endif // MODELING_CHEMAPP_WRAPPER_CPP
+#endif // BUSINESS_MODULE_CPP
 
 
