@@ -7,7 +7,7 @@ from distutils.core import setup
 
 # build the distribution
 setup(name="auxi",
-      version="0.1.0rc4",
+      version="0.1.0rc5",
       description="A toolkit to help metallurgical process engineers to rapidly do day-to-day calculations.",
       long_description=open('README.txt').read(),
       author="Ex Mente (Pty) Ltd",
@@ -16,7 +16,7 @@ setup(name="auxi",
       maintainer_email="dev@ex-mente.co.za",
       url="https://github.com/Ex-Mente/auxi.0",
       download_url="https://pypi.python.org/pypi/auxi",
-      license=open('LICENSE.txt').read(),
+      license='LICENSE.txt',
       keywords="metallurgy,chemistry,modelling,simulation,thermochemistry,engineering,mass balance,energy balance",
       platforms="Ubunutu 14.04,Ubuntu 15.04",
       package_dir={'auxi': 'auxi'},
