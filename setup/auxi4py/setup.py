@@ -7,7 +7,7 @@ from distutils.core import setup
 
 # build the distribution
 setup(name="auxi",
-      version="0.1.0rc5",
+      version="0.1.0",
       description="A toolkit to help metallurgical process engineers to rapidly do day-to-day calculations.",
       long_description=open('README.txt').read(),
       author="Ex Mente (Pty) Ltd",
