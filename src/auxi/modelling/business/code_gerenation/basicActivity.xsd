@@ -20,11 +20,11 @@
 <function name="run" returnType="void">
     <param name="clock" type="Clock*" />
     <param name="ix_interval" type="int" />
-    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
-    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+    <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger*" />
 </function>
 <xs:attribute name="Date" type="dateTime"/>
-<xs:attribute name="TransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="TransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
 <xs:attribute name="Amount" type="double" default="0.0"/>
 
 </xs:complexType>

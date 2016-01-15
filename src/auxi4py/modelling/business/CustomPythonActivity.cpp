@@ -33,8 +33,8 @@ void CustomPythonActivity::prepare_to_run(Clock* clock, int totalMonthsToRun)
 }
 
 void CustomPythonActivity::run(Clock* clock, int ix_interval,
-                               auxi::modelling::accounting::financial::GeneralLedger* generalLedger,
-                               auxi::modelling::accounting::stock::StockLedger* stockLedger)
+                               auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger,
+                               auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
 {
     m_clock = clock;
     m_ix_interval = ix_interval;

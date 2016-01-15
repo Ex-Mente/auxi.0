@@ -10,19 +10,16 @@
 #include "ExecutionObject.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
+#include <map>
+#include <tuple>
+#include <set>
 
 
 // Forward declarations.
 //
-
-
-
-
 namespace auxi { namespace modelling { namespace business { 
     class Component;
-}
-}
-}
+}}}
 
 namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
@@ -57,21 +54,24 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
 	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::accounting::financial::GeneralLedger* generalLedger, auxi::modelling::accounting::stock::StockLedger* stockLedger);
+            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger);
             std::vector<VariableGroup*>& GetVariableGroupList();
+
             std::vector<Component*>& GetComponentList();
+
             std::vector<Activity*>& GetActivityList();
+
             std::string Getpath() const;
             void Setpath(std::string path);
+
+
         protected:
 	        std::vector<VariableGroup*> m_variableGroupList;
 	        std::vector<Component*> m_componentList;
 	        std::vector<Activity*> m_activityList;
 	        std::string m_path = "";
+
         private:
     };
-}
-}
-}
-
+}}}
 #endif

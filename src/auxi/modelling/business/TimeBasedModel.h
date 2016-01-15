@@ -9,19 +9,16 @@
 #include "Model.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
+#include <map>
+#include <tuple>
+#include <set>
 
 
 // Forward declarations.
 //
-
-
-
-
 namespace auxi { namespace modelling { namespace business { 
     class TimeBasedModel;
-}
-}
-}
+}}}
 
 namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
@@ -58,20 +55,23 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void run();
             std::vector<Entity*>& GetEntityList();
+
             Units& GetCurrency();
             void SetCurrency(Units& currency);
+
             int GetTotalIntervalsToRun() const;
             void SetTotalIntervalsToRun(int totalIntervalsToRun);
+
             Clock& GetClock();
+
+
         protected:
 	        std::vector<Entity*> m_entityList;
 	        Units m_currency;
 	        int m_totalIntervalsToRun = 12;
 	        Clock m_clock;
+
         private:
     };
-}
-}
-}
-
+}}}
 #endif

@@ -28,8 +28,8 @@
 <function name="run" returnType="void">
     <param name="clock" type="Clock*" />
     <param name="ix_interval" type="int" />
-    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
-    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+    <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger*" />
 </function>
 <xs:sequence>
     <xs:element name="VariableGroup" type="VariableGroup*" minOccurs="0" maxOccurs="unbounded"/>

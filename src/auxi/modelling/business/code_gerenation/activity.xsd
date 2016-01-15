@@ -25,8 +25,8 @@
 <function name="run" returnType="void" virtual="true">
     <param name="clock" type="Clock*" />
     <param name="ix_interval" type="int" />
-    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
-    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+    <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger*" />
 </function>
 <xs:attribute name="Currency" type="Units"/>
 <xs:attribute name="ExecutionStartAtInterval" type="xs:int" default="0"/>

@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 AssetPurchaseActivity::AssetPurchaseActivity()
@@ -36,14 +37,14 @@ AssetPurchaseActivity::~AssetPurchaseActivity()
 
 boost::posix_time::ptime AssetPurchaseActivity::GetDate() const { return m_date; }
 void AssetPurchaseActivity::SetDate(boost::posix_time::ptime value) { m_date = value; }
-auxi::modelling::accounting::financial::GeneralLedgerAccount* AssetPurchaseActivity::GetGeneralLedgerExpenseAccount() const { return m_generalLedgerExpenseAccount; }
-void AssetPurchaseActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
-auxi::modelling::accounting::financial::GeneralLedgerAccount* AssetPurchaseActivity::GetGeneralLedgerAssetAccount() const { return m_generalLedgerAssetAccount; }
-void AssetPurchaseActivity::SetGeneralLedgerAssetAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* value) { m_generalLedgerAssetAccount = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& AssetPurchaseActivity::GetAssetPurchaseTransactionTemplate() { return m_assetPurchaseTransactionTemplate; }
-void AssetPurchaseActivity::SetAssetPurchaseTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_assetPurchaseTransactionTemplate = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& AssetPurchaseActivity::GetAddDepreciationTransactionTemplate() { return m_addDepreciationTransactionTemplate; }
-void AssetPurchaseActivity::SetAddDepreciationTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_addDepreciationTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* AssetPurchaseActivity::GetGeneralLedgerExpenseAccount() const { return m_generalLedgerExpenseAccount; }
+void AssetPurchaseActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* AssetPurchaseActivity::GetGeneralLedgerAssetAccount() const { return m_generalLedgerAssetAccount; }
+void AssetPurchaseActivity::SetGeneralLedgerAssetAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerAssetAccount = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAssetPurchaseTransactionTemplate() { return m_assetPurchaseTransactionTemplate; }
+void AssetPurchaseActivity::SetAssetPurchaseTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_assetPurchaseTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAddDepreciationTransactionTemplate() { return m_addDepreciationTransactionTemplate; }
+void AssetPurchaseActivity::SetAddDepreciationTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_addDepreciationTransactionTemplate = value; }
 double AssetPurchaseActivity::GetPurchaseAmount() const { return m_purchaseAmount; }
 double AssetPurchaseActivity::GetWriteOffAmount() const { return m_writeOffAmount; }
 void AssetPurchaseActivity::SetWriteOffAmount(double value) { m_writeOffAmount = value; }
@@ -97,6 +98,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const AssetPurchaseActivity& obj)
     {
+
         os << obj.GetName();
         return os;
     }

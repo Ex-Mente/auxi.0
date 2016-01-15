@@ -20,8 +20,8 @@ void BasicActivity::prepare_to_run(Clock* clock, int totalMonthsToRun)
 }
 
 void BasicActivity::run(Clock* clock, int ix_interval,
-                        auxi::modelling::accounting::financial::GeneralLedger* generalLedger,
-                        auxi::modelling::accounting::stock::StockLedger* stockLedger)
+                        auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger,
+                        auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
 {
     if (!OnExecute_MeetExecutionCriteria(ix_interval)) return;
 

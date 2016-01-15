@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 BasicActivity::BasicActivity()
@@ -27,8 +28,8 @@ BasicActivity::~BasicActivity()
 
 boost::posix_time::ptime BasicActivity::GetDate() const { return m_date; }
 void BasicActivity::SetDate(boost::posix_time::ptime value) { m_date = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& BasicActivity::GetTransactionTemplate() { return m_transactionTemplate; }
-void BasicActivity::SetTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_transactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& BasicActivity::GetTransactionTemplate() { return m_transactionTemplate; }
+void BasicActivity::SetTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_transactionTemplate = value; }
 double BasicActivity::GetAmount() const { return m_amount; }
 void BasicActivity::SetAmount(double value) { m_amount = value; }
 
@@ -57,6 +58,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const BasicActivity& obj)
     {
+
         os << obj.GetName();
         return os;
     }

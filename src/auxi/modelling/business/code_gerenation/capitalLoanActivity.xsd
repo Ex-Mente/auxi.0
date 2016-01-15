@@ -20,16 +20,16 @@
 <function name="run" returnType="void">
     <param name="clock" type="Clock*" />
     <param name="ix_interval" type="int" />
-    <param name="generalLedger" type="auxi::modelling::accounting::financial::GeneralLedger*" />
-    <param name="stockLedger" type="auxi::modelling::accounting::stock::StockLedger*" />
+    <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
+    <param name="stockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger*" />
 </function>
 
 <xs:attribute name="Date" type="dateTime"/>
-<xs:attribute name="GeneralLedgerLiabilityAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
-<xs:attribute name="GeneralLedgerExpenseAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*"/>
-<xs:attribute name="MakeLoanTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
-<xs:attribute name="ConsiderInterestTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
-<xs:attribute name="PayMonthlyLoanAmountTransactionTemplate" type="auxi::modelling::accounting::financial::TransactionTemplate"/>
+<xs:attribute name="GeneralLedgerLiabilityAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*"/>
+<xs:attribute name="GeneralLedgerExpenseAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*"/>
+<xs:attribute name="MakeLoanTransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
+<xs:attribute name="ConsiderInterestTransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
+<xs:attribute name="PayMonthlyLoanAmountTransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
 <xs:attribute name="LoanAmount" type="double" default="0.0"/>
 <xs:attribute name="InterestRate" type="double" default="0.0" set="custom"/>
 <xs:attribute name="MonthlyInterestRate" type="double" private="true"/>

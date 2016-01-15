@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 TimeBasedModel::TimeBasedModel()
@@ -60,6 +61,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const TimeBasedModel& obj)
     {
+
         os << obj.GetName();
         return os;
     }

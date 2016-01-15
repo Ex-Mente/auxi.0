@@ -34,13 +34,23 @@ script:
 - b2 variant=release target-os=linux
 - cd ../thermochemistry
 - b2 variant=release target-os=linux
-- cd ../../../../auxi4py/core
+- cd ../../../modelling/accounting/financial
+- b2 variant=release target-os=linux
+- cd ../stock
+- b2 variant=release target-os=linux
+- cd ../../../auxi4py/core
 - b2 variant=release target-os=linux
 - cd ../tools/chemistry/stoichiometry
 - b2 variant=release target-os=linux
 - cd ../thermochemistry
 - b2 variant=release target-os=linux
-- cd ../../../../../setup/auxi4py
+- cd ../../../modelling/accounting/financial
+- b2 variant=release target-os=linux
+- cd ../stock
+- b2 variant=release target-os=linux
+- cd ../../business
+- b2 variant=release target-os=linux
+- cd ../../../../setup/auxi4py
 - sudo python3 copy_distribution_files.py build
 - sudo python3 setup.py sdist
 deploy:

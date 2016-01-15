@@ -9,7 +9,7 @@
 <xs:element name="auxi.modelling.business.Entity" type="Entity"/>
 
 
-<xs:complexType name="Entity" base="ExecutionObject" additional_includes="StockLedger,GeneralLedger,TaxRuleSet,Transaction,Units,VariableGroup,Component">
+<xs:complexType name="Entity" base="ExecutionObject" additional_includes="StockLedger,GeneralLedger,RuleSet,Transaction,Units,VariableGroup,Component">
 <function name="create_component" returnType="Component*">
   <param name="name" type="std::string"/>
 </function>
@@ -57,26 +57,26 @@
     <param name="ix_interval" type="int" />
     <param name="currency" type="Units" />
 </function>
-<function name="getSalesAccounts" returnType="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;">
-    <param name="currentAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*" />
-    <param name="salesAccounts" type="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;()"/>
+<function name="getSalesAccounts" returnType="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;">
+    <param name="currentAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*" />
+    <param name="salesAccounts" type="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;()"/>
 </function>
-<function name="getCostOfSalesAccounts" returnType="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;">
-    <param name="currentAccount" type="auxi::modelling::accounting::financial::GeneralLedgerAccount*" />
-    <param name="costOfSalesAccounts" type="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::accounting::financial::GeneralLedgerAccount*&gt;()"/>
+<function name="getCostOfSalesAccounts" returnType="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;">
+    <param name="currentAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*" />
+    <param name="costOfSalesAccounts" type="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;" default="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;()"/>
 </function>
 <xs:sequence>
     <xs:element name="VariableGroup" type="VariableGroup*" minOccurs="0" maxOccurs="unbounded"/>
     <xs:element name="Component" type="Component*" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
-<xs:attribute name="TaxRuleSet" type="auxi::modelling::accounting::financial::TaxRuleSet"/>
+<xs:attribute name="TaxRuleSet" type="auxi::modelling::financial::tax::RuleSet"/>
 <xs:attribute name="NegativeIncomeTaxTotal" type="xs:double" py_set="False"/>
 <xs:attribute name="prev_year_end_date" type="dateTime" private="true"/>
 <xs:attribute name="curr_year_end_date" type="dateTime" private="true"/>
 <xs:attribute name="execution_end_date" type="dateTime" private="true"/>
 <xs:attribute name="TotalIntervalsToRun" type="xs:int" py_set="False"/>
-<xs:attribute name="StockLedger" type="auxi::modelling::accounting::stock::StockLedger"/>
-<xs:attribute name="GeneralLedger" type="auxi::modelling::accounting::financial::GeneralLedger"/>
+<xs:attribute name="StockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger"/>
+<xs:attribute name="GeneralLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger"/>
 
 </xs:complexType>
 

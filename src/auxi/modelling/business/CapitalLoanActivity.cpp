@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 CapitalLoanActivity::CapitalLoanActivity()
@@ -38,16 +39,16 @@ CapitalLoanActivity::~CapitalLoanActivity()
 
 boost::posix_time::ptime CapitalLoanActivity::GetDate() const { return m_date; }
 void CapitalLoanActivity::SetDate(boost::posix_time::ptime value) { m_date = value; }
-auxi::modelling::accounting::financial::GeneralLedgerAccount* CapitalLoanActivity::GetGeneralLedgerLiabilityAccount() const { return m_generalLedgerLiabilityAccount; }
-void CapitalLoanActivity::SetGeneralLedgerLiabilityAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* value) { m_generalLedgerLiabilityAccount = value; }
-auxi::modelling::accounting::financial::GeneralLedgerAccount* CapitalLoanActivity::GetGeneralLedgerExpenseAccount() const { return m_generalLedgerExpenseAccount; }
-void CapitalLoanActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& CapitalLoanActivity::GetMakeLoanTransactionTemplate() { return m_makeLoanTransactionTemplate; }
-void CapitalLoanActivity::SetMakeLoanTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_makeLoanTransactionTemplate = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& CapitalLoanActivity::GetConsiderInterestTransactionTemplate() { return m_considerInterestTransactionTemplate; }
-void CapitalLoanActivity::SetConsiderInterestTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_considerInterestTransactionTemplate = value; }
-auxi::modelling::accounting::financial::TransactionTemplate& CapitalLoanActivity::GetPayMonthlyLoanAmountTransactionTemplate() { return m_payMonthlyLoanAmountTransactionTemplate; }
-void CapitalLoanActivity::SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& value) { m_payMonthlyLoanAmountTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* CapitalLoanActivity::GetGeneralLedgerLiabilityAccount() const { return m_generalLedgerLiabilityAccount; }
+void CapitalLoanActivity::SetGeneralLedgerLiabilityAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerLiabilityAccount = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* CapitalLoanActivity::GetGeneralLedgerExpenseAccount() const { return m_generalLedgerExpenseAccount; }
+void CapitalLoanActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetMakeLoanTransactionTemplate() { return m_makeLoanTransactionTemplate; }
+void CapitalLoanActivity::SetMakeLoanTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_makeLoanTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetConsiderInterestTransactionTemplate() { return m_considerInterestTransactionTemplate; }
+void CapitalLoanActivity::SetConsiderInterestTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_considerInterestTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetPayMonthlyLoanAmountTransactionTemplate() { return m_payMonthlyLoanAmountTransactionTemplate; }
+void CapitalLoanActivity::SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_payMonthlyLoanAmountTransactionTemplate = value; }
 double CapitalLoanActivity::GetLoanAmount() const { return m_loanAmount; }
 void CapitalLoanActivity::SetLoanAmount(double value) { m_loanAmount = value; }
 double CapitalLoanActivity::GetInterestRate() const { return m_interestRate; }
@@ -103,6 +104,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const CapitalLoanActivity& obj)
     {
+
         os << obj.GetName();
         return os;
     }

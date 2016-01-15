@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 Activity::Activity()
@@ -71,6 +72,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const Activity& obj)
     {
+
         os << obj.GetName();
         return os;
     }

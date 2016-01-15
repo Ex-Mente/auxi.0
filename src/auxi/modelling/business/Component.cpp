@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 Component::Component()
@@ -58,6 +59,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const Component& obj)
     {
+
         os << obj.GetName();
         return os;
     }

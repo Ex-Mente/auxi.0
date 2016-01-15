@@ -6,19 +6,16 @@
 #include "NamedObject.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
+#include <map>
+#include <tuple>
+#include <set>
 
 
 // Forward declarations.
 //
-
-
-
-
 namespace auxi { namespace modelling { namespace business { 
     class Clock;
-}
-}
-}
+}}}
 
 namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
@@ -69,20 +66,23 @@ namespace auxi { namespace modelling { namespace business {
             boost::posix_time::ptime GetDateTimeAtInterval(int interval);
             boost::posix_time::ptime GetStartDateTime() const;
             void SetStartDateTime(boost::posix_time::ptime startDateTime);
+
             TimeInterval::TimeInterval GetTimeStepInterval() const;
             void SetTimeStepInterval(TimeInterval::TimeInterval timeStepInterval);
+
             int GetTimeStepIntervalCount() const;
             void SetTimeStepIntervalCount(int timeStepIntervalCount);
+
             int GetTimeStepIndex() const;
+
+
         protected:
 	        boost::posix_time::ptime m_startDateTime = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        TimeInterval::TimeInterval m_timeStepInterval;
 	        int m_timeStepIntervalCount = 1;
 	        int m_timeStepIndex = 0;
+
         private:
     };
-}
-}
-}
-
+}}}
 #endif

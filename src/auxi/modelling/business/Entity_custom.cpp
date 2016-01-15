@@ -1,6 +1,6 @@
 #include "Component.h"
 #include "Entity.h"
-#include "IncomeTaxRule.h"
+#include "IncomeRule.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include <map>
 #include <algorithm>
@@ -107,7 +107,7 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
         {
             std::string credit_acc_name = "";
             std::string debit_acc_name = "";
-            if (account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+            if (account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
             {
                 incomeSummaryAmount -= account_val;
 
@@ -138,7 +138,7 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
         {
             std::string credit_acc_name = "";
             std::string debit_acc_name = "";
-            if (account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+            if (account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
             {
                 incomeSummaryAmount += account_val;
 
@@ -212,7 +212,7 @@ double Entity::perform_year_end_procedure_income_tax(boost::posix_time::ptime ye
 {
     auto generalLedger_struct = m_generalLedger.GetStructure();
     double taxableIncome = incomeSummaryAmount;
-    if (m_taxRuleSet.GetTaxRuleList().size() != 0)
+    if (m_taxRuleSet.GetRuleList().size() != 0)
     {
         // Get the income total for the year.
         //taxableIncome = currentExecutionFinancialTransactionList.Where(x => x.GetCreditAccountName() is GeneralLedgerRevenueAccount)
@@ -240,9 +240,9 @@ double Entity::perform_year_end_procedure_income_tax(boost::posix_time::ptime ye
         if (taxableIncome > 0)
         {
             double tax = 0;
-            for(auto taxRule: m_taxRuleSet.GetTaxRuleList())
+            for(auto taxRule: m_taxRuleSet.GetRuleList())
             {
-                auto incomeTaxRule = dynamic_cast<auxi::modelling::accounting::financial::IncomeTaxRule*>(taxRule);
+                auto incomeTaxRule = dynamic_cast<auxi::modelling::financial::tax::IncomeRule*>(taxRule);
                 if(incomeTaxRule != nullptr) // Perform tax transaction
                 {
                     tax = taxableIncome * (incomeTaxRule->GetPercentage() / 100);
@@ -341,13 +341,13 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
 
         auto grossProfitAccountsToWriteOff = std::map<std::string, double>();
         auto incomeSummaryAccountsToWriteOff = std::map<std::string, double>();
-        std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> salesAccounts;
-        std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> costOfSalesAccounts;
+        std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> salesAccounts;
+        std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> costOfSalesAccounts;
         salesAccounts = getSalesAccounts(generalLedger_struct->GetSalesAccount());
         costOfSalesAccounts = getCostOfSalesAccounts(generalLedger_struct->GetCostOfSalesAccount());
 
         // Construct a temporary transaction list containing all of the financial transactions plus the current executions financial transactions inside of the year start and year end date.
-        auto tmp = std::vector<auxi::modelling::accounting::financial::Transaction*>();
+        auto tmp = std::vector<auxi::modelling::financial::double_entry_system::Transaction*>();
         for(auto transaction: m_generalLedger.GetTransactionList())
         {
             auto transaction_date = transaction->GetDate();
@@ -387,25 +387,25 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
                     grossProfitAccountsToWriteOff[credit_account_name] += transaction->GetAmount();
                 else grossProfitAccountsToWriteOff[credit_account_name] = transaction->GetAmount();
             }
-            else if(credit_account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Revenue)
+            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
             {
                 if (incomeSummaryAccountsToWriteOff.count(credit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[credit_account_name] += transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[credit_account_name] = transaction->GetAmount();
             }
-            else if(debit_account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Revenue)
+            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
             {
                 if (incomeSummaryAccountsToWriteOff.count(debit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[debit_account_name] -= transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[debit_account_name] = -transaction->GetAmount();
             }
-            else if(credit_account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
             {
                 if (incomeSummaryAccountsToWriteOff.count(credit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[credit_account_name] -= transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[credit_account_name] = -transaction->GetAmount();
             }
-            else if(debit_account->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
             {
                 if (incomeSummaryAccountsToWriteOff.count(debit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[debit_account_name] += transaction->GetAmount();
@@ -430,13 +430,13 @@ void Entity::run(Clock* clock, int ix_interval, Units currency)
     perform_year_end_procedure(clock, ix_interval, currency);
 }
 
-std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> Entity::getSalesAccounts(
-    auxi::modelling::accounting::financial::GeneralLedgerAccount* currentAccount,
-    std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> salesAccounts)
+std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> Entity::getSalesAccounts(
+    auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* currentAccount,
+    std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> salesAccounts)
 {
     if (currentAccount->GetAccountList().size() == 0)
     {
-        if(currentAccount->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Revenue)
+        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
             salesAccounts.push_back(currentAccount);
         return salesAccounts;
     }
@@ -444,20 +444,20 @@ std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> Entit
     {
         for(auto acc_child: getSalesAccounts(account, salesAccounts))
         {
-            if(acc_child->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Revenue)
+            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
                 salesAccounts.push_back(acc_child);
         }
     }
     return salesAccounts;
 }
 
-std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> Entity::getCostOfSalesAccounts(
-    auxi::modelling::accounting::financial::GeneralLedgerAccount* currentAccount,
-    std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> costOfSalesAccounts)
+std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> Entity::getCostOfSalesAccounts(
+    auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* currentAccount,
+    std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> costOfSalesAccounts)
 {
     if (currentAccount->GetAccountList().size() == 0)
     {
-        if(currentAccount->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
             costOfSalesAccounts.push_back(currentAccount);
         return costOfSalesAccounts;
     }
@@ -465,7 +465,7 @@ std::vector<auxi::modelling::accounting::financial::GeneralLedgerAccount*> Entit
     {
         for(auto acc_child: getCostOfSalesAccounts(account, costOfSalesAccounts))
         {
-            if(acc_child->GetType() == auxi::modelling::accounting::financial::GeneralLedgerAccountType::Expense)
+            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
                 costOfSalesAccounts.push_back(acc_child);
         }
     }

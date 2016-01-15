@@ -4,7 +4,7 @@
 alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
 alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
 
-python-extension _business :
+python-extension business :
                 ActivityWrapper.cpp
                 AssetPurchaseActivityWrapper.cpp
                 BasicActivityWrapper.cpp
@@ -17,14 +17,20 @@ python-extension _business :
                 TimeBasedModelWrapper.cpp
                 business_module.cpp
                 /auxi/core//core
-                /auxi/modelling/accounting/financial//financial
-                /auxi/modelling/accounting/stock//stock
+                /auxi/modelling/financial/calculation_engines//calculation_engines
+                /auxi/modelling/financial/double_entry_system//double_entry_system
+                /auxi/modelling/financial/tax//tax
+                /auxi/modelling/stock/calculation_engines//calculation_engines
+                /auxi/modelling/stock/double_entry_system//double_entry_system
                 /auxi/modelling/business//business
                 boost_dt boost_py
                 :
                 <include>/usr/include/boost
                 <include>../../../auxi/core
-                <include>../../../auxi/modelling/accounting/financial
-                <include>../../../auxi/modelling/accounting/stock
+                <include>../../../auxi/modelling/financial/calculation_engines
+                <include>../../../auxi/modelling/financial/double_entry_system
+                <include>../../../auxi/modelling/financial/tax
+                <include>../../../auxi/modelling/stock/calculation_engines
+                <include>../../../auxi/modelling/stock/double_entry_system
                 <include>../../../auxi/modelling/business
                 ;

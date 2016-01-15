@@ -5,6 +5,7 @@
 #include <limits>
 
 
+
 using namespace auxi::modelling::business;
 
 Entity::Entity()
@@ -33,16 +34,16 @@ Entity::~Entity()
 
 std::vector<VariableGroup*>& Entity::GetVariableGroupList() { return m_variableGroupList; }
 std::vector<Component*>& Entity::GetComponentList() { return m_componentList; }
-auxi::modelling::accounting::financial::TaxRuleSet& Entity::GetTaxRuleSet() { return m_taxRuleSet; }
-void Entity::SetTaxRuleSet(auxi::modelling::accounting::financial::TaxRuleSet& value) { m_taxRuleSet = value; }
+auxi::modelling::financial::tax::RuleSet& Entity::GetTaxRuleSet() { return m_taxRuleSet; }
+void Entity::SetTaxRuleSet(auxi::modelling::financial::tax::RuleSet& value) { m_taxRuleSet = value; }
 double Entity::GetNegativeIncomeTaxTotal() const { return m_negativeIncomeTaxTotal; }
 void Entity::SetNegativeIncomeTaxTotal(double value) { m_negativeIncomeTaxTotal = value; }
 int Entity::GetTotalIntervalsToRun() const { return m_totalIntervalsToRun; }
 void Entity::SetTotalIntervalsToRun(int value) { m_totalIntervalsToRun = value; }
-auxi::modelling::accounting::stock::StockLedger& Entity::GetStockLedger() { return m_stockLedger; }
-void Entity::SetStockLedger(auxi::modelling::accounting::stock::StockLedger& value) { m_stockLedger = value; }
-auxi::modelling::accounting::financial::GeneralLedger& Entity::GetGeneralLedger() { return m_generalLedger; }
-void Entity::SetGeneralLedger(auxi::modelling::accounting::financial::GeneralLedger& value) { m_generalLedger = value; }
+auxi::modelling::stock::double_entry_system::StockLedger& Entity::GetStockLedger() { return m_stockLedger; }
+void Entity::SetStockLedger(auxi::modelling::stock::double_entry_system::StockLedger& value) { m_stockLedger = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedger& Entity::GetGeneralLedger() { return m_generalLedger; }
+void Entity::SetGeneralLedger(auxi::modelling::financial::double_entry_system::GeneralLedger& value) { m_generalLedger = value; }
 
 
     
@@ -83,6 +84,7 @@ namespace auxi { namespace modelling { namespace business {
 
     std::ostream& operator<<(std::ostream& os, const Entity& obj)
     {
+
         os << obj.GetName();
         return os;
     }

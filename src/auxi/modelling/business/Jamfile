@@ -25,11 +25,17 @@ lib business :
         TimeBasedModel_custom.cpp
         clock_custom.cpp
         /auxi/core//core
-        /auxi/modelling/accounting/financial//financial
-        /auxi/modelling/accounting/stock//stock
+        /auxi/modelling/financial/calculation_engines//calculation_engines
+        /auxi/modelling/financial/double_entry_system//double_entry_system
+        /auxi/modelling/financial/tax//tax
+        /auxi/modelling/stock/calculation_engines//calculation_engines
+        /auxi/modelling/stock/double_entry_system//double_entry_system
         :
         <include>/usr/include/boost
         <include>../../core
-        <include>../accounting/financial
-        <include>../accounting/stock
+        <include>../financial/calculation_engines
+        <include>../financial/double_entry_system
+        <include>../financial/tax
+        <include>../stock/calculation_engines
+        <include>../stock/double_entry_system
         ;

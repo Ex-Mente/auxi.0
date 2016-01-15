@@ -8,19 +8,16 @@
 #include "Activity.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
+#include <map>
+#include <tuple>
+#include <set>
 
 
 // Forward declarations.
 //
-
-
-
-
 namespace auxi { namespace modelling { namespace business { 
     class CapitalLoanActivity;
-}
-}
-}
+}}}
 
 namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
@@ -52,36 +49,50 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
 	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::accounting::financial::GeneralLedger* generalLedger, auxi::modelling::accounting::stock::StockLedger* stockLedger);
+            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger);
             boost::posix_time::ptime GetDate() const;
             void SetDate(boost::posix_time::ptime date);
-            auxi::modelling::accounting::financial::GeneralLedgerAccount* GetGeneralLedgerLiabilityAccount() const;
-            void SetGeneralLedgerLiabilityAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* generalLedgerLiabilityAccount);
-            auxi::modelling::accounting::financial::GeneralLedgerAccount* GetGeneralLedgerExpenseAccount() const;
-            void SetGeneralLedgerExpenseAccount(auxi::modelling::accounting::financial::GeneralLedgerAccount* generalLedgerExpenseAccount);
-            auxi::modelling::accounting::financial::TransactionTemplate& GetMakeLoanTransactionTemplate();
-            void SetMakeLoanTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& makeLoanTransactionTemplate);
-            auxi::modelling::accounting::financial::TransactionTemplate& GetConsiderInterestTransactionTemplate();
-            void SetConsiderInterestTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& considerInterestTransactionTemplate);
-            auxi::modelling::accounting::financial::TransactionTemplate& GetPayMonthlyLoanAmountTransactionTemplate();
-            void SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::accounting::financial::TransactionTemplate& payMonthlyLoanAmountTransactionTemplate);
+
+            auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* GetGeneralLedgerLiabilityAccount() const;
+            void SetGeneralLedgerLiabilityAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* generalLedgerLiabilityAccount);
+
+            auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* GetGeneralLedgerExpenseAccount() const;
+            void SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* generalLedgerExpenseAccount);
+
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetMakeLoanTransactionTemplate();
+            void SetMakeLoanTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& makeLoanTransactionTemplate);
+
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetConsiderInterestTransactionTemplate();
+            void SetConsiderInterestTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& considerInterestTransactionTemplate);
+
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetPayMonthlyLoanAmountTransactionTemplate();
+            void SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& payMonthlyLoanAmountTransactionTemplate);
+
             double GetLoanAmount() const;
             void SetLoanAmount(double loanAmount);
+
             double GetInterestRate() const;
             void SetInterestRate(double interestRate);
+
             double GetPeriodInMonths() const;
             void SetPeriodInMonths(double periodInMonths);
+
             double GetAmountLeft() const;
+
             double GetMonthsLeft() const;
+
             double GetMonthlyPayment();
+
             double GetCurrentInterestAmount();
+
+
         protected:
 	        boost::posix_time::ptime m_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
-	        auxi::modelling::accounting::financial::GeneralLedgerAccount* m_generalLedgerLiabilityAccount;
-	        auxi::modelling::accounting::financial::GeneralLedgerAccount* m_generalLedgerExpenseAccount;
-	        auxi::modelling::accounting::financial::TransactionTemplate m_makeLoanTransactionTemplate;
-	        auxi::modelling::accounting::financial::TransactionTemplate m_considerInterestTransactionTemplate;
-	        auxi::modelling::accounting::financial::TransactionTemplate m_payMonthlyLoanAmountTransactionTemplate;
+	        auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* m_generalLedgerLiabilityAccount;
+	        auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* m_generalLedgerExpenseAccount;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_makeLoanTransactionTemplate;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_considerInterestTransactionTemplate;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_payMonthlyLoanAmountTransactionTemplate;
 	        double m_loanAmount = 0.0;
 	        double m_interestRate = 0.0;
 	        double m_monthlyInterestRate;
@@ -90,10 +101,8 @@ namespace auxi { namespace modelling { namespace business {
 	        double m_monthsLeft = 0.0;
 	        double m_monthlyPayment;
 	        double m_currentInterestAmount;
+
         private:
     };
-}
-}
-}
-
+}}}
 #endif
