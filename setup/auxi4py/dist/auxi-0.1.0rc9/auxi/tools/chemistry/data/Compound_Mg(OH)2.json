@@ -1,0 +1,97 @@
+{
+    "Compound": {
+        "Formula": "Mg(OH)2",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-924664",
+                "S": "63.241999999999997",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1150",
+                        "Terms": [
+                            {
+                                "Coefficient": "-28.908822000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.036232307300000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "2535749",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-82431.729000000007",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "5927.3989000000001",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-572371",
+                "S": "267.16055599999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1300",
+                        "Terms": [
+                            {
+                                "Coefficient": "32.427900000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.017716135399999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "961457.40000000002",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-34313.116999999998",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "2348.7139000000002",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1300",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "99.036394999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "20041710",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-77604.523000000001",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "1571.1215999999999",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

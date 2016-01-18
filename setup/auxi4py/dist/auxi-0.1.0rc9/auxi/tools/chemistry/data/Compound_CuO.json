@@ -1,0 +1,111 @@
+{
+    "Compound": {
+        "Formula": "CuO",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-156063",
+                "S": "42.594000000000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2000",
+                        "Terms": [
+                            {
+                                "Coefficient": "48.594878999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0074266120299999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-761304.58999999997",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "306269",
+                "S": "234.50755599999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1500",
+                        "Terms": [
+                            {
+                                "Coefficient": "38.103015999999997",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.00031335741099999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-21498.889999999999",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-675.41869999999994",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1500",
+                        "Tmax": "4200",
+                        "Terms": [
+                            {
+                                "Coefficient": "-139.93454",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.011287003",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "66696743",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-326927.33000000002",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "13533.203",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "4200",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "90.710278000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "458061685",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-231246.01000000001",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "-1256.2935",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

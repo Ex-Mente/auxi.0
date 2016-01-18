@@ -123,8 +123,8 @@ thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemi
 fincalc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
 des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/double_entry_system/bin/gcc-c++11/release/des.so")
 tax_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/tax/bin/gcc-c++11/release/tax.so")
-stock_calc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/calculation_engines/bin/gcc-c++11/release/stock_calculation_engines.so")
-stock_des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/double_entry_system/bin/gcc-c++11/release/stock_des.so")
+stock_calc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
+stock_des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/double_entry_system/bin/gcc-c++11/release/des.so")
 business_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/business/bin/gcc-c++11/release/business.so")
 
 core_dependencies_paths = [
@@ -203,8 +203,8 @@ new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochem
 new_fincalc_mod_path = os.path.join(dep_path__modelling_fin, "calculation_engines.so")
 new_des_mod_path = os.path.join(dep_path__modelling_fin, "des.so")
 new_tax_mod_path = os.path.join(dep_path__modelling_fin, "tax.so")
-new_stock_calc_mod_path = os.path.join(dep_path__modelling_stock, "stock_calculation_engines.so")
-new_stock_des_mod_path = os.path.join(dep_path__modelling_stock, "stock_des.so")
+new_stock_calc_mod_path = os.path.join(dep_path__modelling_stock, "calculation_engines.so")
+new_stock_des_mod_path = os.path.join(dep_path__modelling_stock, "des.so")
 new_business_mod_path = os.path.join(dep_path__modelling_business, "business.so")
 
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)

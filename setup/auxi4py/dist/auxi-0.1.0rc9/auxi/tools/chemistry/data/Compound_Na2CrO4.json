@@ -1,0 +1,69 @@
+{
+    "Compound": {
+        "Formula": "Na2CrO4",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-1328838.3999999999",
+                "S": "185.7696",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "694",
+                        "Terms": [
+                            {
+                                "Coefficient": "101.0436",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.13999664000000001",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-1321257.6699999999",
+                "S": "193.24821",
+                "CpRecords": [
+                    {
+                        "Tmin": "694",
+                        "Tmax": "1070",
+                        "Terms": [
+                            {
+                                "Coefficient": "149.95455999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.051588719999999998",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-1311969.52",
+                "S": "185.88367",
+                "CpRecords": [
+                    {
+                        "Tmin": "1070",
+                        "Tmax": "1600",
+                        "Terms": [
+                            {
+                                "Coefficient": "204.5976",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

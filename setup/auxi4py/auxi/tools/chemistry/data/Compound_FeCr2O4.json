@@ -1,0 +1,33 @@
+{
+    "Compound": {
+        "Formula": "FeCr2O4",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-1458124",
+                "S": "141.96299999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2123",
+                        "Terms": [
+                            {
+                                "Coefficient": "162.88311999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.022342581",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-3188214.3999999999",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "Compound": {
+        "Formula": "CuSO4",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-769982",
+                "S": "109.254",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2000",
+                        "Terms": [
+                            {
+                                "Coefficient": "-38.448694000000003",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.030146062500000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "13239629",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-192652.41",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "10802.621999999999",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,91 @@
+{
+    "Compound": {
+        "Formula": "V2O5",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-1550590",
+                "S": "130.54900000000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "943",
+                        "Terms": [
+                            {
+                                "Coefficient": "25.972498999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.048819230200000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "754162.66000000003",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-76767.608999999997",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "5853.8027000000002",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "943",
+                        "Tmax": "1500",
+                        "Terms": [
+                            {
+                                "Coefficient": "154.6139",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0291213245",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-1491201.97",
+                "S": "191.95819399999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "600",
+                        "Terms": [
+                            {
+                                "Coefficient": "164.31295",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.023579999300000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-3628206.5",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "600",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "190.78999999999999",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

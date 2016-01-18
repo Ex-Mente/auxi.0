@@ -1,0 +1,111 @@
+{
+    "Compound": {
+        "Formula": "Fe2SiO4",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-1481938.53",
+                "S": "150.930001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1478",
+                        "Terms": [
+                            {
+                                "Coefficient": "248.92707999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-1923.8524",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-139104009",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1478",
+                        "Tmax": "1550",
+                        "Terms": [
+                            {
+                                "Coefficient": "240.58000000000001",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-1467998.24",
+                "S": "141.80007000000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "224.40600000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0089184010199999993",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "15590002",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1941999420",
+                                "Exponent": "-3"
+                            },
+                            {
+                                "Coefficient": "-57575.982000000004",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S3",
+                "Code": "S3",
+                "DH": "-1471500.25",
+                "S": "141.03200000000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "167.86000000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0281240112",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-5654701.0999999996",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "782379967",
+                                "Exponent": "-3"
+                            },
+                            {
+                                "Coefficient": "-3564.3998000000001",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

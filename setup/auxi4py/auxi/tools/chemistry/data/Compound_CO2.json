@@ -1,0 +1,67 @@
+{
+    "Compound": {
+        "Formula": "CO2",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-393522",
+                "S": "213.79499999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1900",
+                        "Terms": [
+                            {
+                                "Coefficient": "103.3446",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-0.0047426062799999997",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-40249.044000000002",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1748.2872",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "11004.741",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1900",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "-49.197240999999998",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "43294300",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "0.61836658",
+                                "Exponent": "0.5"
+                            },
+                            {
+                                "Coefficient": "7579.8690999999999",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-196911.67999999999",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

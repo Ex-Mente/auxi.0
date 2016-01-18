@@ -1,0 +1,79 @@
+{
+    "Compound": {
+        "Formula": "MnO",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-384928",
+                "S": "59.831200000000003",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2115",
+                        "Terms": [
+                            {
+                                "Coefficient": "46.48424",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0081169599999999995",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-368192",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2115",
+                        "Tmax": "2500",
+                        "Terms": [
+                            {
+                                "Coefficient": "60.667999999999999",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-330536",
+                "S": "85.546637000000004",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2115",
+                        "Terms": [
+                            {
+                                "Coefficient": "46.48424",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0081169599999999995",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-368192",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "2115",
+                        "Tmax": "2500",
+                        "Terms": [
+                            {
+                                "Coefficient": "60.667999999999999",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

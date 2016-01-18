@@ -1,0 +1,97 @@
+{
+    "Compound": {
+        "Formula": "P4O10",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-3009936",
+                "S": "228.78100000000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1000",
+                        "Terms": [
+                            {
+                                "Coefficient": "-43.286814",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.67245679999999997",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-7032746.2999999998",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-0.00022525797199999999",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "45800.803999999996",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-2904081",
+                "S": "403.854556",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1300",
+                        "Terms": [
+                            {
+                                "Coefficient": "457.09701000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-0.073118969699999994",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "8514097.8000000007",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "1.68091669e-05",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "-102490.66",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1300",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "330.75628",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-20024959",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-13671.945",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "297.76378",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

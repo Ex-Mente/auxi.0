@@ -1,0 +1,67 @@
+{
+    "Compound": {
+        "Formula": "SiO",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "-98842",
+                "S": "211.48242400000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1500",
+                        "Terms": [
+                            {
+                                "Coefficient": "22.289180000000002",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.028152699999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "73375.919999999998",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1.9644260000000002e-05",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "4.8873875999999997e-09",
+                                "Exponent": "3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1500",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "31.992509999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0044535520000000004",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "1098143.2",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1.212006e-06",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "1.2237828000000001e-10",
+                                "Exponent": "3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

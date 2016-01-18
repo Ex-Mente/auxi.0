@@ -1,0 +1,41 @@
+{
+    "Compound": {
+        "Formula": "Al4C3",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-215685",
+                "S": "88.968999999999994",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "215.47547",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-0.00036246206800000003",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-1185095.5",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-10533.089",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "-862.18339000000003",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

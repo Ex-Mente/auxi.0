@@ -1,0 +1,33 @@
+{
+    "Compound": {
+        "Formula": "Ag2O",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-31049",
+                "S": "121.298",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "600",
+                        "Terms": [
+                            {
+                                "Coefficient": "131.40000000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "784700",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1285",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

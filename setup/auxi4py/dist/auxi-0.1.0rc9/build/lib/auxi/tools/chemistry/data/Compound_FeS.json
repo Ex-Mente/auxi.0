@@ -1,0 +1,375 @@
+{
+    "Compound": {
+        "Formula": "FeS",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-104560",
+                "S": "60.320999999999998",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "411",
+                        "Terms": [
+                            {
+                                "Coefficient": "-457.84446000000003",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.94604986000000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "67440.967000000004",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "411",
+                        "Tmax": "598",
+                        "Terms": [
+                            {
+                                "Coefficient": "72.358000000000004",
+                                "Exponent": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "598",
+                        "Tmax": "1463",
+                        "Terms": [
+                            {
+                                "Coefficient": "-1265.1900000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.23175715999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "63660485",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "59196.762000000002",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-843219.87",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-102895",
+                "S": "64.372095000000002",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "411",
+                        "Terms": [
+                            {
+                                "Coefficient": "-457.84446000000003",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.94604986000000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "67440.967000000004",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "411",
+                        "Tmax": "598",
+                        "Terms": [
+                            {
+                                "Coefficient": "72.358000000000004",
+                                "Exponent": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "598",
+                        "Tmax": "1463",
+                        "Terms": [
+                            {
+                                "Coefficient": "-1265.1900000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.23175715999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "63660485",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "59196.762000000002",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-843219.87",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S3",
+                "Code": "S3",
+                "DH": "-102498",
+                "S": "65.035974999999993",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "411",
+                        "Terms": [
+                            {
+                                "Coefficient": "-457.84447",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.94604986000000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "67440.967000000004",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "411",
+                        "Tmax": "598",
+                        "Terms": [
+                            {
+                                "Coefficient": "72.358000000000004",
+                                "Exponent": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "598",
+                        "Tmax": "1463",
+                        "Terms": [
+                            {
+                                "Coefficient": "-1265.1900000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.23175715999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "63660485",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "59196.762000000002",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-843219.87",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1463",
+                        "Tmax": "1900",
+                        "Terms": [
+                            {
+                                "Coefficient": "-745.54417000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.24548006999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-399513712",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "947986.12",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1900",
+                        "Tmax": "1901",
+                        "Terms": [
+                            {
+                                "Coefficient": "72.358000000000004",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-69622.929999999993",
+                "S": "87.568372999999994",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "411",
+                        "Terms": [
+                            {
+                                "Coefficient": "-273.26909000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.77918363000000002",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "8124181.4000000004",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "411",
+                        "Tmax": "598",
+                        "Terms": [
+                            {
+                                "Coefficient": "72.358000000000004",
+                                "Exponent": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "598",
+                        "Tmax": "1050",
+                        "Terms": [
+                            {
+                                "Coefficient": "-1265.1900000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.23175715999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "63660485",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "59196.762000000002",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-843219.87",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1050",
+                        "Tmax": "3800",
+                        "Terms": [
+                            {
+                                "Coefficient": "62.551000000000002",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "370767",
+                "S": "252.34399999999999",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1300",
+                        "Terms": [
+                            {
+                                "Coefficient": "38.650804999999998",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-3.786368e-05",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-78603.039999999994",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1121.1581000000001",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1300",
+                        "Tmax": "3900",
+                        "Terms": [
+                            {
+                                "Coefficient": "105.60599999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-0.0011305153199999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-39137383",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-6228.183",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "168289.22",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "3900",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "3.3400308999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "323257655",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "8337.0421000000006",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-452588.46999999997",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "Compound": {
+        "Formula": "Ti3O5",
+        "Phases": [
+            {
+                "Name": "S1",
+                "Code": "S1",
+                "DH": "-2465422",
+                "S": "129.369046",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "450",
+                        "Terms": [
+                            {
+                                "Coefficient": "278.89989000000003",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "7136016.5999999996",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-2149.4708999999998",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "-2119600510",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "450",
+                        "Tmax": "1991",
+                        "Terms": [
+                            {
+                                "Coefficient": "158.99207999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.050207945599999998",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "S2",
+                "Code": "S2",
+                "DH": "-2452465.0299999998",
+                "S": "157.616983",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1991",
+                        "Terms": [
+                            {
+                                "Coefficient": "158.99207999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.050207945599999998",
+                                "Exponent": "1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

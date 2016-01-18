@@ -1,0 +1,81 @@
+{
+    "Compound": {
+        "Formula": "Cr2O3",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-1126249.53",
+                "S": "87.227192000000002",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "3000",
+                        "Terms": [
+                            {
+                                "Coefficient": "121.44",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0077999999999999996",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-2000000",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "2.9999999999999999e-07",
+                                "Exponent": "2"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-1009812.1800000001",
+                "S": "130.85663600000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1800",
+                        "Terms": [
+                            {
+                                "Coefficient": "141.81927999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.0068416752300000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-3863366.1000000001",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "22280.884999999998",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "-1267.4929999999999",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1800",
+                        "Tmax": "4500",
+                        "Terms": [
+                            {
+                                "Coefficient": "156.6908",
+                                "Exponent": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

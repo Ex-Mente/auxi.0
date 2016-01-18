@@ -1,0 +1,89 @@
+{
+    "Compound": {
+        "Formula": "N2",
+        "Phases": [
+            {
+                "Name": "G",
+                "Code": "G",
+                "DH": "0",
+                "S": "191.49955600000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1600",
+                        "Terms": [
+                            {
+                                "Coefficient": "17.081220999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "0.017389789100000001",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "-230154.97",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-4.51779224e-06",
+                                "Exponent": "2"
+                            },
+                            {
+                                "Coefficient": "2939.8051",
+                                "Exponent": "-1"
+                            }
+                        ]
+                    },
+                    {
+                        "Tmin": "1600",
+                        "Tmax": "6000",
+                        "Terms": [
+                            {
+                                "Coefficient": "43.900542999999999",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-11744861",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "20259.103999999999",
+                                "Exponent": "-1"
+                            },
+                            {
+                                "Coefficient": "-675.51351",
+                                "Exponent": "-0.5"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "Aq",
+                "Code": "Aq",
+                "DH": "-10460",
+                "S": "94.977000000000004",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "523",
+                        "Terms": [
+                            {
+                                "Coefficient": "-742.572",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "1.5176289999999999",
+                                "Exponent": "1"
+                            },
+                            {
+                                "Coefficient": "48791700",
+                                "Exponent": "-2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

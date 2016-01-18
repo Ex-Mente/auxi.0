@@ -1,0 +1,67 @@
+{
+    "Compound": {
+        "Formula": "MgAl2O4",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-2300312.7000000002",
+                "S": "84.534594999999996",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2381",
+                        "Terms": [
+                            {
+                                "Coefficient": "235.89993000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-1710415",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1766.578",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "40616928",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Name": "L",
+                "Code": "L",
+                "DH": "-2139734.96",
+                "S": "151.97589500000001",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "2381",
+                        "Terms": [
+                            {
+                                "Coefficient": "235.89993000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-1710415",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-1766.578",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "40616928",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "Compound": {
+        "Formula": "FeTiO3",
+        "Phases": [
+            {
+                "Name": "S",
+                "Code": "S",
+                "DH": "-1233142.1599999999",
+                "S": "108.627506",
+                "CpRecords": [
+                    {
+                        "Tmin": "298.14999999999998",
+                        "Tmax": "1650",
+                        "Terms": [
+                            {
+                                "Coefficient": "149.99950000000001",
+                                "Exponent": "0"
+                            },
+                            {
+                                "Coefficient": "-3323694",
+                                "Exponent": "-2"
+                            },
+                            {
+                                "Coefficient": "-441.62198999999998",
+                                "Exponent": "-0.5"
+                            },
+                            {
+                                "Coefficient": "348151037",
+                                "Exponent": "-3"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
