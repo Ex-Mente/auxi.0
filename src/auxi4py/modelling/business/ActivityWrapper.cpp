@@ -3,7 +3,6 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include <boost/python/operators.hpp>
 #include "Units.h"
-#include "StockLedger.h"
 #include "GeneralLedger.h"
 #include "Clock.h"
 #include "Activity.h"
@@ -38,13 +37,13 @@ struct ActivityWrapper : Activity, wrapper<Activity>
     }
     void default_set_path(std::string parent_path) { return this->Activity::set_path(parent_path); }
 
-    void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
+    void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
     {
         if (override run = this->get_override("run"))
-            run(clock, ix_interval, generalLedger, stockLedger);
-        Activity::run(clock, ix_interval, generalLedger, stockLedger);
+            run(clock, ix_interval, generalLedger);
+        Activity::run(clock, ix_interval, generalLedger);
     }
-    void default_run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger) { return this->Activity::run(clock, ix_interval, generalLedger, stockLedger); }
+    void default_run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger) { return this->Activity::run(clock, ix_interval, generalLedger); }
 };
 
 void export_auxi_modelling_business_Activity()

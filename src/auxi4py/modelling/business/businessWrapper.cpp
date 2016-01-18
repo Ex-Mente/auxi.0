@@ -1,5 +1,5 @@
-#ifndef BUSINESS_MODULE_CPP
-#define BUSINESS_MODULE_CPP
+#ifndef MODELING_BUSINESS_WRAPPER_CPP
+#define MODELING_BUSINESS_WRAPPER_CPP
 
 #include "../../core/stdWrapperCode.h"
 #include <boost/python/operators.hpp>
@@ -10,6 +10,7 @@
 
 using namespace boost::python;
 
+// Export the C++ sim.modelling.business namespace
 void export_auxi_modelling_business_Activity();
 void export_auxi_modelling_business_Component();
 void export_auxi_modelling_business_Entity();
@@ -169,19 +170,11 @@ BOOST_PYTHON_MODULE(business)
 {
     using namespace auxi::py;
 
-    // Converters
-    /*PyDateTime_IMPORT;
-
-    ptime_from_python_datetime();
-    to_python_converter<const boost::posix_time::ptime,ptime_to_python_datetime>();
-
-    tduration_from_python_delta();
-    to_python_converter<const boost::posix_time::time_duration,tduration_to_python_delta>();
-*/
     // Set the document generation options
     boost::python::docstring_options local_docstring_options(true, true, false);
-    scope().attr("__doc__") = "This module provides a classes to create a business structure as well as to aid in business operations.";
-    // The modules classes
+
+
+    // Export the C++ auxi.modelling.business namespace
     export_auxi_modelling_business_Activity();
     export_auxi_modelling_business_Component();
     export_auxi_modelling_business_Entity();
@@ -204,6 +197,6 @@ BOOST_PYTHON_MODULE(business)
     implicitly_convertible<CustomPythonActivity*,Activity*>();
 }
 
-#endif // BUSINESS_MODULE_CPP
+#endif // MODELING_CHEMAPP_WRAPPER_CPP
 
 

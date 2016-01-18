@@ -2,9 +2,8 @@
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include <boost/python/operators.hpp>
-#include "StockLedger.h"
 #include "GeneralLedger.h"
-#include "TaxRuleSet.h"
+#include "RuleSet.h"
 #include "Transaction.h"
 #include "Units.h"
 #include "VariableGroup.h"
@@ -37,7 +36,6 @@ void export_auxi_modelling_business_Entity()
 	.add_property("taxRuleSet", make_function(&Entity::GetTaxRuleSet, return_internal_reference<>()), &Entity::SetTaxRuleSet)
 	.add_property("negativeIncomeTaxTotal", &Entity::GetNegativeIncomeTaxTotal, &Entity::SetNegativeIncomeTaxTotal)
 	.add_property("totalIntervalsToRun", &Entity::GetTotalIntervalsToRun, &Entity::SetTotalIntervalsToRun)
-	.add_property("stockLedger", make_function(&Entity::GetStockLedger, return_internal_reference<>()), &Entity::SetStockLedger)
 	.add_property("generalLedger", make_function(&Entity::GetGeneralLedger, return_internal_reference<>()), &Entity::SetGeneralLedger)
     ;
 

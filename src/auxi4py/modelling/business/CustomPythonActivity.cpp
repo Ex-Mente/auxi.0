@@ -33,20 +33,18 @@ void CustomPythonActivity::prepare_to_run(Clock* clock, int totalMonthsToRun)
 }
 
 void CustomPythonActivity::run(Clock* clock, int ix_interval,
-                               auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger,
-                               auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
+                               auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
 {
     m_clock = clock;
     m_ix_interval = ix_interval;
     m_generalLedger = generalLedger;
-    m_stockLedger = stockLedger;
 
     const char* attr_name = "run";
     try
     {
 
         if(PyObject_HasAttrString(m_custom_py_object.ptr(), attr_name))
-            m_custom_py_object.attr(attr_name)(this, clock, ix_interval, generalLedger, stockLedger);
+            m_custom_py_object.attr(attr_name)(this, clock, ix_interval, generalLedger);
     }
     catch(boost::python::error_already_set const &)
     {

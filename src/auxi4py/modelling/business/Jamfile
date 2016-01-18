@@ -20,8 +20,6 @@ python-extension business :
                 /auxi/modelling/financial/calculation_engines//calculation_engines
                 /auxi/modelling/financial/double_entry_system//double_entry_system
                 /auxi/modelling/financial/tax//tax
-                /auxi/modelling/stock/calculation_engines//calculation_engines
-                /auxi/modelling/stock/double_entry_system//double_entry_system
                 /auxi/modelling/business//business
                 boost_dt boost_py
                 :
@@ -30,7 +28,5 @@ python-extension business :
                 <include>../../../auxi/modelling/financial/calculation_engines
                 <include>../../../auxi/modelling/financial/double_entry_system
                 <include>../../../auxi/modelling/financial/tax
-                <include>../../../auxi/modelling/stock/calculation_engines
-                <include>../../../auxi/modelling/stock/double_entry_system
                 <include>../../../auxi/modelling/business
                 ;
