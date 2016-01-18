@@ -15,11 +15,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     class AssetPurchaseActivity;
 }}}
 
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     using namespace auxi::core;
 
     // Declare classes
@@ -42,14 +42,14 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             AssetPurchaseActivity* Clone() const { return new AssetPurchaseActivity(*this); }
 
-	      
+
             void initialize();
-	      
+
             virtual bool OnExecute_MeetExecutionCriteria(int executionIntervals);
-	      
+
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
-	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger);
+
+            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             boost::posix_time::ptime GetDate() const;
             void SetDate(boost::posix_time::ptime date);
 
@@ -99,7 +99,7 @@ namespace auxi { namespace modelling { namespace business {
 	        double m_currentAssetValue = 0.0;
 
         private:
-	      
+
             void updatePeriodicDepreciationAmount();
     };
 }}}

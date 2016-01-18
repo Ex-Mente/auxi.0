@@ -44,10 +44,6 @@ void Entity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
     for (unsigned int i = 0; i < t_List.size(); i++ )
         delete t_List[i];
     t_List.clear();
-    auto st_List = m_stockLedger.GetStockTransactionList();
-    for (unsigned int i = 0; i < st_List.size(); i++ )
-        delete st_List[i];
-    st_List.clear();
     for(auto item: m_componentList)
         item->prepare_to_run(clock, totalIntervalsToRun);
     m_negativeIncomeTaxTotal = 0;
@@ -425,7 +421,7 @@ void Entity::run(Clock* clock, int ix_interval, Units currency)
     auto generalLedger_struct = m_generalLedger.GetStructure();
     if(generalLedger_struct == nullptr) return;
 
-    for(auto item: m_componentList) item->run(clock, ix_interval, &m_generalLedger, &m_stockLedger);
+    for(auto item: m_componentList) item->run(clock, ix_interval, &m_generalLedger);
 
     perform_year_end_procedure(clock, ix_interval, currency);
 }

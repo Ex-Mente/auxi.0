@@ -17,11 +17,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     class Component;
 }}}
 
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     using namespace auxi::core;
 
     // Declare classes
@@ -43,18 +43,18 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             Component* Clone() const { return new Component(*this); }
 
-	      
+
             Component* create_component(std::string name);
-	      
+
             void remove_component(std::string name);
-	      
+
             void SetName(std::string value);
-	      
+
             void set_path(std::string parent_path);
-	      
+
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
-	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger, auxi::modelling::stock::double_entry_system::StockLedger* stockLedger);
+
+            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             std::vector<VariableGroup*>& GetVariableGroupList();
 
             std::vector<Component*>& GetComponentList();

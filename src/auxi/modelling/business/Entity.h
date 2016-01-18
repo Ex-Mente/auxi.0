@@ -3,7 +3,6 @@
 
 
 
-#include "StockLedger.h"
 #include "GeneralLedger.h"
 #include "RuleSet.h"
 #include "Transaction.h"
@@ -72,9 +71,6 @@ namespace auxi { namespace modelling { namespace business {
             int GetTotalIntervalsToRun() const;
             void SetTotalIntervalsToRun(int totalIntervalsToRun);
 
-            auxi::modelling::stock::double_entry_system::StockLedger& GetStockLedger();
-            void SetStockLedger(auxi::modelling::stock::double_entry_system::StockLedger& stockLedger);
-
             auxi::modelling::financial::double_entry_system::GeneralLedger& GetGeneralLedger();
             void SetGeneralLedger(auxi::modelling::financial::double_entry_system::GeneralLedger& generalLedger);
 
@@ -88,7 +84,6 @@ namespace auxi { namespace modelling { namespace business {
 	        boost::posix_time::ptime m_curr_year_end_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        boost::posix_time::ptime m_execution_end_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        int m_totalIntervalsToRun;
-	        auxi::modelling::stock::double_entry_system::StockLedger m_stockLedger;
 	        auxi::modelling::financial::double_entry_system::GeneralLedger m_generalLedger;
 
         private:

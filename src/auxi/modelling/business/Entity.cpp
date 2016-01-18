@@ -23,7 +23,6 @@ Entity::Entity(const Entity& other)
     m_curr_year_end_date = other.m_curr_year_end_date;
     m_execution_end_date = other.m_execution_end_date;
     m_totalIntervalsToRun = other.m_totalIntervalsToRun;
-    m_stockLedger = other.m_stockLedger;
     m_generalLedger = other.m_generalLedger;
 }
 
@@ -40,16 +39,14 @@ double Entity::GetNegativeIncomeTaxTotal() const { return m_negativeIncomeTaxTot
 void Entity::SetNegativeIncomeTaxTotal(double value) { m_negativeIncomeTaxTotal = value; }
 int Entity::GetTotalIntervalsToRun() const { return m_totalIntervalsToRun; }
 void Entity::SetTotalIntervalsToRun(int value) { m_totalIntervalsToRun = value; }
-auxi::modelling::stock::double_entry_system::StockLedger& Entity::GetStockLedger() { return m_stockLedger; }
-void Entity::SetStockLedger(auxi::modelling::stock::double_entry_system::StockLedger& value) { m_stockLedger = value; }
 auxi::modelling::financial::double_entry_system::GeneralLedger& Entity::GetGeneralLedger() { return m_generalLedger; }
 void Entity::SetGeneralLedger(auxi::modelling::financial::double_entry_system::GeneralLedger& value) { m_generalLedger = value; }
 
 
-    
-    
-    
-namespace auxi { namespace modelling { namespace business { 
+
+
+
+namespace auxi { namespace modelling { namespace business {
     bool operator==(const Entity& lhs, const Entity& rhs)
     {
         return 1 == 1
@@ -61,7 +58,6 @@ namespace auxi { namespace modelling { namespace business {
 	  && lhs.m_curr_year_end_date == rhs.m_curr_year_end_date
 	  && lhs.m_execution_end_date == rhs.m_execution_end_date
 	  && lhs.m_totalIntervalsToRun == rhs.m_totalIntervalsToRun
-	  && lhs.m_stockLedger == rhs.m_stockLedger
 	  && lhs.m_generalLedger == rhs.m_generalLedger
 	  ;
     }
@@ -77,7 +73,6 @@ namespace auxi { namespace modelling { namespace business {
 	  || lhs.m_curr_year_end_date != rhs.m_curr_year_end_date
 	  || lhs.m_execution_end_date != rhs.m_execution_end_date
 	  || lhs.m_totalIntervalsToRun != rhs.m_totalIntervalsToRun
-	  || lhs.m_stockLedger != rhs.m_stockLedger
 	  || lhs.m_generalLedger != rhs.m_generalLedger
 	;
     }

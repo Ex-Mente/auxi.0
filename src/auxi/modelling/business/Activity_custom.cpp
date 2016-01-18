@@ -32,8 +32,7 @@ void Activity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
 }
 
 void Activity::run(Clock* clock, int ix_month,
-                   auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger,
-                   auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
+                   auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
 {
 
 }

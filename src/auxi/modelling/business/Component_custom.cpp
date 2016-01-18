@@ -47,13 +47,12 @@ void Component::prepare_to_run(Clock* clock, int totalIntervalsToRun)
 }
 
 void Component::run(Clock* clock, int ix_interval,
-                    auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger,
-                    auxi::modelling::stock::double_entry_system::StockLedger* stockLedger)
+                    auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
 {
     for(auto item: m_activityList)
-        item->run(clock, ix_interval, generalLedger, stockLedger);
+        item->run(clock, ix_interval, generalLedger);
     for(auto item: m_componentList)
-        item->run(clock, ix_interval, generalLedger, stockLedger);
+        item->run(clock, ix_interval, generalLedger);
 }
 
 
