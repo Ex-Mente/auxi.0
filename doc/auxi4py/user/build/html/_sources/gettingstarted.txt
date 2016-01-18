@@ -7,19 +7,25 @@ Prerequisites
 You need the following before starting your auxi Python package installation:
 
 * Python 3.4
-* sudo apt-get update
-* sudo apt-get install -y python3-pip
+* pip3
+
+  * sudo apt-get update
+  * sudo apt-get install -y python3-pip
+
+* tabulate
+
+  * sudo pip3 install tabulate
 
 Installation
 ------------
 
 To install auxi::
 
-sudo pip3 install auxi
+  sudo pip3 install auxi
 
 To uninstall auxi::
 
-sudo pip3 uninstall auxi
+  sudo pip3 uninstall auxi
 
 
 Importing auxi Components
