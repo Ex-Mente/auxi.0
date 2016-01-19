@@ -17,7 +17,6 @@ python-extension business :
                 TimeBasedModelWrapper.cpp
                 business_module.cpp
                 /auxi/core//core
-                /auxi/modelling/financial/calculation_engines//calculation_engines
                 /auxi/modelling/financial/double_entry_system//double_entry_system
                 /auxi/modelling/financial/tax//tax
                 /auxi/modelling/business//business
@@ -25,7 +24,6 @@ python-extension business :
                 :
                 <include>/usr/include/boost
                 <include>../../../auxi/core
-                <include>../../../auxi/modelling/financial/calculation_engines
                 <include>../../../auxi/modelling/financial/double_entry_system
                 <include>../../../auxi/modelling/financial/tax
                 <include>../../../auxi/modelling/business

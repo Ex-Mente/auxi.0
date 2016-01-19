@@ -78,6 +78,9 @@ namespace auxi { namespace modelling { namespace business {
 	        int m_totalIntervalsToRun = -1;
 	        std::string m_path = "";
 
+
+
+
         private:
     };
 }}}

@@ -82,7 +82,7 @@ dep_path_auxi = os.path.join(project_path, 'auxi')
 dep_path__core = os.path.join(dep_path_auxi, 'core')
 dep_path__tools_chemistry = os.path.join(dep_path_auxi, 'tools', 'chemistry')
 dep_path__modelling_fin = os.path.join(dep_path_auxi, 'modelling', 'financial')
-dep_path__modelling_stock = os.path.join(dep_path_auxi, 'modelling', 'stock')
+#dep_path__modelling_stock = os.path.join(dep_path_auxi, 'modelling', 'stock')
 dep_path__modelling_business = os.path.join(dep_path_auxi, 'modelling')
 dep_path__simulation = os.path.join(dep_path_auxi, 'simulation')
 dep_path__simulation_io = os.path.join(dep_path__simulation, 'io')
@@ -123,8 +123,8 @@ thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemi
 fincalc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
 des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/double_entry_system/bin/gcc-c++11/release/des.so")
 tax_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/tax/bin/gcc-c++11/release/tax.so")
-stock_calc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
-stock_des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/double_entry_system/bin/gcc-c++11/release/des.so")
+#stock_calc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
+#stock_des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/double_entry_system/bin/gcc-c++11/release/des.so")
 business_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/business/bin/gcc-c++11/release/business.so")
 
 core_dependencies_paths = [
@@ -168,12 +168,14 @@ des_mod_path,
 tax_mod_path
 ]
 
+'''
 stock_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/modelling/stock/calculation_engines/bin/gcc-c++11/release/libcalculation_engines.so"),
 os.path.join(project_path, r"../../src/auxi/modelling/stock/double_entry_system/bin/gcc-c++11/release/libdouble_entry_system.so"),
 stock_calc_mod_path,
 stock_des_mod_path
 ]
+'''
 
 business_dependencies_paths = [
 os.path.join(project_path, r"../../src/auxi/modelling/business/bin/gcc-c++11/release/libbusiness.so"),
@@ -191,32 +193,44 @@ for dep in thermochem_dependencies_paths:
     shutil.copy(dep, dep_path__tools_chemistry)
 for dep in financial_dependencies_paths:
     shutil.copy(dep, dep_path__modelling_fin)
-for dep in stock_dependencies_paths:
-    shutil.copy(dep, dep_path__modelling_stock)
+#for dep in stock_dependencies_paths:
+#    shutil.copy(dep, dep_path__modelling_stock)
 for dep in business_dependencies_paths:
     shutil.copy(dep, dep_path__modelling_business)
 
 new_core_mod_path = os.path.join(dep_path__core, "core.so")
 new_stoichiometry_mod_path = os.path.join(dep_path__tools_chemistry, "stoichiometry.so")
+new_stoichiometry_lib_path = os.path.join(dep_path__tools_chemistry, "libstoichiometry.so")
 new_thermochem_mod_path = os.path.join(dep_path__tools_chemistry, "thermochemistry.so")
 new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochemistry.so")
 new_fincalc_mod_path = os.path.join(dep_path__modelling_fin, "calculation_engines.so")
+new_fincalc_lib_path = os.path.join(dep_path__modelling_fin, "libcalculation_engines.so")
 new_des_mod_path = os.path.join(dep_path__modelling_fin, "des.so")
+new_des_lib_path = os.path.join(dep_path__modelling_fin, "libdouble_entry_system.so")
 new_tax_mod_path = os.path.join(dep_path__modelling_fin, "tax.so")
-new_stock_calc_mod_path = os.path.join(dep_path__modelling_stock, "calculation_engines.so")
-new_stock_des_mod_path = os.path.join(dep_path__modelling_stock, "des.so")
+new_tax_lib_path = os.path.join(dep_path__modelling_fin, "libtax.so")
+#new_stock_calc_mod_path = os.path.join(dep_path__modelling_stock, "calculation_engines.so")
+#new_stock_des_mod_path = os.path.join(dep_path__modelling_stock, "des.so")
 new_business_mod_path = os.path.join(dep_path__modelling_business, "business.so")
+new_business_lib_path = os.path.join(dep_path__modelling_business, "libbusiness.so")
 
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN' " + new_core_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_fincalc_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_fincalc_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_des_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_des_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_tax_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stock_calc_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stock_des_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../core:$ORIGIN/financial:$ORIGIN/stock' "+ new_business_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_tax_lib_path], shell=True)
+#call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stock_calc_mod_path], shell=True)
+#call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stock_des_mod_path], shell=True)
+#call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../core:$ORIGIN/financial:$ORIGIN/stock' "+ new_business_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../core:$ORIGIN/financial' "+ new_business_mod_path], shell=True)
+call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../core:$ORIGIN/financial' "+ new_business_lib_path], shell=True)
+
 
 print('COPY REPORTS')
 shutil.copy(r"../../src/auxi4py/modelling/financial/reporting/balance_sheet_report.py", dep_path__modelling_fin)
@@ -242,11 +256,10 @@ setup(name="auxi",
       description="auxi for Python",
       package_dir={'auxi': 'auxi'},
       packages=["auxi", "auxi.core",
-                "auxi.modelling", "auxi.modelling", "auxi.modelling.financial", "auxi.modelling.stock", "auxi.simulation",
+                "auxi.modelling", "auxi.modelling", "auxi.modelling.financial", "auxi.simulation",
                 "auxi.tools", "auxi.tools.chemistry"],
       package_data={'auxi.core': ['*.so*', '*.a', '*.dll', '*.pyd'],
                     'auxi.modelling.financial': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
-                    'auxi.modelling.stock': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
                     'auxi.modelling': ['*.a', '*.so*', '*.dll', '*.pyd', '*_report.py'],
                     'auxi.simulation': ['*.py', r'io/*'],
                     'auxi.tools.chemistry': ['*.so*', '*.a', '*.dll', '*.pyd', r'data/*']}#,
