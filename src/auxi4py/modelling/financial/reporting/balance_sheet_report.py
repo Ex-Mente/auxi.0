@@ -19,23 +19,23 @@ class BalanceSheetReport:
                 cr_account_type = ledger_struct.get_account(cr_account_name).type
                 db_account_type = ledger_struct.get_account(db_account_name).type
                 if cr_account_name != "":
-                    if cr_account_type == AccountType.Asset:
+                    if cr_account_type == AccountType.asset:
                         if cr_account_name in summedAssets: summedAssets[cr_account_name] -= t.amount
                         else: summedAssets[cr_account_name] = t.amount
-                    elif cr_account_type == AccountType.Liability:
+                    elif cr_account_type == AccountType.liability:
                         if cr_account_name in summedLiability: summedLiability[cr_account_name] += t.amount
                         else: summedLiability[cr_account_name] = t.amount
-                    elif cr_account_type == AccountType.Equity:
+                    elif cr_account_type == AccountType.equity:
                         if cr_account_name in summedEquity: summedEquity[cr_account_name] += t.amount
                         else: summedEquity[cr_account_name] = t.amount
                 if db_account_name != "":
-                    if db_account_type == AccountType.Asset:
+                    if db_account_type == AccountType.asset:
                         if db_account_name in summedAssets: summedAssets[db_account_name] += t.amount
                         else: summedAssets[db_account_name] = t.amount
-                    if db_account_type == AccountType.Liability:
+                    if db_account_type == AccountType.liability:
                         if db_account_name in summedLiability: summedLiability[db_account_name] -= t.amount
                         else: summedLiability[db_account_name] = t.amount
-                    if db_account_type == AccountType.Equity:
+                    if db_account_type == AccountType.equity:
                         if db_account_name in summedEquity: summedEquity[db_account_name] -= t.amount
                         else: summedEquity[db_account_name] = t.amount
 

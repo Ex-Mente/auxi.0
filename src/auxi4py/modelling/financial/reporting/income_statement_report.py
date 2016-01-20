@@ -17,17 +17,17 @@ class IncomeStatementReport:
                 cr_account_type = ledger_struct.get_account(cr_account_name).type
                 db_account_type = ledger_struct.get_account(db_account_name).type
                 if not t.is_closing_cr_account and not t.is_closing_dt_account and cr_account_name != "":
-                    if cr_account_type == AccountType.Revenue:
+                    if cr_account_type == AccountType.revenue:
                         if cr_account_name in summedIncome: summedIncome[cr_account_name] += t.amount
                         else: summedIncome[cr_account_name] = t.amount
-                    elif cr_account_type == AccountType.Expense:
+                    elif cr_account_type == AccountType.expense:
                         if cr_account_name in summedExpenses: summedExpenses[cr_account_name] -= t.amount
                         else: summedExpenses[cr_account_name] = t.amount
                 if not t.is_closing_cr_account and not t.is_closing_dt_account and db_account_name != "":
-                    if db_account_type == AccountType.Revenue:
+                    if db_account_type == AccountType.revenue:
                         if db_account_name in summedIncome: summedIncome[db_account_name] -= t.amount
                         else: summedIncome[db_account_name] = t.amount
-                    elif db_account_type == AccountType.Expense:
+                    elif db_account_type == AccountType.expense:
                         if db_account_name in summedExpenses: summedExpenses[db_account_name] += t.amount
                         else: summedExpenses[db_account_name] = t.amount
 
