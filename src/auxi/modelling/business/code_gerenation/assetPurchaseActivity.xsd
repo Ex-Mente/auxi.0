@@ -10,7 +10,7 @@
 
 <xs:complexType name="AssetPurchaseActivity" base="Activity" additional_includes="TransactionTemplate,Clock" constructor_init_function="initialize">
 <function name="initialize" returnType="void" />
-<function name="OnExecute_MeetExecutionCriteria" returnType="bool" virtual="true">
+<function name="OnExecute_MeetExecutionCriteria" returnType="bool">
   <param name="executionIntervals" type="int"/>
 </function>
 <function name="prepare_to_run" returnType="void">
@@ -21,15 +21,14 @@
     <param name="clock" type="Clock*" />
     <param name="ix_interval" type="int" />
     <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
-    <param name="stockLedger" type="auxi::modelling::stock::double_entry_system::StockLedger*" />
 </function>
 <function name="updatePeriodicDepreciationAmount" returnType="void" private="true"/>
 
 <xs:attribute name="Date" type="dateTime"/>
 <xs:attribute name="GeneralLedgerExpenseAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*"/>
 <xs:attribute name="GeneralLedgerAssetAccount" type="auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*"/>
-<xs:attribute name="AssetPurchaseTransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
-<xs:attribute name="AddDepreciationTransactionTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
+<xs:attribute name="AssetPurchaseTxTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
+<xs:attribute name="AddDepreciationTxTemplate" type="auxi::modelling::financial::double_entry_system::TransactionTemplate"/>
 <xs:attribute name="PurchaseAmount" type="double" default="0.0" set="custom"/>
 <xs:attribute name="WriteOffAmount" type="double" default="0.0"/>
 <xs:attribute name="MonthsTillWrittenOff" type="double" default="0.0" set="custom"/>

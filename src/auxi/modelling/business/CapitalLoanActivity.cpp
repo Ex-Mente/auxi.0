@@ -19,9 +19,9 @@ CapitalLoanActivity::CapitalLoanActivity(const CapitalLoanActivity& other)
     m_date = other.m_date;
     m_generalLedgerLiabilityAccount = other.m_generalLedgerLiabilityAccount;
     m_generalLedgerExpenseAccount = other.m_generalLedgerExpenseAccount;
-    m_makeLoanTransactionTemplate = other.m_makeLoanTransactionTemplate;
-    m_considerInterestTransactionTemplate = other.m_considerInterestTransactionTemplate;
-    m_payMonthlyLoanAmountTransactionTemplate = other.m_payMonthlyLoanAmountTransactionTemplate;
+    m_makeLoanTxTemplate = other.m_makeLoanTxTemplate;
+    m_considerInterestTxTemplate = other.m_considerInterestTxTemplate;
+    m_payMonthlyLoanAmountTxTemplate = other.m_payMonthlyLoanAmountTxTemplate;
     m_loanAmount = other.m_loanAmount;
     m_interestRate = other.m_interestRate;
     m_monthlyInterestRate = other.m_monthlyInterestRate;
@@ -43,12 +43,12 @@ auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* CapitalLo
 void CapitalLoanActivity::SetGeneralLedgerLiabilityAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerLiabilityAccount = value; }
 auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* CapitalLoanActivity::GetGeneralLedgerExpenseAccount() const { return m_generalLedgerExpenseAccount; }
 void CapitalLoanActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
-auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetMakeLoanTransactionTemplate() { return m_makeLoanTransactionTemplate; }
-void CapitalLoanActivity::SetMakeLoanTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_makeLoanTransactionTemplate = value; }
-auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetConsiderInterestTransactionTemplate() { return m_considerInterestTransactionTemplate; }
-void CapitalLoanActivity::SetConsiderInterestTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_considerInterestTransactionTemplate = value; }
-auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetPayMonthlyLoanAmountTransactionTemplate() { return m_payMonthlyLoanAmountTransactionTemplate; }
-void CapitalLoanActivity::SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_payMonthlyLoanAmountTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetMakeLoanTxTemplate() { return m_makeLoanTxTemplate; }
+void CapitalLoanActivity::SetMakeLoanTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_makeLoanTxTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetConsiderInterestTxTemplate() { return m_considerInterestTxTemplate; }
+void CapitalLoanActivity::SetConsiderInterestTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_considerInterestTxTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& CapitalLoanActivity::GetPayMonthlyLoanAmountTxTemplate() { return m_payMonthlyLoanAmountTxTemplate; }
+void CapitalLoanActivity::SetPayMonthlyLoanAmountTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_payMonthlyLoanAmountTxTemplate = value; }
 double CapitalLoanActivity::GetLoanAmount() const { return m_loanAmount; }
 void CapitalLoanActivity::SetLoanAmount(double value) { m_loanAmount = value; }
 double CapitalLoanActivity::GetInterestRate() const { return m_interestRate; }
@@ -68,9 +68,9 @@ namespace auxi { namespace modelling { namespace business {
 	  && lhs.m_date == rhs.m_date
 	  && lhs.m_generalLedgerLiabilityAccount == rhs.m_generalLedgerLiabilityAccount
 	  && lhs.m_generalLedgerExpenseAccount == rhs.m_generalLedgerExpenseAccount
-	  && lhs.m_makeLoanTransactionTemplate == rhs.m_makeLoanTransactionTemplate
-	  && lhs.m_considerInterestTransactionTemplate == rhs.m_considerInterestTransactionTemplate
-	  && lhs.m_payMonthlyLoanAmountTransactionTemplate == rhs.m_payMonthlyLoanAmountTransactionTemplate
+	  && lhs.m_makeLoanTxTemplate == rhs.m_makeLoanTxTemplate
+	  && lhs.m_considerInterestTxTemplate == rhs.m_considerInterestTxTemplate
+	  && lhs.m_payMonthlyLoanAmountTxTemplate == rhs.m_payMonthlyLoanAmountTxTemplate
 	  && almost_equal(lhs.m_loanAmount, rhs.m_loanAmount, 5)
 	  && almost_equal(lhs.m_interestRate, rhs.m_interestRate, 5)
 	  && almost_equal(lhs.m_monthlyInterestRate, rhs.m_monthlyInterestRate, 5)
@@ -88,9 +88,9 @@ namespace auxi { namespace modelling { namespace business {
 	  || lhs.m_date != rhs.m_date
 	  || lhs.m_generalLedgerLiabilityAccount != rhs.m_generalLedgerLiabilityAccount
 	  || lhs.m_generalLedgerExpenseAccount != rhs.m_generalLedgerExpenseAccount
-	  || lhs.m_makeLoanTransactionTemplate != rhs.m_makeLoanTransactionTemplate
-	  || lhs.m_considerInterestTransactionTemplate != rhs.m_considerInterestTransactionTemplate
-	  || lhs.m_payMonthlyLoanAmountTransactionTemplate != rhs.m_payMonthlyLoanAmountTransactionTemplate
+	  || lhs.m_makeLoanTxTemplate != rhs.m_makeLoanTxTemplate
+	  || lhs.m_considerInterestTxTemplate != rhs.m_considerInterestTxTemplate
+	  || lhs.m_payMonthlyLoanAmountTxTemplate != rhs.m_payMonthlyLoanAmountTxTemplate
 	  || !almost_equal(lhs.m_loanAmount, rhs.m_loanAmount, 5)
 	  || !almost_equal(lhs.m_interestRate, rhs.m_interestRate, 5)
 	  || !almost_equal(lhs.m_monthlyInterestRate, rhs.m_monthlyInterestRate, 5)

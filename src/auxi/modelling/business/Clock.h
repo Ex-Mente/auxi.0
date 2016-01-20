@@ -43,6 +43,7 @@ namespace auxi { namespace modelling { namespace business {
     {
         public:
             Clock();
+            
             Clock(std::string name, std::string description) : NamedObject(name, description)
             {
             };

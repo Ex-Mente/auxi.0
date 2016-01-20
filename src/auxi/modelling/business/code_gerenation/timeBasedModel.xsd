@@ -16,11 +16,11 @@
 <function name="remove_entity" returnType="void">
   <param name="name" type="std::string"/>
 </function>
-<function name="prepare_to_run" returnType="void" virtual="true"/>
+<function name="prepare_to_run" returnType="void"/>
 <function name="run" returnType="void"/>
 
 <xs:sequence>
-    <xs:element name="Entity" type="Entity*" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="Entity" type="Entity*" minOccurs="0" maxOccurs="unbounded" plural="entities"/>
 </xs:sequence>
 <xs:attribute name="Currency" type="Units"/>
 <xs:attribute name="TotalIntervalsToRun" type="xs:int" default="12"/>

@@ -40,7 +40,7 @@ void Entity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
     m_prev_year_end_date = clock->GetStartDateTime();
     m_curr_year_end_date = clock->GetStartDateTime() + boost::gregorian::years(1);
 
-    auto t_List = m_generalLedger.GetTransactionList();
+    auto t_List = m_gl.GetTransactionList();
     for (unsigned int i = 0; i < t_List.size(); i++ )
         delete t_List[i];
     t_List.clear();
@@ -51,7 +51,7 @@ void Entity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
 
 double Entity::perform_year_end_procedure_gross_profit(boost::posix_time::ptime yearEndDate, Units currency, std::map<std::string, double> grossProfitAccountsToWriteOff)
 {
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     double grossProfit = 0;
     for(auto iter: grossProfitAccountsToWriteOff)
     {
@@ -61,30 +61,30 @@ double Entity::perform_year_end_procedure_gross_profit(boost::posix_time::ptime 
         if (account_val > 0)
         {
             std::string transaction_name = "Settle the '" + account_name + "' Account";
-            auto t = m_generalLedger.create_transaction(
+            auto t = m_gl.create_transaction(
                 transaction_name,
                 transaction_name,
                 account_name,
-                generalLedger_struct->GetGrossProfitAccount()->GetName(),
+                generalLedger_struct->GetGrossProfit()->GetName(),
                 "");
             t->SetDate(yearEndDate);
             t->SetCurrency (currency);
             t->SetAmount(std::abs(account_val));
-            t->SetIsClosingCreditAccount(true);
+            t->SetIsClosingCrAccount(true);
         }
         else if (account_val < 0)
         {
             std::string transaction_name = "Settle the '" + account_name + "' Account";
-            auto t = m_generalLedger.create_transaction(
+            auto t = m_gl.create_transaction(
                 transaction_name,
                 transaction_name,
-                generalLedger_struct->GetGrossProfitAccount()->GetName(),
+                generalLedger_struct->GetGrossProfit()->GetName(),
                 account_name,
                 "");
             t->SetDate(yearEndDate);
             t->SetCurrency(currency);
             t->SetAmount(std::abs(account_val));
-            t->SetIsClosingCreditAccount(true);
+            t->SetIsClosingCrAccount(true);
         }
     }
     return grossProfit;
@@ -92,7 +92,7 @@ double Entity::perform_year_end_procedure_gross_profit(boost::posix_time::ptime 
 
 double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptime yearEndDate, Units currency, double grossProfit, std::map<std::string, double> incomeSummaryAccountsToWriteOff)
 {
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     double incomeSummaryAmount = grossProfit;
     for(auto iter: incomeSummaryAccountsToWriteOff)
     {
@@ -103,22 +103,22 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
         {
             std::string credit_acc_name = "";
             std::string debit_acc_name = "";
-            if (account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+            if (account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
             {
                 incomeSummaryAmount -= account_val;
 
                 credit_acc_name = account_name;
-                debit_acc_name = generalLedger_struct->GetIncomeSummaryAccount()->GetName();
+                debit_acc_name = generalLedger_struct->GetIncomeSummary()->GetName();
             }
             else
             {
                 incomeSummaryAmount += account_val;
 
-                credit_acc_name = generalLedger_struct->GetIncomeSummaryAccount()->GetName();
+                credit_acc_name = generalLedger_struct->GetIncomeSummary()->GetName();
                 debit_acc_name = account_name;
             }
             std::string transaction_name = "Settle the '" + account_name + "' Account";
-            auto t = m_generalLedger.create_transaction(
+            auto t = m_gl.create_transaction(
                 transaction_name,
                 transaction_name,
                 credit_acc_name,
@@ -127,18 +127,18 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
             t->SetDate(yearEndDate);
             t->SetCurrency (currency);
             t->SetAmount(std::abs(account_val));
-            t->SetIsClosingCreditAccount(true);
+            t->SetIsClosingCrAccount(true);
 
         }
         else if (account_val < 0)
         {
             std::string credit_acc_name = "";
             std::string debit_acc_name = "";
-            if (account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+            if (account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
             {
                 incomeSummaryAmount += account_val;
 
-                credit_acc_name = generalLedger_struct->GetIncomeSummaryAccount()->GetName();
+                credit_acc_name = generalLedger_struct->GetIncomeSummary()->GetName();
                 debit_acc_name = account_name;
             }
             else
@@ -146,20 +146,20 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
                 incomeSummaryAmount -= account_val;
 
                 credit_acc_name = account_name;
-                debit_acc_name = generalLedger_struct->GetIncomeSummaryAccount()->GetName();
+                debit_acc_name = generalLedger_struct->GetIncomeSummary()->GetName();
             }
 
             std::string transaction_name = "Settle the '" + account_name + "' Account";
-            auto t = m_generalLedger.create_transaction(
+            auto t = m_gl.create_transaction(
                 transaction_name,
                 transaction_name,
-                generalLedger_struct->GetGrossProfitAccount()->GetName(),
+                generalLedger_struct->GetGrossProfit()->GetName(),
                 account_name,
                 "");
             t->SetDate(yearEndDate);
             t->SetCurrency(currency);
             t->SetAmount(std::abs(account_val));
-            t->SetIsClosingCreditAccount(true);
+            t->SetIsClosingCrAccount(true);
         }
     }
     return incomeSummaryAmount;
@@ -167,38 +167,38 @@ double Entity::perform_year_end_procedure_income_summary(boost::posix_time::ptim
 
 double Entity::perform_year_end_procedure_gross_profit_and_income_summary(boost::posix_time::ptime yearEndDate, Units currency, std::map<std::string, double> grossProfitAccountsToWriteOff, std::map<std::string, double> incomeSummaryAccountsToWriteOff)
 {
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     double grossProfit = perform_year_end_procedure_gross_profit(yearEndDate, currency, grossProfitAccountsToWriteOff);
     double incomeSummaryAmount = perform_year_end_procedure_income_summary(yearEndDate, currency, grossProfit, incomeSummaryAccountsToWriteOff);
 
     // Debit the gross profit and credit the income summary account.
     if (grossProfit > 0)
     {
-        std::string transaction_name = "Settle the '" + generalLedger_struct->GetGrossProfitAccount()->GetName() + "' Account";
-        auto t = m_generalLedger.create_transaction(
+        std::string transaction_name = "Settle the '" + generalLedger_struct->GetGrossProfit()->GetName() + "' Account";
+        auto t = m_gl.create_transaction(
             transaction_name,
             transaction_name,
-            generalLedger_struct->GetIncomeSummaryAccount()->GetName(),
-            generalLedger_struct->GetGrossProfitAccount()->GetName(),
+            generalLedger_struct->GetIncomeSummary()->GetName(),
+            generalLedger_struct->GetGrossProfit()->GetName(),
             "");
         t->SetDate(yearEndDate);
         t->SetCurrency(currency);
         t->SetAmount(std::abs(grossProfit));
-        t->SetIsClosingCreditAccount(true);
+        t->SetIsClosingCrAccount(true);
     }
     else if (grossProfit < 0)
     {
-        std::string transaction_name = "Settle the '" + generalLedger_struct->GetGrossProfitAccount()->GetName() + "' Account";
-        auto t = m_generalLedger.create_transaction(
+        std::string transaction_name = "Settle the '" + generalLedger_struct->GetGrossProfit()->GetName() + "' Account";
+        auto t = m_gl.create_transaction(
             transaction_name,
             transaction_name,
-            generalLedger_struct->GetGrossProfitAccount()->GetName(),
-            generalLedger_struct->GetIncomeSummaryAccount()->GetName(),
+            generalLedger_struct->GetGrossProfit()->GetName(),
+            generalLedger_struct->GetIncomeSummary()->GetName(),
             "");
         t->SetDate(yearEndDate);
         t->SetCurrency(currency);
         t->SetAmount(std::abs(grossProfit));
-        t->SetIsClosingCreditAccount(true);
+        t->SetIsClosingCrAccount(true);
     }
 
     return incomeSummaryAmount;
@@ -206,18 +206,18 @@ double Entity::perform_year_end_procedure_gross_profit_and_income_summary(boost:
 
 double Entity::perform_year_end_procedure_income_tax(boost::posix_time::ptime yearEndDate, Units currency, double incomeSummaryAmount)
 {
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     double taxableIncome = incomeSummaryAmount;
     if (m_taxRuleSet.GetRuleList().size() != 0)
     {
         // Get the income total for the year.
-        //taxableIncome = currentExecutionFinancialTransactionList.Where(x => x.GetCreditAccountName() is GeneralLedgerRevenueAccount)
+        //taxableIncome = currentExecutionFinancialTransactionList.Where(x => x.GetCrAccount() is GeneralLedgerRevenueAccount)
         //    .Sum(x => Units.Convert(x.Amount, x.Currency, currency));
-        //taxableIncome -= currentExecutionFinancialTransactionList.Where(x => x.GetDebitAccountName() is GeneralLedgerRevenueAccount)
+        //taxableIncome -= currentExecutionFinancialTransactionList.Where(x => x.GetDtAccount() is GeneralLedgerRevenueAccount)
         //    .Sum(x => Units.Convert(x.Amount, x.Currency, currency));
-        //taxableIncome += currentExecutionFinancialTransactionList.Where(x => x.GetCreditAccountName() is GeneralLedgerExpenseAccount)
+        //taxableIncome += currentExecutionFinancialTransactionList.Where(x => x.GetCrAccount() is GeneralLedgerExpenseAccount)
         //    .Sum(x => Units.Convert(x.Amount, x.Currency, currency));
-        //taxableIncome -= currentExecutionFinancialTransactionList.Where(x => x.GetDebitAccountName() is GeneralLedgerExpenseAccount)
+        //taxableIncome -= currentExecutionFinancialTransactionList.Where(x => x.GetDtAccount() is GeneralLedgerExpenseAccount)
         //    .Sum(x => Units.Convert(x.Amount, x.Currency, currency));
 
         if (m_negativeIncomeTaxTotal < 0)
@@ -244,32 +244,32 @@ double Entity::perform_year_end_procedure_income_tax(boost::posix_time::ptime ye
                     tax = taxableIncome * (incomeTaxRule->GetPercentage() / 100);
 
                     // CONSIDER THE TAX
-                    auto consider_t = m_generalLedger.create_transaction(
+                    auto consider_t = m_gl.create_transaction(
                         "Consider Income Tax",
                         "Consider Income Tax",
-                        generalLedger_struct->GetIncomeTaxPayableAccount()->GetName(),
-                        generalLedger_struct->GetIncomeTaxExpenseAccount()->GetName(),
+                        generalLedger_struct->GetIncomeTaxPayable()->GetName(),
+                        generalLedger_struct->GetIncomeTaxExpense()->GetName(),
                         "");
                     consider_t->SetDate(yearEndDate);
                     consider_t->SetCurrency(currency);
                     consider_t->SetAmount(std::abs(tax));
                     // PAY THE TAX
-                    auto pay_t = m_generalLedger.create_transaction(
+                    auto pay_t = m_gl.create_transaction(
                         "Pay Income Tax",
                         "Pay Income Tax",
-                        generalLedger_struct->GetBankAccount()->GetName(),
-                        generalLedger_struct->GetIncomeTaxPayableAccount()->GetName(),
+                        generalLedger_struct->GetBank()->GetName(),
+                        generalLedger_struct->GetIncomeTaxPayable()->GetName(),
                         "");
                     pay_t->SetDate(yearEndDate);
                     pay_t->SetCurrency(currency);
                     pay_t->SetAmount(std::abs(tax));
                     // SETTLE THE INCOME TAX EXPENSE ACCOUNT
-                    std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeTaxExpenseAccount()->GetName() + "' Account";
-                    auto settle_t = m_generalLedger.create_transaction(
+                    std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeTaxExpense()->GetName() + "' Account";
+                    auto settle_t = m_gl.create_transaction(
                         transaction_name,
                         transaction_name,
-                        generalLedger_struct->GetIncomeTaxExpenseAccount()->GetName(),
-                        generalLedger_struct->GetIncomeSummaryAccount()->GetName(),
+                        generalLedger_struct->GetIncomeTaxExpense()->GetName(),
+                        generalLedger_struct->GetIncomeSummary()->GetName(),
                         "");
                     settle_t->SetDate(yearEndDate);
                     settle_t->SetCurrency(currency);
@@ -286,34 +286,34 @@ double Entity::perform_year_end_procedure_income_tax(boost::posix_time::ptime ye
 
 void Entity::perform_year_end_procedure_retained_earnings(boost::posix_time::ptime yearEndDate, Units currency, double incomeSummaryAmount)
 {
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     if (incomeSummaryAmount > 0)
     {
-        std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeSummaryAccount()->GetName() + "' Account, adjust Retained Earnings accordingly.";
-        auto t = m_generalLedger.create_transaction(
+        std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeSummary()->GetName() + "' Account, adjust Retained Earnings accordingly.";
+        auto t = m_gl.create_transaction(
             transaction_name,
             transaction_name,
-            generalLedger_struct->GetRetainedEarningsAccount()->GetName(),
-            generalLedger_struct->GetIncomeSummaryAccount()->GetName(),
+            generalLedger_struct->GetRetainedEarnings()->GetName(),
+            generalLedger_struct->GetIncomeSummary()->GetName(),
             "");
         t->SetDate(yearEndDate);
         t->SetCurrency(currency);
         t->SetAmount(incomeSummaryAmount);
-        t->SetIsClosingCreditAccount(true);
+        t->SetIsClosingCrAccount(true);
     }
     else if (incomeSummaryAmount < 0)
     {
-        std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeSummaryAccount()->GetName() + "' Account, adjust Retained Earnings accordingly.";
-        auto t = m_generalLedger.create_transaction(
+        std::string transaction_name = "Settle the '" + generalLedger_struct->GetIncomeSummary()->GetName() + "' Account, adjust Retained Earnings accordingly.";
+        auto t = m_gl.create_transaction(
             transaction_name,
             transaction_name,
-            generalLedger_struct->GetIncomeSummaryAccount()->GetName(),
-            generalLedger_struct->GetRetainedEarningsAccount()->GetName(),
+            generalLedger_struct->GetIncomeSummary()->GetName(),
+            generalLedger_struct->GetRetainedEarnings()->GetName(),
             "");
         t->SetDate(yearEndDate);
         t->SetCurrency(currency);
         t->SetAmount(incomeSummaryAmount);
-        t->SetIsClosingCreditAccount(true);
+        t->SetIsClosingCrAccount(true);
     }
 }
 
@@ -321,7 +321,7 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
 {
     if(clock->GetDateTimeAtInterval(ix_interval) >= m_curr_year_end_date || ix_interval+1 == m_totalIntervalsToRun)
     {
-        auto generalLedger_struct = m_generalLedger.GetStructure();
+        auto generalLedger_struct = m_gl.GetStructure();
 
         boost::posix_time::ptime yearStartDate = m_prev_year_end_date;
         boost::posix_time::ptime yearEndDate = m_curr_year_end_date + boost::posix_time::seconds(-1);
@@ -339,12 +339,12 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
         auto incomeSummaryAccountsToWriteOff = std::map<std::string, double>();
         std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> salesAccounts;
         std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> costOfSalesAccounts;
-        salesAccounts = getSalesAccounts(generalLedger_struct->GetSalesAccount());
-        costOfSalesAccounts = getCostOfSalesAccounts(generalLedger_struct->GetCostOfSalesAccount());
+        salesAccounts = getSalesAccounts(generalLedger_struct->GetSales());
+        costOfSalesAccounts = getCostOfSalesAccounts(generalLedger_struct->GetCostOfSales());
 
         // Construct a temporary transaction list containing all of the financial transactions plus the current executions financial transactions inside of the year start and year end date.
         auto tmp = std::vector<auxi::modelling::financial::double_entry_system::Transaction*>();
-        for(auto transaction: m_generalLedger.GetTransactionList())
+        for(auto transaction: m_gl.GetTransactionList())
         {
             auto transaction_date = transaction->GetDate();
             if(transaction_date >= yearStartDate && transaction_date <= yearEndDate)
@@ -354,8 +354,8 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
         }
         for(auto transaction: tmp)
         {
-            std::string credit_account_name = transaction->GetCreditAccountName();
-            std::string debit_account_name = transaction->GetDebitAccountName();
+            std::string credit_account_name = transaction->GetCrAccount();
+            std::string debit_account_name = transaction->GetDtAccount();
             auto credit_account = generalLedger_struct->get_account(credit_account_name);
             auto debit_account = generalLedger_struct->get_account(debit_account_name);
 
@@ -363,7 +363,7 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
 
                 if (grossProfitAccountsToWriteOff.count(credit_account_name)>0)
                     grossProfitAccountsToWriteOff[credit_account_name] += transaction->GetAmount();
-                else grossProfitAccountsToWriteOff[transaction->GetCreditAccountName()] = transaction->GetAmount();
+                else grossProfitAccountsToWriteOff[transaction->GetCrAccount()] = transaction->GetAmount();
             }
             else if (std::find(salesAccounts.begin(), salesAccounts.end(), debit_account) != salesAccounts.end())
             {
@@ -383,25 +383,25 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
                     grossProfitAccountsToWriteOff[credit_account_name] += transaction->GetAmount();
                 else grossProfitAccountsToWriteOff[credit_account_name] = transaction->GetAmount();
             }
-            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
+            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Revenue)
             {
                 if (incomeSummaryAccountsToWriteOff.count(credit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[credit_account_name] += transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[credit_account_name] = transaction->GetAmount();
             }
-            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
+            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Revenue)
             {
                 if (incomeSummaryAccountsToWriteOff.count(debit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[debit_account_name] -= transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[debit_account_name] = -transaction->GetAmount();
             }
-            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+            else if(credit_account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
             {
                 if (incomeSummaryAccountsToWriteOff.count(credit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[credit_account_name] -= transaction->GetAmount();
                 else incomeSummaryAccountsToWriteOff[credit_account_name] = -transaction->GetAmount();
             }
-            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+            else if(debit_account->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
             {
                 if (incomeSummaryAccountsToWriteOff.count(debit_account_name)>0)
                     incomeSummaryAccountsToWriteOff[debit_account_name] += transaction->GetAmount();
@@ -418,10 +418,10 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
 void Entity::run(Clock* clock, int ix_interval, Units currency)
 {
     if(ix_interval >= m_totalIntervalsToRun) return;
-    auto generalLedger_struct = m_generalLedger.GetStructure();
+    auto generalLedger_struct = m_gl.GetStructure();
     if(generalLedger_struct == nullptr) return;
 
-    for(auto item: m_componentList) item->run(clock, ix_interval, &m_generalLedger);
+    for(auto item: m_componentList) item->run(clock, ix_interval, &m_gl);
 
     perform_year_end_procedure(clock, ix_interval, currency);
 }
@@ -432,7 +432,7 @@ std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccoun
 {
     if (currentAccount->GetAccountList().size() == 0)
     {
-        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
+        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Revenue)
             salesAccounts.push_back(currentAccount);
         return salesAccounts;
     }
@@ -440,7 +440,7 @@ std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccoun
     {
         for(auto acc_child: getSalesAccounts(account, salesAccounts))
         {
-            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Revenue)
+            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Revenue)
                 salesAccounts.push_back(acc_child);
         }
     }
@@ -453,7 +453,7 @@ std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccoun
 {
     if (currentAccount->GetAccountList().size() == 0)
     {
-        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+        if(currentAccount->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
             costOfSalesAccounts.push_back(currentAccount);
         return costOfSalesAccounts;
     }
@@ -461,7 +461,7 @@ std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccoun
     {
         for(auto acc_child: getCostOfSalesAccounts(account, costOfSalesAccounts))
         {
-            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::GeneralLedgerAccountType::Expense)
+            if(acc_child->GetType() == auxi::modelling::financial::double_entry_system::AccountType::Expense)
                 costOfSalesAccounts.push_back(acc_child);
         }
     }

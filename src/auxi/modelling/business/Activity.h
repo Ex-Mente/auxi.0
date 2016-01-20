@@ -16,11 +16,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business {
+namespace auxi { namespace modelling { namespace business { 
     class Activity;
 }}}
 
-namespace auxi { namespace modelling { namespace business {
+namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
 
     // Declare classes
@@ -29,6 +29,7 @@ namespace auxi { namespace modelling { namespace business {
     {
         public:
             Activity();
+            
             Activity(std::string name, std::string description) : ExecutionObject(name, description)
             {
             };
@@ -41,15 +42,15 @@ namespace auxi { namespace modelling { namespace business {
 
             bool IsValid() const { return true; }
 
-
+	      
             virtual bool OnExecute_MeetExecutionCriteria(int executionMonth);
-
+	      
             virtual void prepare_to_run(Clock* clock, int totalMonthsToRun);
-
+	      
             void SetName(std::string value);
-
+	      
             virtual void set_path(std::string parent_path);
-
+	      
             virtual void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             Units& GetCurrency();
             void SetCurrency(Units& currency);
@@ -77,9 +78,6 @@ namespace auxi { namespace modelling { namespace business {
 	        int m_executeInterval = 12;
 	        int m_totalIntervalsToRun = -1;
 	        std::string m_path = "";
-
-
-
 
         private:
     };

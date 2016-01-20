@@ -30,6 +30,7 @@ namespace auxi { namespace modelling { namespace business {
         using NamedObject::GetName;
         public:
             TimeBasedModel();
+            
             TimeBasedModel(std::string name, std::string description) : Model(name, description)
             {
                 initialize();
@@ -51,7 +52,7 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void remove_entity(std::string name);
 	      
-            virtual void prepare_to_run();
+            void prepare_to_run();
 	      
             void run();
             std::vector<Entity*>& GetEntityList();

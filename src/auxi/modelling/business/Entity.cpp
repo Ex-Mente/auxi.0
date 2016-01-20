@@ -23,7 +23,7 @@ Entity::Entity(const Entity& other)
     m_curr_year_end_date = other.m_curr_year_end_date;
     m_execution_end_date = other.m_execution_end_date;
     m_totalIntervalsToRun = other.m_totalIntervalsToRun;
-    m_generalLedger = other.m_generalLedger;
+    m_gl = other.m_gl;
 }
 
 Entity::~Entity()
@@ -39,14 +39,14 @@ double Entity::GetNegativeIncomeTaxTotal() const { return m_negativeIncomeTaxTot
 void Entity::SetNegativeIncomeTaxTotal(double value) { m_negativeIncomeTaxTotal = value; }
 int Entity::GetTotalIntervalsToRun() const { return m_totalIntervalsToRun; }
 void Entity::SetTotalIntervalsToRun(int value) { m_totalIntervalsToRun = value; }
-auxi::modelling::financial::double_entry_system::GeneralLedger& Entity::GetGeneralLedger() { return m_generalLedger; }
-void Entity::SetGeneralLedger(auxi::modelling::financial::double_entry_system::GeneralLedger& value) { m_generalLedger = value; }
+auxi::modelling::financial::double_entry_system::GeneralLedger& Entity::GetGl() { return m_gl; }
+void Entity::SetGl(auxi::modelling::financial::double_entry_system::GeneralLedger& value) { m_gl = value; }
 
 
-
-
-
-namespace auxi { namespace modelling { namespace business {
+    
+    
+    
+namespace auxi { namespace modelling { namespace business { 
     bool operator==(const Entity& lhs, const Entity& rhs)
     {
         return 1 == 1
@@ -58,7 +58,7 @@ namespace auxi { namespace modelling { namespace business {
 	  && lhs.m_curr_year_end_date == rhs.m_curr_year_end_date
 	  && lhs.m_execution_end_date == rhs.m_execution_end_date
 	  && lhs.m_totalIntervalsToRun == rhs.m_totalIntervalsToRun
-	  && lhs.m_generalLedger == rhs.m_generalLedger
+	  && lhs.m_gl == rhs.m_gl
 	  ;
     }
 
@@ -73,7 +73,7 @@ namespace auxi { namespace modelling { namespace business {
 	  || lhs.m_curr_year_end_date != rhs.m_curr_year_end_date
 	  || lhs.m_execution_end_date != rhs.m_execution_end_date
 	  || lhs.m_totalIntervalsToRun != rhs.m_totalIntervalsToRun
-	  || lhs.m_generalLedger != rhs.m_generalLedger
+	  || lhs.m_gl != rhs.m_gl
 	;
     }
 

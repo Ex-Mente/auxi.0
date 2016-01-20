@@ -6,7 +6,7 @@ using namespace auxi::modelling::business;
 
 void BasicActivity::initialize()
 {
-    m_transactionTemplate.SetName("Unkown");
+    m_txTemplate.SetName("Unkown");
 }
 
 bool BasicActivity::OnExecute_MeetExecutionCriteria(int ix_interval)
@@ -25,10 +25,10 @@ void BasicActivity::run(Clock* clock, int ix_interval,
     if (!OnExecute_MeetExecutionCriteria(ix_interval)) return;
 
     auto t = generalLedger->create_transaction(
-        m_transactionTemplate.GetName(),
-        m_transactionTemplate.GetName(),
-        m_transactionTemplate.GetCreditAccountName(),
-        m_transactionTemplate.GetDebitAccountName(),
+        m_txTemplate.GetName(),
+        m_txTemplate.GetName(),
+        m_txTemplate.GetCrAccount(),
+        m_txTemplate.GetDtAccount(),
         path);
     t->SetDate(clock->GetDateTimeAtInterval(ix_interval));
     t->SetCurrency(m_currency);

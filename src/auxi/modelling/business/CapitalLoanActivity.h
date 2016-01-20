@@ -15,11 +15,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business {
+namespace auxi { namespace modelling { namespace business { 
     class CapitalLoanActivity;
 }}}
 
-namespace auxi { namespace modelling { namespace business {
+namespace auxi { namespace modelling { namespace business { 
     using namespace auxi::core;
 
     // Declare classes
@@ -28,6 +28,7 @@ namespace auxi { namespace modelling { namespace business {
     {
         public:
             CapitalLoanActivity();
+            
             CapitalLoanActivity(std::string name, std::string description) : Activity(name, description)
             {
                 initialize();
@@ -42,13 +43,13 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             CapitalLoanActivity* Clone() const { return new CapitalLoanActivity(*this); }
 
-
+	      
             void initialize();
-
-            virtual bool OnExecute_MeetExecutionCriteria(int executionInterval);
-
+	      
+            bool OnExecute_MeetExecutionCriteria(int executionInterval);
+	      
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
-
+	      
             void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             boost::posix_time::ptime GetDate() const;
             void SetDate(boost::posix_time::ptime date);
@@ -59,14 +60,14 @@ namespace auxi { namespace modelling { namespace business {
             auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* GetGeneralLedgerExpenseAccount() const;
             void SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* generalLedgerExpenseAccount);
 
-            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetMakeLoanTransactionTemplate();
-            void SetMakeLoanTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& makeLoanTransactionTemplate);
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetMakeLoanTxTemplate();
+            void SetMakeLoanTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& makeLoanTxTemplate);
 
-            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetConsiderInterestTransactionTemplate();
-            void SetConsiderInterestTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& considerInterestTransactionTemplate);
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetConsiderInterestTxTemplate();
+            void SetConsiderInterestTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& considerInterestTxTemplate);
 
-            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetPayMonthlyLoanAmountTransactionTemplate();
-            void SetPayMonthlyLoanAmountTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& payMonthlyLoanAmountTransactionTemplate);
+            auxi::modelling::financial::double_entry_system::TransactionTemplate& GetPayMonthlyLoanAmountTxTemplate();
+            void SetPayMonthlyLoanAmountTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& payMonthlyLoanAmountTxTemplate);
 
             double GetLoanAmount() const;
             void SetLoanAmount(double loanAmount);
@@ -90,9 +91,9 @@ namespace auxi { namespace modelling { namespace business {
 	        boost::posix_time::ptime m_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* m_generalLedgerLiabilityAccount;
 	        auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* m_generalLedgerExpenseAccount;
-	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_makeLoanTransactionTemplate;
-	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_considerInterestTransactionTemplate;
-	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_payMonthlyLoanAmountTransactionTemplate;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_makeLoanTxTemplate;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_considerInterestTxTemplate;
+	        auxi::modelling::financial::double_entry_system::TransactionTemplate m_payMonthlyLoanAmountTxTemplate;
 	        double m_loanAmount = 0.0;
 	        double m_interestRate = 0.0;
 	        double m_monthlyInterestRate;

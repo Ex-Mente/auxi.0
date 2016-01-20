@@ -6,9 +6,9 @@ using namespace auxi::modelling::business;
 
 void CapitalLoanActivity::initialize()
 {
-    m_makeLoanTransactionTemplate.SetName("MakeLoan");
-    m_considerInterestTransactionTemplate.SetName("ConsiderInterest");
-    m_payMonthlyLoanAmountTransactionTemplate.SetName("PayInterest");
+    m_makeLoanTxTemplate.SetName("MakeLoan");
+    m_considerInterestTxTemplate.SetName("ConsiderInterest");
+    m_payMonthlyLoanAmountTxTemplate.SetName("PayInterest");
 }
 
 void CapitalLoanActivity::SetInterestRate(double value)
@@ -50,10 +50,10 @@ void CapitalLoanActivity::run(Clock* clock, int ix_interval,
     if (ix_interval == m_executionStartAtInterval)
     {
         auto make_loan_t = generalLedger->create_transaction(
-            m_makeLoanTransactionTemplate.GetName(),
-            m_makeLoanTransactionTemplate.GetName(),
-            m_makeLoanTransactionTemplate.GetCreditAccountName(),
-            m_makeLoanTransactionTemplate.GetDebitAccountName(),
+            m_makeLoanTxTemplate.GetName(),
+            m_makeLoanTxTemplate.GetName(),
+            m_makeLoanTxTemplate.GetCrAccount(),
+            m_makeLoanTxTemplate.GetDtAccount(),
             path);
         make_loan_t->SetDate(currentExecutionDateTime);
         make_loan_t->SetCurrency(m_currency);
@@ -63,20 +63,20 @@ void CapitalLoanActivity::run(Clock* clock, int ix_interval,
     {
         GetCurrentInterestAmount();
         auto consider_interest_t = generalLedger->create_transaction(
-            m_considerInterestTransactionTemplate.GetName(),
-            m_considerInterestTransactionTemplate.GetName(),
-            m_considerInterestTransactionTemplate.GetCreditAccountName(),
-            m_considerInterestTransactionTemplate.GetDebitAccountName(),
+            m_considerInterestTxTemplate.GetName(),
+            m_considerInterestTxTemplate.GetName(),
+            m_considerInterestTxTemplate.GetCrAccount(),
+            m_considerInterestTxTemplate.GetDtAccount(),
             path);
         consider_interest_t->SetDate(currentExecutionDateTime);
         consider_interest_t->SetCurrency(m_currency);
         consider_interest_t->SetAmount(std::abs(m_currentInterestAmount));
 
         auto monthly_loan_t = generalLedger->create_transaction(
-            m_payMonthlyLoanAmountTransactionTemplate.GetName(),
-            m_payMonthlyLoanAmountTransactionTemplate.GetName(),
-            m_payMonthlyLoanAmountTransactionTemplate.GetCreditAccountName(),
-            m_payMonthlyLoanAmountTransactionTemplate.GetDebitAccountName(),
+            m_payMonthlyLoanAmountTxTemplate.GetName(),
+            m_payMonthlyLoanAmountTxTemplate.GetName(),
+            m_payMonthlyLoanAmountTxTemplate.GetCrAccount(),
+            m_payMonthlyLoanAmountTxTemplate.GetDtAccount(),
             path);
         monthly_loan_t->SetDate(currentExecutionDateTime);
         monthly_loan_t->SetCurrency(m_currency);

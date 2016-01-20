@@ -19,8 +19,8 @@ AssetPurchaseActivity::AssetPurchaseActivity(const AssetPurchaseActivity& other)
     m_date = other.m_date;
     m_generalLedgerExpenseAccount = other.m_generalLedgerExpenseAccount;
     m_generalLedgerAssetAccount = other.m_generalLedgerAssetAccount;
-    m_assetPurchaseTransactionTemplate = other.m_assetPurchaseTransactionTemplate;
-    m_addDepreciationTransactionTemplate = other.m_addDepreciationTransactionTemplate;
+    m_assetPurchaseTxTemplate = other.m_assetPurchaseTxTemplate;
+    m_addDepreciationTxTemplate = other.m_addDepreciationTxTemplate;
     m_purchaseAmount = other.m_purchaseAmount;
     m_writeOffAmount = other.m_writeOffAmount;
     m_monthsTillWrittenOff = other.m_monthsTillWrittenOff;
@@ -41,10 +41,10 @@ auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* AssetPurc
 void AssetPurchaseActivity::SetGeneralLedgerExpenseAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerExpenseAccount = value; }
 auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* AssetPurchaseActivity::GetGeneralLedgerAssetAccount() const { return m_generalLedgerAssetAccount; }
 void AssetPurchaseActivity::SetGeneralLedgerAssetAccount(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* value) { m_generalLedgerAssetAccount = value; }
-auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAssetPurchaseTransactionTemplate() { return m_assetPurchaseTransactionTemplate; }
-void AssetPurchaseActivity::SetAssetPurchaseTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_assetPurchaseTransactionTemplate = value; }
-auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAddDepreciationTransactionTemplate() { return m_addDepreciationTransactionTemplate; }
-void AssetPurchaseActivity::SetAddDepreciationTransactionTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_addDepreciationTransactionTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAssetPurchaseTxTemplate() { return m_assetPurchaseTxTemplate; }
+void AssetPurchaseActivity::SetAssetPurchaseTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_assetPurchaseTxTemplate = value; }
+auxi::modelling::financial::double_entry_system::TransactionTemplate& AssetPurchaseActivity::GetAddDepreciationTxTemplate() { return m_addDepreciationTxTemplate; }
+void AssetPurchaseActivity::SetAddDepreciationTxTemplate(auxi::modelling::financial::double_entry_system::TransactionTemplate& value) { m_addDepreciationTxTemplate = value; }
 double AssetPurchaseActivity::GetPurchaseAmount() const { return m_purchaseAmount; }
 double AssetPurchaseActivity::GetWriteOffAmount() const { return m_writeOffAmount; }
 void AssetPurchaseActivity::SetWriteOffAmount(double value) { m_writeOffAmount = value; }
@@ -66,8 +66,8 @@ namespace auxi { namespace modelling { namespace business {
 	  && lhs.m_date == rhs.m_date
 	  && lhs.m_generalLedgerExpenseAccount == rhs.m_generalLedgerExpenseAccount
 	  && lhs.m_generalLedgerAssetAccount == rhs.m_generalLedgerAssetAccount
-	  && lhs.m_assetPurchaseTransactionTemplate == rhs.m_assetPurchaseTransactionTemplate
-	  && lhs.m_addDepreciationTransactionTemplate == rhs.m_addDepreciationTransactionTemplate
+	  && lhs.m_assetPurchaseTxTemplate == rhs.m_assetPurchaseTxTemplate
+	  && lhs.m_addDepreciationTxTemplate == rhs.m_addDepreciationTxTemplate
 	  && almost_equal(lhs.m_purchaseAmount, rhs.m_purchaseAmount, 5)
 	  && almost_equal(lhs.m_writeOffAmount, rhs.m_writeOffAmount, 5)
 	  && almost_equal(lhs.m_monthsTillWrittenOff, rhs.m_monthsTillWrittenOff, 5)
@@ -84,8 +84,8 @@ namespace auxi { namespace modelling { namespace business {
 	  || lhs.m_date != rhs.m_date
 	  || lhs.m_generalLedgerExpenseAccount != rhs.m_generalLedgerExpenseAccount
 	  || lhs.m_generalLedgerAssetAccount != rhs.m_generalLedgerAssetAccount
-	  || lhs.m_assetPurchaseTransactionTemplate != rhs.m_assetPurchaseTransactionTemplate
-	  || lhs.m_addDepreciationTransactionTemplate != rhs.m_addDepreciationTransactionTemplate
+	  || lhs.m_assetPurchaseTxTemplate != rhs.m_assetPurchaseTxTemplate
+	  || lhs.m_addDepreciationTxTemplate != rhs.m_addDepreciationTxTemplate
 	  || !almost_equal(lhs.m_purchaseAmount, rhs.m_purchaseAmount, 5)
 	  || !almost_equal(lhs.m_writeOffAmount, rhs.m_writeOffAmount, 5)
 	  || !almost_equal(lhs.m_monthsTillWrittenOff, rhs.m_monthsTillWrittenOff, 5)
