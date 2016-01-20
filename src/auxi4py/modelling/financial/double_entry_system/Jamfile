@@ -1,0 +1,23 @@
+
+#import python python-extension ;
+
+alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+python-extension des :
+                GeneralLedgerAccountWrapper.cpp
+                GeneralLedgerStructureWrapper.cpp
+                GeneralLedgerWrapper.cpp
+                TransactionTemplateWrapper.cpp
+                TransactionWrapper.cpp
+                des_module.cpp
+                /auxi/core//core
+                /auxi/modelling/financial/double_entry_system//double_entry_system
+                /auxi/modelling/financial/tax//tax
+                boost_dt boost_py
+                :
+                <include>/usr/include/boost
+                <include>../../../../auxi/core
+                <include>../../../../auxi/modelling/financial/double_entry_system
+                <include>../../../../auxi/modelling/financial/tax
+                ;
