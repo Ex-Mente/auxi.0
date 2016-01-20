@@ -1,0 +1,17 @@
+
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+lib calculation_engines :
+         FinancialCalculationEngine.cpp
+         FinancialCalculationEngine.h
+         FinancialCalculationEngine_custom.cpp
+         /auxi/core//core
+         /auxi/modelling/financial/double_entry_system//double_entry_system
+         /auxi/modelling/financial/tax//tax
+         boost_dt
+         :
+         <include>/usr/include/boost
+         <include>../../../core
+         <include>../double_entry_system
+         <include>../tax
+         ;

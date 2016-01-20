@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="generalLedger"
+    targetNamespace="auxi::modelling::financial::double_entry_system"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::financial::double_entry_system"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.financial.double_entry_system.Currency" type="Currency"/>
+
+
+<xs:complexType name="Currency" to_string_function="to_string">
+<function name="to_string" returnType="std::string" />
+<xs:attribute name="DefaultExchangeRate" type="double"/>
+</xs:complexType>
+
+</xs:schema>

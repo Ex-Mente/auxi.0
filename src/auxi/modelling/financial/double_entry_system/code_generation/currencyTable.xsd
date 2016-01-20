@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="generalLedger"
+    targetNamespace="auxi::modelling::financial::double_entry_system"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::financial::double_entry_system"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.financial.double_entry_system.CurrencyTable" type="CurrencyTable"/>
+
+
+<xs:complexType name="CurrencyTable" additional_includes="Currency">
+<function name="CurrencyTable" returnType="" custom_constructor="true">
+  <param name="name" type="std::string"/>
+  <param name="description" type="std::string" default=""/>
+  <param name="default_currency_name" type="std::string" default=""/>
+  <param name="default_currency_description" type="std::string" default=""/>
+</function>
+<function name="create_currency" returnType="Currency*">
+  <param name="name" type="std::string"/>
+  <param name="description" type="std::string"/>
+  <param name="defaultExchangeRate" type="double"/>
+</function>
+<xs:sequence>
+    <xs:element name="Currency" type="Currency*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="DefaultCurrency" type="Currency*" default="nullptr"/>
+</xs:complexType>
+
+</xs:schema>

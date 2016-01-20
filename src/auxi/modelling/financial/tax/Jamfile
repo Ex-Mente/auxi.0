@@ -1,0 +1,20 @@
+
+alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
+
+lib tax :
+         CapitalGainsRule.cpp
+         CapitalGainsRule.h
+         IncomeRule.cpp
+         IncomeRule.h
+         SalesRule.cpp
+         SalesRule.h
+         Rule.cpp
+         Rule.h
+         RuleSet.cpp
+         RuleSet.h
+         /auxi/core//core
+         boost_dt
+         :
+         <include>/usr/include/boost
+         <include>../../../core
+         ;

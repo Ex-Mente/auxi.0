@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="taxRule"
+    targetNamespace="auxi::modelling::financial::tax"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::financial::tax"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.financial.tax.rule" type="Rule"/>
+
+<xs:complexType name="Rule">
+</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="generalLedgerStructure"
+    targetNamespace="auxi::modelling::financial::double_entry_system"
+    elementFormDefault="qualified"
+    xmlns="financial"
+    xmlns:mstns="auxi::modelling::financial::double_entry_system"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+<xs:element name="auxi.modelling.financial.double_entry_system.GeneralLedgerStructure" type="GeneralLedgerStructure"/>
+
+
+<xs:complexType name="GeneralLedgerStructure" additional_includes="GeneralLedgerAccount" constructor_init_function="initialize" to_string_function="to_string" destructor_clean_function="clean">
+<function name="GeneralLedgerStructure" returnType="" custom_constructor="true">
+  <param name="name" type="std::string"/>
+  <param name="description" type="std::string" default=""/>
+  <param name="json_path" type="std::string" default=""/>
+</function>
+
+<function name="create_account" returnType="GeneralLedgerAccount*">
+  <param name="name" type="std::string"/>
+  <param name="account_number" type="std::string"/>
+  <param name="account_type" type="AccountType::AccountType"/>
+</function>
+<function name="remove_account" returnType="void">
+  <param name="account_number" type="std::string"/>
+</function>
+<function name="get_account" returnType="GeneralLedgerAccount*">
+  <param name="name" type="std::string"/>
+</function>
+<function name="initialize" returnType="void" />
+<function name="clean" returnType="void" />
+<function name="to_string" returnType="std::string" />
+<xs:sequence>
+    <xs:element name="Account" type="GeneralLedgerAccount*" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+<xs:attribute name="Bank" type="GeneralLedgerAccount*" doc="The main bank account of the business. It can be divided into sub-accounts, or used as is."/>
+<xs:attribute name="IncomeTaxPayable" type="GeneralLedgerAccount*"/>
+<xs:attribute name="IncomeTaxExpense" type="GeneralLedgerAccount*"/>
+<xs:attribute name="Sales" type="GeneralLedgerAccount*"/>
+<xs:attribute name="CostOfSales" type="GeneralLedgerAccount*"/>
+<xs:attribute name="GrossProfit" type="GeneralLedgerAccount*"/>
+<xs:attribute name="IncomeSummary" type="GeneralLedgerAccount*"/>
+<xs:attribute name="RetainedEarnings" type="GeneralLedgerAccount*"/>
+<xs:attribute name="TaxPaymentAccount" type="std::string" default="" doc="The bank account from which taxes will be deducted. If this property is empty, the main bank account will be used."/>
+</xs:complexType>
+</xs:schema>
