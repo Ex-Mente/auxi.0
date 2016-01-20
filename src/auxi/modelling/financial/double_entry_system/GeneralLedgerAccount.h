@@ -27,11 +27,11 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
     {
         enum AccountType
         {
-	        Asset,
-	        Equity,
-	        Expense,
-	        Liability,
-	        Revenue,
+	        asset,
+	        equity,
+	        expense,
+	        liability,
+	        revenue,
         };
     }
 
@@ -56,11 +56,9 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
             GeneralLedgerAccount* Clone() const { return new GeneralLedgerAccount(*this); }
 
 	      
-            GeneralLedgerAccount* create_account(std::string name, std::string number, AccountType::AccountType type);
+            GeneralLedgerAccount* create_account(std::string name, std::string number = "");
 	      
             void remove_account(std::string number);
-	      
-            void clean();
 	      
             std::string to_string();
             std::vector<GeneralLedgerAccount*>& GetAccountList();
@@ -78,6 +76,8 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
 	        AccountType::AccountType m_type;
 
         private:
+	      
+            void clean();
     };
 }}}}
 #endif

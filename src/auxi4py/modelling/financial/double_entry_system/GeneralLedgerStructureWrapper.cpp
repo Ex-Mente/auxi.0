@@ -22,6 +22,7 @@ boost::python::list to_python_list(std::vector<T> vector) {
 
 
 
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(GeneralLedgerStructurecreate_account, create_account, 1, 3)
 
 
 
@@ -37,20 +38,26 @@ void export_auxi_modelling_financial_double_entry_system_GeneralLedgerStructure(
 
 
 
-    class_<GeneralLedgerStructureWrapper, GeneralLedgerStructure*, bases<NamedObject>>("GeneralLedgerStructure", """", init<>())
+    class_<GeneralLedgerStructureWrapper, GeneralLedgerStructure*, bases<NamedObject>>("GeneralLedgerStructure", "This class contains and stuctures the accounts for a general ledger.", init<std::string, optional<std::string, std::string> >(args("name","description","json_path"), "TEETETETSST"))
 	.def(self == self)
-    
-        
-    .def(init<std::string, optional<std::string, std::string> >())
-    
-    .def("create_account", make_function(&GeneralLedgerStructure::create_account, return_internal_reference<1>()), "")
-    
+
+
+    //.def(init<std::string, optional<std::string, std::string> >(args("name","description","json_path"), "TEETETETSST"))
+
+    .def("create_account", &GeneralLedgerStructure::create_account, return_internal_reference<1>(), GeneralLedgerStructurecreate_account(args("name", "number", "type"), "Create an account in the general ledger\n"
+"\n"
+":param name: The account name.\n"
+":param number: The account number. The default is an empty string.\n"
+":param type: The account type. The default is AccountType.asset.\n"
+"\n"
+":return: A reference to the account"))
+
 	.def("remove_account", &GeneralLedgerStructure::remove_account, "")
-    
-    .def("get_account", make_function(&GeneralLedgerStructure::get_account, return_internal_reference<1>()), "")
-    
-    
-    
+
+    .def("get_account", &GeneralLedgerStructure::get_account, return_internal_reference<1>(), "")
+
+
+
 	.def("to_string", &GeneralLedgerStructure::to_string, "")
 
 	.add_property("accounts", make_function(&GeneralLedgerStructure::GetAccountList, return_internal_reference<1>()), """")

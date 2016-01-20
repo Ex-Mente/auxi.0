@@ -21,7 +21,7 @@ boost::python::list to_python_list(std::vector<T> vector) {
 
 
 
-
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(GeneralLedgerAccountcreate_account, create_account, 1, 2)
 
 
 struct GeneralLedgerAccountWrapper : GeneralLedgerAccount, wrapper<GeneralLedgerAccount>
@@ -31,12 +31,12 @@ struct GeneralLedgerAccountWrapper : GeneralLedgerAccount, wrapper<GeneralLedger
 void export_auxi_modelling_financial_double_entry_system_GeneralLedgerAccount()
 {
   // Python C++ mappings
-  enum_<auxi::modelling::financial::double_entry_system::AccountType::AccountType>("AccountType", "None")
-      .value("Asset", AccountType::Asset)
-      .value("Equity", AccountType::Equity)
-      .value("Expense", AccountType::Expense)
-      .value("Liability", AccountType::Liability)
-      .value("Revenue", AccountType::Revenue)
+  enum_<auxi::modelling::financial::double_entry_system::AccountType::AccountType>("AccountType", "The type of the general ledger account account.")
+      .value("asset", AccountType::asset)
+      .value("equity", AccountType::equity)
+      .value("expense", AccountType::expense)
+      .value("liability", AccountType::liability)
+      .value("revenue", AccountType::revenue)
       ;
 
 
@@ -45,9 +45,17 @@ void export_auxi_modelling_financial_double_entry_system_GeneralLedgerAccount()
 	.def(init<std::string, std::string>())
 	.def(self == self)
     
-    .def("create_account", make_function(&GeneralLedgerAccount::create_account, return_internal_reference<1>()), "")
+    .def("create_account", &GeneralLedgerAccount::create_account, return_internal_reference<1>(), GeneralLedgerAccountcreate_account(args("name", "number"), "Create sub account.\n"
+"\n"
+":param name: The account name.\n"
+":param number: The account number. The default is an empty string.\n"
+"\n"
+":return: A reference to the account"))
     
-	.def("remove_account", &GeneralLedgerAccount::remove_account, "")
+	.def("remove_account", &GeneralLedgerAccount::remove_account, args("number"), "Removes a specific account.\n"
+"\n"
+":param number: The number of the account to remove.\n"
+)
     
     
 	.def("to_string", &GeneralLedgerAccount::to_string, "")

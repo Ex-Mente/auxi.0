@@ -9,17 +9,17 @@
 <xs:element name="auxi.modelling.financial.double_entry_system.GeneralLedgerStructure" type="GeneralLedgerStructure"/>
 
 
-<xs:complexType name="GeneralLedgerStructure" additional_includes="GeneralLedgerAccount" constructor_init_function="initialize" to_string_function="to_string" destructor_clean_function="clean">
-<function name="GeneralLedgerStructure" returnType="" custom_constructor="true">
-  <param name="name" type="std::string"/>
-  <param name="description" type="std::string" default=""/>
-  <param name="json_path" type="std::string" default=""/>
+<xs:complexType name="GeneralLedgerStructure" additional_includes="GeneralLedgerAccount" constructor_init_function="initialize" to_string_function="to_string" destructor_clean_function="clean" doc="This class contains and stuctures the accounts for a general ledger.">
+<function name="GeneralLedgerStructure" returnType="" custom_constructor="true" doc="Constructs the general ledger structure with its configuration.">
+  <param name="name" type="std::string" doc="The name."/>
+  <param name="description" type="std::string" default="" doc="The description."/>
+  <param name="json_path" type="std::string" default="" doc="The path to the json file used to construct the general ledger's accounts."/>
 </function>
 
-<function name="create_account" returnType="GeneralLedgerAccount*">
-  <param name="name" type="std::string"/>
-  <param name="account_number" type="std::string"/>
-  <param name="account_type" type="AccountType::AccountType"/>
+<function name="create_account" returnType="GeneralLedgerAccount*" doc="Create an account in the general ledger" doc_return="A reference to the account">
+  <param name="name" type="std::string" doc="The account name."/>
+  <param name="number" type="std::string" default="" doc="The account number. The default is an empty string."/>
+  <param name="type" type="AccountType::AccountType" default="AccountType::asset" doc="The account type. The default is AccountType.asset."/>
 </function>
 <function name="remove_account" returnType="void">
   <param name="account_number" type="std::string"/>

@@ -10,14 +10,14 @@ GeneralLedgerStructure::GeneralLedgerStructure(std::string name, std::string des
 
 void GeneralLedgerStructure::initialize()
 {
-    m_bank = create_account("Bank", "Bank", AccountType::Asset);
-    m_incomeTaxPayable = create_account("IncomeTaxPayable", "IncomeTaxPayable", AccountType::Liability);
-    m_incomeTaxExpense = create_account("IncomeTaxExpense", "IncomeTaxExpense", AccountType::Expense);
-    m_sales = create_account("Sales", "Sales", AccountType::Revenue);
-    m_costOfSales = create_account("CostOfSales", "CostOfSales", AccountType::Expense);
-    m_grossProfit = create_account("GrossProfit", "GrossProfit", AccountType::Revenue);
-    m_incomeSummary = create_account("IncomeSummary", "IncomeSummary", AccountType::Revenue);
-    m_retainedEarnings = create_account("RetainedEarnings", "RetainedEarnings", AccountType::Equity);
+    m_bank = create_account("Bank", "Bank", AccountType::asset);
+    m_incomeTaxPayable = create_account("IncomeTaxPayable", "IncomeTaxPayable", AccountType::liability);
+    m_incomeTaxExpense = create_account("IncomeTaxExpense", "IncomeTaxExpense", AccountType::expense);
+    m_sales = create_account("Sales", "Sales", AccountType::revenue);
+    m_costOfSales = create_account("CostOfSales", "CostOfSales", AccountType::expense);
+    m_grossProfit = create_account("GrossProfit", "GrossProfit", AccountType::revenue);
+    m_incomeSummary = create_account("IncomeSummary", "IncomeSummary", AccountType::revenue);
+    m_retainedEarnings = create_account("RetainedEarnings", "RetainedEarnings", AccountType::equity);
 }
 
 void GeneralLedgerStructure::clean()

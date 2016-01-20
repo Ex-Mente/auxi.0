@@ -8,26 +8,25 @@
 >
 <xs:element name="auxi.modelling.financial.double_entry_system.GeneralLedgerAccount" type="GeneralLedgerAccount"/>
 
-<xs:simpleType name="AccountType">
+<xs:simpleType name="AccountType" doc="The type of the general ledger account account.">
     <xs:restriction base="xs:token">
-          <xs:enumeration value="Asset"/>
-          <xs:enumeration value="Equity"/>
-          <xs:enumeration value="Expense"/>
-          <xs:enumeration value="Liability"/>
-          <xs:enumeration value="Revenue"/>
+          <xs:enumeration value="asset"/>
+          <xs:enumeration value="equity"/>
+          <xs:enumeration value="expense"/>
+          <xs:enumeration value="liability"/>
+          <xs:enumeration value="revenue"/>
     </xs:restriction>
 </xs:simpleType>
 
 <xs:complexType name="GeneralLedgerAccount" forwardDeclareClasses="GeneralLedger" to_string_function="to_string"  destructor_clean_function="clean">
-<function name="create_account" returnType="GeneralLedgerAccount*">
-  <param name="name" type="std::string"/>
-  <param name="number" type="std::string"/>
-  <param name="type" type="AccountType::AccountType"/>
+<function name="create_account" returnType="GeneralLedgerAccount*" doc="Create sub account." doc_return="A reference to the account">
+  <param name="name" type="std::string" doc="The account name."/>
+  <param name="number" type="std::string" default="" doc="The account number. The default is an empty string."/>
 </function>
-<function name="remove_account" returnType="void">
-  <param name="number" type="std::string"/>
+<function name="remove_account" returnType="void" doc="Removes a specific account.">
+  <param name="number" type="std::string" doc="The number of the account to remove."/>
 </function>
-<function name="clean" returnType="void" />
+<function name="clean" returnType="void" private="true"/>
 <function name="to_string" returnType="std::string" />
 <xs:sequence>
     <xs:element name="Account" type="GeneralLedgerAccount*" minOccurs="0" maxOccurs="unbounded"/>

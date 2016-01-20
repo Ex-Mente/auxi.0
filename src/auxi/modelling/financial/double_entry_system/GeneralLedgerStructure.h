@@ -41,7 +41,7 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
 	      
              GeneralLedgerStructure(std::string name, std::string description = "", std::string json_path = "");
 	      
-            GeneralLedgerAccount* create_account(std::string name, std::string account_number, AccountType::AccountType account_type);
+            GeneralLedgerAccount* create_account(std::string name, std::string number = "", AccountType::AccountType type = AccountType::asset);
 	      
             void remove_account(std::string account_number);
 	      

@@ -120,7 +120,6 @@ print()
 core_mod_path = os.path.join(project_path, r"../../src/auxi4py/core/bin/gcc-c++11/release/core.so")
 stoi_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/stoichiometry/bin/gcc-c++11/release/stoichiometry.so")
 thermochem_mod_path = os.path.join(project_path, r"../../src/auxi4py/tools/chemistry/thermochemistry/bin/gcc-c++11/release/thermochemistry.so")
-fincalc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
 des_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/double_entry_system/bin/gcc-c++11/release/des.so")
 tax_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/financial/tax/bin/gcc-c++11/release/tax.so")
 #stock_calc_mod_path = os.path.join(project_path, r"../../src/auxi4py/modelling/stock/calculation_engines/bin/gcc-c++11/release/calculation_engines.so")
@@ -160,10 +159,8 @@ thermochem_mod_path
 ]
 
 financial_dependencies_paths = [
-os.path.join(project_path, r"../../src/auxi/modelling/financial/calculation_engines/bin/gcc-c++11/release/libcalculation_engines.so"),
 os.path.join(project_path, r"../../src/auxi/modelling/financial/double_entry_system/bin/gcc-c++11/release/libdouble_entry_system.so"),
 os.path.join(project_path, r"../../src/auxi/modelling/financial/tax/bin/gcc-c++11/release/libtax.so"),
-fincalc_mod_path,
 des_mod_path,
 tax_mod_path
 ]
@@ -203,8 +200,6 @@ new_stoichiometry_mod_path = os.path.join(dep_path__tools_chemistry, "stoichiome
 new_stoichiometry_lib_path = os.path.join(dep_path__tools_chemistry, "libstoichiometry.so")
 new_thermochem_mod_path = os.path.join(dep_path__tools_chemistry, "thermochemistry.so")
 new_thermochem_lib_path = os.path.join(dep_path__tools_chemistry, "libthermochemistry.so")
-new_fincalc_mod_path = os.path.join(dep_path__modelling_fin, "calculation_engines.so")
-new_fincalc_lib_path = os.path.join(dep_path__modelling_fin, "libcalculation_engines.so")
 new_des_mod_path = os.path.join(dep_path__modelling_fin, "des.so")
 new_des_lib_path = os.path.join(dep_path__modelling_fin, "libdouble_entry_system.so")
 new_tax_mod_path = os.path.join(dep_path__modelling_fin, "tax.so")
@@ -219,8 +214,6 @@ call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ ne
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_stoichiometry_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_thermochem_lib_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_fincalc_mod_path], shell=True)
-call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_fincalc_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_des_mod_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_des_lib_path], shell=True)
 call(["sudo " + patchelf_path + " --set-rpath '$ORIGIN:$ORIGIN/../../core' "+ new_tax_mod_path], shell=True)

@@ -39,7 +39,7 @@ void export_auxi_modelling_financial_double_entry_system_GeneralLedger()
 	.def(init<std::string, std::string>())
 	.def(self == self)
     
-    .def("create_transaction", make_function(&GeneralLedger::create_transaction, return_internal_reference<1>()), "")
+    .def("create_transaction", &GeneralLedger::create_transaction, return_internal_reference<1>(), "")
     
     
 	.def("to_string", &GeneralLedger::to_string, "")

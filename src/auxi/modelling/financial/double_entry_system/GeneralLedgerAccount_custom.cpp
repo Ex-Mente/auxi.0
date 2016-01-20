@@ -9,11 +9,11 @@ void GeneralLedgerAccount::clean()
     m_accountList.clear();
 }
 
-GeneralLedgerAccount* GeneralLedgerAccount::create_account(std::string name, std::string number, AccountType::AccountType type)
+GeneralLedgerAccount* GeneralLedgerAccount::create_account(std::string name, std::string number)
 {
     auto acc = new GeneralLedgerAccount(name, "");
     acc->SetNumber(number);
-    acc->SetType(type);
+    acc->SetType(m_type);
 
     m_accountList.push_back(acc);
     return acc;

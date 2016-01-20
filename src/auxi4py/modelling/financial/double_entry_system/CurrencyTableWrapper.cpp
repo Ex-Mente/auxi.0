@@ -38,7 +38,7 @@ void export_auxi_modelling_financial_double_entry_system_CurrencyTable()
         
     .def(init<std::string, optional<std::string, std::string, std::string> >())
     
-    .def("create_currency", make_function(&CurrencyTable::create_currency, return_internal_reference<1>()), "")
+    .def("create_currency", &CurrencyTable::create_currency, return_internal_reference<1>(), "")
 
 	.add_property("currencys", make_function(&CurrencyTable::GetCurrencyList, return_internal_reference<1>()), """")
 
