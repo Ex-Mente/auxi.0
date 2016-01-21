@@ -4,11 +4,18 @@
 
 using namespace auxi::modelling::business;
 
+TimeBasedModel::TimeBasedModel(std::string name, std::string description, boost::posix_time::ptime start_date, TimePeriod::TimePeriod period_duration, int period_count) : Model(name, description) {
+    m_periodCount = period_count;
+    m_clock.SetName("Clock");
+    m_clock.SetStartDateTime(start_date);
+    m_clock.SetTimeStepPeriodDuration(period_duration);
+}
+
 void TimeBasedModel::initialize()
 {
     m_clock.SetName("Clock");
     m_clock.SetStartDateTime(boost::posix_time::second_clock::local_time());
-    m_clock.SetTimeStepInterval(TimeInterval::Month);
+    m_clock.SetTimeStepPeriodDuration(TimePeriod::month);
 }
 
 Entity* TimeBasedModel::create_entity(std::string name)
@@ -36,12 +43,12 @@ void TimeBasedModel::prepare_to_run()
 {
     m_clock.reset();
     for(auto item: m_entityList)
-        item->prepare_to_run(&m_clock, m_totalIntervalsToRun);
+        item->prepare_to_run(&m_clock, m_periodCount);
 }
 void TimeBasedModel::run()
 {
     prepare_to_run();
-    for (int interval=0; interval<m_totalIntervalsToRun; interval++)
+    for (int interval=0; interval<m_periodCount; interval++)
     {
         m_clock.tick();
         for(auto item: m_entityList)

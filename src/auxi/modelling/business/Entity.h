@@ -51,9 +51,9 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void remove_component(std::string name);
 	      
-            void prepare_to_run(Clock* clock, int totalIntervalsToRun);
+            void prepare_to_run(Clock* clock, int period_count);
 	      
-            void run(Clock* clock, int ix_interval, Units currency);
+            void run(Clock* clock, int ix_period, Units currency);
             std::vector<VariableGroup*>& GetVariableGroupList();
 
             std::vector<Component*>& GetComponentList();
@@ -64,8 +64,8 @@ namespace auxi { namespace modelling { namespace business {
             double GetNegativeIncomeTaxTotal() const;
             void SetNegativeIncomeTaxTotal(double negativeIncomeTaxTotal);
 
-            int GetTotalIntervalsToRun() const;
-            void SetTotalIntervalsToRun(int totalIntervalsToRun);
+            int GetPeriodCount() const;
+            void SetPeriodCount(int periodCount);
 
             auxi::modelling::financial::double_entry_system::GeneralLedger& GetGl();
             void SetGl(auxi::modelling::financial::double_entry_system::GeneralLedger& gl);
@@ -79,7 +79,7 @@ namespace auxi { namespace modelling { namespace business {
 	        boost::posix_time::ptime m_prev_year_end_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        boost::posix_time::ptime m_curr_year_end_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
 	        boost::posix_time::ptime m_execution_end_date = boost::posix_time::time_from_string("1500-01-01 00:00:00");
-	        int m_totalIntervalsToRun;
+	        int m_periodCount;
 	        auxi::modelling::financial::double_entry_system::GeneralLedger m_gl;
 
         private:
@@ -94,7 +94,7 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void perform_year_end_procedure_retained_earnings(boost::posix_time::ptime yearEndDate, Units currency, double incomeSummaryAmount);
 	      
-            void perform_year_end_procedure(Clock* clock, int ix_interval, Units currency);
+            void perform_year_end_procedure(Clock* clock, int ix_period, Units currency);
 	      
             std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> getSalesAccounts(auxi::modelling::financial::double_entry_system::GeneralLedgerAccount* currentAccount, std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*> salesAccounts = std::vector<auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*>());
 	      

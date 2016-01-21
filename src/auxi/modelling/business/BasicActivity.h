@@ -15,11 +15,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     class BasicActivity;
 }}}
 
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     using namespace auxi::core;
 
     // Declare classes
@@ -28,11 +28,7 @@ namespace auxi { namespace modelling { namespace business {
     {
         public:
             BasicActivity();
-            
-            BasicActivity(std::string name, std::string description) : Activity(name, description)
-            {
-                initialize();
-            };
+
             ~BasicActivity();
             BasicActivity(const BasicActivity& other);
 
@@ -43,14 +39,20 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             BasicActivity* Clone() const { return new BasicActivity(*this); }
 
-	      
+
+             //BasicActivity(std::string name, std::string description = "", int start = 0, int end = -1, int interval = 1, double amount = 1000, auxi::modelling::financial::double_entry_system::TransactionTemplate tx_template = auxi::modelling::financial::double_entry_system::TransactionTemplate());
+
+             BasicActivity(std::string name, std::string description = "", boost::posix_time::ptime start = boost::posix_time::min_date_time, boost::posix_time::ptime end = boost::posix_time::max_date_time, int interval = 1, double amount = 1000, auxi::modelling::financial::double_entry_system::TransactionTemplate tx_template = auxi::modelling::financial::double_entry_system::TransactionTemplate());
+
+             //BasicActivity(std::string name, std::string description = "", boost::posix_time::ptime start = boost::posix_time::min_date_time, int repeat = 1, int interval = 1, double amount = 1000, auxi::modelling::financial::double_entry_system::TransactionTemplate tx_template = auxi::modelling::financial::double_entry_system::TransactionTemplate());
+
             void initialize();
-	      
+
             bool OnExecute_MeetExecutionCriteria(int executionMonth);
-	      
-            void prepare_to_run(Clock* clock, int totalIntervalsToRun);
-	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
+
+            void prepare_to_run(Clock* clock, int period_count);
+
+            void run(Clock* clock, int ix_period, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             boost::posix_time::ptime GetDate() const;
             void SetDate(boost::posix_time::ptime date);
 

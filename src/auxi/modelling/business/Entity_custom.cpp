@@ -32,11 +32,11 @@ void Entity::remove_component(std::string name)
     throw std::out_of_range("The component: '" + name + "' does not exist in the entity's component list'.");
 }
 
-void Entity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
+void Entity::prepare_to_run(Clock* clock, int period_count)
 {
-    m_totalIntervalsToRun = totalIntervalsToRun;
+    m_periodCount = period_count;
 
-    m_execution_end_date = clock->GetDateTimeAtInterval(totalIntervalsToRun);
+    m_execution_end_date = clock->GetDateTimeAtPeriodIndex(period_count);
     m_prev_year_end_date = clock->GetStartDateTime();
     m_curr_year_end_date = clock->GetStartDateTime() + boost::gregorian::years(1);
 
@@ -45,7 +45,7 @@ void Entity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
         delete t_List[i];
     t_List.clear();
     for(auto item: m_componentList)
-        item->prepare_to_run(clock, totalIntervalsToRun);
+        item->prepare_to_run(clock, period_count);
     m_negativeIncomeTaxTotal = 0;
 }
 
@@ -319,7 +319,7 @@ void Entity::perform_year_end_procedure_retained_earnings(boost::posix_time::pti
 
 void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units currency)
 {
-    if(clock->GetDateTimeAtInterval(ix_interval) >= m_curr_year_end_date || ix_interval+1 == m_totalIntervalsToRun)
+    if(clock->GetDateTimeAtPeriodIndex(ix_interval) >= m_curr_year_end_date || ix_interval+1 == m_periodCount)
     {
         auto generalLedger_struct = m_gl.GetStructure();
 
@@ -417,7 +417,7 @@ void Entity::perform_year_end_procedure(Clock * clock, int ix_interval, Units cu
 
 void Entity::run(Clock* clock, int ix_interval, Units currency)
 {
-    if(ix_interval >= m_totalIntervalsToRun) return;
+    if(ix_interval >= m_periodCount) return;
     auto generalLedger_struct = m_gl.GetStructure();
     if(generalLedger_struct == nullptr) return;
 

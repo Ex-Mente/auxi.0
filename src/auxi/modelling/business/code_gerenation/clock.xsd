@@ -8,16 +8,16 @@
 >
 <xs:element name="auxi.modelling.business.Clock" type="Clock"/>
 
-<xs:simpleType name="TimeInterval">
+<xs:simpleType name="TimePeriod">
     <xs:restriction base="xs:token">
-          <xs:enumeration value="Millisecond"/>
-          <xs:enumeration value="Second"/>
-          <xs:enumeration value="Minute"/>
-          <xs:enumeration value="Hour"/>
-          <xs:enumeration value="Day"/>
-          <xs:enumeration value="Week"/>
-          <xs:enumeration value="Month"/>
-          <xs:enumeration value="Year"/>
+          <xs:enumeration value="millisecond"/>
+          <xs:enumeration value="second"/>
+          <xs:enumeration value="minute"/>
+          <xs:enumeration value="hour"/>
+          <xs:enumeration value="day"/>
+          <xs:enumeration value="week"/>
+          <xs:enumeration value="month"/>
+          <xs:enumeration value="year"/>
     </xs:restriction>
 </xs:simpleType>
 
@@ -25,12 +25,12 @@
     <function name="tick" returnType="void" />
     <function name="reset" returnType="void" />
     <function name="GetDateTime" returnType="boost::posix_time::ptime" />
-    <function name="GetDateTimeAtInterval" returnType="boost::posix_time::ptime">
-      <param name="interval" type="int"/>
+    <function name="GetDateTimeAtPeriodIndex" returnType="boost::posix_time::ptime">
+      <param name="period_count" type="int"/>
     </function>
     <xs:attribute name="StartDateTime" type="dateTime"/>
-    <xs:attribute name="TimeStepInterval" type="TimeInterval"/>
-    <xs:attribute name="TimeStepIntervalCount" type="int" default="1"/>
+    <xs:attribute name="TimeStepPeriodDuration" type="TimePeriod" default="month"/>
+    <xs:attribute name="TimeStepPeriodCount" type="int" default="1"/>
     <xs:attribute name="TimeStepIndex" type="int" default="0" set="false"/>
 </xs:complexType>
 

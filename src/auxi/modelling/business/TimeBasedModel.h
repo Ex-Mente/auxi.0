@@ -31,10 +31,6 @@ namespace auxi { namespace modelling { namespace business {
         public:
             TimeBasedModel();
             
-            TimeBasedModel(std::string name, std::string description) : Model(name, description)
-            {
-                initialize();
-            };
             ~TimeBasedModel();
             TimeBasedModel(const TimeBasedModel& other);
 
@@ -45,6 +41,8 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             TimeBasedModel* Clone() const { return new TimeBasedModel(*this); }
 
+	      
+             TimeBasedModel(std::string name, std::string description = "", boost::posix_time::ptime start_date = boost::posix_time::ptime(boost::posix_time::second_clock::local_time()), TimePeriod::TimePeriod period_duration = TimePeriod::month, int period_count = 60);
 	      
             void initialize();
 	      
@@ -60,8 +58,8 @@ namespace auxi { namespace modelling { namespace business {
             Units& GetCurrency();
             void SetCurrency(Units& currency);
 
-            int GetTotalIntervalsToRun() const;
-            void SetTotalIntervalsToRun(int totalIntervalsToRun);
+            int GetPeriodCount() const;
+            void SetPeriodCount(int periodCount);
 
             Clock& GetClock();
 
@@ -69,7 +67,7 @@ namespace auxi { namespace modelling { namespace business {
         protected:
 	        std::vector<Entity*> m_entityList;
 	        Units m_currency;
-	        int m_totalIntervalsToRun = 12;
+	        int m_periodCount = 60;
 	        Clock m_clock;
 
         private:

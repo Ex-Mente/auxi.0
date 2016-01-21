@@ -3,6 +3,23 @@
 
 using namespace auxi::modelling::business;
 
+/*
+AssetPurchaseActivity::AssetPurchaseActivity(std::string name, std::string description, int start, int end, int interval) : Activity(name, description, start, end, interval)
+{
+    initialize();
+}
+*/
+AssetPurchaseActivity::AssetPurchaseActivity(std::string name, std::string description, boost::posix_time::ptime start, boost::posix_time::ptime end, int interval) : Activity(name, description, start, end, interval)
+{
+    initialize();
+}
+/*
+AssetPurchaseActivity::AssetPurchaseActivity(std::string name, std::string description, boost::posix_time::ptime start, int repeat, int interval) : Activity(name, description, start, repeat, interval)
+{
+    initialize();
+}
+*/
+
 void AssetPurchaseActivity::initialize()
 {
     m_assetPurchaseTxTemplate.SetName("AssetPruchase");
@@ -12,7 +29,7 @@ void AssetPurchaseActivity::initialize()
 
 void AssetPurchaseActivity::updatePeriodicDepreciationAmount()
 {
-    m_periodicDepreciationAmount = (m_purchaseAmount - m_writeOffAmount) / m_monthsTillWrittenOff * m_executeInterval;
+    m_periodicDepreciationAmount = (m_purchaseAmount - m_writeOffAmount) / m_monthsTillWrittenOff * m_interval;
 }
 
 void AssetPurchaseActivity::SetPurchaseAmount(double value)
@@ -27,9 +44,9 @@ void AssetPurchaseActivity::SetMonthsTillWrittenOff(double value)
     updatePeriodicDepreciationAmount();
 }
 
-bool AssetPurchaseActivity::OnExecute_MeetExecutionCriteria(int ix_month)
+bool AssetPurchaseActivity::OnExecute_MeetExecutionCriteria(int ix_period)
 {
-    return Activity::OnExecute_MeetExecutionCriteria(ix_month) && m_currentAssetValue > m_writeOffAmount;
+    return Activity::OnExecute_MeetExecutionCriteria(ix_period) && m_currentAssetValue > m_writeOffAmount;
 }
 
 void AssetPurchaseActivity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
@@ -42,14 +59,14 @@ void AssetPurchaseActivity::prepare_to_run(Clock* clock, int totalIntervalsToRun
     updatePeriodicDepreciationAmount();
 }
 
-void AssetPurchaseActivity::run(Clock* clock, int ix_interval,
+void AssetPurchaseActivity::run(Clock* clock, int ix_period,
                                 auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
 {
-    if (!OnExecute_MeetExecutionCriteria(ix_interval)) return;
+    if (!OnExecute_MeetExecutionCriteria(ix_period)) return;
     // TODO: add purchase on first iteration.
-    boost::posix_time::ptime currentExecutionDateTime = clock->GetDateTimeAtInterval(ix_interval);
+    boost::posix_time::ptime currentExecutionDateTime = clock->GetDateTimeAtPeriodIndex(ix_period);
 
-    if (ix_interval == m_executionStartAtInterval)
+    if (ix_period == m_startPeriod)
     {
         auto t = generalLedger->create_transaction(
             m_assetPurchaseTxTemplate.GetName(),

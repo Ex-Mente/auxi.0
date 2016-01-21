@@ -14,6 +14,7 @@ lib business :
         CapitalLoanActivity_custom.cpp
         Clock.cpp
         Clock.h
+        Clock_custom.cpp
         Component.cpp
         Component.h
         Component_custom.cpp
@@ -23,7 +24,6 @@ lib business :
         TimeBasedModel.cpp
         TimeBasedModel.h
         TimeBasedModel_custom.cpp
-        clock_custom.cpp
         /auxi/core//core
         /auxi/modelling/financial/double_entry_system//double_entry_system
         /auxi/modelling/financial/tax//tax

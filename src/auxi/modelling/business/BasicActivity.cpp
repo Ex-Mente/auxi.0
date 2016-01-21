@@ -34,10 +34,10 @@ double BasicActivity::GetAmount() const { return m_amount; }
 void BasicActivity::SetAmount(double value) { m_amount = value; }
 
 
-    
-    
-    
-namespace auxi { namespace modelling { namespace business { 
+
+
+
+namespace auxi { namespace modelling { namespace business {
     bool operator==(const BasicActivity& lhs, const BasicActivity& rhs)
     {
         return 1 == 1

@@ -22,7 +22,7 @@ Entity::Entity(const Entity& other)
     m_prev_year_end_date = other.m_prev_year_end_date;
     m_curr_year_end_date = other.m_curr_year_end_date;
     m_execution_end_date = other.m_execution_end_date;
-    m_totalIntervalsToRun = other.m_totalIntervalsToRun;
+    m_periodCount = other.m_periodCount;
     m_gl = other.m_gl;
 }
 
@@ -37,8 +37,8 @@ auxi::modelling::financial::tax::RuleSet& Entity::GetTaxRuleSet() { return m_tax
 void Entity::SetTaxRuleSet(auxi::modelling::financial::tax::RuleSet& value) { m_taxRuleSet = value; }
 double Entity::GetNegativeIncomeTaxTotal() const { return m_negativeIncomeTaxTotal; }
 void Entity::SetNegativeIncomeTaxTotal(double value) { m_negativeIncomeTaxTotal = value; }
-int Entity::GetTotalIntervalsToRun() const { return m_totalIntervalsToRun; }
-void Entity::SetTotalIntervalsToRun(int value) { m_totalIntervalsToRun = value; }
+int Entity::GetPeriodCount() const { return m_periodCount; }
+void Entity::SetPeriodCount(int value) { m_periodCount = value; }
 auxi::modelling::financial::double_entry_system::GeneralLedger& Entity::GetGl() { return m_gl; }
 void Entity::SetGl(auxi::modelling::financial::double_entry_system::GeneralLedger& value) { m_gl = value; }
 
@@ -57,7 +57,7 @@ namespace auxi { namespace modelling { namespace business {
 	  && lhs.m_prev_year_end_date == rhs.m_prev_year_end_date
 	  && lhs.m_curr_year_end_date == rhs.m_curr_year_end_date
 	  && lhs.m_execution_end_date == rhs.m_execution_end_date
-	  && lhs.m_totalIntervalsToRun == rhs.m_totalIntervalsToRun
+	  && lhs.m_periodCount == rhs.m_periodCount
 	  && lhs.m_gl == rhs.m_gl
 	  ;
     }
@@ -72,7 +72,7 @@ namespace auxi { namespace modelling { namespace business {
 	  || lhs.m_prev_year_end_date != rhs.m_prev_year_end_date
 	  || lhs.m_curr_year_end_date != rhs.m_curr_year_end_date
 	  || lhs.m_execution_end_date != rhs.m_execution_end_date
-	  || lhs.m_totalIntervalsToRun != rhs.m_totalIntervalsToRun
+	  || lhs.m_periodCount != rhs.m_periodCount
 	  || lhs.m_gl != rhs.m_gl
 	;
     }

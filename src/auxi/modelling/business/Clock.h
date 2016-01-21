@@ -22,18 +22,18 @@ namespace auxi { namespace modelling { namespace business {
 
     // Declare enums
     //
-    namespace TimeInterval
+    namespace TimePeriod
     {
-        enum TimeInterval
+        enum TimePeriod
         {
-	        Millisecond,
-	        Second,
-	        Minute,
-	        Hour,
-	        Day,
-	        Week,
-	        Month,
-	        Year,
+	        millisecond,
+	        second,
+	        minute,
+	        hour,
+	        day,
+	        week,
+	        month,
+	        year,
         };
     }
 
@@ -64,23 +64,23 @@ namespace auxi { namespace modelling { namespace business {
 	      
             boost::posix_time::ptime GetDateTime();
 	      
-            boost::posix_time::ptime GetDateTimeAtInterval(int interval);
+            boost::posix_time::ptime GetDateTimeAtPeriodIndex(int period_count);
             boost::posix_time::ptime GetStartDateTime() const;
             void SetStartDateTime(boost::posix_time::ptime startDateTime);
 
-            TimeInterval::TimeInterval GetTimeStepInterval() const;
-            void SetTimeStepInterval(TimeInterval::TimeInterval timeStepInterval);
+            TimePeriod::TimePeriod GetTimeStepPeriodDuration() const;
+            void SetTimeStepPeriodDuration(TimePeriod::TimePeriod timeStepPeriodDuration);
 
-            int GetTimeStepIntervalCount() const;
-            void SetTimeStepIntervalCount(int timeStepIntervalCount);
+            int GetTimeStepPeriodCount() const;
+            void SetTimeStepPeriodCount(int timeStepPeriodCount);
 
             int GetTimeStepIndex() const;
 
 
         protected:
 	        boost::posix_time::ptime m_startDateTime = boost::posix_time::time_from_string("1500-01-01 00:00:00");
-	        TimeInterval::TimeInterval m_timeStepInterval;
-	        int m_timeStepIntervalCount = 1;
+	        TimePeriod::TimePeriod m_timeStepPeriodDuration = TimePeriod::TimePeriod::month;
+	        int m_timeStepPeriodCount = 1;
 	        int m_timeStepIndex = 0;
 
         private:

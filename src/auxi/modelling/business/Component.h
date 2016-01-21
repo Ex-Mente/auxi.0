@@ -53,9 +53,9 @@ namespace auxi { namespace modelling { namespace business {
 	      
             void set_path(std::string parent_path);
 	      
-            void prepare_to_run(Clock* clock, int totalIntervalsToRun);
+            void prepare_to_run(Clock* clock, int period_count);
 	      
-            void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
+            void run(Clock* clock, int ix_period, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             std::vector<VariableGroup*>& GetVariableGroupList();
 
             std::vector<Component*>& GetComponentList();

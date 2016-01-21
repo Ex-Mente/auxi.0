@@ -23,11 +23,11 @@
 </function>
 <function name="prepare_to_run" returnType="void">
     <param name="clock" type="Clock*" />
-    <param name="totalIntervalsToRun" type="int" />
+    <param name="period_count" type="int" />
 </function>
 <function name="run" returnType="void">
     <param name="clock" type="Clock*" />
-    <param name="ix_interval" type="int" />
+    <param name="ix_period" type="int" />
     <param name="generalLedger" type="auxi::modelling::financial::double_entry_system::GeneralLedger*" />
 </function>
 <xs:sequence>

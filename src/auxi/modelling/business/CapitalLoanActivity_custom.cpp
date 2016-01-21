@@ -3,6 +3,21 @@
 #include <iostream>
 
 using namespace auxi::modelling::business;
+/*
+CapitalLoanActivity::CapitalLoanActivity(std::string name, std::string description, int start, int end, int interval) : Activity(name, description, start, end, interval)
+{
+    initialize();
+}*/
+
+CapitalLoanActivity::CapitalLoanActivity(std::string name, std::string description, boost::posix_time::ptime start, boost::posix_time::ptime end, int interval) : Activity(name, description, start, end, interval)
+{
+    initialize();
+}
+/*
+CapitalLoanActivity::CapitalLoanActivity(std::string name, std::string description, boost::posix_time::ptime start, int repeat, int interval) : Activity(name, description, start, repeat, interval)
+{
+    initialize();
+}*/
 
 void CapitalLoanActivity::initialize()
 {
@@ -29,9 +44,9 @@ double CapitalLoanActivity::GetCurrentInterestAmount()
     return m_currentInterestAmount;
 }
 
-bool CapitalLoanActivity::OnExecute_MeetExecutionCriteria(int ix_interval)
+bool CapitalLoanActivity::OnExecute_MeetExecutionCriteria(int ix_period)
 {
-    return Activity::OnExecute_MeetExecutionCriteria(ix_interval) && ix_interval <= m_executionStartAtInterval + m_periodInMonths;
+    return Activity::OnExecute_MeetExecutionCriteria(ix_period) && ix_period <= m_startPeriod + m_periodInMonths;
 }
 
 void CapitalLoanActivity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
@@ -41,13 +56,13 @@ void CapitalLoanActivity::prepare_to_run(Clock* clock, int totalIntervalsToRun)
     m_amountLeft = m_loanAmount;
 }
 
-void CapitalLoanActivity::run(Clock* clock, int ix_interval,
+void CapitalLoanActivity::run(Clock* clock, int ix_period,
                               auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger)
 {
-    if (!OnExecute_MeetExecutionCriteria(ix_interval)) return;
-    boost::posix_time::ptime currentExecutionDateTime = clock->GetDateTimeAtInterval(ix_interval);
+    if (!OnExecute_MeetExecutionCriteria(ix_period)) return;
+    boost::posix_time::ptime currentExecutionDateTime = clock->GetDateTimeAtPeriodIndex(ix_period);
 
-    if (ix_interval == m_executionStartAtInterval)
+    if (ix_period == m_startPeriod)
     {
         auto make_loan_t = generalLedger->create_transaction(
             m_makeLoanTxTemplate.GetName(),

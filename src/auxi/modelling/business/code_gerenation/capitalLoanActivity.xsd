@@ -9,6 +9,27 @@
 <xs:element name="auxi.modelling.business.CapitalLoanActivity" type="CapitalLoanActivity"/>
 
 <xs:complexType name="CapitalLoanActivity" base="Activity" additional_includes="TransactionTemplate,Clock" constructor_init_function="initialize">
+<!--<function name="CapitalLoanActivity" returnType="" custom_constructor="true" doc="Constructs the activity with its configuration.">
+  <param name="name" type="std::string" doc="The name."/>
+  <param name="description" type="std::string" default="" doc="The description."/>
+  <param name="start" type="int" default="0" doc="The start date."/>
+  <param name="end" type="int" default="-1" doc="The end date."/>
+  <param name="interval" type="int" default="1" doc="The interval of periods the activity will be executed at."/>
+</function>-->
+<function name="CapitalLoanActivity" returnType="" custom_constructor="true" doc="Constructs the activity with its configuration.">
+  <param name="name" type="std::string" doc="The name."/>
+  <param name="description" type="std::string" default="" doc="The description."/>
+  <param name="start" type="boost::posix_time::ptime" default="boost::posix_time::min_date_time" doc="The start date."/>
+  <param name="end" type="boost::posix_time::ptime" default="boost::posix_time::max_date_time" doc="The end date."/>
+  <param name="interval" type="int" default="1" doc="The interval of periods the activity will be executed at."/>
+</function>
+<!--<function name="CapitalLoanActivity" returnType="" custom_constructor="true" doc="Constructs the activity with its configuration.">
+  <param name="name" type="std::string" doc="The name."/>
+  <param name="description" type="std::string" default="" doc="The description."/>
+  <param name="start" type="boost::posix_time::ptime" default="boost::posix_time::min_date_time" doc="The start date."/>
+  <param name="repeat" type="int" default="1" doc="The number of periods to run the activity."/>
+  <param name="interval" type="int" default="1" doc="The interval of periods the activity will be executed at."/>
+</function>-->
 <function name="initialize" returnType="void" />
 <function name="OnExecute_MeetExecutionCriteria" returnType="bool">
   <param name="executionInterval" type="int"/>

@@ -18,7 +18,7 @@
 </function>
 <function name="prepare_to_run" returnType="void">
     <param name="clock" type="Clock*" />
-    <param name="totalIntervalsToRun" type="int" />
+    <param name="period_count" type="int" />
 </function>
 <function name="perform_year_end_procedure_gross_profit_and_income_summary" returnType="double" private="true">
     <param name="yearEndDate" type="dateTime" />
@@ -49,12 +49,12 @@
 </function>
 <function name="perform_year_end_procedure" returnType="void" private="true">
     <param name="clock" type="Clock*" />
-    <param name="ix_interval" type="int" />
+    <param name="ix_period" type="int" />
     <param name="currency" type="Units" />
 </function>
 <function name="run" returnType="void">
     <param name="clock" type="Clock*" />
-    <param name="ix_interval" type="int" />
+    <param name="ix_period" type="int" />
     <param name="currency" type="Units" />
 </function>
 <function name="getSalesAccounts" returnType="std::vector&lt;auxi::modelling::financial::double_entry_system::GeneralLedgerAccount*&gt;" private="true">
@@ -74,7 +74,7 @@
 <xs:attribute name="prev_year_end_date" type="dateTime" private="true"/>
 <xs:attribute name="curr_year_end_date" type="dateTime" private="true"/>
 <xs:attribute name="execution_end_date" type="dateTime" private="true"/>
-<xs:attribute name="TotalIntervalsToRun" type="xs:int" py_set="False"/>
+<xs:attribute name="PeriodCount" type="xs:int" py_set="False"/>
 <xs:attribute name="Gl" type="auxi::modelling::financial::double_entry_system::GeneralLedger" doc="The entity's General Ledger."/>
 
 </xs:complexType>

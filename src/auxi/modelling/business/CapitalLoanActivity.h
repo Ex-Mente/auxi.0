@@ -15,11 +15,11 @@
 
 // Forward declarations.
 //
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     class CapitalLoanActivity;
 }}}
 
-namespace auxi { namespace modelling { namespace business { 
+namespace auxi { namespace modelling { namespace business {
     using namespace auxi::core;
 
     // Declare classes
@@ -28,11 +28,7 @@ namespace auxi { namespace modelling { namespace business {
     {
         public:
             CapitalLoanActivity();
-            
-            CapitalLoanActivity(std::string name, std::string description) : Activity(name, description)
-            {
-                initialize();
-            };
+
             ~CapitalLoanActivity();
             CapitalLoanActivity(const CapitalLoanActivity& other);
 
@@ -43,13 +39,19 @@ namespace auxi { namespace modelling { namespace business {
             bool IsValid() const { return true; }
             CapitalLoanActivity* Clone() const { return new CapitalLoanActivity(*this); }
 
-	      
+
+             //CapitalLoanActivity(std::string name, std::string description = "", int start = 0, int end = -1, int interval = 1);
+
+             CapitalLoanActivity(std::string name, std::string description = "", boost::posix_time::ptime start = boost::posix_time::min_date_time, boost::posix_time::ptime end = boost::posix_time::max_date_time, int interval = 1);
+
+             //CapitalLoanActivity(std::string name, std::string description = "", boost::posix_time::ptime start = boost::posix_time::min_date_time, int repeat = 1, int interval = 1);
+
             void initialize();
-	      
+
             bool OnExecute_MeetExecutionCriteria(int executionInterval);
-	      
+
             void prepare_to_run(Clock* clock, int totalIntervalsToRun);
-	      
+
             void run(Clock* clock, int ix_interval, auxi::modelling::financial::double_entry_system::GeneralLedger* generalLedger);
             boost::posix_time::ptime GetDate() const;
             void SetDate(boost::posix_time::ptime date);
