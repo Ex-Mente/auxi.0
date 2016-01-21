@@ -36,15 +36,23 @@ void export_auxi_modelling_business_CapitalLoanActivity()
 
 
 
-    class_<CapitalLoanActivityWrapper, CapitalLoanActivity*, bases<Activity>>("CapitalLoanActivity", """", init<>())
-	.def(init<std::string, std::string>())
+    class_<CapitalLoanActivityWrapper, CapitalLoanActivity*, bases<Activity>>("CapitalLoanActivity", """", init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int> >())
 	.def(self == self)
-    
-    
+
+
+    //.def(init<std::string, optional<std::string, int, int, int> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, int, int> >())
+
+
 	.def("onExecute_MeetExecutionCriteria", &CapitalLoanActivity::OnExecute_MeetExecutionCriteria, "")
-    
+
 	.def("prepare_to_run", &CapitalLoanActivity::prepare_to_run, "")
-    
+
 	.def("run", &CapitalLoanActivity::run, "")
 
 	.add_property("date", &CapitalLoanActivity::GetDate, &CapitalLoanActivity::SetDate, """")

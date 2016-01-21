@@ -31,15 +31,15 @@ struct ClockWrapper : Clock, wrapper<Clock>
 void export_auxi_modelling_business_Clock()
 {
   // Python C++ mappings
-  enum_<auxi::modelling::business::TimeInterval::TimeInterval>("TimeInterval", "None")
-      .value("Millisecond", TimeInterval::Millisecond)
-      .value("Second", TimeInterval::Second)
-      .value("Minute", TimeInterval::Minute)
-      .value("Hour", TimeInterval::Hour)
-      .value("Day", TimeInterval::Day)
-      .value("Week", TimeInterval::Week)
-      .value("Month", TimeInterval::Month)
-      .value("Year", TimeInterval::Year)
+  enum_<auxi::modelling::business::TimePeriod::TimePeriod>("TimePeriod", "None")
+      .value("millisecond", TimePeriod::millisecond)
+      .value("second", TimePeriod::second)
+      .value("minute", TimePeriod::minute)
+      .value("hour", TimePeriod::hour)
+      .value("day", TimePeriod::day)
+      .value("week", TimePeriod::week)
+      .value("month", TimePeriod::month)
+      .value("year", TimePeriod::year)
       ;
 
 
@@ -54,13 +54,13 @@ void export_auxi_modelling_business_Clock()
     
 	.def("getDateTime", &Clock::GetDateTime, "")
     
-	.def("getDateTimeAtInterval", &Clock::GetDateTimeAtInterval, "")
+	.def("getDateTimeAtPeriodIndex", &Clock::GetDateTimeAtPeriodIndex, "")
 
 	.add_property("start_date_time", &Clock::GetStartDateTime, &Clock::SetStartDateTime, """")
 
-	.add_property("time_step_interval", &Clock::GetTimeStepInterval, &Clock::SetTimeStepInterval, """")
+	.add_property("time_step_period_duration", &Clock::GetTimeStepPeriodDuration, &Clock::SetTimeStepPeriodDuration, """")
 
-	.add_property("time_step_interval_count", &Clock::GetTimeStepIntervalCount, &Clock::SetTimeStepIntervalCount, """")
+	.add_property("time_step_period_count", &Clock::GetTimeStepPeriodCount, &Clock::SetTimeStepPeriodCount, """")
 
 	.add_property("time_step_index", &Clock::GetTimeStepIndex, """")
     ;

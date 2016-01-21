@@ -36,15 +36,23 @@ void export_auxi_modelling_business_BasicActivity()
 
 
 
-    class_<BasicActivityWrapper, BasicActivity*, bases<Activity>>("BasicActivity", """", init<>())
-	.def(init<std::string, std::string>())
+    class_<BasicActivityWrapper, BasicActivity*, bases<Activity>>("BasicActivity", """", init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int, double, auxi::modelling::financial::double_entry_system::TransactionTemplate> >(args("name", "description", "start", "end", "interval", "amount", "tx_template"), ""))
 	.def(self == self)
-    
-    
+
+    .def(init<>())
+    //.def(init<std::string, optional<std::string, int, int, int, double, auxi::modelling::financial::double_entry_system::TransactionTemplate> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int, double, auxi::modelling::financial::double_entry_system::TransactionTemplate> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, int, int, double, auxi::modelling::financial::double_entry_system::TransactionTemplate> >())
+
+
 	.def("onExecute_MeetExecutionCriteria", &BasicActivity::OnExecute_MeetExecutionCriteria, "")
-    
+
 	.def("prepare_to_run", &BasicActivity::prepare_to_run, "")
-    
+
 	.def("run", &BasicActivity::run, "")
 
 	.add_property("date", &BasicActivity::GetDate, &BasicActivity::SetDate, """")

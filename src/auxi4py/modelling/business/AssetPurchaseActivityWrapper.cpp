@@ -36,17 +36,25 @@ void export_auxi_modelling_business_AssetPurchaseActivity()
 
 
 
-    class_<AssetPurchaseActivityWrapper, AssetPurchaseActivity*, bases<Activity>>("AssetPurchaseActivity", """", init<>())
-	.def(init<std::string, std::string>())
+    class_<AssetPurchaseActivityWrapper, AssetPurchaseActivity*, bases<Activity>>("AssetPurchaseActivity", """", init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int> >())
 	.def(self == self)
-    
-    
+
+
+    //.def(init<std::string, optional<std::string, int, int, int> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, boost::posix_time::ptime, int> >())
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, int, int> >())
+
+
 	.def("onExecute_MeetExecutionCriteria", &AssetPurchaseActivity::OnExecute_MeetExecutionCriteria, "")
-    
+
 	.def("prepare_to_run", &AssetPurchaseActivity::prepare_to_run, "")
-    
+
 	.def("run", &AssetPurchaseActivity::run, "")
-    
+
 
 	.add_property("date", &AssetPurchaseActivity::GetDate, &AssetPurchaseActivity::SetDate, """")
 

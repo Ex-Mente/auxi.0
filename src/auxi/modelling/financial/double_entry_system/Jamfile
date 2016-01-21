@@ -19,6 +19,7 @@ lib double_entry_system :
          GeneralLedgerStructure_custom.cpp
          Transaction.cpp
          Transaction.h
+         TransactionTemplate_custom.cpp
          TransactionTemplate.cpp
          TransactionTemplate.h
          /auxi/core//core

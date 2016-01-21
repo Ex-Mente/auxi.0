@@ -10,6 +10,12 @@
 
 
 <xs:complexType name="TransactionTemplate" additional_includes="GeneralLedgerAccount">
+<function name="TransactionTemplate" returnType="" custom_constructor="true" doc="Constructs the general ledger structure with its configuration.">
+  <param name="name" type="std::string" doc="The name."/>
+  <param name="description" type="std::string" default="" doc="The description."/>
+  <param name="dt_account" type="std::string" default="" doc="The name of the debit account."/>
+  <param name="cr_account" type="std::string" default="" doc="The name of the credit account."/>
+</function>
 <xs:attribute name="DtAccount" type="std::string"/>
 <xs:attribute name="CrAccount" type="std::string"/>
 

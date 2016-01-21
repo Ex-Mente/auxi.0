@@ -38,11 +38,11 @@ void export_auxi_modelling_financial_double_entry_system_GeneralLedgerStructure(
 
 
 
-    class_<GeneralLedgerStructureWrapper, GeneralLedgerStructure*, bases<NamedObject>>("GeneralLedgerStructure", "This class contains and stuctures the accounts for a general ledger.", init<std::string, optional<std::string, std::string> >(args("name","description","json_path"), "TEETETETSST"))
+    class_<GeneralLedgerStructureWrapper, GeneralLedgerStructure*, bases<NamedObject>>("GeneralLedgerStructure", "This class contains and stuctures the accounts for a general ledger.", init<std::string, optional<std::string, std::string> >(args("name", "description", "json_path"), ""))
 	.def(self == self)
 
 
-    //.def(init<std::string, optional<std::string, std::string> >(args("name","description","json_path"), "TEETETETSST"))
+    //.def(init<std::string, optional<std::string, std::string> >())
 
     .def("create_account", &GeneralLedgerStructure::create_account, return_internal_reference<1>(), GeneralLedgerStructurecreate_account(args("name", "number", "type"), "Create an account in the general ledger\n"
 "\n"

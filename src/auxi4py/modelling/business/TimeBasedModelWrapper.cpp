@@ -38,24 +38,26 @@ void export_auxi_modelling_business_TimeBasedModel()
 
 
 
-    class_<TimeBasedModelWrapper, TimeBasedModel*, bases<Model>>("TimeBasedModel", """", init<>())
-	.def(init<std::string, std::string>())
+    class_<TimeBasedModelWrapper, TimeBasedModel*, bases<Model>>("TimeBasedModel", """", init<std::string, optional<std::string, boost::posix_time::ptime, TimePeriod::TimePeriod, int> >(args("name", "description", "start_date", "period_duration", "period_count"), ""))
 	.def(self == self)
-    
-    
-    .def("create_entity", make_function(&TimeBasedModel::create_entity, return_internal_reference<1>()), "")
-    
+
+
+    //.def(init<std::string, optional<std::string, boost::posix_time::ptime, TimePeriod::TimePeriod, int> >(args("name", "description", "debit_account", "credit_account"), ""))
+
+
+    .def("create_entity", &TimeBasedModel::create_entity, return_internal_reference<1>(), "")
+
 	.def("remove_entity", &TimeBasedModel::remove_entity, "")
-    
+
 	.def("prepare_to_run", &TimeBasedModel::prepare_to_run, "")
-    
+
 	.def("run", &TimeBasedModel::run, "")
 
 	.add_property("entities", make_function(&TimeBasedModel::GetEntityList, return_internal_reference<1>()), """")
 
 	.add_property("currency", make_function(&TimeBasedModel::GetCurrency, return_internal_reference<>()), &TimeBasedModel::SetCurrency, """")
 
-	.add_property("total_intervals_to_run", &TimeBasedModel::GetTotalIntervalsToRun, &TimeBasedModel::SetTotalIntervalsToRun, """")
+	.add_property("period_count", &TimeBasedModel::GetPeriodCount, &TimeBasedModel::SetPeriodCount, """")
 
 	.add_property("clock", make_function(&TimeBasedModel::GetClock, return_internal_reference<>()), """")
     ;

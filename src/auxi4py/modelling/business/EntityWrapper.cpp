@@ -44,7 +44,7 @@ void export_auxi_modelling_business_Entity()
 	.def(init<std::string, std::string>())
 	.def(self == self)
     
-    .def("create_component", make_function(&Entity::create_component, return_internal_reference<1>()), "")
+    .def("create_component", &Entity::create_component, return_internal_reference<1>(), "")
     
 	.def("remove_component", &Entity::remove_component, "")
     
@@ -68,7 +68,7 @@ void export_auxi_modelling_business_Entity()
 
 	.add_property("negative_income_tax_total", &Entity::GetNegativeIncomeTaxTotal, &Entity::SetNegativeIncomeTaxTotal, """")
 
-	.add_property("total_intervals_to_run", &Entity::GetTotalIntervalsToRun, &Entity::SetTotalIntervalsToRun, """")
+	.add_property("period_count", &Entity::GetPeriodCount, &Entity::SetPeriodCount, """")
 
 	.add_property("gl", make_function(&Entity::GetGl, return_internal_reference<>()), &Entity::SetGl, "The entity's General Ledger.")
     ;

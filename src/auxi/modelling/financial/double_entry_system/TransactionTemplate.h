@@ -28,9 +28,6 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
         public:
             TransactionTemplate();
             
-            TransactionTemplate(std::string name, std::string description) : NamedObject(name, description)
-            {
-            };
             ~TransactionTemplate();
             TransactionTemplate(const TransactionTemplate& other);
 
@@ -41,6 +38,8 @@ namespace auxi { namespace modelling { namespace financial { namespace double_en
             bool IsValid() const { return true; }
             TransactionTemplate* Clone() const { return new TransactionTemplate(*this); }
 
+	      
+             TransactionTemplate(std::string name, std::string description = "", std::string dt_account = "", std::string cr_account = "");
             std::string GetDtAccount() const;
             void SetDtAccount(std::string dtAccount);
 

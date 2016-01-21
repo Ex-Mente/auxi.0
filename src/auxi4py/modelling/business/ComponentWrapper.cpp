@@ -44,7 +44,7 @@ void export_auxi_modelling_business_Component()
 	.def(init<std::string, std::string>())
 	.def(self == self)
     
-    .def("create_component", make_function(&Component::create_component, return_internal_reference<1>()), "")
+    .def("create_component", &Component::create_component, return_internal_reference<1>(), "")
     
 	.def("remove_component", &Component::remove_component, "")
     

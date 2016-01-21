@@ -31,9 +31,11 @@ void export_auxi_modelling_financial_double_entry_system_TransactionTemplate()
 
 
 
-    class_<TransactionTemplateWrapper, TransactionTemplate*, bases<NamedObject>>("TransactionTemplate", """", init<>())
-	.def(init<std::string, std::string>())
+    class_<TransactionTemplateWrapper, TransactionTemplate*, bases<NamedObject>>("TransactionTemplate", """", init<std::string, optional<std::string, std::string, std::string> >(args("name", "description", "debit_account", "credit_account"), ""))
 	.def(self == self)
+
+
+    //.def(init<std::string, optional<std::string, std::string, std::string> >(args("name", "description", "debit_account", "credit_account"), ""))
 
 	.add_property("dt_account", &TransactionTemplate::GetDtAccount, &TransactionTemplate::SetDtAccount, """")
 
