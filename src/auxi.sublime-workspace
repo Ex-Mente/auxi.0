@@ -1,0 +1,1294 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tx",
+				"tx_template"
+			],
+			[
+				"patc",
+				"patchelf_path"
+			],
+			[
+				"P",
+				"Phases"
+			],
+			[
+				"CpRe",
+				"CpRecord"
+			],
+			[
+				"buil",
+				"build_ext	(module)"
+			],
+			[
+				"build",
+				"build_ext"
+			],
+			[
+				"sce",
+				"scenario_name	(param)"
+			],
+			[
+				"try",
+				"try	Try/Except"
+			],
+			[
+				"auto",
+				"%autoreload"
+			],
+			[
+				"general",
+				"GeneralLedgerAccountType"
+			],
+			[
+				"ix",
+				"ix_start	(statement)"
+			],
+			[
+				"event_",
+				"event_str	(statement)"
+			],
+			[
+				"pa",
+				"parent"
+			],
+			[
+				"w",
+				"write	(function)"
+			],
+			[
+				"adm_",
+				"adm_dat_organisation"
+			],
+			[
+				"Label",
+				"LABEL	(class)"
+			],
+			[
+				"max",
+				"maximum_age"
+			],
+			[
+				"event",
+				"event_key"
+			],
+			[
+				"even",
+				"event_key"
+			],
+			[
+				"fo",
+				"format	(function)"
+			],
+			[
+				"min",
+				"min_min_year	(statement)"
+			],
+			[
+				"B",
+				"BEAUTIFY	(class)"
+			],
+			[
+				"TOP",
+				"TOP_FEMALE_TIME	(statement)"
+			],
+			[
+				"level",
+				"level_value"
+			],
+			[
+				"y_ax",
+				"y_axis_type"
+			],
+			[
+				"adm",
+				"adm_dat_person"
+			],
+			[
+				"update",
+				"update_or_insert	(function)"
+			],
+			[
+				"time",
+				"timeList	(param)"
+			],
+			[
+				"first",
+				"first_name"
+			],
+			[
+				"orga",
+				"Organisation"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class that represents chemical compound.\n\"\"\"\n__version__ = \"0.2.0\"\n\nfrom auxi.tools.chemistry import stoichiometry as stoich\nfrom auxi.tools.chemistry.phase import Phase\n\n\nclass Compound:\n    \"\"\"Represents a chemical compound.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the compound.\"\"\"\n\n    def __init__(self, dictionary):\n        self.formula = dictionary[\"Formula\"]\n        \"\"\"Chemical formula, e.g. \"Fe\", \"CO2\".\"\"\"\n\n        self.molar_mass = stoich.molar_mass(self.formula) / 1000.0\n        \"\"\"Molar mass. [kg/mol]\"\"\"\n\n        self._phases = dict()\n        \"\"\"Dictionary containing the compound's phase objects.\"\"\"\n\n        for k, v in dictionary[\"Phases\"].items():\n            self._phases[k] = Phase(v)\n\n    def __str__(self):\n        result = \"COMPOUND: \" + \"\\n\"\n        result = result + \"\\tFormula: \" + self.formula + \"\\n\"\n        for k, v in self._phases.items():\n            result = result + str(v)\n        return result\n\n    def get_phase_list(self):\n        \"\"\"Get a list of the compound's phases.\n\n        :returns: List of phases.\"\"\"\n\n        return sorted(self._phases.keys())\n\n    def Cp(self, phase, temperature):\n        \"\"\"Calculate the heat capacity of a phase of the compound at a\n        specified temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Heat capacity. [J/mol/K]\"\"\"\n\n        try:\n            return self._phases[phase].Cp(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def H(self, phase, temperature):\n        \"\"\"Calculate the enthalpy of a phase of the compound at a specified\n        temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Enthalpy. [J/mol]\"\"\"\n\n        try:\n            return self._phases[phase].H(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def S(self, phase, temperature):\n        \"\"\"Calculate the enthalpy of a phase of the compound at a specified\n        temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Entropy. [J/mol/K]\"\"\"\n\n        try:\n            return self._phases[phase].S(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def G(self, phase, temperature):\n        \"\"\"Calculate the Gibbs free energy of a phase of the compound at a\n        specified temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Gibbs free energy. [J/mol]\"\"\"\n\n        try:\n            return self._phases[phase].G(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n",
+			"file": "py/tools/chemistry/compound.py",
+			"file_size": 3150,
+			"file_write_time": 130984431149261233,
+			"settings":
+			{
+				"buffer_size": 3150,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class representing a Cp record of a chemical\ncompound phase.\n\"\"\"\n__version__ = \"0.2.0\"\n\nimport math\n\n\nclass CpRecord:\n    \"\"\"A Cp equation record for a compound phase over a specific temperature\n    range.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the phase.\"\"\"\n\n    def __init__(self, dictionary):\n        self.Tmin = dictionary[\"Tmin\"]\n\n        \"\"\"The minimum temperature of the range covered by this record. [K]\"\"\"\n        self.Tmax = dictionary[\"Tmax\"]\n        \"\"\"The maximum temperature of the range covered by this record. [K]\"\"\"\n\n        self._coefficients = list()\n        \"\"\"The coefficiencts of the terms in the Cp equation.\"\"\"\n\n        self._exponents = list()\n        \"\"\"The exponents of the terms in the Cp equation.\"\"\"\n\n        for t in dictionary[\"Terms\"]:\n            self._coefficients.append(t[\"Coefficient\"])\n            self._exponents.append(t[\"Exponent\"])\n\n\n    def __str__(self):\n        result = \"\\t\\tCp RECORD:\" + \"\\n\"\n        result = result + \"\\t\\t\\tTmin: \" + str(self.Tmin) + \"\\n\"\n        result = result + \"\\t\\t\\tTmax: \" + str(self.Tmax) + \"\\n\"\n        for i in range(len(self._coefficients)):\n            result = result + \"\\t\\t\\t{:.8e}\".format(self._coefficients[i]) + \" \"\n            result = result + str(self._exponents[i]) + \"\\n\"\n        return result\n\n\n    def Cp(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase.\n\n        :param temperature: [K]\n\n        :returns: Heat capacity. [J/mol/K]\"\"\"\n\n        result = 0.0\n        for c, e in zip(self._coefficients, self._exponents):\n            result = result + c * temperature ** e\n        return result\n\n\n    def H(self, temperature):\n        \"\"\"Calculate the portion of enthalpy of the compound phase covered by\n        this Cp record.\n\n        :param temperature: [K]\n\n        :returns: Enthalpy. [J/mol]\"\"\"\n\n        result = 0.0\n        if temperature < self.Tmax:\n            T = temperature\n        else:\n            T = self.Tmax\n        Tref = self.Tmin\n        for c, e in zip(self._coefficients, self._exponents):\n            # Analytically integrate Cp(T).\n            if e == -1.0:\n                result = result + c * (math.log(T) - math.log(Tref))\n            else:\n                result = result + c * (T ** (e + 1.0) - Tref ** (e + 1.0)) / (e + 1.0)\n        return result\n\n\n    def S(self, temperature):\n        \"\"\"Calculate the portion of entropy of the compound phase covered by\n        this Cp record.\n\n        :param temperature: [K]\n\n        :returns: Entropy. [J/mol/K]\"\"\"\n\n        result = 0.0\n        if temperature < self.Tmax:\n            T = temperature\n        else:\n            T = self.Tmax\n        Tref = self.Tmin\n        for c, e in zip(self._coefficients, self._exponents):\n            # Create a modified exponent to analytically integrate Cp(T)/T instead of Cp(T).\n            e_modified = e - 1.0\n            if e_modified == -1.0:\n                result = result + c * (math.log(T) - math.log(Tref))\n            else:\n                result = result + c * (T ** (e_modified + 1.0) - Tref ** (e_modified + 1.0)) / (e_modified + 1.0)\n        return result\n",
+			"file": "py/tools/chemistry/cprecord.py",
+			"file_size": 3209,
+			"file_write_time": 130984430520781235,
+			"settings":
+			{
+				"buffer_size": 3209,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class that represents an element of the periodic\ntable.\n\"\"\"\n__version__ = \"0.2.0\"\n\n\nclass Element(object):\n    \"\"\"An element in the periodic table.\n\n    :param period:        Period to which the element belongs.\n    :param group:         Group to which the element belongs.\n    :param atomic_number: Number of protons in the element's nucleus.\n    :param symbol:        Element's symbol.\n    :param molar_mass:    [kg/kmol] Element's standard atomic mass.\n    \"\"\"\n\n    def __init__(self, period, group, atomic_number, symbol, molar_mass):\n        self.period = period\n        self.group = group\n        self.atomic_number = atomic_number\n        self.symbol = symbol\n        self.molar_mass = molar_mass\n",
+			"file": "py/tools/chemistry/element.py",
+			"file_size": 762,
+			"file_write_time": 130984430410461235,
+			"settings":
+			{
+				"buffer_size": 762,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class representing a phase of a chemical\ncompound.\n\"\"\"\n__version__ = \"0.2.0\"\n\nimport math\nfrom auxi.tools.chemistry.cprecord import CpRecord\n\n\nclass Phase:\n    \"\"\"Represents a phase of a chemical compound.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the phase.\"\"\"\n\n    def __init__(self, dictionary):\n        self.name = dictionary[\"Symbol\"]\n        \"\"\"The phase's name, e.g. solid, liquid, gas, etc.\"\"\"\n\n        self.symbol = dictionary[\"Symbol\"]\n        \"\"\"The phase's symbol, e.g. S1 = solid 1, L = liquid, etc.\"\"\"\n\n        self.Tref = 298.15\n        \"\"\"The reference temperature of the phase. [K]\"\"\"\n\n        self.DHref = dictionary[\"DHref\"]\n        \"\"\"The formation enthalpy of the phase at Tref. [J/mol]\"\"\"\n\n        self.Sref = dictionary[\"Sref\"]\n        \"\"\"The standard entropy of the phase at Tref. [J/mol/K]\"\"\"\n\n        self._Cp_records = dict()\n        \"\"\"A dictionary containing the phase's Cp records.\"\"\"\n\n        for k, v in dictionary[\"Cp_records\"].items():\n            self._Cp_records[k] = CpRecord(v)\n\n    def __str__(self):\n        result = \"\\tPHASE: \" + self.name + \"\\n\"\n        result = result + \"\\t\\tName: \" + self.name + \"\\n\"\n        result = result + \"\\t\\tSymbol: \" + self.symbol + \"\\n\"\n        result = result + \"\\t\\tTref: \" + str(self.Tref) + \"\\n\"\n        result = result + \"\\t\\tDHref: \" + str(self.DHref) + \"\\n\"\n        result = result + \"\\t\\tSref: \" + str(self.Sref) + \"\\n\"\n        result = result + \"\\t\\tCp record count:\" + str(len(self._Cp_records)) + \"\\n\"\n        for k, v in self._Cp_records.items():\n            result = result + str(v)\n        return result\n\n    def Cp(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The heat capacity of the compound phase. [J/mol/K]\n        \"\"\"\n        for Tmax in sorted(self._Cp_records.keys()):\n            if temperature < Tmax:\n                return self._Cp_records[Tmax].Cp(temperature)\n        Tmax = max(self._Cp_records.keys())\n        return self._Cp_records[Tmax].Cp(Tmax)\n\n    def H(self, temperature):\n        \"\"\"Calculate the enthalpy of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The enthalpy of the compound phase. [J/mol]\n        \"\"\"\n        result = self.DHref\n        for Tmax in sorted(self._Cp_records.keys()):\n            result = result + self._Cp_records[Tmax].H(temperature)\n            if temperature <= Tmax:\n                return result\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        result = result + self.Cp(Tmax)*(temperature - Tmax)\n        return result\n\n    def S(self, temperature):\n        \"\"\"Calculate the entropy of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The entropy of the compound phase. [J/mol/K]\n        \"\"\"\n        result = self.Sref\n        for Tmax in sorted(self._Cp_records.keys()):\n            result = result + self._Cp_records[Tmax].S(temperature)\n            if temperature <= Tmax:\n                return result\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        result = result + self.Cp(Tmax)*math.log(temperature / Tmax)\n        return result\n\n    def G(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The Gibbs free energy of the compound phase. [J/mol]\n        \"\"\"\n        h = self.DHref\n        s = self.Sref\n        for Tmax in sorted(self._Cp_records.keys()):\n            h = h + self._Cp_records[Tmax].H(temperature)\n            s = s + self._Cp_records[Tmax].S(temperature)\n            if temperature <= Tmax:\n                return h - temperature * s\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        h = h + self.Cp(Tmax)*(temperature - Tmax)\n        s = s + self.Cp(Tmax)*math.log(temperature / Tmax)\n        return h - temperature * s\n",
+			"file": "py/tools/chemistry/phase.py",
+			"file_size": 4302,
+			"file_write_time": 130984435999101223,
+			"settings":
+			{
+				"buffer_size": 4302,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/setup.py",
+			"settings":
+			{
+				"buffer_size": 1182,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/build_and_deploy.sh",
+			"settings":
+			{
+				"buffer_size": 239,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tests.py",
+			"settings":
+			{
+				"buffer_size": 999,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "__init__.py",
+			"settings":
+			{
+				"buffer_size": 150,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/christoff/pmpy/trunk/0.1/setup.py",
+			"settings":
+			{
+				"buffer_size": 906,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/setup/py/create_distribution",
+			"settings":
+			{
+				"buffer_size": 36,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nCreated on Tue May  6 08:09:58 2014\n\n@author: Johan Zietsman, Christoff Kok\n\"\"\"\n__version__ = \"0.0.2\"\n\nimport os\nimport unittest\nfrom auxi.tools.chemistry.stoichemistry_test import TestAllFunctions as stoich_test_all\nfrom auxi.tools.chemistry.thermochemistry_test import TestAllFunctions as thermo_test_all\nfrom auxi.tools.materials.chemmaterial_test import TestMaterial as chem_test_material\nfrom auxi.tools.materials.chemmaterial_test import TestMaterialPackage as chem_test_material_package\nfrom auxi.tools.materials.thermomaterial_test import TestMaterial as thermo_test_material\nfrom auxi.tools.materials.thermomaterial_test import TestMaterialPackage as thermo_test_material_package\nfrom auxi.tools.materials.psdmaterial_test import TestMaterial as psd_test_material\nfrom auxi.tools.materials.psdmaterial_test import TestMaterialPackage as psd_test_material_package\n\n\ndef run_all():\n    os.system(\"cls\")\n    print(__name__)\n    unittest.main(module=__name__)\n",
+			"file": "py/tests.py",
+			"file_size": 1017,
+			"file_write_time": 130984458251381176,
+			"settings":
+			{
+				"buffer_size": 993,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "bash: cannot set terminal process group (4470): Inappropriate ioctl for device\nbash: no job control in this shell\nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ \nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ \nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ python3 therm<tware/auxi.0/src/py/tools/chemistry$ python3 thermo                        chemistry_test.py\nTraceback (most recent call last):\n  File \"thermochemistry_test.py\", line 11, in <module>\n    from auxi.tools.chemistry import thermochemistry as thermo\nImportError: No module named 'auxi'\nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ cd ../../\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ python3 thermochemistry_test.<tware/auxi.0/src/py$ python3 thermochemistry_test.p                        y\npython3: can't open file 'thermochemistry_test.py': [Errno 2] No such file or directory\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ python3 tools/chemistry/therm<tware/auxi.0/src/py$ python3 tools/chemistry/thermo                        chemistry_test.py\nTraceback (most recent call last):\n  File \"tools/chemistry/thermochemistry_test.py\", line 11, in <module>\n    from auxi.tools.chemistry import thermochemistry as thermo\nImportError: No module named 'auxi'\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ ",
+			"settings":
+			{
+				"buffer_size": 1348,
+				"line_ending": "Unix",
+				"name": "*REPL* [shell]",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/home/christoff/pmpy/trunk/0.1/src/tests.py",
+			"settings":
+			{
+				"buffer_size": 909,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 268.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"rst",
+				"Set Syntax: reStructuredText"
+			],
+			[
+				"w",
+				"W2P: Restart development server"
+			],
+			[
+				"w2",
+				"W2P: Open Debugger"
+			],
+			[
+				"Pac",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"Packag",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control ",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"P",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Add Repository"
+			],
+			[
+				"pa",
+				"Package Control: Add Repository"
+			],
+			[
+				"Pa",
+				"Package Control: List Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"print(\"test\")",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/christoff/em/software/auxi.0/src",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation",
+		"/home/christoff/em/software/auxi.0/src/auxi/tools",
+		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting",
+		"/home/christoff/em/software/auxi.0/src/py",
+		"/home/christoff/em/software/auxi.0/src/tools"
+	],
+	"file_history":
+	[
+		"/home/christoff/em/software/auxi.0/setup/py/dist/auxi-0.2.0rc1/setup.py",
+		"/home/christoff/em/software/auxi.0/setup/py/setup.py",
+		"/home/christoff/em/software/auxi.0/src/py/core/__init__.py",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/setup.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/thermochemistry.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry_test.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/thermochemistry_test.py",
+		"/home/christoff/pmpy/trunk/0.1/src/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry/__init__.py",
+		"/home/christoff/pmpy/trunk/0.1/src/chemistry/__init__.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/__init__.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/test/auxi4py/modelling/business/unittest_use_cases1.py",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/copy_distribution_files.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/test/auxi4py/modelling/business/unittest_use_cases.py",
+		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation/bind.cplusplusH.mako",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Activity.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/basicActivity.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/BasicActivityWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/TimeBasedModelWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/build_all.sh",
+		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation/bind.pythonwrapper.mako",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/ActivityWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/activity.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedgerStructure.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/transactionTemplate.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/currencyTable.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/timeBasedModel.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/capitalLoanActivity.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/TransactionTemplateWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/GeneralLedgerStructureWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/TransactionTemplate_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/assetPurchaseActivity.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/CapitalLoanActivity.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/AssetPurchaseActivity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/AssetPurchaseActivity.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Activity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/AssetPurchaseActivityWrapper.cpp",
+		"/home/christoff/em/software/exmente.sim.4/trunk/4.0/src/emsim4py/modelling/process/chemapp/ChemappWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedgerAccount.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/GeneralLedgerAccountWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/clock.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/TimeBasedModel_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CapitalLoanActivityWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/TimeBasedModel.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/CapitalLoanActivity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/entity.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/component.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/balance_sheet_report.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/des_module.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/income_statement_report.py",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerAccount_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerAccount.h",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/code_generation/thermochemistry.xsd",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/code_generation/compound.xsd",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/tools/chemistry/thermochemistry/CompoundWrapper.cpp",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/setup/auxi4py/setup.py",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/build_distribution.sh",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/financial_transactions_report.py",
+		"/home/christoff/em/software/exmente.set.1.prototypes/EMOBjectsFromXSDGenerator/2.0/EMObjectsFromXSDGenerator.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/ComponentWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/build_and_deploy.sh",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/classes_report.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/EntityWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/transaction.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedger_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/CurrencyTable_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/currency.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedger.xsd",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/balance_sheet_report.py",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/CurrencyTable.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/Currency.xsd",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/Currency_custom.cpp",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/segment.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/parameter.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/scenario.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/__init__.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/investigation.py",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure.h",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/Jamroot",
+		"/home/christoff/em/software/auxi.0/test/auxi4py/modelling/business/unittest_use_cases.py",
+		"/home/christoff/em/software/auxi.0/doc/auxi4py/user/source/gettingstarted.rst",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/calculation_engines/FinancialCalculationEngineWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/doc/auxi4py/user/source/conf.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CustomPythonActivity.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CustomPythonActivity.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Component.h",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Component_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity.h",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/dist/auxi-0.1.0rc11/setup.py",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/dist/auxi-0.1.0rc11/auxi/modelling/financial/balance_sheet_report.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/income_statement_report.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/financial_transactions_report.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/classes_report.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/cash_flow.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/business_module.cpp",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/auxi/modelling/financial/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/clean_all.sh",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/calculation_engines_module.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/des_module.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/stock/calculation_engines/Jamfile",
+		"/home/christoff/em/software/auxi.0/src/auxi/modelling/stock/double_entry_system/Jamfile",
+		"/home/christoff/em/software/auxi.0/setup/auxi4py/auxi/modelling/stock/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/businessWrapper.cpp",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/stock/__init__.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/calculation_engines/calculation_engines_module.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/tax/RuleSetWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/StockTransactionWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/StockCalculationEngineWrapper.cpp",
+		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/tax/CapitalGainsRuleWrapper.cpp"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"<open folders>",
+			"<open files>",
+			"<open folders>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			":${doc}",
+			":\"${doc}",
+			"py_combineGroup",
+			"custom_c",
+			"SetDateTimeInterval",
+			"GetDateTimeAtInterval",
+			"m_executeInterval",
+			"GetDateTimeAtInterval",
+			"m_endInterval",
+			"m_period_count",
+			"m_executionStartAtInterval",
+			"m_period_count",
+			"totalIntervalsToRun",
+			"m_totalIntervalsToRun",
+			"campAdd_overloads",
+			"BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS",
+			"AccountType::",
+			"AccountType::A",
+			"AccountType::E",
+			"AccountType::R",
+			"isClosingCr",
+			"GeneralLedgerAccountType",
+			"m_generalLedger",
+			"List",
+			"GetRetainedEarningsAccount",
+			"GetIncomeSummaryAccount",
+			"GetGrossProfitAccount",
+			"GetDebitAccountName",
+			"GetCreditAccountName",
+			"GetDebitAccountName",
+			"TransactionTemplate",
+			"GeneralLedgerAccountType",
+			"TransactionTemplate",
+			"GetSalesAccount(",
+			"GetCostOfSalesAccount(",
+			"GetDebitAccountName",
+			"GetCreditAccountName",
+			"SetIsClosingDebitAccount",
+			"SetIsClosingCreditAccount",
+			"GetIncomeTaxExpenseAccount",
+			"GetIncomeTaxPayableAccount",
+			"GetBankAccount",
+			"m_costOf",
+			"m_cost_of",
+			"m_bankAccount",
+			"GeneralLedgerAccountType",
+			"Account = create_account",
+			"the",
+			"GeneralLedgerAccountType",
+			"custom_constructor",
+			"BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS",
+			"custom_constructor",
+			"shouldWrapFunction",
+			"set_instance_value",
+			"rows.append",
+			"table.add_row",
+			"stock",
+			"-d2 variant=release target-os=linux",
+			"Stock",
+			"auxi::modelling::accounting::stock::",
+			"auxi::modelling::accounting::financial::",
+			"_busines",
+			":::",
+			"IncomeTaxRule",
+			"Tax",
+			"auxi::modelling::accounting::financial::",
+			"accounting",
+			"stock",
+			"::accounting",
+			"accounting",
+			"::accounting",
+			"debug",
+			"patchelf_path",
+			"pmpy",
+			"doc =",
+			"&quot;",
+			"&quote;",
+			"path_str",
+			"}*/\n",
+			"cout",
+			"std::cou",
+			"line",
+			"str",
+			"5",
+			"std::make_pair",
+			"lexi",
+			"Phase",
+			"Compound",
+			".get",
+			"_get_default_data_path",
+			"camCreateAssay_overloads",
+			"camCreatePackageNew_overloads",
+			"const",
+			"default_data_path",
+			"self._Cp_records",
+			"curObj",
+			"curArg",
+			"str(self.",
+			"= result +",
+			"self._Cp_records",
+			"isTypeMap",
+			"\n}",
+			");\n",
+			"getPythonFriendlyName(p.namelower)",
+			"f.name[0].lower() + f.name[1:]",
+			"python",
+			"stoichiometryiometry",
+			"vector",
+			"using",
+			"else",
+			"\" />",
+			">\n",
+			"Base",
+			".get",
+			"upper",
+			"func_test_vars",
+			"\"\n",
+			"Month",
+			"month",
+			")\n",
+			"General",
+			"financial",
+			"General",
+			"general",
+			"financial",
+			"general",
+			"General",
+			"Financial"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"m_interval",
+			"GetDateTimeAtPeriodIndex",
+			"m_endPeriod",
+			"m_periodCount",
+			"m_startInterval",
+			"m_periodCount",
+			"period_count",
+			"m_period_count",
+			"AccountType::a",
+			"AccountType::e",
+			"AccountType::r",
+			"AccountType",
+			"m_gl",
+			"GetRetainedEarnings",
+			"GetIncomeSummary",
+			"GetGrossProfit",
+			"GetDtAccount",
+			"GetCrAccount",
+			"GetDtAccount",
+			"TxTemplate",
+			"GetSales(",
+			"GetCostOfSales(",
+			"GetDtAccount",
+			"GetCrAccount",
+			"SetIsClosingDtAccount",
+			"SetIsClosingCrAccount",
+			"GetIncomeTaxExpense",
+			"GetIncomeTaxPayable",
+			"GetBank",
+			"AccountType",
+			" = create_account",
+			"AccountType",
+			"self.rows.append",
+			"rows.append",
+			"clean",
+			"auxi::modelling::stock::double_entry_system::",
+			"auxi::modelling::financial::double_entry_system::",
+			"auxi::modelling::financial::double_entry_system",
+			"::",
+			"auxi::modelling::financial::double_entry_system::",
+			"",
+			"release",
+			"auxi.tools",
+			"auxi.tools.",
+			"auxi.tools",
+			"\\&quot;",
+			"&quot;",
+			"std::pair<std::string,pt::ptree>",
+			"m_cpRecordDict",
+			"boost::lexical_cast<std::string>(m_",
+			"+=",
+			"m_cpRecordDict",
+			"py_prop_name",
+			"py_func_name",
+			"stoichiometry",
+			"",
+			"Vehicle",
+			"Interval",
+			"interval",
+			"Stock",
+			"stock",
+			"Stock",
+			"stock",
+			"Stock",
+			"stock",
+			"param_list =",
+			"\\033[33m",
+			"items",
+			"auxi",
+			"auxi::modelling::accounting::financial",
+			"auxi.modelling.accounting.financial",
+			"auxi::modelling::accounting::financial",
+			"CapitalLoanActivity",
+			"AssetPurchaseActivity",
+			"usinessEntity",
+			"BusinessEntity",
+			"auxi",
+			"\"NULL\"",
+			",",
+			"\",",
+			"\",\"",
+			"\"",
+			"\",\"",
+			"\"",
+			"",
+			" | ",
+			" |",
+			"",
+			"src=\"{{=URL('static', 'images/",
+			"if c",
+			"return",
+			",\"1\",1,",
+			",\"3\",3,",
+			",\"2\",2,",
+			",\"2\",2,#",
+			",\"3\",3,#",
+			"VALUES (1,1,",
+			"\",',",
+			"\",\"",
+			"\",'",
+			"\",\"",
+			"\"',",
+			"\",\"",
+			")\",\"",
+			"', '",
+			"\", ",
+			"),(\"",
+			"),(",
+			"sex_id",
+			"swm_dat_meet",
+			"swm_dat_standard.sex_id",
+			"swm_dat_standard.standard_set_revision_id",
+			"swm_dat_standard",
+			"swm_dat_individual_race_result",
+			"adm_dat_person",
+			"maxtextlength=64",
+			"db.ratingDict",
+			"adm_mta_sex",
+			"migrate=False"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "py/tools/chemistry/compound.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "py/tools/chemistry/cprecord.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3209,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								144,
+								144
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "py/tools/chemistry/element.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 762,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								117,
+								117
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "py/tools/chemistry/phase.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4302,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3493,
+								3493
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/christoff/em/software/auxi.0/setup.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1130,
+								1130
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/christoff/em/software/auxi.0/build_and_deploy.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 239,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22,
+								22
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "tests.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 999,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								807,
+								807
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "__init__.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/home/christoff/pmpy/trunk/0.1/setup.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								834,
+								834
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/home/christoff/em/software/auxi.0/setup/py/create_distribution",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 36,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12,
+								12
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "py/tests.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 993,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								334,
+								334
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 11,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1348,
+								1348
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_indent": false,
+							"default_dir": "/home/christoff/em/software/auxi.0/src",
+							"detect_indentation": false,
+							"gutter": false,
+							"history_arrows": true,
+							"indent_subsequent_lines": false,
+							"line_numbers": false,
+							"repl": true,
+							"repl_external_id": "shell",
+							"repl_id": "634bb662886c47a4810b87dc4d5ab0fe",
+							"repl_restart_args":
+							{
+								"cmd":
+								{
+									"linux":
+									[
+										"bash",
+										"-i"
+									],
+									"osx":
+									[
+										"bash",
+										"-i"
+									],
+									"windows":
+									[
+										"cmd.exe"
+									]
+								},
+								"cmd_postfix": "\n",
+								"cwd": "$file_path",
+								"encoding":
+								{
+									"linux": "utf-8",
+									"osx": "utf-8",
+									"windows": "$win_cmd_encoding"
+								},
+								"env":
+								{
+								},
+								"external_id": "shell",
+								"suppress_echo": true,
+								"syntax": "Packages/Text/Plain text.tmLanguage",
+								"type": "subprocess"
+							},
+							"repl_sublime2": false,
+							"smart_indent": false,
+							"spell_check": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 197.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/home/christoff/pmpy/trunk/0.1/src/tests.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 909,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								722,
+								722
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.48125,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 25.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.op":
+	{
+		"height": 72.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "/home/christoff/em/software/auxi.1.git/auxi.1.git.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"static/css/swimfo.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"/home/www-data/web2py/applications/emmistest/emmis.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 365.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
