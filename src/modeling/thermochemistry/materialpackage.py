@@ -28,7 +28,7 @@ class MaterialPackage(Object):
     # -------------------------------------------------------------------------
     # Standard methods.
     # -------------------------------------------------------------------------
-    def __init__(self, material, compound_masses, P = 1.0, T = 25.0):
+    def __init__(self, material, compound_masses, P=1.0, T=25.0):
         # Confirm that the parameters are OK.
         if not type(material) is Material:
             raise TypeError("Invalid material type. Must be "
@@ -127,14 +127,14 @@ class MaterialPackage(Object):
 
         # Add another package.
         if type(other) is MaterialPackage:
-            if self.material == other.material: # Packages of same material.
-                result =  MaterialPackage(self.material,
-                                          self._compound_masses +
-                                          other._compound_masses)
+            if self.material == other.material:  # Packages of same material.
+                result = MaterialPackage(self.material,
+                                         self._compound_masses +
+                                         other._compound_masses)
                 result._set_H(self._H + other._H)
                 result._P = self._P
                 return result
-            else: # Packages of different materials.
+            else:  # Packages of different materials.
                 H = self._get_H() + other._get_H()
                 result = self.clone()
                 for compound in other.material.compounds:
@@ -187,7 +187,6 @@ class MaterialPackage(Object):
         else:
             raise TypeError("Invalid addition argument.")
 
-
     def __mul__(self, scalar):
         """The multiplication operator (*).
 
@@ -230,7 +229,6 @@ class MaterialPackage(Object):
             H = H + dH
         return H
 
-
     def _calculate_T(self, H):
         """Calculate the temperature of the package given the specified
         enthalpy using a secant algorithm.
@@ -254,10 +252,9 @@ class MaterialPackage(Object):
             x.append(x[i-1] - y[i-1]*((x[i-1] - x[i-2])/(y[i-1] - y[i-2])))
             y.append(self._calculate_H(x[i]) - H)
             if abs(y[i-1]) < 1.0e-5:
-                break;
+                break
 
         return x[len(x) - 1]
-
 
     def _is_compound_mass_tuple(self, value):
         """Determines whether value is a tuple of the format
@@ -279,7 +276,6 @@ class MaterialPackage(Object):
             return False
         else:
             return True
-
 
     def _is_compound_mass_temperature_tuple(self, value):
         """Determines whether value is a tuple of the format
@@ -306,7 +302,6 @@ class MaterialPackage(Object):
         else:
             return True
 
-
     def _set_H(self, H):
         """Set the enthalpy of the package to the specified value, and
         recalculate it's temperature.
@@ -316,14 +311,12 @@ class MaterialPackage(Object):
         self._H = H
         self._T = self._calculate_T(H)
 
-
     def _get_H(self):
         """Determine the enthalpy of the package.
 
         :returns: Enthalpy. [kWh]"""
 
         return self._H
-
 
     def _set_T(self, T):
         """Set the temperature of the package to the specified value, and
@@ -334,14 +327,12 @@ class MaterialPackage(Object):
         self._T = T
         self._H = self._calculate_H(T)
 
-
     def _get_T(self):
         """Determine the temperature of of the package.
 
         :returns: Temperature. [°C]"""
 
         return self._T
-
 
     def _set_P(self, P):
         """Set the pressure of the package to the specified value.
@@ -350,14 +341,12 @@ class MaterialPackage(Object):
 
         self._P = P
 
-
     def _get_P(self):
         """Determine the pressure of the package.
 
         :returns: Pressure. [atm]"""
 
         return self._P
-
 
     # -------------------------------------------------------------------------
     # Public methods.
@@ -371,7 +360,6 @@ class MaterialPackage(Object):
         result._compound_masses = copy.deepcopy(self._compound_masses)
         return result
 
-
     def clear(self):
         """Clear the package."""
 
@@ -380,7 +368,6 @@ class MaterialPackage(Object):
         self._T = 25.0
         self._H = 0.0
 
-
     def get_assay(self):
         """Determine the assay of the package.
 
@@ -388,14 +375,12 @@ class MaterialPackage(Object):
 
         return self._compound_masses / self._compound_masses.sum()
 
-
     def get_mass(self):
         """Determine the mass of the package.
 
         :returns: Mass. [kg]"""
 
         return self._compound_masses.sum()
-
 
     def get_compound_mass(self, compound):
         """Determine the mass of the specified compound in the package.
@@ -409,7 +394,6 @@ class MaterialPackage(Object):
         else:
             return 0.0
 
-
     def get_compound_amounts(self):
         """Determine the mole amounts of all the compounds.
 
@@ -421,7 +405,6 @@ class MaterialPackage(Object):
             result[index] = stoich.amount(compound, result[index])
         return result
 
-
     def get_compound_amount(self, compound):
         """Determine the mole amount of the specified compound.
 
@@ -431,7 +414,6 @@ class MaterialPackage(Object):
         result = self._compound_masses[index]
         result = stoich.amount(compound, result)
         return result
-
 
     def get_amount(self):
         """Determine the sum of mole amounts of all the compounds.
@@ -444,13 +426,11 @@ class MaterialPackage(Object):
             result += self.get_compound_amount(compound)
         return result
 
-
     H = property(_get_H, _set_H, None, "Enthalpy. [kWh]")
     T = property(_get_T, _set_T, None, "Temperature. [°C]")
     P = property(_get_P, _set_P, None, "Pressure. [atm]")
     mass = property(get_mass, None, None, "[kg]")
     amount = property(get_amount, None, None, "[kmol]")
-
 
     def get_element_masses(self, elements = None):
         """Determine the masses of elements in the package.
@@ -463,7 +443,6 @@ class MaterialPackage(Object):
         for compound in self.material.compounds:
             result = result + self.get_compound_mass(compound) * stoich.element_mass_fractions(compound, elements)
         return result
-
 
     def get_element_mass_dictionary(self):
         """Determine the masses of elements in the package and return as a
@@ -478,7 +457,6 @@ class MaterialPackage(Object):
             result[s] = m
         return result
 
-
     def get_element_mass(self, element):
         """Determine the mass of the specified elements in the package.
 
@@ -488,7 +466,6 @@ class MaterialPackage(Object):
         for compound in self.material.compounds:
             result = result + self.get_compound_mass(compound) * stoich.element_mass_fractions(compound, [element])
         return result[0]
-
 
     def extract(self, other):
         """Extract some material from this package.
@@ -538,7 +515,6 @@ class MaterialPackage(Object):
         else:
             raise TypeError("Invalid extraction argument.")
 
-
     def _extract_mass(self, mass):
         if mass > self.get_mass():
             raise Exception("Invalid extraction operation. Cannot extract a mass larger than the package's mass.")
@@ -550,11 +526,11 @@ class MaterialPackage(Object):
 
         return result
 
-
     def _extract_compound(self, compound):
         result = self.material.create_package()
 
-        if not compound in self.material.compounds: return result
+        if compound not in self.material.compounds:
+            return result
 
         index = self.material.get_compound_index(compound)
         result._compound_masses[index] = self._compound_masses[index]
@@ -565,9 +541,8 @@ class MaterialPackage(Object):
 
         return result
 
-
     def _extract_compound_mass(self, compound, mass):
-        if not compound in self.material.compounds:
+        if compound not in self.material.compounds:
             return self.material.create_package()
 
         index = self.material.get_compound_index(compound)
@@ -580,7 +555,6 @@ class MaterialPackage(Object):
         result += (compound, mass)
 
         return result
-
 
     def _extract_material(self, material):
         result = material.create_package()
