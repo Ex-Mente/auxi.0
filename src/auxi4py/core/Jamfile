@@ -1,7 +1,0 @@
-
-#import python python-extension ;
-
-alias boost_py : /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.54.0 ;
-alias boost_dt : /usr/lib/x86_64-linux-gnu/libboost_date_time.so ;
-
-python-extension core : CoreWrapper.cpp CustomPythonModel.cpp CustomPythonExecutionInjector.cpp /auxi/core//core boost_dt boost_py : <include>/usr/include/boost <include>../../auxi/core ;
