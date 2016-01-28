@@ -13,7 +13,7 @@ class NamedObject(Object):
     Base class for all auxi classes containing a name and description.
     """
 
-    def __str__(self, name, description):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
 
