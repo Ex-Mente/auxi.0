@@ -12,7 +12,7 @@ from auxi.tools.chemistry.stoichiometry_test import TestAllFunctions as stoich_t
 from auxi.tools.chemistry.thermochemistry_test import TestAllFunctions as thermo_test_all
 #from auxi.modeling.chemistry.material_test import TestMaterial as chem_test_material
 #from auxi.modeling.chemistry.material_test import TestMaterialPackage as chem_test_material_package
-from auxi.modeling.thermochemistry.material_test import TestMaterial as thermo_test_material
+#from auxi.modeling.thermochemistry.material_test import TestMaterial as thermo_test_material
 #from auxi.modeling.thermochemistry.material_test import TestMaterialPackage as thermo_test_material_package
 #from auxi.modeling.psd.material_test import TestMaterial as psd_test_material
 #from auxi.modeling.psd.material_test import TestMaterialPackage as psd_test_material_package
