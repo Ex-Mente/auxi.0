@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-This module provides testing code for the psdmaterial module.
+This module provides testing code for the psdslurrymaterial module.
 
-@author: Johan Zietsman
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
-
 
 import unittest
 import os
 import numpy
-from auxi.modeling.material.psd.material import Material
-from auxi.modeling.material.psd.material import MaterialPackage
+from auxi.modeling.process.materials.slurrymaterial import Material
+from auxi.modeling.process.materials.slurrymaterial import MaterialPackage
+
+__version__ = "0.2.0"
 
 
 # =============================================================================
@@ -19,12 +19,12 @@ from auxi.modeling.material.psd.material import MaterialPackage
 # =============================================================================
 
 class TestMaterial(unittest.TestCase):
-    """Tester for the pmpy.materials.psdmaterial.Material class."""
+    """Tester for the pmpy.materials.psdslurrymaterial.Material class."""
 
     def setUp(self):
         self.material = Material("material",
-                                 os.path.join(psdmaterial.DEFAULT_DATA_PATH,
-                                 r"psdmaterial.test.materiala.txt"))
+                                 os.path.join(psdslurrymaterial.DEFAULT_DATA_PATH,
+                                 r"psdslurrymaterial.test.materiala.txt"))
 
     def test_constructor(self):
         self.assertEqual(self.material.name, "material")
@@ -67,8 +67,8 @@ class TestMaterialPackage(unittest.TestCase):
 
     def setUp(self):
         self.materiala = Material("materiala",
-                                 os.path.join(psdmaterial.DEFAULT_DATA_PATH,
-                                 r"psdmaterial.test.materiala.txt"))
+                                 os.path.join(psdslurrymaterial.DEFAULT_DATA_PATH,
+                                 r"psdslurrymaterial.test.materiala.txt"))
         self.materiala_package_a = self.materiala.create_package("FeedA",
                                                              1234.5, True)
         self.materiala_package_b = self.materiala.create_package("MillCharge",
@@ -216,7 +216,7 @@ class TestMaterialPackage(unittest.TestCase):
 # =============================================================================
 # Display documentation and run tests.
 # =============================================================================
-os.system("cls")
+# os.system("cls")
 
 #help(Material)
 #help(MaterialPackage)

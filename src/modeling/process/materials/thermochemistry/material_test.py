@@ -2,16 +2,15 @@
 """
 This module provides testing code for the modelling.thermochemistry module.
 
-@author: Johan Zietsman
+@author: Ex Mente Technologies (Pty) Ltd
 """
 
 
 import unittest
 import os
 import numpy
-from auxi.tools.chemistry import thermochemistry
-from auxi.modeling.material.thermochemistry.material import Material
-from auxi.modeling.material.thermochemistry.material import MaterialPackage
+from auxi.modeling.process.materials.thermochemistry.material import Material
+from auxi.modeling.process.materials.thermochemistry.material import MaterialPackage
 
 __version__ = "0.2.0"
 
@@ -19,9 +18,10 @@ __version__ = "0.2.0"
 # Types.
 # =============================================================================
 
+
 class TestMaterial(unittest.TestCase):
     """
-        Test whether ...
+
     """
     def setUp(self):
         self.material = Material("material", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
@@ -308,7 +308,7 @@ class TestMaterialPackage(unittest.TestCase):
 # =============================================================================
 # Display documentation and run tests.
 # =============================================================================
-os.system("cls")
+# os.system("cls")
 
 #help(Material)
 #help(MaterialPackage)

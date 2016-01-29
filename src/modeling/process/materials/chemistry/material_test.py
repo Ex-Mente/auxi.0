@@ -2,16 +2,16 @@
 """
 This module provides testing code for the chemmaterial module.
 
-@author: Johan Zietsman
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.0.2"
-
 
 import unittest
 import os
 import numpy
-from auxi.modeling.material.chemistry.material import Material
-from auxi.modeling.material.chemistry.material import MaterialPackage
+from auxi.modeling.process.materials.chemistry.material import Material
+from auxi.modeling.process.materials.chemistry.material import MaterialPackage
+
+__version__ = "0.2.0"
 
 
 # =============================================================================
@@ -249,7 +249,7 @@ class TestMaterialPackage(unittest.TestCase):
 # =============================================================================
 # Display documentation and run tests.
 # =============================================================================
-os.system("cls")
+#os.system("cls")
 
 #help(Material)
 #help(MaterialPackage)
