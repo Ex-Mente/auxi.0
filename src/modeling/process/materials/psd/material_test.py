@@ -19,7 +19,7 @@ __version__ = "0.2.0"
 # =============================================================================
 
 class TestMaterial(unittest.TestCase):
-    """Tester for the pmpy.materials.psdmaterial.Material class."""
+    """Tester for the auxi.modeling.process.materials.psd.material.Material class."""
 
     def setUp(self):
         self.material = Material("material",
@@ -64,7 +64,7 @@ class TestMaterial(unittest.TestCase):
 
 
 class TestMaterialPackage(unittest.TestCase):
-
+    """Tester for the auxi.modeling.process.materials.psd.material.MaterialPackage class."""
     def setUp(self):
         self.materiala = Material("materiala",
                                  os.path.join(psdmaterial.DEFAULT_DATA_PATH,

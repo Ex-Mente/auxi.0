@@ -19,7 +19,7 @@ __version__ = "0.2.0"
 # =============================================================================
 
 class TestMaterial(unittest.TestCase):
-    """Tester for the pmpy.materials.chemmaterial.Material class."""
+    """Tester for the auxi.modeling.process.materials.chemistry.material.Material class."""
 
     def setUp(self):
         self.material = Material("material",
@@ -68,7 +68,7 @@ class TestMaterial(unittest.TestCase):
 
 
 class TestMaterialPackage(unittest.TestCase):
-
+    """Tester for the auxi.modeling.process.materials.chemistry.material.Material class."""
     def setUp(self):
         self.ilmenite = Material("ilmenite",
                                  os.path.join(chemmaterial.DEFAULT_DATA_PATH,

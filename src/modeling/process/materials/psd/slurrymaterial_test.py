@@ -19,7 +19,7 @@ __version__ = "0.2.0"
 # =============================================================================
 
 class TestMaterial(unittest.TestCase):
-    """Tester for the pmpy.materials.psdslurrymaterial.Material class."""
+    """Tester for the auxi.modeling.process.materials.psd.slurrymaterial.Material class."""
 
     def setUp(self):
         self.material = Material("material",

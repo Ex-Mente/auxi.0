@@ -20,9 +20,7 @@ __version__ = "0.2.0"
 
 
 class TestMaterial(unittest.TestCase):
-    """
-
-    """
+    """Tester for the auxi.modeling.process.materials.thermochemistry.material.Material class."""
     def setUp(self):
         self.material = Material("material", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
 
@@ -66,7 +64,7 @@ class TestMaterial(unittest.TestCase):
 
 
 class TestMaterialPackage(unittest.TestCase):
-
+    """Tester for the auxi.modeling.process.materials.thermochemistry.material.MaterialPackage class."""
     def setUp(self):
         self.ilmenite = Material("ilmenite", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
         self.ilmenitePackageA = self.ilmenite.create_package("IlmeniteA", 1234.5, 0.8, 100.0, True)
