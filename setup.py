@@ -21,7 +21,7 @@ setup(name="auxi",
       platforms="Ubunutu 14.04,Ubuntu 15.04,Windows 7 (For the stoichiometry and thermochemistry tools only.)",
       package_dir={'auxi': 'src'},
       packages=["auxi", "auxi.core",
-                "auxi.modeling", "auxi.modeling.chemistry", "auxi.modeling.psd", "auxi.modeling.simple", "auxi.modeling.thermochemistry",
+                "auxi.modeling", "auxi.modeling.material", "auxi.modeling.material.chemistry", "auxi.modeling.material.psd", "auxi.modeling.material.thermochemistry",
                 "auxi.tools", "auxi.tools.chemistry"],
       package_data={'auxi.tools.chemistry': [r'data/thermo/*.txt'],
                     'auxi': [r'*.txt']}
