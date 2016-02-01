@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module provides testing code for the chemmaterial module.
+This module provides testing code for the chemistry material module.
 
 @author: Ex Mente Technologies (Pty) Ltd
 """

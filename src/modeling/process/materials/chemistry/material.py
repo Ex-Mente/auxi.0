@@ -2,7 +2,7 @@
 """
 This module provides material and material package classes that can do chemical calculations.\n
 
-@name: chemmaterial
+@name: chemistry
 @author: Ex Mente Technologies (Pty) Ltd
 """
 
@@ -212,7 +212,7 @@ class MaterialPackage(Object):
 
         # Confirm that the parameters are OK.
         if not type(material) is Material:
-            raise TypeError("Invalid material type. Must be chemmaterial.Material")
+            raise TypeError("Invalid material type. Must be chemistry.material.Material")
         if not type(compound_masses) is numpy.ndarray:
             raise TypeError("Invalid compound_masses type. Must be numpy.ndarray.")
 
