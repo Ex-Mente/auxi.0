@@ -36,7 +36,6 @@ class TestAllFunctions(unittest.TestCase):
         #self.assertEqual(len(self.material.assays), 2)
 
 
-
 # =============================================================================
 # Display documentation and run tests.
 # =============================================================================
