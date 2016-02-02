@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This module provides testing code for the
-auxi.modeling.financial.generalledger module.
+auxi.modeling.financial.des.generalledger module.
 
 @author: Ex Mente Technologies (Pty) Ltd
 """

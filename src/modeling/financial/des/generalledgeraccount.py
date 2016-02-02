@@ -2,7 +2,7 @@
 """
 This module provides a general ledger account class and an account type enum.\n
 
-@name: transaction
+@name: general ledger account
 @author: Ex Mente Technologies (Pty) Ltd
 """
 

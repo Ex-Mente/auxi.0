@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module provides testing code for the auxi.modeling.financial.generalledgeraccount module.
+This module provides testing code for the auxi.modeling.financial.des.generalledgeraccount module.
 
 @author: Ex Mente Technologies (Pty) Ltd
 """

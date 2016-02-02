@@ -17,14 +17,10 @@ class NamedObject(Object):
         self.name = name
         self.description = description
 
-if __name__ == "__main__":
-    import jsonpickle
+    @property
+    def name(self):
+        return self._name
 
-    n = NamedObject()
-    print(n)
-    print(n.__hash__())
-
-    str_n = str(n)
-    new_n = jsonpickle.decode(str_n)
-    print(new_n)
-    print(type(new_n))
+    @name.setter
+    def name(self, value):
+        self._name = value

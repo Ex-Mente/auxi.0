@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module provides testing code for the auxi.modeling.financial.transactiontemplate module.
+This module provides testing code for the auxi.modeling.financial.des.transactiontemplate module.
 
 @author: Ex Mente Technologies (Pty) Ltd
 """

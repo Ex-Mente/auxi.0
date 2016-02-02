@@ -20,6 +20,17 @@ from auxi.modeling.financial.des.transaction_test import TestAllFunctions as tra
 from auxi.modeling.financial.des.generalledgeraccount_test import TestAllFunctions as generalledgeraccount_test_all
 from auxi.modeling.financial.des.generalledgerstructure_test import TestAllFunctions as generalledgerstructure_test_all
 from auxi.modeling.financial.des.generalledger_test import TestAllFunctions as generalledger_test_all
+from auxi.modeling.financial.des.currency_test import TestAllFunctions as currency_test_all
+from auxi.modeling.financial.des.currencytable_test import TestAllFunctions as currencytable_test_all
+
+from auxi.modeling.financial.tax.rule_test import TestAllFunctions as taxrule_test_all
+from auxi.modeling.financial.tax.ruleset_test import TestAllFunctions as taxruleset_test_all
+from auxi.modeling.financial.tax.salesrule_test import TestAllFunctions as salestaxrule_test_all
+from auxi.modeling.financial.tax.incomerule_test import TestAllFunctions as incometaxrule_test_all
+from auxi.modeling.financial.tax.capitalgainsrule_test import TestAllFunctions as capitalgainstaxrule_test_all
+
+from auxi.modeling.business.clock_test import TestAllFunctions as clock_test_all
+from auxi.modeling.business.activity_test import TestAllFunctions as activity_test_all
 
 from auxi.modeling.process.materials.chemistry.material_test import TestMaterial as chem_test_material
 from auxi.modeling.process.materials.chemistry.material_test import TestMaterialPackage as chem_test_material_package

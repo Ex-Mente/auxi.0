@@ -3,7 +3,7 @@
 This module provides a general ledger class that a stores a
 structure of accounts and list of transactions between these accounts.\n
 
-@name: transaction
+@name: general ledger
 @author: Ex Mente Technologies (Pty) Ltd
 """
 
