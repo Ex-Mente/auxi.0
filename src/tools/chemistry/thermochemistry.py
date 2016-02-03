@@ -5,14 +5,17 @@ calculations.
 
 compounds: A dictionary of chemical compounds with thermochemical data loaded
 from data files.
+
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 import os
 import sys
 import glob
 from auxi.tools.chemistry import stoichiometry as stoich
 from auxi.tools.chemistry.compound import Compound
+
+__version__ = "0.2.0"
 
 
 # =============================================================================

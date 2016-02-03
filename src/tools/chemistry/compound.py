@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 This module contains a single class that represents chemical compound.
+
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 from auxi.core.object import Object
 from auxi.tools.chemistry import stoichiometry as stoich
 from auxi.tools.chemistry.phase import Phase
+
+__version__ = "0.2.0"
 
 
 class Compound(Object):

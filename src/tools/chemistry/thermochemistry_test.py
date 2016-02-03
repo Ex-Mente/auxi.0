@@ -2,14 +2,14 @@
 """
 This module provides testing code for the thermo module.
 
-@author: Johan Zietsman
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.0.2"
 
 import os
-import sys
 from auxi.tools.chemistry import thermochemistry as thermo
 import unittest
+
+__version__ = "0.2.0"
 
 
 # =============================================================================

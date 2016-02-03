@@ -2,12 +2,15 @@
 """
 This module contains a single class representing a phase of a chemical
 compound.
+
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 import math
 from auxi.core.namedobject import NamedObject
 from auxi.tools.chemistry.cprecord import CpRecord
+
+__version__ = "0.2.0"
 
 
 class Phase(NamedObject):

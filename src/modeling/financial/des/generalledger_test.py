@@ -41,15 +41,20 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(self.structure, self.object.structure)
 
     def test_create_transaction(self):
-        new_tx = self.object.test_create_transaction("TestA",
-                                                     description="TestA_Desc",
-                                                     tx_datetime=datetime(2016, 2, 1),
-                                                     dt_account="Bank",
-                                                     cr_account="Sales",
-                                                     source="Peanut Sales",
-                                                     amount=20.00)
+        new_tx = self.object.create_transaction("TestA",
+                                                description="TestA_Desc",
+                                                tx_datetime=datetime(2016, 2, 1),
+                                                dt_account="Bank",
+                                                cr_account="Sales",
+                                                source="Peanut Sales",
+                                                amount=20.00)
 
-        self.assertEqual(new_tx, self.object.transactions[0])
+        self.assertEqual(new_tx.name, self.object.transactions[0].name)
+        self.assertEqual(new_tx.tx_datetime, self.object.transactions[0].tx_datetime)
+        self.assertEqual(new_tx.dt_account, self.object.transactions[0].dt_account)
+        self.assertEqual(new_tx.cr_account, self.object.transactions[0].cr_account)
+        self.assertEqual(new_tx.source, self.object.transactions[0].source)
+        self.assertEqual(new_tx.amount, self.object.transactions[0].amount)
 
 
 # =============================================================================

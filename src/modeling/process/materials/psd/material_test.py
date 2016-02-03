@@ -8,6 +8,7 @@ This module provides testing code for the psdmaterial module.
 import unittest
 import os
 import numpy
+from auxi.modeling.process.materials.psd import material
 from auxi.modeling.process.materials.psd.material import Material
 from auxi.modeling.process.materials.psd.material import MaterialPackage
 
@@ -23,7 +24,7 @@ class TestMaterial(unittest.TestCase):
 
     def setUp(self):
         self.material = Material("material",
-                                 os.path.join(psdmaterial.DEFAULT_DATA_PATH,
+                                 os.path.join(material.DEFAULT_DATA_PATH,
                                  r"psdmaterial.test.materiala.txt"))
 
     def test_constructor(self):
@@ -67,7 +68,7 @@ class TestMaterialPackage(unittest.TestCase):
     """Tester for the auxi.modeling.process.materials.psd.material.MaterialPackage class."""
     def setUp(self):
         self.materiala = Material("materiala",
-                                 os.path.join(psdmaterial.DEFAULT_DATA_PATH,
+                                 os.path.join(material.DEFAULT_DATA_PATH,
                                  r"psdmaterial.test.materiala.txt"))
         self.materiala_package_a = self.materiala.create_package("FeedA",
                                                              1234.5, True)
@@ -78,7 +79,9 @@ class TestMaterialPackage(unittest.TestCase):
         size_class_masses = self.materiala.assays["FeedA"] * 123.4 / \
                           self.materiala.assays["FeedA"].sum()
         package = MaterialPackage(self.materiala, size_class_masses)
-        self.assertEqual(package.get_mass(), 123.4)
+        self.assertAlmostEqual(package.get_mass(),
+                               123.4,
+                               places=10)
 
     def test_add_operator_1(self):
         """other = MaterialPackage
@@ -88,11 +91,17 @@ class TestMaterialPackage(unittest.TestCase):
 
         package_a_plus_b = self.materiala_package_a + self.materiala_package_b
 
-        self.assertEqual(self.materiala_package_a.get_mass(), 1234.5)
+        self.assertAlmostEqual(self.materiala_package_a.get_mass(),
+                               1234.5,
+                               places=10)
 
-        self.assertEqual(self.materiala_package_b.get_mass(), 2345.5999999999995)
+        self.assertAlmostEqual(self.materiala_package_b.get_mass(),
+                               2345.5999999999995,
+                               places=10)
 
-        self.assertEqual(package_a_plus_b.get_mass(), 3580.0999999999999)
+        self.assertAlmostEqual(package_a_plus_b.get_mass(),
+                               3580.0999999999999,
+                               places=10)
 
     # def test_add_operator_2(self):
         # mix_package = self.mix.create_package(None, 0.0)
@@ -119,17 +128,22 @@ class TestMaterialPackage(unittest.TestCase):
 
         packageAplus75micron = self.materiala_package_a + (75.0E-6, 123.4)
 
-        self.assertEqual(packageAplus75micron.get_mass(), 1357.8999999999999)
+        self.assertAlmostEqual(packageAplus75micron.get_mass(),
+                               1357.8999999999999,
+                               places=10)
 
     def test_extract_1(self):
         temp_package_a = self.materiala_package_a.clone()
         mass = 432.1
         diff_package = temp_package_a.extract(mass)
 
-        self.assertEqual(temp_package_a.get_mass(),
-                         self.materiala_package_a.get_mass() - mass -0.00000000000025)
+        self.assertAlmostEqual(temp_package_a.get_mass(),
+                               self.materiala_package_a.get_mass() - mass,
+                               places=10)
 
-        self.assertEqual(diff_package.get_mass(), mass + 8.0E-14)
+        self.assertAlmostEqual(diff_package.get_mass(),
+                               mass + 8.0E-14,
+                               places=10)
 
     def test_subtract_operator_2(self):
         temp_package_a = self.materiala_package_a.clone()
@@ -137,8 +151,9 @@ class TestMaterialPackage(unittest.TestCase):
         mass = 123.4
         diff_package = temp_package_a.extract((size_class, mass))
 
-        self.assertEqual(temp_package_a.get_mass(),
-                         self.materiala_package_a.get_mass() - mass -0.0000000000002)
+        self.assertAlmostEqual(temp_package_a.get_mass(),
+                               self.materiala_package_a.get_mass() - mass,
+                               places=10)
         self.assertEqual(temp_package_a.get_size_class_mass(size_class),
                          self.materiala_package_a.get_size_class_mass(size_class) -
                          mass)
@@ -175,8 +190,9 @@ class TestMaterialPackage(unittest.TestCase):
                                   temp_package_a.size_class_masses))
 
         mul_package_2 = temp_package_a * 123.4
-        self.assertEqual(mul_package_2.get_mass(),
-                         temp_package_a.get_mass() * 123.4 -0.0000000000298)
+        self.assertAlmostEqual(mul_package_2.get_mass(),
+                               temp_package_a.get_mass() * 123.4,
+                               places=10)
         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==
                                   temp_package_a.size_class_masses * 123.4))
 
@@ -188,8 +204,12 @@ class TestMaterialPackage(unittest.TestCase):
                                   self.materiala_package_a.size_class_masses))
 
     def test_get_mass(self):
-        self.assertEqual(self.materiala_package_a.get_mass(), 1234.5)
-        self.assertEqual(self.materiala_package_b.get_mass(), 2345.5999999999995)
+        self.assertAlmostEqual(self.materiala_package_a.get_mass(),
+                               1234.5,
+                               places=10)
+        self.assertAlmostEqual(self.materiala_package_b.get_mass(),
+                               2345.5999999999995,
+                               places=10)
 
     def test_get_assay(self):
         self.assertTrue(numpy.all(self.materiala_package_a.get_assay() -

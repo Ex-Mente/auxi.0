@@ -24,7 +24,6 @@ class AccountType(Enum):
 class GeneralLedgerAccount(NamedObject):
     """Represents an account of a general ledger.
     """
-    accounts = []
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -36,6 +35,7 @@ class GeneralLedgerAccount(NamedObject):
         super().__init__(name, description)
         self.number = number
         self.account_type = account_type
+        self.accounts = []
 
     def create_account(self, name, description=None, number=None):
         """Create a sub account in the account.

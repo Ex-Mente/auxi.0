@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module provides an activity class that that serves as a base class
+This module provides an activity class that serves as a base class
 for business activities.\n
 
 @name: activity
@@ -18,10 +18,6 @@ __version__ = "0.2.0"
 
 class Activity(NamedObject):
     """Represents an activity base class."""
-    path = ""
-    start_period_ix = -1
-    end_period_ix = -1
-    period_count = -1
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -38,17 +34,18 @@ class Activity(NamedObject):
         :param end: The datetime the activity should be run until.
         :param interval: The interval of the activity.
         """
+        self._parent_path = ""
         super().__init__(name, description)
         self.start_datetime = start
         self.end_datetime = end
         self.interval = interval
+        self.start_period_ix = -1
+        self.end_period_ix = -1
+        self.period_count = -1
 
-    def set_path(self, parent_path):
-        """Set the path of this activity. The name is added to the given path.
-
-        :param parent_path: The path of its parent.
-        """
-        self.path = parent_path + "/" + self.name
+    def set_parent_path(self, value):
+        self._parent_path = value
+        self.path = value + r'/' + self.name
 
     @property
     def name(self):
@@ -57,18 +54,19 @@ class Activity(NamedObject):
     @name.setter
     def name(self, value):
         self._name = value
-        ix = self.path.rfind('/')
-        if ix == -1:
-            self.path = value
-        else:
-            self.path = self.path[:ix] + value
+        self.path = self._parent_path + r'/' + self.name
 
     def _meet_execution_criteria(self, ix_period):
         if self.interval != 0 and (ix_period+1) % self.interval != 0:
             return False
-        return ix_period >= start_period_ix and ix_period + self.interval <= end_period_ix
+        return ix_period >= self.start_period_ix and ix_period + self.interval <= self.end_period_ix
 
     def prepare_to_run(self, clock, period_count):
+        """Prepare the activity for execution.
+
+        :param clock: The clock containing the execution start time and execution period information.
+        :param period_count: The total amount of periods this activity will be requested to be run for.
+        """
         if self.start_period_ix == -1 and self.start_datetime != datetime.min:
             # Set the Start period index
             for i in range(0, period_count):

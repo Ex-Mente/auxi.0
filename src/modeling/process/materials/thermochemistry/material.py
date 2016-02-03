@@ -8,9 +8,11 @@ This module provides a material class that can do thermochemical calculations.
 import os
 import sys
 import numpy
+import copy
 from auxi.core.object import Object
 from auxi.core.namedobject import NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
+from auxi.tools.chemistry import thermochemistry as thermo
 
 __version__ = "0.2.0"
 
@@ -866,7 +868,7 @@ class Normalise(AssayConversionAction):
 
 def _get_default_data_path():
     module_path = os.path.dirname(sys.modules[__name__].__file__)
-    data_path = os.path.join(module_path, r"data")
+    data_path = os.path.join(module_path, r"../data")
     data_path = os.path.abspath(data_path)
     return data_path
 

@@ -2,15 +2,16 @@
 """
 This module provides testing code for the stoichiometry module.
 
-@author: Johan Zietsman
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 
 import os
 from auxi.tools.chemistry import stoichiometry as stoich
 # import stoich
 import unittest
+
+__version__ = "0.2.0"
 
 
 # =============================================================================

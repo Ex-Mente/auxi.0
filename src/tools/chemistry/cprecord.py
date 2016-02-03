@@ -2,11 +2,14 @@
 """
 This module contains a single class representing a Cp record of a chemical
 compound phase.
+
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 import math
 from auxi.core.object import Object
+
+__version__ = "0.2.0"
 
 
 class CpRecord(Object):

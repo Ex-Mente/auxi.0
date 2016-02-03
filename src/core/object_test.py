@@ -6,8 +6,7 @@ This module provides testing code for the object module.
 """
 
 import unittest
-import os
-import numpy
+import jsonpickle
 from auxi.core.object import Object
 
 __version__ = "0.2.0"
@@ -23,17 +22,10 @@ class TestAllFunctions(unittest.TestCase):
     def setUp(self):
         self.object = Object()
 
-    def test_constructor(self):
-        print(self.object)
-
+    def test___str__(self):
         str_o = str(self.object)
         new_o = jsonpickle.decode(str_o)
-        print(new_o)
-        print(type(new_o))
-        #self.assertEqual(self.material.name, "material")
-        #self.assertEqual(len(self.material.size_classes), 10)
-        #self.assertEqual(self.material.size_class_count, 10)
-        #self.assertEqual(len(self.material.assays), 2)
+        self.assertEqual(str_o, str(new_o))
 
 
 # =============================================================================
@@ -41,7 +33,7 @@ class TestAllFunctions(unittest.TestCase):
 # =============================================================================
 # os.system("cls")
 
-#help(Object)
+# help(Object)
 
 if __name__ == '__main__':
     unittest.main()

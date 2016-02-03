@@ -27,7 +27,7 @@ class TestAllFunctions(unittest.TestCase):
         self.object = Clock("NameA",
                             description="DescriptionA",
                             start_datetime=datetime(2016, 2, 1),
-                            timestep_period_duration=TimePeriod.Year,
+                            timestep_period_duration=TimePeriod.year,
                             timestep_period_count=3)
 
     def test_constructor(self):
@@ -53,7 +53,7 @@ class TestAllFunctions(unittest.TestCase):
 
     def test_get_datetime(self):
         self.object.tick()
-        self.assertEqual(self.object.get_datetime(3), datetime(2017, 2, 1))
+        self.assertEqual(self.object.get_datetime(), datetime(2017, 2, 1))
 
 # =============================================================================
 # Display documentation and run tests.

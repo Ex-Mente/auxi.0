@@ -33,16 +33,20 @@ class TestAllFunctions(unittest.TestCase):
     def test_constructor(self):
         self.assertEqual(self.object.name, "NameA")
         self.assertEqual(self.object.description, "DescriptionA")
-        self.assertEqual(self.object.start_date, datetime(2016, 2, 1))
-        self.assertEqual(self.object.end_date, datetime(2017, 2, 1))
+        self.assertEqual(self.object.start_datetime, datetime(2016, 2, 1))
+        self.assertEqual(self.object.end_datetime, datetime(2017, 2, 1))
         self.assertEqual(self.object.interval, 3)
 
-    def test_set_path(self):
-        self.object.set_path("entityA/componentA")
+    def test_get_path(self):
+        self.object.set_parent_path("entityA/componentA")
+        self.assertEqual(self.object.path, "entityA/componentA/NameA")
+
+    def test_set_parent_path(self):
+        self.object.set_parent_path("entityA/componentA")
         self.assertEqual(self.object.path, "entityA/componentA/NameA")
 
     def test_set_name(self):
-        self.object.set_path("entityA/componentA")
+        self.object.set_parent_path("entityA/componentA")
         self.object.name = "NameAt"
         self.assertEqual(self.object.name, "NameAt")
         self.assertEqual(self.object.path, "entityA/componentA/NameAt")
@@ -51,14 +55,14 @@ class TestAllFunctions(unittest.TestCase):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
         self.object.prepare_to_run(clock, 13)
         self.assertEqual(self.object._meet_execution_criteria(3), False)
-        self.assertEqual(self.object._meet_execution_criteria(4), True)
+        self.assertEqual(self.object._meet_execution_criteria(5), True)
         self.assertEqual(self.object._meet_execution_criteria(40), False)
 
     def test_prepare_to_run(self):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
         self.object.prepare_to_run(clock, 18)
-        self.assertEqual(self.object.start_period_ix, 1)
-        self.assertEqual(self.object.end_period_ix, 13)
+        self.assertEqual(self.object.start_period_ix, 2)
+        self.assertEqual(self.object.end_period_ix, 14)
 
 
 # =============================================================================
@@ -66,7 +70,7 @@ class TestAllFunctions(unittest.TestCase):
 # =============================================================================
 # os.system("cls")
 
-# help(Currency)
+# help(Activity)
 
 if __name__ == '__main__':
     unittest.main()

@@ -19,7 +19,6 @@ __version__ = "0.2.0"
 class CurrencyTable(NamedObject):
     """Represents a currency table that is used to define the exchange rates of
     different currencies based on the default currency."""
-    table = {}
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -34,4 +33,5 @@ class CurrencyTable(NamedObject):
         """
         super().__init__(name, description)
         self.default_currency = default_currency
+        self.table = {}
         self.table[self.default_currency] = "1.0"

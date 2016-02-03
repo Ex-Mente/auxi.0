@@ -28,3 +28,4 @@ class Currency(NamedObject):
         :param symbol: The symbol.
         """
         super().__init__(name, description)
+        self.symbol = symbol

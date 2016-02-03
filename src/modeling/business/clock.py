@@ -10,7 +10,9 @@ date since the start date.\n
 
 from enum import Enum
 from datetime import datetime
+from datetime import timedelta
 from auxi.core.namedobject import NamedObject
+from dateutil.relativedelta import relativedelta
 
 __version__ = "0.2.0"
 
@@ -28,7 +30,6 @@ class TimePeriod(Enum):
 
 class Clock(NamedObject):
     """Represents a clock."""
-    timestep_ix = 0
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -49,6 +50,7 @@ class Clock(NamedObject):
         self.start_datetime = start_datetime
         self.timestep_period_duration = timestep_period_duration
         self.timestep_period_count = timestep_period_count
+        self.timestep_ix = 0
 
     def tick(self):
         self.timestep_ix += 1
@@ -57,22 +59,22 @@ class Clock(NamedObject):
         self.timestep_ix = 0
 
     def get_datetime_at_period_ix(self, ix):
-        if self.timestep_period_duration == TimePeriod.milliseconds:
-            return self.start_datetime + datetime.timedelta(milliseconds=ix)
-        elif self.timestep_period_duration == TimePeriod.seconds:
-            return self.start_datetime + datetime.timedelta(seconds=ix)
-        elif self.timestep_period_duration == TimePeriod.minutes:
-            return self.start_datetime + datetime.timedelta(minutes=ix)
-        elif self.timestep_period_duration == TimePeriod.hours:
-            return self.start_datetime + datetime.timedelta(hours=ix)
-        elif self.timestep_period_duration == TimePeriod.days:
-            return self.start_datetime + datetime.timedelta(days=ix)
-        elif self.timestep_period_duration == TimePeriod.days:
-            return self.start_datetime + datetime.timedelta(days=ix*7)
-        elif self.timestep_period_duration == TimePeriod.months:
-            return self.start_datetime + datetime.timedelta(months=ix)
-        elif self.timestep_period_duration == TimePeriod.years:
-            return self.start_datetime + datetime.timedelta(years=ix)
+        if self.timestep_period_duration == TimePeriod.millisecond:
+            return self.start_datetime + timedelta(milliseconds=ix)
+        elif self.timestep_period_duration == TimePeriod.second:
+            return self.start_datetime + timedelta(seconds=ix)
+        elif self.timestep_period_duration == TimePeriod.minute:
+            return self.start_datetime + timedelta(minutes=ix)
+        elif self.timestep_period_duration == TimePeriod.hour:
+            return self.start_datetime + timedelta(hours=ix)
+        elif self.timestep_period_duration == TimePeriod.day:
+            return self.start_datetime + relativedelta(days=ix)
+        elif self.timestep_period_duration == TimePeriod.week:
+            return self.start_datetime + relativedelta(days=ix*7)
+        elif self.timestep_period_duration == TimePeriod.month:
+            return self.start_datetime + relativedelta(months=ix)
+        elif self.timestep_period_duration == TimePeriod.year:
+            return self.start_datetime + relativedelta(years=ix)
 
     def get_datetime(self):
         return self.get_datetime_at_period_ix(self.timestep_ix)

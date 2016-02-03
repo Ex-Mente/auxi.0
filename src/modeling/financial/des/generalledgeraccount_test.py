@@ -45,11 +45,12 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(new_account, self.object.accounts[0])
 
     def test_remove_account(self):
+        num_accounts = len(self.object.accounts)
         self.object.create_account("TestA",
                                    description="TestA_Desc",
                                    number="011")
         self.object.remove_account("TestA")
-        self.assertEqual(len(self.object.accounts), 0)
+        self.assertEqual(len(self.object.accounts), num_accounts)
 
 # =============================================================================
 # Display documentation and run tests.

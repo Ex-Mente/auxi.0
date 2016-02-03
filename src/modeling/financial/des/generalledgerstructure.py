@@ -19,7 +19,6 @@ __version__ = "0.2.0"
 
 class GeneralLedgerStructure(NamedObject):
     """Represents the account structure of a general ledger."""
-    accounts = []
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -27,6 +26,42 @@ class GeneralLedgerStructure(NamedObject):
     def __init__(self, name, description=None):
         """Initialise the object."""
         super().__init__(name, description)
+        self.accounts = []
+        self.create_account("Bank",
+                            description="Bank",
+                            number="010",
+                            account_type=AccountType.asset)
+        self.create_account("IncomeTaxPayable",
+                            description="IncomeTaxPayable",
+                            number="010",
+                            account_type=AccountType.liability)
+        self.create_account("IncomeTaxExpense",
+                            description="IncomeTaxExpense",
+                            number="010",
+                            account_type=AccountType.expense)
+        self.create_account("Sales",
+                            description="Sales",
+                            number="010",
+                            account_type=AccountType.revenue)
+        self.create_account("CostOfSales",
+                            description="CostOfSales",
+                            number="010",
+                            account_type=AccountType.expense)
+        self.create_account("GrossProfit",
+                            description="GrossProfit",
+                            number="010",
+                            account_type=AccountType.revenue)
+        self.create_account("IncomeSummary",
+                            description="IncomeSummary",
+                            number="010",
+                            account_type=AccountType.revenue)
+        self.create_account("RetainedEarnings",
+                            description="RetainedEarnings",
+                            number="010",
+                            account_type=AccountType.equity)
+        self.tax_payment_account = "Bank"
+
+
 
     def create_account(self, name, description=None, number=None,
                        account_type=AccountType.revenue):
@@ -60,6 +95,10 @@ class GeneralLedgerStructure(NamedObject):
         for a in accounts:
             if a.name == account_name:
                 return a
+            else:
+                result = self._get_account_from_child(a.accounts, account_name)
+                if result is not None:
+                    return result
         return None
 
     def get_account(self, account_name):

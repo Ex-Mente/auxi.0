@@ -34,5 +34,6 @@ class Transaction(NamedObject):
         self.dt_account = dt_account
         self.cr_account = cr_account
         self.source = source
+        self.amount = amount
         self.is_closing_dt_account = is_closing_dt_account
         self.is_closing_cr_account = is_closing_cr_account

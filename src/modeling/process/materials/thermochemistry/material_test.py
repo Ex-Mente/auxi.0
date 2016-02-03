@@ -5,12 +5,17 @@ This module provides testing code for the modelling.thermochemistry module.
 @author: Ex Mente Technologies (Pty) Ltd
 """
 
+# TODO: material package uses materials 'assays' property.
+#       Material does not have an 'assays' property,
+#       only a raw_assays and converted_assays property.
 
 import unittest
 import os
 import numpy
+from auxi.modeling.process.materials.thermochemistry import material
 from auxi.modeling.process.materials.thermochemistry.material import Material
 from auxi.modeling.process.materials.thermochemistry.material import MaterialPackage
+from auxi.tools.chemistry import thermochemistry as thermo
 
 __version__ = "0.2.0"
 
@@ -22,7 +27,7 @@ __version__ = "0.2.0"
 class TestMaterial(unittest.TestCase):
     """Tester for the auxi.modeling.process.materials.thermochemistry.material.Material class."""
     def setUp(self):
-        self.material = Material("material", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
+        self.material = Material("material", os.path.join(material.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
 
     def test_constructor(self):
         self.assertEqual(self.material.name, "material")
@@ -66,13 +71,13 @@ class TestMaterial(unittest.TestCase):
 class TestMaterialPackage(unittest.TestCase):
     """Tester for the auxi.modeling.process.materials.thermochemistry.material.MaterialPackage class."""
     def setUp(self):
-        self.ilmenite = Material("ilmenite", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
+        self.ilmenite = Material("ilmenite", os.path.join(material.DEFAULT_DATA_PATH, r"thermomaterial.test.ilmenite.txt"))
         self.ilmenitePackageA = self.ilmenite.create_package("IlmeniteA", 1234.5, 0.8, 100.0, True)
         self.ilmenitePackageB = self.ilmenite.create_package("IlmeniteB", 2345.6, 0.9, 200.0, True)
         self.ilmenitePackageC = self.ilmenite.create_package("IlmeniteC", 3456.7, 1.0, 300.0, True)
-        self.reductant = Material("reductant", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.reductant.txt"))
+        self.reductant = Material("reductant", os.path.join(material.DEFAULT_DATA_PATH, r"thermomaterial.test.reductant.txt"))
         self.reductantPackageA = self.reductant.create_package("ReductantA", 123.45, 0.75, 400.0, True)
-        self.mix = Material("mix", os.path.join(thermomaterial.DEFAULT_DATA_PATH, r"thermomaterial.test.mix.txt"))
+        self.mix = Material("mix", os.path.join(material.DEFAULT_DATA_PATH, r"thermomaterial.test.mix.txt"))
 
     def test_constructor(self):
         compound_masses = self.ilmenite.assays["IlmeniteB"] * 123.4 / self.ilmenite.assays["IlmeniteB"].sum()
@@ -93,40 +98,40 @@ class TestMaterialPackage(unittest.TestCase):
         packageBplusC = self.ilmenitePackageB + self.ilmenitePackageC
         packageAplusBplusC = self.ilmenitePackageA + self.ilmenitePackageB + self.ilmenitePackageC
 
-        self.assertEqual(self.ilmenitePackageA.get_mass(), 1234.5)
-        self.assertEqual(self.ilmenitePackageA.P, 0.8)
-        self.assertEqual(self.ilmenitePackageA.T, 100.0)
-        self.assertEqual(self.ilmenitePackageA.H, -2811.6976363963095)
+        self.assertAlmostEqual(self.ilmenitePackageA.get_mass(), 1234.5)
+        self.assertAlmostEqual(self.ilmenitePackageA.P, 0.8)
+        self.assertAlmostEqual(self.ilmenitePackageA.T, 100.0)
+        self.assertAlmostEqual(self.ilmenitePackageA.H, -2811.6976363963095)
 
-        self.assertEqual(self.ilmenitePackageB.get_mass(), 2345.6)
-        self.assertEqual(self.ilmenitePackageB.P, 0.9)
-        self.assertEqual(self.ilmenitePackageB.T, 200.0)
-        self.assertEqual(self.ilmenitePackageB.H, -4550.3197620429773)
+        self.assertAlmostEqual(self.ilmenitePackageB.get_mass(), 2345.6)
+        self.assertAlmostEqual(self.ilmenitePackageB.P, 0.9)
+        self.assertAlmostEqual(self.ilmenitePackageB.T, 200.0)
+        self.assertAlmostEqual(self.ilmenitePackageB.H, -4550.3197620429773)
 
-        self.assertEqual(self.ilmenitePackageC.get_mass(), 3456.7)
-        self.assertEqual(self.ilmenitePackageC.P, 1.0)
-        self.assertEqual(self.ilmenitePackageC.T, 300.0)
-        self.assertEqual(self.ilmenitePackageC.H, -8023.545629913353)
+        self.assertAlmostEqual(self.ilmenitePackageC.get_mass(), 3456.7)
+        self.assertAlmostEqual(self.ilmenitePackageC.P, 1.0)
+        self.assertAlmostEqual(self.ilmenitePackageC.T, 300.0)
+        self.assertAlmostEqual(self.ilmenitePackageC.H, -8023.545629913353)
 
-        self.assertEqual(packageAplusB.get_mass(), 3580.0999999999999)
-        self.assertEqual(packageAplusB.P, 0.8)
-        self.assertEqual(packageAplusB.T, 165.93941355722774)
-        self.assertEqual(packageAplusB.H, self.ilmenitePackageA.H + self.ilmenitePackageB.H)
+        self.assertAlmostEqual(packageAplusB.get_mass(), 3580.0999999999999)
+        self.assertAlmostEqual(packageAplusB.P, 0.8)
+        self.assertAlmostEqual(packageAplusB.T, 165.93941355722774)
+        self.assertAlmostEqual(packageAplusB.H, self.ilmenitePackageA.H + self.ilmenitePackageB.H)
 
-        self.assertEqual(packageAplusC.get_mass(), 4691.1999999999989)
-        self.assertEqual(packageAplusC.P, 0.8)
-        self.assertEqual(packageAplusC.T, 249.48206641333098)
-        self.assertEqual(packageAplusC.H, self.ilmenitePackageA.H + self.ilmenitePackageC.H)
+        self.assertAlmostEqual(packageAplusC.get_mass(), 4691.1999999999989)
+        self.assertAlmostEqual(packageAplusC.P, 0.8)
+        self.assertAlmostEqual(packageAplusC.T, 249.48206641333098)
+        self.assertAlmostEqual(packageAplusC.H, self.ilmenitePackageA.H + self.ilmenitePackageC.H)
 
-        self.assertEqual(packageBplusC.get_mass(), 5802.2999999999993)
-        self.assertEqual(packageBplusC.P, 0.9)
-        self.assertEqual(packageBplusC.T, 260.56905390294497)
-        self.assertEqual(packageBplusC.H, self.ilmenitePackageB.H + self.ilmenitePackageC.H)
+        self.assertAlmostEqual(packageBplusC.get_mass(), 5802.2999999999993)
+        self.assertAlmostEqual(packageBplusC.P, 0.9)
+        self.assertAlmostEqual(packageBplusC.T, 260.56905390294497)
+        self.assertAlmostEqual(packageBplusC.H, self.ilmenitePackageB.H + self.ilmenitePackageC.H)
 
-        self.assertEqual(packageAplusBplusC.get_mass(), 7036.8)
-        self.assertEqual(packageAplusBplusC.P, 0.8)
-        self.assertEqual(packageAplusBplusC.T, 233.3038145723261)
-        self.assertEqual(packageAplusBplusC.H, self.ilmenitePackageA.H + self.ilmenitePackageB.H + self.ilmenitePackageC.H)
+        self.assertAlmostEqual(packageAplusBplusC.get_mass(), 7036.8)
+        self.assertAlmostEqual(packageAplusBplusC.P, 0.8)
+        self.assertAlmostEqual(packageAplusBplusC.T, 233.3038145723261)
+        self.assertAlmostEqual(packageAplusBplusC.H, self.ilmenitePackageA.H + self.ilmenitePackageB.H + self.ilmenitePackageC.H)
 
     def test_add_operator_2(self):
         mixPackage = self.mix.create_package(None, 0.0)
@@ -135,7 +140,7 @@ class TestMaterialPackage(unittest.TestCase):
 
         self.assertEqual(mixPackage.get_mass(), self.ilmenitePackageA.get_mass() + self.reductantPackageA.get_mass())
         self.assertEqual(mixPackage.P, 1.0)
-        self.assertEqual(mixPackage.T, 146.64409455076031)
+        self.assertAlmostEqual(mixPackage.T, 146.64409455076031)
         self.assertEqual(mixPackage.H, self.ilmenitePackageA.H + self.reductantPackageA.H)
 
         self.assertRaises(Exception, self.add_incompatible_packages)

@@ -19,7 +19,6 @@ __version__ = "0.2.0"
 
 class GeneralLedger(NamedObject):
     """Represents the account structure of a general ledger."""
-    transactions = []
 
     # -------------------------------------------------------------------------
     # Standard methods.
@@ -33,6 +32,7 @@ class GeneralLedger(NamedObject):
         """
         super().__init__(name, description)
         self.structure = structure
+        self.transactions = []
 
     def create_transaction(self, name, description=None,
                            tx_datetime=datetime.min,

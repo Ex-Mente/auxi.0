@@ -35,5 +35,6 @@ setup(name="auxi",
                 "auxi.tools",
                 "auxi.tools.chemistry"],
       package_data={'auxi.tools.chemistry': [r'data/thermo/*.txt'],
+                    'auxi.modeling.process.materials': [r'data/*.txt'],
                     'auxi': [r'*.txt']}
       )

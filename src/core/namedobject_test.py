@@ -6,7 +6,7 @@ This module provides testing code for the named object module.
 """
 
 import unittest
-from auxi.core.object import Object
+import jsonpickle
 from auxi.core.namedobject import NamedObject
 
 __version__ = "0.2.0"
@@ -27,8 +27,12 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(self.object.description, "DescriptionA")
 
     def test__str__(self):
-        obj = Object()
+        obj = NamedObject("NameB", "DescriptionB")
         self.assertNotEqual(str(obj), str(self.object))
+
+        str_o = str(self.object)
+        new_o = jsonpickle.decode(str_o)
+        self.assertEqual(str_o, str(new_o))
 
 
 # =============================================================================

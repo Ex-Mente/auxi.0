@@ -2,11 +2,14 @@
 """
 This module provides a number of functions for doing stoichiometry
 calculations.
+
+@author: Ex Mente Technologies (Pty) Ltd
 """
-__version__ = "0.2.0"
 
 import numpy
 from auxi.tools.chemistry.element import Element
+
+__version__ = "0.2.0"
 
 
 # =============================================================================

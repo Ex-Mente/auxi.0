@@ -29,25 +29,34 @@ class TestAllFunctions(unittest.TestCase):
     def test_constructor(self):
         self.assertEqual(self.object.name, "NameA")
         self.assertEqual(self.object.description, "DescriptionA")
-        self.assertEqual(self.accounts[0].name, "Bank")
-        self.assertEqual(self.accounts[0].account_type, AccountType.asset)
-        self.assertEqual(self.accounts[0].name, "IncomeTaxPayable")
-        self.assertEqual(self.accounts[0].account_type, AccountType.liability)
-        self.assertEqual(self.accounts[0].name, "IncomeTaxExpense")
-        self.assertEqual(self.accounts[0].account_type, AccountType.expense)
-        self.assertEqual(self.accounts[0].name, "Sales")
-        self.assertEqual(self.accounts[0].account_type, AccountType.revenue)
-        self.assertEqual(self.accounts[0].name, "CostOfSales")
-        self.assertEqual(self.accounts[0].account_type, AccountType.expense)
-        self.assertEqual(self.accounts[0].name, "GrossProfit")
-        self.assertEqual(self.accounts[0].account_type, AccountType.revenue)
-        self.assertEqual(self.accounts[0].name, "IncomeSummary")
-        self.assertEqual(self.accounts[0].account_type, AccountType.revenue)
-        self.assertEqual(self.accounts[0].name, "RetainedEarnings")
-        self.assertEqual(self.accounts[0].account_type, AccountType.equity)
-        self.assertEqual(self.m_taxPaymentAccount, None)
+        self.assertEqual(self.object.accounts[0].name, "Bank")
+        self.assertEqual(self.object.accounts[0].account_type,
+                         AccountType.asset)
+        self.assertEqual(self.object.accounts[1].name, "IncomeTaxPayable")
+        self.assertEqual(self.object.accounts[1].account_type,
+                         AccountType.liability)
+        self.assertEqual(self.object.accounts[2].name, "IncomeTaxExpense")
+        self.assertEqual(self.object.accounts[2].account_type,
+                         AccountType.expense)
+        self.assertEqual(self.object.accounts[3].name, "Sales")
+        self.assertEqual(self.object.accounts[3].account_type,
+                         AccountType.revenue)
+        self.assertEqual(self.object.accounts[4].name, "CostOfSales")
+        self.assertEqual(self.object.accounts[4].account_type,
+                         AccountType.expense)
+        self.assertEqual(self.object.accounts[5].name, "GrossProfit")
+        self.assertEqual(self.object.accounts[5].account_type,
+                         AccountType.revenue)
+        self.assertEqual(self.object.accounts[6].name, "IncomeSummary")
+        self.assertEqual(self.object.accounts[6].account_type,
+                         AccountType.revenue)
+        self.assertEqual(self.object.accounts[7].name, "RetainedEarnings")
+        self.assertEqual(self.object.accounts[7].account_type,
+                         AccountType.equity)
+        self.assertEqual(self.object.tax_payment_account, "Bank")
 
     def test_create_account(self):
+        orig_length = len(self.object.accounts)
         new_acc = self.object.create_account("TestA",
                                              description="TestA_Desc",
                                              number="011",
@@ -57,15 +66,16 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(new_acc.number, "011")
         self.assertEqual(new_acc.account_type, AccountType.equity)
 
-        self.assertEqual(new_acc, self.object.accounts[0])
+        self.assertEqual(new_acc, self.object.accounts[orig_length])
 
     def test_remove_account(self):
+        orig_length = len(self.object.accounts)
         self.object.create_account("TestA",
                                    description="TestA_Desc",
                                    number="011",
                                    account_type=AccountType.equity)
         self.object.remove_account("TestA")
-        self.assertEqual(len(self.object.accounts), 0)
+        self.assertEqual(len(self.object.accounts), orig_length)
 
     def test_get_account(self):
         self.object.create_account("TestA",
@@ -87,7 +97,9 @@ class TestAllFunctions(unittest.TestCase):
                                       number="011")
         result = self.object.get_account("TestB1.2")
 
-        self.assertEqual(result, orig)
+        self.assertEqual(result.name, orig.name)
+        self.assertEqual(result.description, orig.description)
+        self.assertEqual(result.number, orig.number)
 
 
 # =============================================================================
