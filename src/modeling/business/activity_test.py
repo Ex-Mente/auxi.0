@@ -50,9 +50,9 @@ class TestAllFunctions(unittest.TestCase):
     def test__meet_exection_criteria(self):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
         self.object.prepare_to_run(clock, 13)
-        self.assertEqual(self.object._meet_exection_criteria(3), False)
-        self.assertEqual(self.object._meet_exection_criteria(4), True)
-        self.assertEqual(self.object._meet_exection_criteria(40), False)
+        self.assertEqual(self.object._meet_execution_criteria(3), False)
+        self.assertEqual(self.object._meet_execution_criteria(4), True)
+        self.assertEqual(self.object._meet_execution_criteria(40), False)
 
     def test_prepare_to_run(self):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))

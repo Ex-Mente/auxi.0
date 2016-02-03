@@ -2,7 +2,7 @@
 """
 Created on Tue May  6 08:09:58 2014
 
-@author: Johan Zietsman, Christoff Kok
+@author: Ex Mente (Pty) Ltd
 """
 __version__ = "0.2.0"
 

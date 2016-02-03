@@ -22,6 +22,7 @@ class Activity(NamedObject):
     start_period_ix = -1
     end_period_ix = -1
     period_count = -1
+
     # -------------------------------------------------------------------------
     # Standard methods.
     # -------------------------------------------------------------------------
@@ -62,7 +63,7 @@ class Activity(NamedObject):
         else:
             self.path = self.path[:ix] + value
 
-    def _meet_exection_criteria(self, ix_period):
+    def _meet_execution_criteria(self, ix_period):
         if self.interval != 0 and (ix_period+1) % self.interval != 0:
             return False
         return ix_period >= start_period_ix and ix_period + self.interval <= end_period_ix
