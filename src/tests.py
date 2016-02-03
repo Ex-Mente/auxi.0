@@ -33,6 +33,7 @@ from auxi.modeling.business.clock_test import TestAllFunctions as clock_test_all
 from auxi.modeling.business.activity_test import TestAllFunctions as activity_test_all
 from auxi.modeling.business.basicactivity_test import TestAllFunctions as basicactivity_test_all
 from auxi.modeling.business.component_test import TestAllFunctions as component_test_all
+from auxi.modeling.business.entity_test import TestAllFunctions as entity_test_all
 
 from auxi.modeling.process.materials.chemistry.material_test import TestMaterial as chem_test_material
 from auxi.modeling.process.materials.chemistry.material_test import TestMaterialPackage as chem_test_material_package
