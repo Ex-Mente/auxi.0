@@ -1,0 +1,4 @@
+Compound   SishenA  SishenB  ThabaA
+Al2O3[S1]  0.02     0.05     0.01
+Fe2O3[S1]  0.95     0.87     0.97
+SiO2[S1]   0.03     0.08     0.02
