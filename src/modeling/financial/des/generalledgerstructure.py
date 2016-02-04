@@ -27,41 +27,47 @@ class GeneralLedgerStructure(NamedObject):
         """Initialise the object."""
         super().__init__(name, description)
         self.accounts = []
-        self.create_account("Bank",
-                            description="Bank",
-                            number="010",
-                            account_type=AccountType.asset)
-        self.create_account("IncomeTaxPayable",
-                            description="IncomeTaxPayable",
-                            number="010",
-                            account_type=AccountType.liability)
-        self.create_account("IncomeTaxExpense",
-                            description="IncomeTaxExpense",
-                            number="010",
-                            account_type=AccountType.expense)
-        self.create_account("Sales",
-                            description="Sales",
-                            number="010",
-                            account_type=AccountType.revenue)
-        self.create_account("CostOfSales",
-                            description="CostOfSales",
-                            number="010",
-                            account_type=AccountType.expense)
-        self.create_account("GrossProfit",
-                            description="GrossProfit",
-                            number="010",
-                            account_type=AccountType.revenue)
-        self.create_account("IncomeSummary",
-                            description="IncomeSummary",
-                            number="010",
-                            account_type=AccountType.revenue)
-        self.create_account("RetainedEarnings",
-                            description="RetainedEarnings",
-                            number="010",
-                            account_type=AccountType.equity)
+        self.create_account(
+            "Bank",
+            description="Bank",
+            number="010",
+            account_type=AccountType.asset)
+        self.incometaxpayable_account = self.create_account(
+            "IncomeTaxPayable",
+            description="IncomeTaxPayable",
+            number="010",
+            account_type=AccountType.liability)
+        self.incometaxexpense_account = self.create_account(
+            "IncomeTaxExpense",
+            description="IncomeTaxExpense",
+            number="010",
+            account_type=AccountType.expense)
+        self.sales_account = self.create_account(
+            "Sales",
+            description="Sales",
+            number="010",
+            account_type=AccountType.revenue)
+        self.costofsales_account = self.create_account(
+            "CostOfSales",
+            description="CostOfSales",
+            number="010",
+            account_type=AccountType.expense)
+        self.gross_profit_account = self.create_account(
+            "GrossProfit",
+            description="GrossProfit",
+            number="010",
+            account_type=AccountType.revenue)
+        self.incomesummary_account = self.create_account(
+            "IncomeSummary",
+            description="IncomeSummary",
+            number="010",
+            account_type=AccountType.revenue)
+        self.retainedearnings_account = self.create_account(
+            "RetainedEarnings",
+            description="RetainedEarnings",
+            number="010",
+            account_type=AccountType.equity)
         self.tax_payment_account = "Bank"
-
-
 
     def create_account(self, name, description=None, number=None,
                        account_type=AccountType.revenue):
@@ -117,3 +123,8 @@ class GeneralLedgerStructure(NamedObject):
                 if result is not None:
                     return result
         return None
+
+    def get_account_and_decendants_as_list(self, account, result):
+        result.append(account)
+        for child in account.accounts:
+            self.get_account_and_decendants_as_list(child, result)
