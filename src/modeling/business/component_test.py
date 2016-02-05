@@ -67,6 +67,20 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(self.object.components[0].activities[0].path,
                          "entityA/NameAt/ComponentA1/BasicActivityA")
 
+    def test_create_component(self):
+        new_comp = self.object.create_component("ComponentTestCreate",
+                                                description="catc")
+        self.assertEqual(new_comp.name, "ComponentTestCreate")
+        self.assertEqual(new_comp.description, "catc")
+
+        self.assertEqual(new_comp, self.object.components[2])
+
+    def test_remove_component(self):
+        self.object.create_component("ComponentTestRemove",
+                                     description="catr")
+        self.object.remove_component("ComponentTestRemove")
+        self.assertEqual(len(self.object.components), 2)
+
     def test_prepare_to_run(self):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
         self.object.prepare_to_run(clock, 18)
