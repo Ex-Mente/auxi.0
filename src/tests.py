@@ -6,6 +6,8 @@ Created on Tue May  6 08:09:58 2014
 """
 __version__ = "0.2.0"
 
+# TODO: Fix the comment outed tests
+
 import os
 import unittest
 
