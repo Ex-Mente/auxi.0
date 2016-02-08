@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module provides a entity class rrepresenting a business entity.
+This module provides a entity class representing a business entity.
 an entity consists of business components e.g. Sales department.\n
 
 @name: entity
@@ -8,7 +8,9 @@ an entity consists of business components e.g. Sales department.\n
 """
 
 from datetime import datetime
+from datetime import timedelta
 from dateutil.relativedelta import relativedelta
+from collections import OrderedDict
 from auxi.core.namedobject import NamedObject
 from auxi.modeling.business.component import Component
 from auxi.modeling.financial.des.generalledgeraccount import AccountType
@@ -76,8 +78,8 @@ class Entity(NamedObject):
     def create_component(self, name, description=None):
         """Create a component in the business entity.
 
-        :param name: The account name.
-        :param description: The account description.
+        :param name: The component's name.
+        :param description: The component's description.
 
         :returns: The created component.
         """
@@ -98,7 +100,7 @@ class Entity(NamedObject):
             self.components.remove(component_to_remove)
 
     def prepare_to_run(self, clock, period_count):
-        """Prepare the component for execution.
+        """Prepare the entity for execution.
 
         :param clock: The clock containing the execution start time and execution period information.
         :param period_count: The total amount of periods this activity will be requested to be run for.
@@ -120,7 +122,7 @@ class Entity(NamedObject):
         self.negative_income_tax_total = 0
 
     def run(self, clock):
-        """Execute the component at the current clock cycle.
+        """Execute the entity at the current clock cycle.
 
         :param clock: The clock containing the current execution time and period information.
         """
@@ -133,7 +135,89 @@ class Entity(NamedObject):
         self._perform_year_end_procedure(clock)
 
     def _perform_year_end_procedure(self, clock):
-        pass
+        if clock.get_datetime() >= self._curr_year_end_datetime\
+         or clock.timestep_ix == self.period_count:
+            gls = self.gl.structure
+            year_start_date = self._prev_year_end_datetime
+            year_end_date = self._curr_year_end_datetime + timedelta(seconds=-1)
+
+            self._prev_year_end_datetime = self._curr_year_end_datetime
+            self._curr_year_end_datetime += relativedelta(years=1)
+            if self._curr_year_end_datetime > self._exec_year_end_datetime:
+                self._curr_year_end_datetime = self._exec_year_end_datetime
+
+            gross_profit_write_off_accs = OrderedDict()
+            inc_summary_write_off_accs = OrderedDict()
+            sales_accs = []
+            cost_of_sales_accs = []
+            gls.get_account_and_decendants(gls.sales_account, sales_accs)
+            gls.get_account_and_decendants(
+                gls.costofsales_account,
+                cost_of_sales_accs)
+
+            year_txes = []
+            for tx in self.gl.transactions:
+                if tx.tx_datetime >= year_start_date and\
+                 tx.tx_datetime <= year_end_date:
+                    year_txes.append(tx)
+            for tx in year_txes:
+                cr_acc = gls.get_account(tx.cr_account)
+                dt_acc = gls.get_account(tx.dt_account)
+
+                if cr_acc in sales_accs:
+                    if cr_acc in gross_profit_write_off_accs:
+                        gross_profit_write_off_accs[cr_acc] += tx.amount
+                    else:
+                        gross_profit_write_off_accs[cr_acc] = tx.amount
+                elif dt_acc in sales_accs:
+                    if dt_acc in gross_profit_write_off_accs:
+                        gross_profit_write_off_accs[dt_acc] -= tx.amount
+                    else:
+                        gross_profit_write_off_accs[dt_acc] = -tx.amount
+
+                elif cr_acc in cost_of_sales_accs:
+                    if cr_acc in gross_profit_write_off_accs:
+                        gross_profit_write_off_accs[cr_acc] += tx.amount
+                    else:
+                        gross_profit_write_off_accs[cr_acc] = tx.amount
+                elif dt_acc in cost_of_sales_accs:
+                    if dt_acc in gross_profit_write_off_accs:
+                        gross_profit_write_off_accs[dt_acc] -= tx.amount
+                    else:
+                        gross_profit_write_off_accs[dt_acc] = -tx.amount
+
+                elif cr_acc.account_type == AccountType.revenue:
+                    if cr_acc in inc_summary_write_off_accs:
+                        inc_summary_write_off_accs[cr_acc] += tx.amount
+                    else:
+                        inc_summary_write_off_accs[cr_acc] = tx.amount
+                elif dt_acc.account_type == AccountType.revenue:
+                    if dt_acc.account_type == AccountType.revenue:
+                        inc_summary_write_off_accs[dt_acc] -= tx.amount
+                    else:
+                        inc_summary_write_off_accs[dt_acc] = -tx.amount
+
+                elif cr_acc.account_type == AccountType.expense:
+                    if cr_acc in inc_summary_write_off_accs:
+                        inc_summary_write_off_accs[cr_acc] -= tx.amount
+                    else:
+                        inc_summary_write_off_accs[cr_acc] = -tx.amount
+                elif dt_acc.account_type == AccountType.expense:
+                    if dt_acc in inc_summary_write_off_accs:
+                        inc_summary_write_off_accs[dt_acc] += tx.amount
+                    else:
+                        inc_summary_write_off_accs[dt_acc] = tx.amount
+
+            inc_sum = self._perform_year_end_gross_profit_and_income_summary(
+                year_end_date,
+                gross_profit_write_off_accs,
+                inc_summary_write_off_accs)
+            inc_sum = self._perform_year_end_income_tax(
+                year_end_date,
+                inc_sum)
+            self._perform_year_end_retained_earnings(
+                year_end_date,
+                inc_sum)
 
     def _perform_year_end_gross_profit_and_income_summary(
             self,
@@ -236,7 +320,7 @@ class Entity(NamedObject):
     def _perform_year_end_income_tax(self,
                                      year_end_datetime,
                                      income_summary_amount):
-        pass
+        return income_summary_amount
 
     def _perform_year_end_retained_earnings(self,
                                             year_end_datetime,

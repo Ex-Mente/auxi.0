@@ -115,7 +115,7 @@ class TestAllFunctions(unittest.TestCase):
         self.assertEqual(result.description, orig.description)
         self.assertEqual(result.number, orig.number)
 
-    def test_get_account_and_decendants_as_list(self):
+    def test_get_account_and_decendants(self):
         # Set up this test.
         self.sales_fish_acc = self.object.accounts[3].create_account(
             "SalesFish",
@@ -131,7 +131,7 @@ class TestAllFunctions(unittest.TestCase):
             number="020")
         # perform the test.
         result = []
-        self.object.get_account_and_decendants_as_list(
+        self.object.get_account_and_decendants(
             self.object.accounts[3], result)
         self.assertEqual(len(result), 4)
         self.assertEqual(result[0], self.object.accounts[3])

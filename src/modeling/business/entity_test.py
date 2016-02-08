@@ -13,6 +13,7 @@ from dateutil.relativedelta import relativedelta
 from auxi.modeling.business.clock import Clock
 from auxi.modeling.business.entity import Entity
 from auxi.modeling.business.basicactivity import BasicActivity
+from auxi.modeling.financial.des.generalledgeraccount import AccountType
 from auxi.modeling.financial.des.generalledgerstructure import GeneralLedgerStructure
 from auxi.modeling.financial.des.transactiontemplate import TransactionTemplate
 
@@ -32,6 +33,16 @@ class TestAllFunctions(unittest.TestCase):
         self.gl_structure = GeneralLedgerStructure(
             "NameA",
             description="DescriptionA")
+        self.reva_acc = self.gl_structure.create_account(
+            "RevA",
+            description="RevA_Desc",
+            number="011",
+            account_type=AccountType.revenue)
+        self.expa_acc = self.gl_structure.create_account(
+            "ExpenseA",
+            description="ExpenseA_Desc",
+            number="011",
+            account_type=AccountType.expense)
 
         self.object = Entity("EntityA",
                              gl_structure=self.gl_structure,
@@ -343,7 +354,221 @@ class TestAllFunctions(unittest.TestCase):
                          True)
 
     def test__perform_year_end_procedure(self):
-        pass
+        gls = self.object.gl.structure
+        # Test when that no year end transactions are created in the
+        # middle of a year
+        self.object.prepare_to_run(self.clock, 28)
+        self.clock.timestep_ix = 6
+        # create the transactions
+        self.object.gl.create_transaction(
+            "Sales_tx",
+            description="Sales tx",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.accounts[0].name,  # Bank account
+            cr_account=gls.sales_account.name,
+            source=self.object.path,
+            amount=70)
+        # create the transactions
+        self.object.gl.create_transaction(
+            "Cost_of_Sales_tx",
+            description="Cost of Sales tx",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.costofsales_account.name,
+            cr_account=gls.accounts[0].name,  # Bank account
+            source=self.object.path,
+            amount=30)
+        self.object._perform_year_end_procedure(self.clock)
+        # Only one transaction should have been created and no
+        # year end transactions.
+        self.assertEqual(len(self.object.gl.transactions), 2)
+
+        # Test that the year end procedure, at the year end, creates
+        #   - two gross profit transactions with values of 70 and 40
+        #   - one gross profit and income summary settle transaction
+        #      with a value of 70 - 30
+        #   - one retained earnings transaction with a value of 70 - 30
+        # Only the 2 transaction (sales tx, and cost of sales tx) and the
+        # 4 'year end' transactions should have been created.)
+        self.clock.timestep_ix = 12
+        self.object._perform_year_end_procedure(self.clock)
+
+        self.assertEqual(len(self.object.gl.transactions), 6)
+        self.assertEqual(self.object.gl.transactions[2].amount, 70)
+        self.assertEqual(self.object.gl.transactions[2].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[2].dt_account,
+                         gls.gross_profit_account.name)
+        self.assertEqual(self.object.gl.transactions[2].cr_account,
+                         gls.sales_account.name)
+
+        self.assertEqual(self.object.gl.transactions[3].amount, 30)
+        self.assertEqual(self.object.gl.transactions[3].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[3].dt_account,
+                         gls.costofsales_account.name)
+        self.assertEqual(self.object.gl.transactions[3].cr_account,
+                         gls.gross_profit_account.name)
+
+        self.assertEqual(self.object.gl.transactions[4].amount, 40)
+        self.assertEqual(self.object.gl.transactions[4].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[4].dt_account,
+                         gls.gross_profit_account.name)
+        self.assertEqual(self.object.gl.transactions[4].cr_account,
+                         gls.incomesummary_account.name)
+
+        self.assertEqual(self.object.gl.transactions[5].amount, 40)
+        self.assertEqual(self.object.gl.transactions[5].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[5].dt_account,
+                         gls.incomesummary_account.name)
+        self.assertEqual(self.object.gl.transactions[5].cr_account,
+                         gls.retainedearnings_account.name)
+
+        # Test for a new year
+        self.clock.timestep_ix = 18
+        # Test for when other revenue and expense accounts transactions exists as well.
+
+        # create a sales transactions
+        self.object.gl.create_transaction(
+            "SalesTx2",
+            description="Sales tx2",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.accounts[0].name,  # Bank account
+            cr_account=gls.sales_account.name,
+            source=self.object.path,
+            amount=45)
+        self.object.gl.create_transaction(
+            "SalesTx3",
+            description="Sales tx3",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.accounts[0].name,  # Bank account
+            cr_account=gls.sales_account.name,
+            source=self.object.path,
+            amount=35)
+        self.object.gl.create_transaction(
+            "Cost_of_Sales_tx2",
+            description="Cost of Sales tx 2",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.costofsales_account.name,
+            cr_account=gls.accounts[0].name,  # Bank account
+            source=self.object.path,
+            amount=15)
+        self.object.gl.create_transaction(
+            "Cost_of_Sales_tx3",
+            description="Cost of Sales tx 3",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.costofsales_account.name,
+            cr_account=gls.accounts[0].name,  # Bank account
+            source=self.object.path,
+            amount=5)
+        # create the transactions
+        self.object.gl.create_transaction(
+            "revenueATx",
+            description="revenue a tx",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.accounts[0].name,  # Bank account
+            cr_account=self.reva_acc.name,
+            source=self.object.path,
+            amount=450)
+        self.object.gl.create_transaction(
+            "revenueATx2",
+            description="revenue a tx2",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=gls.accounts[0].name,  # Bank account
+            cr_account=self.reva_acc.name,
+            source=self.object.path,
+            amount=350)
+        # create the transactions
+        self.object.gl.create_transaction(
+            "expenseAtx",
+            description="expense a tx",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=self.expa_acc.name,
+            cr_account=gls.accounts[0].name,  # Bank account
+            source=self.object.path,
+            amount=320)
+        self.object.gl.create_transaction(
+            "expenseAtx2",
+            description="expense a tx2",
+            tx_datetime=self.clock.get_datetime_at_period_ix(
+                self.clock.timestep_ix),
+            dt_account=self.expa_acc.name,
+            cr_account=gls.accounts[0].name,  # Bank account
+            source=self.object.path,
+            amount=180)
+
+        # Test that the year end procedure, at the year end, creates
+        #   - two gross profit transactions with values of 80 and 20
+        #   - two income summary transactions with values of 800 and 500
+        #   - one gross profit and income summary settle transaction
+        #      with a value of 80 - 20
+        #   - one retained earnings transaction with a value of
+        #      800 - 500 + 80 - 20
+        # Only the 6 transactions (2 sales tx, 2 cost of sales,
+        # 2 revenue a and 2 expense a) and the 5 'year end' transactions
+        # should have been created.)
+        self.clock.timestep_ix = 24
+        self.object._perform_year_end_procedure(self.clock)
+
+        self.assertEqual(len(self.object.gl.transactions), 20)
+        self.assertEqual(self.object.gl.transactions[14].amount, 80)
+        self.assertEqual(self.object.gl.transactions[14].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[14].dt_account,
+                         gls.gross_profit_account.name)
+        self.assertEqual(self.object.gl.transactions[14].cr_account,
+                         gls.sales_account.name)
+
+        self.assertEqual(self.object.gl.transactions[15].amount, 20)
+        self.assertEqual(self.object.gl.transactions[15].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[15].dt_account,
+                         gls.costofsales_account.name)
+        self.assertEqual(self.object.gl.transactions[15].cr_account,
+                         gls.gross_profit_account.name)
+
+        self.assertEqual(self.object.gl.transactions[16].amount, 800)
+        self.assertEqual(self.object.gl.transactions[16].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[16].dt_account,
+                         self.reva_acc.name)
+        self.assertEqual(self.object.gl.transactions[16].cr_account,
+                         gls.incomesummary_account.name)
+
+        self.assertEqual(self.object.gl.transactions[17].amount, 500)
+        self.assertEqual(self.object.gl.transactions[17].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[17].dt_account,
+                         gls.incomesummary_account.name)
+        self.assertEqual(self.object.gl.transactions[17].cr_account,
+                         self.expa_acc.name)
+
+        self.assertEqual(self.object.gl.transactions[18].amount, 60)
+        self.assertEqual(self.object.gl.transactions[18].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[18].dt_account,
+                         gls.gross_profit_account.name)
+        self.assertEqual(self.object.gl.transactions[18].cr_account,
+                         gls.incomesummary_account.name)
+
+        self.assertEqual(self.object.gl.transactions[19].amount, 360)
+        self.assertEqual(self.object.gl.transactions[19].is_closing_cr_account,
+                         True)
+        self.assertEqual(self.object.gl.transactions[19].dt_account,
+                         gls.incomesummary_account.name)
+        self.assertEqual(self.object.gl.transactions[19].cr_account,
+                         gls.retainedearnings_account.name)
+
 
 # =============================================================================
 # Display documentation and run tests.

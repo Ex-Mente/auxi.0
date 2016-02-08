@@ -124,7 +124,7 @@ class GeneralLedgerStructure(NamedObject):
                     return result
         return None
 
-    def get_account_and_decendants_as_list(self, account, result):
+    def get_account_and_decendants(self, account, result):
         result.append(account)
         for child in account.accounts:
-            self.get_account_and_decendants_as_list(child, result)
+            self.get_account_and_decendants(child, result)

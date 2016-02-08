@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This module provides a component class that as a component of an entity.
-A component has business activities.\n
+This module provides a component class that represents a component
+of an entity. A component has business activities.\n
 
 @name: component
 @author: Ex Mente Technologies (Pty) Ltd
@@ -60,10 +60,10 @@ class Component(NamedObject):
         self._update_childrens_parent_path()
 
     def create_component(self, name, description=None):
-        """Create a component in the business entity.
+        """Create a sub component in the business component.
 
-        :param name: The account name.
-        :param description: The account description.
+        :param name: The new component's name.
+        :param description: The enw component's description.
 
         :returns: The created component.
         """
@@ -72,7 +72,7 @@ class Component(NamedObject):
         return new_comp
 
     def remove_component(self, name):
-        """Remove a component from the entity.
+        """Remove a sub component from the component.
 
         :param name: The name of the component to remove.
         """
