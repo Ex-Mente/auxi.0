@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"income",
+				"incomesummary_account"
+			],
+			[
+				"incom",
+				"incomesummary_account"
+			],
+			[
+				"gr",
+				"gross_profit_account"
+			],
+			[
+				"year_",
+				"year_end_date	(statement)"
+			],
+			[
+				"cr_acc",
+				"cr_account"
+			],
+			[
+				"prepare",
+				"prepare_to_run"
+			],
+			[
+				"if",
+				"if	(keyword)"
+			],
+			[
 				"tx",
 				"tx_template"
 			],
@@ -128,54 +156,42 @@
 	"buffers":
 	[
 		{
-			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class that represents chemical compound.\n\"\"\"\n__version__ = \"0.2.0\"\n\nfrom auxi.tools.chemistry import stoichiometry as stoich\nfrom auxi.tools.chemistry.phase import Phase\n\n\nclass Compound:\n    \"\"\"Represents a chemical compound.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the compound.\"\"\"\n\n    def __init__(self, dictionary):\n        self.formula = dictionary[\"Formula\"]\n        \"\"\"Chemical formula, e.g. \"Fe\", \"CO2\".\"\"\"\n\n        self.molar_mass = stoich.molar_mass(self.formula) / 1000.0\n        \"\"\"Molar mass. [kg/mol]\"\"\"\n\n        self._phases = dict()\n        \"\"\"Dictionary containing the compound's phase objects.\"\"\"\n\n        for k, v in dictionary[\"Phases\"].items():\n            self._phases[k] = Phase(v)\n\n    def __str__(self):\n        result = \"COMPOUND: \" + \"\\n\"\n        result = result + \"\\tFormula: \" + self.formula + \"\\n\"\n        for k, v in self._phases.items():\n            result = result + str(v)\n        return result\n\n    def get_phase_list(self):\n        \"\"\"Get a list of the compound's phases.\n\n        :returns: List of phases.\"\"\"\n\n        return sorted(self._phases.keys())\n\n    def Cp(self, phase, temperature):\n        \"\"\"Calculate the heat capacity of a phase of the compound at a\n        specified temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Heat capacity. [J/mol/K]\"\"\"\n\n        try:\n            return self._phases[phase].Cp(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def H(self, phase, temperature):\n        \"\"\"Calculate the enthalpy of a phase of the compound at a specified\n        temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Enthalpy. [J/mol]\"\"\"\n\n        try:\n            return self._phases[phase].H(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def S(self, phase, temperature):\n        \"\"\"Calculate the enthalpy of a phase of the compound at a specified\n        temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Entropy. [J/mol/K]\"\"\"\n\n        try:\n            return self._phases[phase].S(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n\n    def G(self, phase, temperature):\n        \"\"\"Calculate the Gibbs free energy of a phase of the compound at a\n        specified temperature.\n\n        :param phase:       A phase of the compound, e.g. \"S\", \"L\", \"G\".\n        :param temperature: [K]\n\n        :returns: Gibbs free energy. [J/mol]\"\"\"\n\n        try:\n            return self._phases[phase].G(temperature)\n        except KeyError:\n            raise Exception(\"The phase '\" + phase + \"' was not found in compound '\" + self.formula + \"'.\")\n",
-			"file": "py/tools/chemistry/compound.py",
-			"file_size": 3150,
-			"file_write_time": 130984431149261233,
+			"file": "modeling/business/entity.py",
 			"settings":
 			{
-				"buffer_size": 3150,
+				"buffer_size": 14036,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class representing a Cp record of a chemical\ncompound phase.\n\"\"\"\n__version__ = \"0.2.0\"\n\nimport math\n\n\nclass CpRecord:\n    \"\"\"A Cp equation record for a compound phase over a specific temperature\n    range.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the phase.\"\"\"\n\n    def __init__(self, dictionary):\n        self.Tmin = dictionary[\"Tmin\"]\n\n        \"\"\"The minimum temperature of the range covered by this record. [K]\"\"\"\n        self.Tmax = dictionary[\"Tmax\"]\n        \"\"\"The maximum temperature of the range covered by this record. [K]\"\"\"\n\n        self._coefficients = list()\n        \"\"\"The coefficiencts of the terms in the Cp equation.\"\"\"\n\n        self._exponents = list()\n        \"\"\"The exponents of the terms in the Cp equation.\"\"\"\n\n        for t in dictionary[\"Terms\"]:\n            self._coefficients.append(t[\"Coefficient\"])\n            self._exponents.append(t[\"Exponent\"])\n\n\n    def __str__(self):\n        result = \"\\t\\tCp RECORD:\" + \"\\n\"\n        result = result + \"\\t\\t\\tTmin: \" + str(self.Tmin) + \"\\n\"\n        result = result + \"\\t\\t\\tTmax: \" + str(self.Tmax) + \"\\n\"\n        for i in range(len(self._coefficients)):\n            result = result + \"\\t\\t\\t{:.8e}\".format(self._coefficients[i]) + \" \"\n            result = result + str(self._exponents[i]) + \"\\n\"\n        return result\n\n\n    def Cp(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase.\n\n        :param temperature: [K]\n\n        :returns: Heat capacity. [J/mol/K]\"\"\"\n\n        result = 0.0\n        for c, e in zip(self._coefficients, self._exponents):\n            result = result + c * temperature ** e\n        return result\n\n\n    def H(self, temperature):\n        \"\"\"Calculate the portion of enthalpy of the compound phase covered by\n        this Cp record.\n\n        :param temperature: [K]\n\n        :returns: Enthalpy. [J/mol]\"\"\"\n\n        result = 0.0\n        if temperature < self.Tmax:\n            T = temperature\n        else:\n            T = self.Tmax\n        Tref = self.Tmin\n        for c, e in zip(self._coefficients, self._exponents):\n            # Analytically integrate Cp(T).\n            if e == -1.0:\n                result = result + c * (math.log(T) - math.log(Tref))\n            else:\n                result = result + c * (T ** (e + 1.0) - Tref ** (e + 1.0)) / (e + 1.0)\n        return result\n\n\n    def S(self, temperature):\n        \"\"\"Calculate the portion of entropy of the compound phase covered by\n        this Cp record.\n\n        :param temperature: [K]\n\n        :returns: Entropy. [J/mol/K]\"\"\"\n\n        result = 0.0\n        if temperature < self.Tmax:\n            T = temperature\n        else:\n            T = self.Tmax\n        Tref = self.Tmin\n        for c, e in zip(self._coefficients, self._exponents):\n            # Create a modified exponent to analytically integrate Cp(T)/T instead of Cp(T).\n            e_modified = e - 1.0\n            if e_modified == -1.0:\n                result = result + c * (math.log(T) - math.log(Tref))\n            else:\n                result = result + c * (T ** (e_modified + 1.0) - Tref ** (e_modified + 1.0)) / (e_modified + 1.0)\n        return result\n",
-			"file": "py/tools/chemistry/cprecord.py",
-			"file_size": 3209,
-			"file_write_time": 130984430520781235,
+			"file": "modeling/business/entity_test.py",
 			"settings":
 			{
-				"buffer_size": 3209,
+				"buffer_size": 27057,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class that represents an element of the periodic\ntable.\n\"\"\"\n__version__ = \"0.2.0\"\n\n\nclass Element(object):\n    \"\"\"An element in the periodic table.\n\n    :param period:        Period to which the element belongs.\n    :param group:         Group to which the element belongs.\n    :param atomic_number: Number of protons in the element's nucleus.\n    :param symbol:        Element's symbol.\n    :param molar_mass:    [kg/kmol] Element's standard atomic mass.\n    \"\"\"\n\n    def __init__(self, period, group, atomic_number, symbol, molar_mass):\n        self.period = period\n        self.group = group\n        self.atomic_number = atomic_number\n        self.symbol = symbol\n        self.molar_mass = molar_mass\n",
-			"file": "py/tools/chemistry/element.py",
-			"file_size": 762,
-			"file_write_time": 130984430410461235,
+			"file": "modeling/business/timebasedmodel_test.py",
 			"settings":
 			{
-				"buffer_size": 762,
+				"buffer_size": 4507,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nThis module contains a single class representing a phase of a chemical\ncompound.\n\"\"\"\n__version__ = \"0.2.0\"\n\nimport math\nfrom auxi.tools.chemistry.cprecord import CpRecord\n\n\nclass Phase:\n    \"\"\"Represents a phase of a chemical compound.\n\n    :param dictionary: Dictionary containing the data required to initialise \\\n    the phase.\"\"\"\n\n    def __init__(self, dictionary):\n        self.name = dictionary[\"Symbol\"]\n        \"\"\"The phase's name, e.g. solid, liquid, gas, etc.\"\"\"\n\n        self.symbol = dictionary[\"Symbol\"]\n        \"\"\"The phase's symbol, e.g. S1 = solid 1, L = liquid, etc.\"\"\"\n\n        self.Tref = 298.15\n        \"\"\"The reference temperature of the phase. [K]\"\"\"\n\n        self.DHref = dictionary[\"DHref\"]\n        \"\"\"The formation enthalpy of the phase at Tref. [J/mol]\"\"\"\n\n        self.Sref = dictionary[\"Sref\"]\n        \"\"\"The standard entropy of the phase at Tref. [J/mol/K]\"\"\"\n\n        self._Cp_records = dict()\n        \"\"\"A dictionary containing the phase's Cp records.\"\"\"\n\n        for k, v in dictionary[\"Cp_records\"].items():\n            self._Cp_records[k] = CpRecord(v)\n\n    def __str__(self):\n        result = \"\\tPHASE: \" + self.name + \"\\n\"\n        result = result + \"\\t\\tName: \" + self.name + \"\\n\"\n        result = result + \"\\t\\tSymbol: \" + self.symbol + \"\\n\"\n        result = result + \"\\t\\tTref: \" + str(self.Tref) + \"\\n\"\n        result = result + \"\\t\\tDHref: \" + str(self.DHref) + \"\\n\"\n        result = result + \"\\t\\tSref: \" + str(self.Sref) + \"\\n\"\n        result = result + \"\\t\\tCp record count:\" + str(len(self._Cp_records)) + \"\\n\"\n        for k, v in self._Cp_records.items():\n            result = result + str(v)\n        return result\n\n    def Cp(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The heat capacity of the compound phase. [J/mol/K]\n        \"\"\"\n        for Tmax in sorted(self._Cp_records.keys()):\n            if temperature < Tmax:\n                return self._Cp_records[Tmax].Cp(temperature)\n        Tmax = max(self._Cp_records.keys())\n        return self._Cp_records[Tmax].Cp(Tmax)\n\n    def H(self, temperature):\n        \"\"\"Calculate the enthalpy of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The enthalpy of the compound phase. [J/mol]\n        \"\"\"\n        result = self.DHref\n        for Tmax in sorted(self._Cp_records.keys()):\n            result = result + self._Cp_records[Tmax].H(temperature)\n            if temperature <= Tmax:\n                return result\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        result = result + self.Cp(Tmax)*(temperature - Tmax)\n        return result\n\n    def S(self, temperature):\n        \"\"\"Calculate the entropy of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The entropy of the compound phase. [J/mol/K]\n        \"\"\"\n        result = self.Sref\n        for Tmax in sorted(self._Cp_records.keys()):\n            result = result + self._Cp_records[Tmax].S(temperature)\n            if temperature <= Tmax:\n                return result\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        result = result + self.Cp(Tmax)*math.log(temperature / Tmax)\n        return result\n\n    def G(self, temperature):\n        \"\"\"Calculate the heat capacity of the compound phase at the specified\n        temperature.\n\n        :param temperature: [K]\n\n        :returns: The Gibbs free energy of the compound phase. [J/mol]\n        \"\"\"\n        h = self.DHref\n        s = self.Sref\n        for Tmax in sorted(self._Cp_records.keys()):\n            h = h + self._Cp_records[Tmax].H(temperature)\n            s = s + self._Cp_records[Tmax].S(temperature)\n            if temperature <= Tmax:\n                return h - temperature * s\n        # Extrapolate beyond the upper limit by using a constant heat capacity.\n        Tmax = max(self._Cp_records.keys())\n        h = h + self.Cp(Tmax)*(temperature - Tmax)\n        s = s + self.Cp(Tmax)*math.log(temperature / Tmax)\n        return h - temperature * s\n",
-			"file": "py/tools/chemistry/phase.py",
-			"file_size": 4302,
-			"file_write_time": 130984435999101223,
+			"file": "modeling/business/timebasedmodel.py",
 			"settings":
 			{
-				"buffer_size": 4302,
+				"buffer_size": 3335,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0/setup.py",
+			"file": "tests.py",
 			"settings":
 			{
-				"buffer_size": 1182,
+				"buffer_size": 3099,
 				"line_ending": "Windows"
 			}
 		},
@@ -188,64 +204,28 @@
 			}
 		},
 		{
-			"file": "tests.py",
+			"file": "/home/christoff/em/organisations/swm/091 Development Work/262 Information System Development/deployment/scripts/Maintenance/fabfile.py",
 			"settings":
 			{
-				"buffer_size": 999,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "__init__.py",
-			"settings":
-			{
-				"buffer_size": 150,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/christoff/pmpy/trunk/0.1/setup.py",
-			"settings":
-			{
-				"buffer_size": 906,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0/setup/py/create_distribution",
-			"settings":
-			{
-				"buffer_size": 36,
+				"buffer_size": 4637,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# -*- coding: utf-8 -*-\n\"\"\"\nCreated on Tue May  6 08:09:58 2014\n\n@author: Johan Zietsman, Christoff Kok\n\"\"\"\n__version__ = \"0.0.2\"\n\nimport os\nimport unittest\nfrom auxi.tools.chemistry.stoichemistry_test import TestAllFunctions as stoich_test_all\nfrom auxi.tools.chemistry.thermochemistry_test import TestAllFunctions as thermo_test_all\nfrom auxi.tools.materials.chemmaterial_test import TestMaterial as chem_test_material\nfrom auxi.tools.materials.chemmaterial_test import TestMaterialPackage as chem_test_material_package\nfrom auxi.tools.materials.thermomaterial_test import TestMaterial as thermo_test_material\nfrom auxi.tools.materials.thermomaterial_test import TestMaterialPackage as thermo_test_material_package\nfrom auxi.tools.materials.psdmaterial_test import TestMaterial as psd_test_material\nfrom auxi.tools.materials.psdmaterial_test import TestMaterialPackage as psd_test_material_package\n\n\ndef run_all():\n    os.system(\"cls\")\n    print(__name__)\n    unittest.main(module=__name__)\n",
-			"file": "py/tests.py",
-			"file_size": 1017,
-			"file_write_time": 130984458251381176,
+			"contents": "<div id=\"getting-started\"></div>\n<script type=\"text/javascript\">\n  $(\"#getting-started\")\n  .countdown(\"2016/01/01\", function(event) {\n    $(this).text(\n      event.strftime('%D days %H:%M:%S')\n    );\n  });\n</script>",
 			"settings":
 			{
-				"buffer_size": 993,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "bash: cannot set terminal process group (4470): Inappropriate ioctl for device\nbash: no job control in this shell\nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ \nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ \nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ python3 therm<tware/auxi.0/src/py/tools/chemistry$ python3 thermo                        chemistry_test.py\nTraceback (most recent call last):\n  File \"thermochemistry_test.py\", line 11, in <module>\n    from auxi.tools.chemistry import thermochemistry as thermo\nImportError: No module named 'auxi'\nchristoff@Vanadium:~/em/software/auxi.0/src/py/tools/chemistry$ cd ../../\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ python3 thermochemistry_test.<tware/auxi.0/src/py$ python3 thermochemistry_test.p                        y\npython3: can't open file 'thermochemistry_test.py': [Errno 2] No such file or directory\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ python3 tools/chemistry/therm<tware/auxi.0/src/py$ python3 tools/chemistry/thermo                        chemistry_test.py\nTraceback (most recent call last):\n  File \"tools/chemistry/thermochemistry_test.py\", line 11, in <module>\n    from auxi.tools.chemistry import thermochemistry as thermo\nImportError: No module named 'auxi'\nchristoff@Vanadium:~/em/software/auxi.0/src/py$ ",
-			"settings":
-			{
-				"buffer_size": 1348,
+				"buffer_size": 215,
 				"line_ending": "Unix",
-				"name": "*REPL* [shell]",
-				"scratch": true
+				"name": "<div id=\"getting-started\"></div>"
 			}
 		},
 		{
-			"file": "/home/christoff/pmpy/trunk/0.1/src/tests.py",
+			"file": "/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/TimeBasedModel_custom.cpp",
 			"settings":
 			{
-				"buffer_size": 909,
-				"line_ending": "Windows"
+				"buffer_size": 1630,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -332,151 +312,141 @@
 	"expanded_folders":
 	[
 		"/home/christoff/em/software/auxi.0/src",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation",
-		"/home/christoff/em/software/auxi.0/src/auxi/tools",
-		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting",
-		"/home/christoff/em/software/auxi.0/src/py",
-		"/home/christoff/em/software/auxi.0/src/tools"
+		"/home/christoff/em/software/auxi.0/src/core",
+		"/home/christoff/em/software/auxi.0/src/modeling",
+		"/home/christoff/em/software/auxi.0/src/modeling/business",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business"
 	],
 	"file_history":
 	[
-		"/home/christoff/em/software/auxi.0/setup/py/dist/auxi-0.2.0rc1/setup.py",
-		"/home/christoff/em/software/auxi.0/setup/py/setup.py",
-		"/home/christoff/em/software/auxi.0/src/py/core/__init__.py",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/setup.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/thermochemistry.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry_test.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/thermochemistry_test.py",
-		"/home/christoff/pmpy/trunk/0.1/src/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/py/tools/chemistry/stoichiometry/__init__.py",
-		"/home/christoff/pmpy/trunk/0.1/src/chemistry/__init__.py",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/__init__.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/test/auxi4py/modelling/business/unittest_use_cases1.py",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/copy_distribution_files.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/test/auxi4py/modelling/business/unittest_use_cases.py",
-		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation/bind.cplusplusH.mako",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Activity.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/basicActivity.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/BasicActivityWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/TimeBasedModelWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/build_all.sh",
-		"/home/christoff/em/software/auxi.0/src/auxi/tools/code_generation/bind.pythonwrapper.mako",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/ActivityWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/activity.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedgerStructure.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/transactionTemplate.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/currencyTable.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/timeBasedModel.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/capitalLoanActivity.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/BasicActivity.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/TransactionTemplateWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/GeneralLedgerStructureWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/TransactionTemplate_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/assetPurchaseActivity.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/CapitalLoanActivity.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/AssetPurchaseActivity_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/AssetPurchaseActivity.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Activity_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/AssetPurchaseActivityWrapper.cpp",
-		"/home/christoff/em/software/exmente.sim.4/trunk/4.0/src/emsim4py/modelling/process/chemapp/ChemappWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedgerAccount.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/GeneralLedgerAccountWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/clock.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/TimeBasedModel_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CapitalLoanActivityWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/TimeBasedModel.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/CapitalLoanActivity_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Clock.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/entity.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/code_gerenation/component.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/balance_sheet_report.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/des_module.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/income_statement_report.py",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerAccount_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerAccount.h",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/code_generation/thermochemistry.xsd",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/code_generation/compound.xsd",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/tools/chemistry/thermochemistry/CompoundWrapper.cpp",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/setup/auxi4py/setup.py",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/build_distribution.sh",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/financial_transactions_report.py",
-		"/home/christoff/em/software/exmente.set.1.prototypes/EMOBjectsFromXSDGenerator/2.0/EMObjectsFromXSDGenerator.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/ComponentWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/build_and_deploy.sh",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/classes_report.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/EntityWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/transaction.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedger_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/CurrencyTable_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/currency.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/generalLedger.xsd",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/balance_sheet_report.py",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/CurrencyTable.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/code_generation/Currency.xsd",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/Currency_custom.cpp",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/segment.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/parameter.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/scenario.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/__init__.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi4py/simulation/py/investigation.py",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure.h",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/double_entry_system/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/Jamroot",
-		"/home/christoff/em/software/auxi.0/test/auxi4py/modelling/business/unittest_use_cases.py",
-		"/home/christoff/em/software/auxi.0/doc/auxi4py/user/source/gettingstarted.rst",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/calculation_engines/FinancialCalculationEngineWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/doc/auxi4py/user/source/conf.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CustomPythonActivity.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/CustomPythonActivity.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Component.h",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Component_custom.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/business/Entity.h",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/dist/auxi-0.1.0rc11/setup.py",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/dist/auxi-0.1.0rc11/auxi/modelling/financial/balance_sheet_report.py",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/income_statement_report.py",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/financial_transactions_report.py",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/classes_report.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/reporting/cash_flow.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/business_module.cpp",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/auxi/modelling/financial/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/clean_all.sh",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/calculation_engines_module.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/des_module.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/stock/calculation_engines/Jamfile",
-		"/home/christoff/em/software/auxi.0/src/auxi/modelling/stock/double_entry_system/Jamfile",
-		"/home/christoff/em/software/auxi.0/setup/auxi4py/auxi/modelling/stock/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/business/businessWrapper.cpp",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/stock/__init__.py",
-		"/usr/local/lib/python3.4/dist-packages/auxi/modelling/financial/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/calculation_engines/calculation_engines_module.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/tax/RuleSetWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/double_entry_system/StockTransactionWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/stock/calculation_engines/StockCalculationEngineWrapper.cpp",
-		"/home/christoff/em/software/auxi.0/src/auxi4py/modelling/financial/tax/CapitalGainsRuleWrapper.cpp"
+		"/home/christoff/em/software/auxi.0/setup.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/__init__.py",
+		"/home/christoff/em/software/auxi.0/create_distribution",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/timebasedmodel.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/component.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Entity.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Entity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledgerstructure_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/clock.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/component_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledgerstructure.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/ruleset.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedger_custom.cpp",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedger.cpp",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/TimeBasedModel_custom.cpp",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Component.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Component_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/basicactivity_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/basicactivity.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/activity_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/activity.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/BasicActivity.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/BasicActivity_custom.cpp",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledger_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledger.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledgeraccount.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/currencytable.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/generalledgeraccount_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/chemistry/material_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/business/clock_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/currency.py",
+		"/home/christoff/em/software/auxi.0/src/core/object_test.py",
+		"/home/christoff/em/software/auxi.0/src/core/namedobject_test.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Activity_custom.cpp",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Activity.h",
+		"/home/christoff/em/software/auxi.0/build_and_deploy.sh",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure_custom.cpp",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/404.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/archive.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/author.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/category.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/comments.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-aside.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-audio.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-featured-post.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-gallery.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-image.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-link.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-none.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-page.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-quote.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content-video.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/content.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/featured-content.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/footer.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/functions.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/header.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/image.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/index.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/page.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/search.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/sidebar-content.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/sidebar-footer.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/sidebar.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/single.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/tag.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/taxonomy-post_format.php",
+		"/home/christoff/Software/shekinahvocalstudio/shekinah/style.css",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/thermochemistry/material_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/rule.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/rule_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/transaction.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
+		"/home/christoff/pmpy/trunk/0.1/src/materials/thermo/thermomaterial_test.py",
+		"/home/christoff/pmpy/trunk/0.1/src/materials/thermo/Material.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/psd/material.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/thermochemistry/material.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/chemistry/material.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/stoichiometry_test.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/stoichiometry.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/phase.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/element.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/cprecord.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/compound.py",
+		"/home/christoff/em/software/auxi.0/src/core/namedobject.py",
+		"/home/christoff/pmpy/trunk/0.1/src/materials/thermo/MaterialPackage.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/process/materials/psd/material_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/incomerule.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/capitalgainsrule.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/capitalgainsrule_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/incomerule_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/salesrule.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Clock_custom.cpp",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/Clock.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/tax/SalesRule.h",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/salesrule_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/ruleset_test.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/CurrencyTable.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedger.h",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/transactiontemplate_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/transactiontemplate.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/transaction_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/currency_test.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/currencytable_test.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedgerStructure.h",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/GeneralLedgerAccount.h",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/tax/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/reports/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/des/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/__init__.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi/tests.py",
+		"/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/financial/double_entry_system/Transaction.h",
+		"/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/process_modeling.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_modeling.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modeling_api.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modeling_process_api.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modeling_process_materials_api.rst",
+		"/usr/local/lib/python3.4/dist-packages/auxi/modeling/process/materials/chemistry/material.py",
+		"/home/christoff/em/software/auxi.0/src/modeling/financial/transactiontemplate.py",
+		"/home/christoff/em/software/auxi.0/src/tests.py",
+		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_api.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_psd_slurry.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_concepts.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_thermochemistry.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_chemistry.rst",
+		"/home/christoff/em/software/auxi.0/doc/user/source/material_psd.rst"
 	],
 	"find":
 	{
@@ -497,6 +467,25 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"self.gl",
+			"m_periodCount",
+			"set_path",
+			"(chemmaterial.",
+			"TestA",
+			"assays",
+			"assay",
+			"(psdmaterial.",
+			"(thermomaterial.",
+			"thermomaterial.",
+			"startDate",
+			"endDate",
+			"startPeriod",
+			"m_",
+			"chemmaterial",
+			"0.1.0",
+			"thermomaterial",
+			"pmpy",
+			"package",
 			":${doc}",
 			":\"${doc}",
 			"py_combineGroup",
@@ -605,26 +594,7 @@
 			"python",
 			"stoichiometryiometry",
 			"vector",
-			"using",
-			"else",
-			"\" />",
-			">\n",
-			"Base",
-			".get",
-			"upper",
-			"func_test_vars",
-			"\"\n",
-			"Month",
-			"month",
-			")\n",
-			"General",
-			"financial",
-			"General",
-			"general",
-			"financial",
-			"general",
-			"General",
-			"Financial"
+			"using"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -632,6 +602,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"(material.",
+			"material.",
+			"start_datetime",
+			"end_datetime",
+			"start_period_ix",
+			"self.",
 			"m_interval",
 			"GetDateTimeAtPeriodIndex",
 			"m_endPeriod",
@@ -761,80 +737,111 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "py/tools/chemistry/compound.py",
+					"file": "modeling/business/entity.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3150,
+						"buffer_size": 14036,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								102,
-								102
+								4259,
+								4259
 							]
 						],
 						"settings":
 						{
+							"open_with_edit": true,
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "py/tools/chemistry/cprecord.py",
+					"file": "modeling/business/entity_test.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3209,
+						"buffer_size": 27057,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								144,
-								144
+								1301,
+								1301
 							]
 						],
 						"settings":
 						{
+							"open_with_edit": true,
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "py/tools/chemistry/element.py",
+					"file": "modeling/business/timebasedmodel_test.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 762,
+						"buffer_size": 4507,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								117,
-								117
+								2708,
+								2708
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1620.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "modeling/business/timebasedmodel.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3335,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3095,
+								3095
 							]
 						],
 						"settings":
@@ -842,27 +849,33 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 810.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 4,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
 				{
-					"buffer": 3,
-					"file": "py/tools/chemistry/phase.py",
+					"buffer": 4,
+					"file": "tests.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4302,
+						"buffer_size": 3099,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3493,
-								3493
+								155,
+								155
 							]
 						],
 						"settings":
@@ -874,34 +887,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/home/christoff/em/software/auxi.0/setup.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1182,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1130,
-								1130
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -917,8 +902,8 @@
 						"selection":
 						[
 							[
-								22,
-								22
+								239,
+								239
 							]
 						],
 						"settings":
@@ -934,52 +919,24 @@
 				},
 				{
 					"buffer": 6,
-					"file": "tests.py",
+					"file": "/home/christoff/em/organisations/swm/091 Development Work/262 Information System Development/deployment/scripts/Maintenance/fabfile.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 999,
+						"buffer_size": 4637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								807,
-								807
+								269,
+								269
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "__init__.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 150,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -989,198 +946,60 @@
 					"type": "text"
 				},
 				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 215,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								215,
+								33
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<div id=\"getting-started\"></div>",
+							"default_dir": "/home/christoff/em/software/auxi.0/src",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
 					"buffer": 8,
-					"file": "/home/christoff/pmpy/trunk/0.1/setup.py",
+					"file": "/home/christoff/em/software/auxi.0.preport/src/auxi/modelling/business/TimeBasedModel_custom.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 906,
+						"buffer_size": 1630,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								834,
-								834
+								1291,
+								1291
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/home/christoff/em/software/auxi.0/setup/py/create_distribution",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 36,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12,
-								12
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "py/tests.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 993,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								334,
-								334
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 8,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 11,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1348,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1348,
-								1348
-							]
-						],
-						"settings":
-						{
-							"auto_complete": true,
-							"auto_indent": false,
-							"default_dir": "/home/christoff/em/software/auxi.0/src",
-							"detect_indentation": false,
-							"gutter": false,
-							"history_arrows": true,
-							"indent_subsequent_lines": false,
-							"line_numbers": false,
-							"repl": true,
-							"repl_external_id": "shell",
-							"repl_id": "634bb662886c47a4810b87dc4d5ab0fe",
-							"repl_restart_args":
-							{
-								"cmd":
-								{
-									"linux":
-									[
-										"bash",
-										"-i"
-									],
-									"osx":
-									[
-										"bash",
-										"-i"
-									],
-									"windows":
-									[
-										"cmd.exe"
-									]
-								},
-								"cmd_postfix": "\n",
-								"cwd": "$file_path",
-								"encoding":
-								{
-									"linux": "utf-8",
-									"osx": "utf-8",
-									"windows": "$win_cmd_encoding"
-								},
-								"env":
-								{
-								},
-								"external_id": "shell",
-								"suppress_echo": true,
-								"syntax": "Packages/Text/Plain text.tmLanguage",
-								"type": "subprocess"
-							},
-							"repl_sublime2": false,
-							"smart_indent": false,
-							"spell_check": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 197.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/home/christoff/pmpy/trunk/0.1/src/tests.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 909,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								722,
-								722
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1219,7 +1038,7 @@
 		"rows":
 		[
 			0.0,
-			0.48125,
+			0.470867953514,
 			1.0
 		]
 	},
@@ -1264,7 +1083,7 @@
 		[
 			[
 				"",
-				"/home/www-data/web2py/applications/emmistest/emmis.sublime-project"
+				"/home/www-data/web2py/applications/swimfo/swimtime_dev.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1278,7 +1097,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
