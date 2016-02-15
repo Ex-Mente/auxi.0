@@ -32,12 +32,12 @@ Getting Started
 
 Modeling Frameworks
 ===================
-The auxi.modelling sub-package provides you with modeling frameworks.
+The auxi.modeling sub-package provides you with modeling frameworks.
 
 .. toctree::
    :maxdepth: 1
 
-   modelling_concepts
+   modeling_concepts
    process_modeling
 
 
@@ -58,7 +58,7 @@ auxi Reference
 .. toctree::
     :maxdepth: 1
 
-   auxi_api
+   auxiplus_api
 
 
 
