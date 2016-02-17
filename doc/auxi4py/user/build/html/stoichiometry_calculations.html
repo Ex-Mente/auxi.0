@@ -1,65 +1,179 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Stoichiometry Calculations &mdash; auxi 0.1.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="auxi 0.1.0 documentation" href="index.html" />
-    <link rel="up" title="Chemistry Tools" href="chemistry_tools.html" />
-    <link rel="next" title="Thermochemical Calculations" href="thermochemistry_calculations.html" />
-    <link rel="prev" title="Chemistry Tools" href="chemistry_tools.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="thermochemistry_calculations.html" title="Thermochemical Calculations"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="chemistry_tools.html" title="Chemistry Tools"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">auxi 0.1.0 documentation</a> &raquo;</li>
-          <li><a href="chemistry_tools.html" accesskey="U">Chemistry Tools</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stoichiometry Calculations &mdash; auxi 0.1.0 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="auxi 0.1.0 documentation" href="index.html"/>
+        <link rel="up" title="Chemistry Tools" href="chemistry_tools.html"/>
+        <link rel="next" title="Thermochemical Calculations" href="thermochemistry_calculations.html"/>
+        <link rel="prev" title="Chemistry Tools" href="chemistry_tools.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> auxi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                Christoff Kok
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">auxi Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html#importing-auxi-components">Importing auxi Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html#getting-help">Getting Help</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modelling_concepts.html">Modelling Concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="chemistry_tools.html">Chemistry Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="chemistry_tools.html#chemical-calculations">Chemical Calculations</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Stoichiometry Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#warning">Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-molar-mass">Calculating Molar Mass</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#standard-approach">Standard Approach</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compact-approach">Compact Approach</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#more-examples">More Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-compound-amount">Calculating Compound Amount</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Standard Approach</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Compact Approach</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-compound-mass">Calculating Compound Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identifying-elements-in-compounds">Identifying Elements in Compounds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-stoichiometry-coefficients">Calculating Stoichiometry Coefficients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-element-mass-fractions">Calculating Element Mass Fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#converting-compounds">Converting Compounds</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thermochemistry_calculations.html">Thermochemical Calculations</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auxi_api.html">auxi package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">auxi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="chemistry_tools.html">Chemistry Tools</a> &raquo;</li>
+      
+    <li>Stoichiometry Calculations</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/stoichiometry_calculations.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="stoichiometry-calculations">
 <h1>Stoichiometry Calculations<a class="headerlink" href="#stoichiometry-calculations" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="warning">
 <h2>Warning<a class="headerlink" href="#warning" title="Permalink to this headline">¶</a></h2>
-<p><tt class="xref py py-mod docutils literal"><span class="pre">auxi.tools.chemistry.stoichiometry</span></tt> is not yet able to successfully parse compound formulae that contain parentheses. It is therefore suggested that a formula such as &#8220;Fe2(SO4)3&#8221; rather be expressed as &#8220;Fe2S3O12&#8221;.</p>
+<p><code class="xref py py-mod docutils literal"><span class="pre">auxi.tools.chemistry.stoichiometry</span></code> is not yet able to successfully parse compound formulae that contain parentheses. It is therefore suggested that a formula such as &#8220;Fe2(SO4)3&#8221; rather be expressed as &#8220;Fe2S3O12&#8221;.</p>
 </div>
 <div class="section" id="calculating-molar-mass">
 <h2>Calculating Molar Mass<a class="headerlink" href="#calculating-molar-mass" title="Permalink to this headline">¶</a></h2>
-<p>Determining the molar mass of a substance is done countless times in mass and energy balance models and other process models. It usually requires you to create your own little database or list that you look up the values from. Once you have that, you can perform the required calculations. The <tt class="xref py py-mod docutils literal"><span class="pre">auxi.tools.chemistry.stoichiometry</span></tt> module provides the <tt class="xref py py-func docutils literal"><span class="pre">molar_mass()</span></tt> function for this purpose.</p>
+<p>Determining the molar mass of a substance is done countless times in mass and energy balance models and other process models. It usually requires you to create your own little database or list that you look up the values from. Once you have that, you can perform the required calculations. The <code class="xref py py-mod docutils literal"><span class="pre">auxi.tools.chemistry.stoichiometry</span></code> module provides the <code class="xref py py-func docutils literal"><span class="pre">molar_mass()</span></code> function for this purpose.</p>
 <div class="section" id="standard-approach">
 <h3>Standard Approach<a class="headerlink" href="#standard-approach" title="Permalink to this headline">¶</a></h3>
 <p>The normal way of getting the molar mass of one or more compounds is as follows:</p>
@@ -83,7 +197,7 @@ Molar mass of FeCr2O4: 223.8348 kg/kmol
 </div>
 <div class="section" id="compact-approach">
 <h3>Compact Approach<a class="headerlink" href="#compact-approach" title="Permalink to this headline">¶</a></h3>
-<p>One of Python&#8217;s strengths is its ability to make code very compact. You may not always want to use a lengthy &#8220;stoichiometry.molar_mass&#8221; reference to the function. Rather than importing the <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> module, we can import the <tt class="xref py py-func docutils literal"><span class="pre">molar_mass()</span></tt> function directly, and give it another name. Here is how you can make it short and sweet:</p>
+<p>One of Python&#8217;s strengths is its ability to make code very compact. You may not always want to use a lengthy &#8220;stoichiometry.molar_mass&#8221; reference to the function. Rather than importing the <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> module, we can import the <code class="xref py py-func docutils literal"><span class="pre">molar_mass()</span></code> function directly, and give it another name. Here is how you can make it short and sweet:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry.stoichiometry</span> <span class="kn">import</span> <span class="n">molar_mass</span> <span class="k">as</span> <span class="n">mm</span>
 
 <span class="n">molarmass_FeO</span> <span class="o">=</span> <span class="n">mm</span><span class="p">(</span><span class="s">&quot;FeO&quot;</span><span class="p">)</span>
@@ -137,7 +251,7 @@ Molar mass of Au is 196.96655 kg/kmol.
 </div>
 <div class="section" id="calculating-compound-amount">
 <h2>Calculating Compound Amount<a class="headerlink" href="#calculating-compound-amount" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes you need to convert the mass of a compound (kg) to the equivalent amount (kmol). The <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> module provides the <tt class="xref py py-func docutils literal"><span class="pre">amount()</span></tt> function to do this.</p>
+<p>Sometimes you need to convert the mass of a compound (kg) to the equivalent amount (kmol). The <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> module provides the <code class="xref py py-func docutils literal"><span class="pre">amount()</span></code> function to do this.</p>
 <p>The amount is calculated as follows:</p>
 <div class="math">
 <p><span class="math">n_{\text{compound}} = \frac{m_{\text{compound}}}{mm_{\text{compound}}}</span></p>
@@ -202,7 +316,7 @@ There is 2.0238139913900786 kmol of FeCr2O4 in 453.0 kg of the compound.
 </div>
 <div class="section" id="calculating-compound-mass">
 <h2>Calculating Compound Mass<a class="headerlink" href="#calculating-compound-mass" title="Permalink to this headline">¶</a></h2>
-<p>You often have the amount (kmol) of a compound and then need to calculate its mass. The <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> module provides the <tt class="xref py py-func docutils literal"><span class="pre">mass()</span></tt> function for this. The mass is calculate with this formula:</p>
+<p>You often have the amount (kmol) of a compound and then need to calculate its mass. The <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> module provides the <code class="xref py py-func docutils literal"><span class="pre">mass()</span></code> function for this. The mass is calculate with this formula:</p>
 <div class="math">
 <p><span class="math">m_{\text{compound}} = n_{\text{compound}} \cdot mm_{\text{compound}}</span></p>
 </div><p>where</p>
@@ -237,7 +351,7 @@ There is 453.0 kg of FeCr2O4 in 101397.1644 kmol of the compound.
 </div>
 <div class="section" id="identifying-elements-in-compounds">
 <h2>Identifying Elements in Compounds<a class="headerlink" href="#identifying-elements-in-compounds" title="Permalink to this headline">¶</a></h2>
-<p>The list of elements present in one or more compounds can be used when calculating element balances. Determining this list is often done manually. <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> has the <tt class="xref py py-func docutils literal"><span class="pre">elements()</span></tt> function to automate this task. This is how you use it:</p>
+<p>The list of elements present in one or more compounds can be used when calculating element balances. Determining this list is often done manually. <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> has the <code class="xref py py-func docutils literal"><span class="pre">elements()</span></code> function to automate this task. This is how you use it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">elements_Fe2O3</span> <span class="o">=</span> <span class="n">stoichiometry</span><span class="o">.</span><span class="n">elements</span><span class="p">([</span><span class="s">&quot;Fe2O3&quot;</span><span class="p">])</span>
@@ -269,7 +383,7 @@ Fe2O3, CO2, Fe2Cr2O4 and Al2(SO4)3 contain these elements:
 </div>
 <div class="section" id="calculating-stoichiometry-coefficients">
 <h2>Calculating Stoichiometry Coefficients<a class="headerlink" href="#calculating-stoichiometry-coefficients" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficient()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficients()</span></tt> functions in <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> determine the stoichiometry coefficients of elements in chemical compounds automatically. If we are only interested in the coefficient for a single element, we use <tt class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficient()</span></tt> like this:</p>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficient()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficients()</span></code> functions in <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> determine the stoichiometry coefficients of elements in chemical compounds automatically. If we are only interested in the coefficient for a single element, we use <code class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficient()</span></code> like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">coeff_Fe2O3_Fe</span> <span class="o">=</span> <span class="n">stoichiometry</span><span class="o">.</span><span class="n">stoichiometry_coefficient</span><span class="p">(</span><span class="s">&quot;Fe2O3&quot;</span><span class="p">,</span> <span class="s">&quot;Fe&quot;</span><span class="p">)</span>
@@ -288,7 +402,7 @@ Stoichiometry coefficient of O in Fe2O3: 3.0
 Stoichiometry coefficient of C in Fe2O3: 0.0
 </pre></div>
 </div>
-<p>We can determine the coefficients for a list of elements using the <tt class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficients()</span></tt> function:</p>
+<p>We can determine the coefficients for a list of elements using the <code class="xref py py-func docutils literal"><span class="pre">stoichiometry_coefficients()</span></code> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Fe&quot;</span><span class="p">,</span> <span class="s">&quot;O&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;Ar&quot;</span><span class="p">]</span>
@@ -314,7 +428,7 @@ in Lawsonite (CaAl2(Si2O7)(OH)2·H2O):
 </div>
 <div class="section" id="calculating-element-mass-fractions">
 <h2>Calculating Element Mass Fractions<a class="headerlink" href="#calculating-element-mass-fractions" title="Permalink to this headline">¶</a></h2>
-<p>Another two useful tools in the calculation of element balances are the <tt class="xref py py-func docutils literal"><span class="pre">element_mass_fraction()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">element_mass_fractions()</span></tt> functions in <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt>. They are similar to the stoichiometry coefficient functions, but calculate the mass fraction of an element or list of elements in a chemical compound. The calculations are done with the following equation:</p>
+<p>Another two useful tools in the calculation of element balances are the <code class="xref py py-func docutils literal"><span class="pre">element_mass_fraction()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">element_mass_fractions()</span></code> functions in <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code>. They are similar to the stoichiometry coefficient functions, but calculate the mass fraction of an element or list of elements in a chemical compound. The calculations are done with the following equation:</p>
 <div class="math">
 <p><span class="math">y_{\text{compound,element}} = \frac{n_{\text{compound,element}} \cdot mm_{\text{element}}}{mm_{\text{compound}}}</span></p>
 </div><p>where</p>
@@ -324,7 +438,7 @@ in Lawsonite (CaAl2(Si2O7)(OH)2·H2O):
 <li><span class="math">mm_{\text{element}}</span> is the element&#8217;s molar mass in kg/kmol.</li>
 <li><span class="math">mm_{\text{compound}}</span> is the compound&#8217;s molar mass in kg/kmol.</li>
 </ul>
-<p>For determining the mass fraction of a single element we can use <tt class="xref py py-func docutils literal"><span class="pre">element_mass_fraction()</span></tt> as follows:</p>
+<p>For determining the mass fraction of a single element we can use <code class="xref py py-func docutils literal"><span class="pre">element_mass_fraction()</span></code> as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">y_Fe2O3_Fe</span> <span class="o">=</span> <span class="n">stoichiometry</span><span class="o">.</span><span class="n">element_mass_fraction</span><span class="p">(</span><span class="s">&quot;Fe2O3&quot;</span><span class="p">,</span> <span class="s">&quot;Fe&quot;</span><span class="p">)</span>
@@ -343,7 +457,7 @@ Mass fraction of O in Fe2O3: 0.300574494546247
 Mass fraction of C in Fe2O3: 0.0
 </pre></div>
 </div>
-<p>Similarly, we can use <tt class="xref py py-func docutils literal"><span class="pre">element_mass_fractions()</span></tt> to perform the calculation for a list of elements:</p>
+<p>Similarly, we can use <code class="xref py py-func docutils literal"><span class="pre">element_mass_fractions()</span></code> to perform the calculation for a list of elements:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Fe&quot;</span><span class="p">,</span> <span class="s">&quot;O&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;Ar&quot;</span><span class="p">]</span>
@@ -368,7 +482,7 @@ in Lawsonite (CaAl2(Si2O7)(OH)2·H2O):
 </div>
 <div class="section" id="converting-compounds">
 <h2>Converting Compounds<a class="headerlink" href="#converting-compounds" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes it is needed to convert the mass of one compound to an equivalent mass of another compound. For example, how much Fe will I get when I reduce a certain mass of Fe2O3? <tt class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></tt> has the <tt class="xref py py-func docutils literal"><span class="pre">convert_compound()</span></tt> function to help out. The function calculates the result as follows:</p>
+<p>Sometimes it is needed to convert the mass of one compound to an equivalent mass of another compound. For example, how much Fe will I get when I reduce a certain mass of Fe2O3? <code class="xref py py-mod docutils literal"><span class="pre">stoichiometry</span></code> has the <code class="xref py py-func docutils literal"><span class="pre">convert_compound()</span></code> function to help out. The function calculates the result as follows:</p>
 <div class="math">
 <p><span class="math">m_{\text{target}} = m_{\text{source}} \cdot \frac{y_{\text{source,element}}}{y_{\text{target,element}}}</span></p>
 </div><p>where</p>
@@ -378,7 +492,7 @@ in Lawsonite (CaAl2(Si2O7)(OH)2·H2O):
 <li><span class="math">y_{\text{target,element}}</span> is the mass fraction of the specified base element in the target compound.</li>
 <li><span class="math">y_{\text{source,element}}</span> is the mass fraction of the specified base element in the source compound.</li>
 </ul>
-<p>Here are some simple examples of how to use <tt class="xref py py-func docutils literal"><span class="pre">convert_compound()</span></tt>:</p>
+<p>Here are some simple examples of how to use <code class="xref py py-func docutils literal"><span class="pre">convert_compound()</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">auxi.tools.chemistry</span> <span class="kn">import</span> <span class="n">stoichiometry</span>
 
 <span class="n">m_Fe2O3</span> <span class="o">=</span> <span class="mf">10.0</span>
@@ -402,82 +516,71 @@ When 10.0 kg of Fe is oxidised completely, 14.297448294386246 kg of
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Stoichiometry Calculations</a><ul>
-<li><a class="reference internal" href="#warning">Warning</a></li>
-<li><a class="reference internal" href="#calculating-molar-mass">Calculating Molar Mass</a><ul>
-<li><a class="reference internal" href="#standard-approach">Standard Approach</a></li>
-<li><a class="reference internal" href="#compact-approach">Compact Approach</a></li>
-<li><a class="reference internal" href="#more-examples">More Examples</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#calculating-compound-amount">Calculating Compound Amount</a><ul>
-<li><a class="reference internal" href="#id1">Standard Approach</a></li>
-<li><a class="reference internal" href="#id2">Compact Approach</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#calculating-compound-mass">Calculating Compound Mass</a></li>
-<li><a class="reference internal" href="#identifying-elements-in-compounds">Identifying Elements in Compounds</a></li>
-<li><a class="reference internal" href="#calculating-stoichiometry-coefficients">Calculating Stoichiometry Coefficients</a></li>
-<li><a class="reference internal" href="#calculating-element-mass-fractions">Calculating Element Mass Fractions</a></li>
-<li><a class="reference internal" href="#converting-compounds">Converting Compounds</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="thermochemistry_calculations.html" class="btn btn-neutral float-right" title="Thermochemical Calculations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chemistry_tools.html" class="btn btn-neutral" title="Chemistry Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="chemistry_tools.html"
-                        title="previous chapter">Chemistry Tools</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="thermochemistry_calculations.html"
-                        title="next chapter">Thermochemical Calculations</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/stoichiometry_calculations.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, 0.1.0.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="thermochemistry_calculations.html" title="Thermochemical Calculations"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="chemistry_tools.html" title="Chemistry Tools"
-             >previous</a> |</li>
-        <li><a href="index.html">auxi 0.1.0 documentation</a> &raquo;</li>
-          <li><a href="chemistry_tools.html" >Chemistry Tools</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, 0.1.0.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
