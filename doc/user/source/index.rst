@@ -1,14 +1,14 @@
-.. auxi4py documentation master file, created by
+.. auxi documentation master file, created by
    sphinx-quickstart on Tue May 12 07:52:59 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to auxi's user manual!
+Welcome to auxi' user manual!
 *********************************
 
 Introduction
 ============
-auxi's Python package was developed to make auxi available and extendible in Python. The aim of auxi is to enable engineers to develop models and perform simulations with these models efficiently and effectively. The package contains the following sub-packages and modules:
+auxi' Python package was developed to make auxi available and extendible in Python. The aim of auxi is to enable engineers to develop models and perform simulations with these models efficiently and effectively. The package contains the following sub-packages and modules:
 
 - modeling sub-package
 
@@ -58,7 +58,7 @@ auxi Reference
 .. toctree::
     :maxdepth: 1
 
-   auxiplus_api
+   auxi_api
 
 
 
