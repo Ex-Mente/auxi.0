@@ -24,6 +24,10 @@ class NamedObject(Object):
         self.name = name
         self.description = description
 
+    def _validate_params_(self, name, description):
+        #TODO: Enforce name format.
+        pass
+
     @property
     def name(self):
         return self._name

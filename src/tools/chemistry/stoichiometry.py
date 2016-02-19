@@ -4,6 +4,8 @@ This module provides a number of functions for doing stoichiometry
 calculations.
 """
 
+import re
+
 import numpy as np
 
 from auxi.tools.chemistry.element import Element
@@ -204,6 +206,9 @@ def _parse_formula_for_mass_(compound, index):
     :returns: Molecular mass of the parsed portion of the formula.
     """
 
+    if disallowed_chars.search(compound):
+        raise ValueError('Compound formula contains at least one character.')
+
     result = 0.0
 
     c = str()
@@ -251,6 +256,10 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
     :param index: Index from which the formula should be parsed.
     :param stoich_dict: Stoichiometry dictionary.
     """
+
+    if disallowed_chars.search(compound):
+        raise ValueError('Compound formula contains at least one character.')
+
     c = str()
     while index < len(compound) and c != ")":
         c = compound[index:index+1]
@@ -277,10 +286,12 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
                     stoich_dict[element] = coefficient
 
     if index >= len(compound):
-        return
+        return index
 
     if c == ")":
         index = index + 1
+        if index >= len(compound):
+            return index
     c = compound[index:index+1]
     b = ord(c)
 
@@ -289,7 +300,7 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
         multplier_string = multplier_string + compound[index:index+1]
         index = index + 1
         if index == len(compound):
-            return
+            break
         c = compound[index:index+1]
         b = ord(c)
 
@@ -297,6 +308,8 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
         multiplier = float(multplier_string)
         for k, v in stoich_dict.items():
             stoich_dict[k] = stoich_dict[k] * multiplier
+    
+    return index
 
 
 def _populate_element_dictionary_():
@@ -595,7 +608,8 @@ def stoichiometry_coefficient(compound, element):
 
     if compound not in _stoichiometry_dictionary_:
         stoichiometry = {}
-        _parse_formula_for_stoichiometry_(compound, 0, stoichiometry)
+        index = 0
+        _parse_formula_for_stoichiometry_(compound, index, stoichiometry)
         _stoichiometry_dictionary_[_formula_code_(compound)] = stoichiometry
 
     stoichiometry = _stoichiometry_dictionary_[_formula_code_(compound)]
@@ -606,7 +620,6 @@ def stoichiometry_coefficient(compound, element):
         return 0.0
 
 
-# TODO: Fix problem that occurs when there are brackets in the formula.
 def stoichiometry_coefficients(compound, elements):
     """
     Determine the stoichiometry coefficients of the specified elements in
@@ -628,11 +641,13 @@ def stoichiometry_coefficients(compound, elements):
 _element_dictionary_ = {}
 _molar_mass_dictionary_ = {}
 _stoichiometry_dictionary_ = {}
+disallowed_chars = re.compile("[^0-9A-Za-z\(\)\.]+")
 
 _populate_element_dictionary_()
 
 
 if __name__ == "__main__":
     import unittest
-    import stoichiometry_test
+    from auxi.tools.chemistry.stoichiometry_test import *
+#    print(dir(stoichiometry_test))
     unittest.main()

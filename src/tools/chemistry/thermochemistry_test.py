@@ -16,7 +16,7 @@ __version__ = "0.2.0"
 # Types.
 # =============================================================================
 
-class TestAllFunctions(unittest.TestCase):
+class ThermoFunctionTester(unittest.TestCase):
 
     def test_Cp(self):
         self.assertEqual(thermo.Cp("Al2O3[S1]", 1000.0), 0.00036892922607564924)

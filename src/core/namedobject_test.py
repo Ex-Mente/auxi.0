@@ -20,7 +20,7 @@ __email__ = "christoff.kok@ex-mente.co.za"
 __status__ = "Planning"
 
 
-class UnitTester(unittest.TestCase):
+class NamedObjectUnitTester(unittest.TestCase):
     """
     The unit tester for the class being tested.
     """
@@ -47,7 +47,7 @@ class UnitTester(unittest.TestCase):
 
         # Confirm that the string representation of the current object and that
         # of an object decoded from this string representation are equal.
-        str_o = str(self.object)
+        str_o = str(self.o)
         new_o = jsonpickle.decode(str_o)
         self.assertEqual(str_o, str(new_o))
 

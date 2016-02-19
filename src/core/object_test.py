@@ -20,7 +20,7 @@ __email__ = "christoff.kok@ex-mente.co.za"
 __status__ = "Planning"
 
 
-class UnitTester(unittest.TestCase):
+class ObjectUnitTester(unittest.TestCase):
     """
     The unit tester for the class being tested.
     """

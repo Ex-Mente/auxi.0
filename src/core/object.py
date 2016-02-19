@@ -28,6 +28,9 @@ class Object(object):
     def __hash__(self):
         return hash(str(self))
 
+    def _validate_params_(self):
+        pass
+
 
 if __name__ == "__main__":
     import unittest
