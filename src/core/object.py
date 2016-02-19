@@ -1,12 +1,17 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 18 05:34:00 2016
-
-@author: johanz
-"""
-
+#!/usr/bin/env python3
 import json
+
 import jsonpickle
+
+
+__version__ = "0.2.0rc3"
+__license__ = "LGPL v3"
+__copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
+__author__ = "Christoff Kok, Johan Zietsman"
+__credits__ = ["Christoff Kok", "Johan Zietsman"]
+__maintainer__ = "Christoff Kok"
+__email__ = "christoff.kok@ex-mente.co.za"
+__status__ = "Planning"
 
 
 class Object(object):
@@ -16,19 +21,15 @@ class Object(object):
 
     def __str__(self):
         o = json.loads(jsonpickle.encode(self))
-        result = json.dumps(o, sort_keys=True,
-                            indent=4, separators=(',', ': '))
+        result = json.dumps(o, sort_keys=True, indent=4,
+                            separators=(',', ': '))
         return result
 
     def __hash__(self):
         return hash(str(self))
 
-if __name__ == "__main__":
-    o = Object()
-    print(o)
-    print(o.__hash__())
 
-    str_o = str(o)
-    new_o = jsonpickle.decode(str_o)
-    print(new_o)
-    print(type(new_o))
+if __name__ == "__main__":
+    import unittest
+    import object_test
+    unittest.main()
