@@ -73,7 +73,7 @@ def _get_formula_(compound):
     formula.
 
     :param compound: Formula and phase of a chemical compound, e.g.
-    'Fe2O3[S1]'.
+      'Fe2O3[S1]'.
 
     :returns: The chemical formula.
     """
@@ -444,7 +444,7 @@ def amount(compound, mass):
     Calculate the number of moles in the specified mass of a chemical compound.
 
     :param compound: Formula and phase of a compound, e.g. 'Fe2O3[S1]'. The
-    phase may be omitted.
+      phase may be omitted.
     :param mass: [kg]
 
     :returns: Amount. [kmol]
@@ -458,7 +458,7 @@ def mass(compound, amount):
     Calculate the mass of the specified amount of a chemical compound.
 
     :param compound: Formula and phase of a compound, e.g. 'Fe2O3[S1]'. The
-    phase may be omitted.
+      phase may be omitted.
     :param amount: [kmol]
 
     :returns: Mass. [kg]
@@ -474,10 +474,10 @@ def convert_compound(mass, source, target, element):
 
     :param mass: Mass of from_compound. [kg]
     :param source: Formula and phase of the original compound, e.g.
-    'Fe2O3[S1]'.
+      'Fe2O3[S1]'.
     :param target: Formula and phase of the target compound, e.g. 'Fe[S1]'.
     :param element: Element to use as basis for the conversion, e.g. 'Fe' or
-    'O'.
+      'O'.
 
     :returns: Mass of target. [kg]
     """
@@ -521,7 +521,7 @@ def element_mass_fractions(compound, elements):
     Determine the mass fractions of a list of elements in a chemical compound.
 
     :param compound: Formula and phase of a chemical compound, e.g.
-    'Fe2O3[S1]'.
+      'Fe2O3[S1]'.
     :param elements: List of elements, ['Si', 'O', 'Fe'].
 
     :returns: Mass fractions.
@@ -541,7 +541,7 @@ def elements(compounds):
     The list of elements is sorted alphabetically.
 
     :param compounds: List of compound formulas and phases, e.g.
-    ['Fe2O3[S1]', 'Al2O3[S1]'].
+      ['Fe2O3[S1]', 'Al2O3[S1]'].
 
     :returns: List of elements.
     """
@@ -574,7 +574,7 @@ def molar_mass(compound=""):
     if code not in _molar_mass_dictionary_:
         index = 0
         _molar_mass_dictionary_[code] = _parse_formula_for_mass_(compound,
-                                                                index)
+                                                                 index)
     result = _molar_mass_dictionary_[code]
 
     return result
