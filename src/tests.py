@@ -11,6 +11,15 @@ import auxi.core.namedobject_test
 import auxi.tools.chemistry.stoichiometry_test
 import auxi.tools.chemistry.thermochemistry_test
 
+import auxi.modeling.process.materials.chem.material_test
+import auxi.modeling.process.materials.chem.materialpackage_test
+import auxi.modeling.process.materials.thermo.material_test
+import auxi.modeling.process.materials.thermo.materialpackage_test
+import auxi.modeling.process.materials.psd.material_test
+import auxi.modeling.process.materials.psd.materialpackage_test
+import auxi.modeling.process.materials.slurry.material_test
+import auxi.modeling.process.materials.slurry.materialpackage_test
+
 import auxi.modeling.financial.des.transactiontemplate_test
 import auxi.modeling.financial.des.transaction_test
 import auxi.modeling.financial.des.generalledgeraccount_test
@@ -31,22 +40,6 @@ import auxi.modeling.business.basicactivity_test
 import auxi.modeling.business.component_test
 import auxi.modeling.business.entity_test
 import auxi.modeling.business.timebasedmodel_test
-
-import auxi.modeling.process.materials.chem.material_test
-import auxi.modeling.process.materials.chem.materialpackage_test
-import auxi.modeling.process.materials.thermo.material_test
-import auxi.modeling.process.materials.thermo.materialpackage_test
-import auxi.modeling.process.materials.psd.material_test
-import auxi.modeling.process.materials.psd.materialpackage_test
-import auxi.modeling.process.materials.slurry.material_test
-import auxi.modeling.process.materials.slurry.materialpackage_test
-
-from auxi.modeling.process.materials.chemistry.material_test import TestMaterial as chem_test_material
-from auxi.modeling.process.materials.chemistry.material_test import TestMaterialPackage as chem_test_material_package
-#from auxi.modeling.process.materials.thermochemistry.material_test import TestMaterial as thermo_test_material
-#from auxi.modeling.process.materials.thermochemistry.material_test import TestMaterialPackage as thermo_test_material_package
-from auxi.modeling.process.materials.psd.material_test import TestMaterial as psd_test_material
-from auxi.modeling.process.materials.psd.material_test import TestMaterialPackage as psd_test_material_package
 
 
 __version__ = "0.2.0rc3"
