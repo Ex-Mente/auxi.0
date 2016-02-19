@@ -258,13 +258,13 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
 
         if c == "(":
             index = index + 1
-            new_stoichiometry_records = {}
-            _parse_formula_for_stoichiometry_(compound, index,
-                                              new_stoichiometry_records)
-            for k, v in new_stoichiometry_records.items():
+            new_stoich_records = {}
+            index = _parse_formula_for_stoichiometry_(compound, index,
+                                                      new_stoich_records)
+            for k, v in new_stoich_records.items():
                 if k in stoich_dict:
                     stoich_dict[k] = stoich_dict[k] + \
-                        new_stoichiometry_records[k]
+                        new_stoich_records[k]
                 else:
                     stoich_dict[k] = v
         else:
