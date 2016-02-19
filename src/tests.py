@@ -5,41 +5,41 @@ This module runs all the tests of the auxi package at once.
 
 import unittest
 
-import auxi.core.object_test
-import auxi.core.namedobject_test
+from auxi.core.object_test import *
+from auxi.core.namedobject_test import *
 
-import auxi.tools.chemistry.stoichiometry_test
-import auxi.tools.chemistry.thermochemistry_test
+from auxi.tools.chemistry.stoichiometry_test import *
+from auxi.tools.chemistry.thermochemistry_test import *
 
-import auxi.modeling.process.materials.chem.material_test
-import auxi.modeling.process.materials.chem.materialpackage_test
-import auxi.modeling.process.materials.thermo.material_test
-import auxi.modeling.process.materials.thermo.materialpackage_test
-import auxi.modeling.process.materials.psd.material_test
-import auxi.modeling.process.materials.psd.materialpackage_test
-import auxi.modeling.process.materials.slurry.material_test
-import auxi.modeling.process.materials.slurry.materialpackage_test
+from auxi.modeling.process.materials.chem.material_test import *
+from auxi.modeling.process.materials.chem.materialpackage_test import *
+from auxi.modeling.process.materials.thermo.material_test import *
+from auxi.modeling.process.materials.thermo.materialpackage_test import *
+from auxi.modeling.process.materials.psd.material_test import *
+from auxi.modeling.process.materials.psd.materialpackage_test import *
+from auxi.modeling.process.materials.slurry.material_test import *
+from auxi.modeling.process.materials.slurry.materialpackage_test import *
 
-import auxi.modeling.financial.des.transactiontemplate_test
-import auxi.modeling.financial.des.transaction_test
-import auxi.modeling.financial.des.generalledgeraccount_test
-import auxi.modeling.financial.des.generalledgerstructure_test
-import auxi.modeling.financial.des.generalledger_test
-import auxi.modeling.financial.des.currency_test
-import auxi.modeling.financial.des.currencytable_test
+from auxi.modeling.financial.des.transactiontemplate_test import *
+from auxi.modeling.financial.des.transaction_test import *
+from auxi.modeling.financial.des.generalledgeraccount_test import *
+from auxi.modeling.financial.des.generalledgerstructure_test import *
+from auxi.modeling.financial.des.generalledger_test import *
+from auxi.modeling.financial.des.currency_test import *
+from auxi.modeling.financial.des.currencytable_test import *
 
-import auxi.modeling.financial.tax.rule_test
-import auxi.modeling.financial.tax.ruleset_test
-import auxi.modeling.financial.tax.salesrule_test
-import auxi.modeling.financial.tax.incomerule_test
-import auxi.modeling.financial.tax.capitalgainsrule_test
+from auxi.modeling.financial.tax.rule_test import *
+from auxi.modeling.financial.tax.ruleset_test import *
+from auxi.modeling.financial.tax.salesrule_test import *
+from auxi.modeling.financial.tax.incomerule_test import *
+from auxi.modeling.financial.tax.capitalgainsrule_test import *
 
-import auxi.modeling.business.clock_test
-import auxi.modeling.business.activity_test
-import auxi.modeling.business.basicactivity_test
-import auxi.modeling.business.component_test
-import auxi.modeling.business.entity_test
-import auxi.modeling.business.timebasedmodel_test
+from auxi.modeling.business.clock_test import *
+from auxi.modeling.business.activity_test import *
+from auxi.modeling.business.basicactivity_test import *
+from auxi.modeling.business.component_test import *
+from auxi.modeling.business.entity_test import *
+from auxi.modeling.business.timebasedmodel_test import *
 
 
 __version__ = "0.2.0rc3"
