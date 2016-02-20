@@ -31,8 +31,7 @@ class StoichFunctionTester(unittest.TestCase):
             for f, s in zip(first, second):
                 self.assertAlmostEqual(f, s)
         else:
-            super(FunctionTester, self).assertAlmostEqual(first, second,
-                                                          places, msg, delta)
+            super().assertAlmostEqual(first, second, places, msg, delta)
 
     def test_invalid_characters(self):
         """

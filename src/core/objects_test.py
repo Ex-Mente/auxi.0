@@ -7,8 +7,7 @@ import unittest
 
 import jsonpickle
 
-from auxi.core.object import Object
-from auxi.core.namedobject import NamedObject
+from auxi.core.objects import Object, NamedObject
 
 
 __version__ = '0.2.0rc3'

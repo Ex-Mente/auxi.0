@@ -8,7 +8,7 @@ import re
 
 import numpy as np
 
-from auxi.core.object import Object
+from auxi.core.objects import Object
 
 
 __version__ = '0.2.0rc3'
@@ -674,6 +674,5 @@ _populate_element_dictionary_()
 
 if __name__ == '__main__':
     import unittest
-    from auxi.tools.chemistry.stoichiometry_test import *
-#    print(dir(stoichiometry_test))
+    from auxi.tools.chemistry.stoichiometry_test import StoichFunctionTester
     unittest.main()

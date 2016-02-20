@@ -9,7 +9,7 @@ import sys
 import glob
 import math
 
-from auxi.core.object import Object, NamedObject
+from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
@@ -282,14 +282,14 @@ class Compound(Object):
         for k, v in dictionary['Phases'].items():
             self._phases[k] = Phase(v)
 
-    def __str__(self):
-        result = 'COMPOUND: ' + '\n'
-        result += '\tFormula: ' + self.formula + '\n'
-
-        for k, v in self._phases.items():
-            result += str(v)
-
-        return result
+#    def __str__(self):
+#        result = 'COMPOUND: ' + '\n'
+#        result += '\tFormula: ' + self.formula + '\n'
+#
+#        for k, v in self._phases.items():
+#            result += str(v)
+#
+#        return result
 
     def get_phase_list(self):
         """
@@ -659,3 +659,9 @@ def G(compound_string, temperature, mass=1.0):
 compounds = {}
 default_data_path = _get_default_data_path_()
 load_data()
+
+
+if __name__ == '__main__':
+    import unittest
+    from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
+    unittest.main()
