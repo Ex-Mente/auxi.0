@@ -30,12 +30,15 @@ __status__ = "Planning"
 
 
 #COMMON ISSUES
-#TODO: Make sure that you update version numbers to include release candidate numbers when releasing.
+#TODO: Make sure that you update version numbers to include release candidate
+#      numbers when releasing.
 #TODO: Make sure that you stick to the 80 character column limit.
 #TODO: Use standard docstring layout. Triple quotation marks on own lines.
 #TODO: Use proper grammar and spelling in all comments and documentation.
-#TODO: Add the following as first line to all code files and test: #!/usr/bin/env python3 
-#TODO: Add authorship information according to: http://stackoverflow.com/questions/1523427/what-is-the-common-header-format-of-python-files
+#TODO: Add the following as first line to all code files and test:
+#      #!/usr/bin/env python3
+#TODO: Add authorship information according to:
+#      http://stackoverflow.com/questions/1523427/what-is-the-common-header-format-of-python-files
 #TODO: Remove "# -*- coding: utf-8 -*-" from top of code files.
 #TODO: When running code file, run corresponding unit tests.
 #TODO: Use three regions of imports: builtin, third party and own.
