@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-from auxi.core.object import Object
+import json
+
+import jsonpickle
 
 
 __version__ = "0.2.0rc3"
@@ -10,6 +12,24 @@ __credits__ = ["Christoff Kok", "Johan Zietsman"]
 __maintainer__ = "Christoff Kok"
 __email__ = "christoff.kok@ex-mente.co.za"
 __status__ = "Planning"
+
+
+class Object(object):
+    """
+    Base class for all auxi classes.
+    """
+
+    def __str__(self):
+        o = json.loads(jsonpickle.encode(self))
+        result = json.dumps(o, sort_keys=True, indent=4,
+                            separators=(',', ': '))
+        return result
+
+    def __hash__(self):
+        return hash(str(self))
+
+    def _validate_params_(self):
+        pass
 
 
 class NamedObject(Object):
@@ -39,5 +59,5 @@ class NamedObject(Object):
 
 if __name__ == "__main__":
     import unittest
-    import namedobject_test
+    from objects_test import ObjectUnitTester, NamedObjectUnitTester
     unittest.main()
