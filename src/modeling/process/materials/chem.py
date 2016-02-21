@@ -9,28 +9,50 @@ from os.path import isfile
 
 import numpy
 
-from auxi.core.object import Object
+from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import element_mass_fractions as emf
-
-from auxi.core.namedobject import NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
 
 
-__version__ = "0.2.0rc3"
-__license__ = "LGPL v3"
-__copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
-__author__ = "Christoff Kok, Johan Zietsman"
-__credits__ = ["Christoff Kok", "Johan Zietsman"]
-__maintainer__ = "Christoff Kok"
-__email__ = "christoff.kok@ex-mente.co.za"
-__status__ = "Planning"
+__version__ = '0.2.0rc3'
+__license__ = 'LGPL v3'
+__copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
+__author__ = 'Christoff Kok, Johan Zietsman'
+__credits__ = ['Christoff Kok', 'Johan Zietsman']
+__maintainer__ = 'Christoff Kok'
+__email__ = 'christoff.kok@ex-mente.co.za'
+__status__ = 'Planning'
 
 
 class Material(NamedObject):
     """
     A material consisting of multiple chemical compounds.
 
-    Properties defined here:
+    The format of the text file is as follows:
+    * The lines are space separated. The values in a line are separated by
+      one or more spaces.
+    * The first line is a heading line.
+    * All subsequent lines contain a compound formula, followed by mass
+      fractions.
+    * The first column lists the compounds in the material.
+    * All subsequent columns describe assays of the material.
+
+    The following is an example of a material text file:
+    Compound   IlmeniteA  IlmeniteB  IlmeniteC
+    Al2O3      0.01160    0.01550    0.00941
+    CaO        0.00022    0.00001    0.00017
+    Cr2O3      0.00008    0.00022    0.00011
+    Fe2O3      0.20200    0.47300    0.49674
+    Fe3O4      0.00000    0.00000    0.00000
+    FeO        0.27900    0.19100    0.00000
+    K2O        0.00004    0.00001    0.00005
+    MgO        0.01040    0.00580    0.01090
+    MnO        0.00540    0.00480    0.00525
+    Na2O       0.00007    0.00005    0.00031
+    P4O10      0.00001    0.00032    0.00015
+    SiO2       0.00850    0.00490    0.01744
+    TiO2       0.47700    0.29400    0.45949
+    V2O5       0.00360    0.00800    0.00000
 
     :param name: The material's name.
     :param file_path: The path of the material definition file.
@@ -39,33 +61,6 @@ class Material(NamedObject):
 
     def __init__(self, name, file_path, description=None):
         """
-        Initialise the object from a text file containing compounds and assays.
-
-        The format of the text file is as follows:
-        * The lines are space separated. The values in a line are separated by
-          one or more spaces.
-        * The first line is a heading line.
-        * All subsequent lines contain a compound formula, followed by mass
-          fractions.
-        * The first column lists the compounds in the material.
-        * All subsequent columns describe assays of the material.
-
-        The following is an example of a material text file:
-        Compound   IlmeniteA  IlmeniteB  IlmeniteC
-        Al2O3      0.01160    0.01550    0.00941
-        CaO        0.00022    0.00001    0.00017
-        Cr2O3      0.00008    0.00022    0.00011
-        Fe2O3      0.20200    0.47300    0.49674
-        Fe3O4      0.00000    0.00000    0.00000
-        FeO        0.27900    0.19100    0.00000
-        K2O        0.00004    0.00001    0.00005
-        MgO        0.01040    0.00580    0.01090
-        MnO        0.00540    0.00480    0.00525
-        Na2O       0.00007    0.00005    0.00031
-        P4O10      0.00001    0.00032    0.00015
-        SiO2       0.00850    0.00490    0.01744
-        TiO2       0.47700    0.29400    0.45949
-        V2O5       0.00360    0.00800    0.00000
         """
 
         self._validate_params_(name, file_path, description)
@@ -73,15 +68,15 @@ class Material(NamedObject):
         self._read_configuration_(file_path)
 
     def __str__(self):
-        #TODO: Replace implementation with tabular.
+        # TODO: Replace implementation with tabular.
         result = "Material: name='" + self.name + "'\n"
 
         # Create the header line of the table.
-        result += "Compound".ljust(20)
+        result += 'Compound'.ljust(20)
         assay_names = sorted(self.assays.keys())
         for assay_name in assay_names:
             result += assay_name.ljust(20)
-        result += "\n"
+        result += '\n'
 
         # Create the content lines of the table.
         for compound in self.compounds:
@@ -89,14 +84,14 @@ class Material(NamedObject):
             compound_ix = self.get_compound_index(compound)
             for assay_name in assay_names:
                 result += str(self.assays[assay_name][compound_ix]).ljust(20)
-            result += "\n"
+            result += '\n'
         return result
 
     def _validate_params_(self, name, file_path, description):
         super()._validate_params_(name, description)
 
         if not isfile(file_path):
-            raise ValueError("The specified file ({}) does not exist."
+            raise ValueError('The specified file ({}) does not exist.'
                              .format(file_path))
 
     def _read_configuration_(self, file_path):
@@ -108,7 +103,7 @@ class Material(NamedObject):
         lines = self._prepare_lines_(lines)
 
         # Determine assay names, and create a dictionary entry per assay.
-        assay_names = lines[0].split(" ")
+        assay_names = lines[0].split(' ')
         del(assay_names[0:1])
         self.assays = dict()
         for assay_name in assay_names:
@@ -116,7 +111,7 @@ class Material(NamedObject):
 
         # Read the compounds and assays.
         for i in range(1, len(lines)):
-            strings = lines[i].split(" ")
+            strings = lines[i].split(' ')
             if len(strings) < len(assay_names) + 1:  # Not a full line.
                 continue
             self.compounds.append(strings[0])  # Add the new compound.
@@ -141,11 +136,11 @@ class Material(NamedObject):
             line = line.strip()
 
             # Replace all tabs with spaces.
-            line = line.replace("\t", " ")
+            line = line.replace('\t', ' ')
 
             # Replace all repeating spaces with a single space.
-            while line.find("  ") > -1:
-                line = line.replace("  ", " ")
+            while line.find('  ') > -1:
+                line = line.replace('  ', ' ')
 
             result.append(line)
 
@@ -195,15 +190,15 @@ class Material(NamedObject):
         """
 
         if not type(assay) is numpy.ndarray:
-            raise Exception("Invalid assay. It must be a numpy array.")
+            raise Exception('Invalid assay. It must be a numpy array.')
 
         elif not assay.shape == (self.compound_count,):
-            raise Exception("Invalid assay: It must have the same number of "
-                            "elements as the material has compounds.")
+            raise Exception('Invalid assay: It must have the same number of '
+                            'elements as the material has compounds.')
 
         elif name in self.assays.keys():
-            raise Exception("Invalid assay: An assay with that name already "
-                            "exists.")
+            raise Exception('Invalid assay: An assay with that name already '
+                            'exists.')
 
         self.assays[name] = assay
 
@@ -257,14 +252,14 @@ class MaterialPackage(Object):
         self.compound_masses = compound_masses
 
     def __str__(self):
-        result = "MaterialPackage\n"
-        result += "material".ljust(20) + self.material.name + "\n"
-        result += "mass".ljust(20) + str(self.get_mass()) + "\n"
-        result += "Component masses:\n"
+        result = 'MaterialPackage\n'
+        result += 'material'.ljust(20) + self.material.name + '\n'
+        result += 'mass'.ljust(20) + str(self.get_mass()) + '\n'
+        result += 'Component masses:\n'
         for compound in self.material.compounds:
             index = self.material.get_compound_index(compound)
             result += compound.ljust(20) + str(self.compound_masses[index])
-            result += "\n"
+            result += '\n'
         return result
 
     def __add__(self, other):
@@ -308,39 +303,46 @@ class MaterialPackage(Object):
 
         # If not one of the above, it must be an invalid argument.
         else:
-            raise TypeError("Invalid addition argument.")
-
+            raise TypeError('Invalid addition argument.')
 
     def __mul__(self, scalar):
-        """The multiplication operator (*).
-        Create a new package by multiplying self with other.\n
-        scalar : The result is a new package with its content equal to self multiplied by a scalar, leaving self unchanged.\n
-        result : A new MaterialPackage equal to self package multiplied by other.
+        """
+        The multiplication operator (*).
+
+        Create a new package by multiplying self with scalar.
+
+        :param scalar: The result is a new package with its content equal to
+          self multiplied by a scalar, leaving self unchanged.
+
+        :returns: A new MaterialPackage equal to self package multiplied by
+          other.
         """
 
         # Multiply with a scalar floating point number.
-        if type(scalar) is float or type(scalar) is numpy.float64 or type(scalar) is numpy.float32:
+        if type(scalar) is float or type(scalar) is numpy.float64 or \
+           type(scalar) is numpy.float32:
             if scalar < 0.0:
-                raise Exception("Invalid multiplication operation. Cannot multiply package with negative number.")
+                raise Exception('Invalid multiplication operation. Cannot multiply package with negative number.')
             result = MaterialPackage(self.material, self.compound_masses * scalar)
             return result
 
         # If not one of the above, it must be an invalid argument.
         else:
-            raise TypeError("Invalid multiplication argument.")
+            raise TypeError('Invalid multiplication argument.')
 
     def _validate_params_(self, material, compound_masses):
         if not type(material) is Material:
-            raise TypeError("Invalid material type. Must be "
-                            "chemistry.material.Material")
+            raise TypeError('Invalid material type. Must be '
+                            'chemistry.material.Material')
         if not type(compound_masses) is numpy.ndarray:
-            raise TypeError("Invalid compound_masses type. Must be "
-                            "numpy.ndarray.")
-
-
+            raise TypeError('Invalid compound_masses type. Must be '
+                            'numpy.ndarray.')
 
     def _is_compound_mass_tuple(self, value):
-        """Determines whether value is a tuple of the format (compound(str), mass(float))."""
+        """
+        Determines whether value is a tuple of the format (compound(str),
+        mass(float)).
+        """
 
         if not type(value) is tuple:
             return False
@@ -353,123 +355,169 @@ class MaterialPackage(Object):
         else:
             return True
 
-
-    # -------------------------------------------------------------------------
-    # Public methods.
-    # -------------------------------------------------------------------------
     def clone(self):
-        """Create a complete copy of self.\n
-        return : A MaterialPackage that is identical to self."""
+        """
+        Create a complete copy of self.
+
+        :returns: A MaterialPackage that is identical to self.
+        """
 
         result = copy.copy(self)
         result.compound_masses = copy.deepcopy(self.compound_masses)
+
         return result
 
-
-    # TODO: document
     # TODO: test
     def clear(self):
-        self.compound_masses = self.compound_masses * 0.0
+        """
+        Set all the compound masses in the package to zero.
+        """
+        self.compound_masses *= 0.0
 
     def get_assay(self):
-        """Determine the assay of self.\n
-        return : [mass fractions] An array containing the assay of self.
+        """
+        Determine the assay of self.
+
+        :returns: [mass fractions] An array containing the assay of self.
         """
 
         return self.compound_masses / self.compound_masses.sum()
 
-
     def get_mass(self):
-        """Determine the mass of self.\n
-        return : [kg] The mass of self.
+        """
+        Get the mass of the package.
+
+        :returns: [kg]
         """
 
         return self.compound_masses.sum()
 
-
     def get_compound_mass(self, compound):
-        """Determine the mass of the specified compound in self.\n
-        compound :      The formula and phase of the compound, e.g. Fe2O3[S1]\n
-        return   : [kg] The mass of the compound in self.
+        """
+        Get the mass of the specified compound in the package.
+
+        :param compound: The formula of the compound, e.g. Fe2O3.
+
+        :returns: [kg]
         """
 
         return self.compound_masses[self.material.get_compound_index(compound)]
 
     # TODO: Test
     def get_compound_mass_fraction(self, compound):
-        """Determine the mass fraction of the specified compound in self.\n
-        compound : The formula and phase of the compound, e.g. Fe2O3[S1]\n
-        return   : The mass fraction of the compound in self.
+        """
+        Get the mass fraction of the specified compound in self.
+
+        :param compound: The formula and phase of the compound, e.g. Fe2O3.
+
+        :returns: []
         """
 
         return self.get_compound_mass(compound) / self.get_mass()
 
-
     def get_element_masses(self):
-        """Determine the masses of elements in the package.\n
-        return : [kg] An array of element masses. The sequence of the elements in the result corresponds with the sequence of elements in the element list of the material.
+        """
+        Get the masses of elements in the package.
+
+        :returns: [kg] An array of element masses. The sequence of the elements
+          in the result corresponds with the sequence of elements in the
+          element list of the material.
         """
 
         result = numpy.zeros(len(self.material.elements))
+
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) * emf(compound, self.material.elements)
+            result += self.get_compound_mass(compound) * \
+                      emf(compound, self.material.elements)
+
         return result
 
-
     def get_element_mass_dictionary(self):
-        """Determine the masses of elements in the package and return as a dictionary.\n
+        """
+        Determine the masses of elements in the package and return as a
+        dictionary.
+
         return : [kg] A dictionary of element symbols and masses.
         """
 
         element_symbols = self.material.elements
         element_masses = self.get_element_masses()
-        result = dict()
+
+        result = {}
         for s, m in zip(element_symbols, element_masses):
             result[s] = m
+
         return result
 
-
     def get_element_mass(self, element):
-        """Determine the masses of elements in the package.\n
-        return : [kg] An array of element masses. The sequence of the elements in the result corresponds with the sequence of elements in the element list of the material.
+        """
+        Determine the masses of elements in the package.
+
+        :returns: [kg] An array of element masses. The sequence of the elements
+          in the result corresponds with the sequence of elements in the
+          element list of the material.
         """
 
         result = numpy.zeros(1)
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) * emf(compound, [element])
+            result += self.get_compound_mass(compound) * \
+                      emf(compound, [element])
+
         return result[0]
 
     def extract(self, other):
-        """Extract some material from self.
-        Extract 'other' from self, modifying self and returning the extracted material as a new package.\n
-        other  : Can be one of the following:
-                 1. float
-                    A mass equal to other is extracted from self. Self is reduced by other and the extracted package is returned as a new package.
-                 2. tuple: (compound, mass)
-                    The other tuple specifies the mass of a compound to be extracted. It is extracted from self and the extracted mass is returned as a new package.
-                 3. string
-                    The 'other' string specifies the compound to be extracted. All of the mass of that compound will be removed from self and a new package created with it.\n
-        return : A new material package containing the material that was extracted from self.
+        """
+        Extract some material from self.
+
+        Extract 'other' from self, modifying self and returning the extracted
+        material as a new package.
+
+        :param other: Can be one of the following:
+          1. float
+             A mass equal to other is extracted from self. Self is reduced by
+             other and the extracted package is returned as a new package.
+          2. tuple: (compound, mass)
+             The other tuple specifies the mass of a compound to be extracted.
+             It is extracted from self and the extracted mass is returned as a
+             new package.
+          3. string
+             The 'other' string specifies the compound to be extracted. All of
+             the mass of that compound will be removed from self and a new
+             package created with it.
+
+        :returns: A new material package containing the material that was
+          extracted from self.
         """
 
         # Extract the specified mass.
-        if type(other) is float or type(other) is numpy.float64 or type(other) is numpy.float32:
+        if type(other) is float or type(other) is numpy.float64 or \
+           type(other) is numpy.float32:
+
             if other > self.get_mass():
-                raise Exception("Invalid extraction operation. Cannot extract a mass larger than the package's mass.")
+                raise Exception('Invalid extraction operation. Cannot extract'
+                                'a mass larger than the package\'s mass.')
+
             fraction_to_subtract = other / self.get_mass()
-            result = MaterialPackage(self.material, self.compound_masses * fraction_to_subtract)
-            self.compound_masses = self.compound_masses * (1.0 - fraction_to_subtract)
+            result = MaterialPackage(
+                self.material, self.compound_masses * fraction_to_subtract)
+            self.compound_masses *= (1.0 - fraction_to_subtract)
+
             return result
 
         # Extract the specified mass of the specified compound.
         elif self._is_compound_mass_tuple(other):
             index = self.material.get_compound_index(other[0])
+
             if other[1] > self.compound_masses[index]:
-                raise Exception("Invalid extraction operation. Cannot extract a compound mass larger than what the package contains.")
-            self.compound_masses[index] = self.compound_masses[index] - other[1]
+                raise Exception('Invalid extraction operation. Cannot extract'
+                                'a compound mass larger than what the package'
+                                'contains.')
+
+            self.compound_masses[index] -= other[1]
             resultarray = self.compound_masses*0.0
             resultarray[index] = other[1]
             result = MaterialPackage(self.material, resultarray)
+
             return result
 
         # Extract all of the specified compound.
@@ -478,24 +526,33 @@ class MaterialPackage(Object):
             result = self * 0.0
             result.compound_masses[index] = self.compound_masses[index]
             self.compound_masses[index] = 0.0
+
             return result
 
         # If not one of the above, it must be an invalid argument.
         else:
-            raise TypeError("Invalid extraction argument.")
-
+            raise TypeError('Invalid extraction argument.')
 
     # TODO: Test
     # TODO: Document
     def add_to(self, other):
         # Add another package.
         if type(other) is MaterialPackage:
-            if self.material == other.material: # Packages of the same material.
-                self.compound_masses = self.compound_masses + other.compound_masses
-            else: # Packages of different materials.
+
+            # Packages of the same material.
+            if self.material == other.material:
+                self.compound_masses += other.compound_masses
+
+            # Packages of different materials.
+            else:
                 for compound in other.material.compounds:
                     if compound not in self.material.compounds:
-                        raise Exception("Packages of '" + other.material.name + "' cannot be added to packages of '" + self.material.name + "'. The compound '" + compound + "' was not found in '" + self.material.name + "'.")
+                        raise Exception("Packages of '" + other.material.name +
+                                        "' cannot be added to packages of '" +
+                                        self.material.name +
+                                        "'. The compound '" + compound +
+                                        "' was not found in '" +
+                                        self.material.name + "'.")
                     self.add_to((compound, other.get_compound_mass(compound)))
 
         # Add the specified mass of the specified compound.
@@ -506,8 +563,8 @@ class MaterialPackage(Object):
             mass = other[1]
 
             # Create the result package.
-            self.compound_masses[compound_index] = self.compound_masses[compound_index] + mass
+            self.compound_masses[compound_index] += mass
 
         # If not one of the above, it must be an invalid argument.
         else:
-            raise TypeError("Invalid addition argument.")
+            raise TypeError('Invalid addition argument.')

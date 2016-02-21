@@ -7,10 +7,11 @@ This module provides a material class that can do thermochemical calculations.
 
 import os
 import sys
-import numpy
 import copy
-from auxi.core.object import Object
-from auxi.core.namedobject import NamedObject
+
+import numpy
+
+from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
 from auxi.tools.chemistry import thermochemistry as thermo
 
@@ -70,9 +71,8 @@ class Material(NamedObject):
         """The material's list of chemical compounds."""
 
         # Read the material's data from the file and prepare it for use.
-        f = open(file_path, "r")
-        lines = f.readlines()
-        f.close()
+        with open(file_path) as f:
+            lines = f.readlines()
         lines = self._prepare_lines(lines)
 
         # Determine the assay names, and create a dictionary entry for each
@@ -270,6 +270,7 @@ class Material(NamedObject):
             raise Exception("Invalid assay: An assay with that name already "
                             "exists.")
         self.raw_assays[name] = assay
+        self.converted_assays[name] = assay
 
     def get_assay_total(self, name):
         """Calculate the total/sum of the specified assay's mass fractions.
@@ -331,7 +332,7 @@ class MaterialPackage(Object):
         self._P = P
         self._T = T
         self._compound_masses = compound_masses
-        if self.get_mass() > 0.0:
+        if self.mass > 0.0:
             self._H = self._calculate_H(T)
         else:
             self._H = 0.0
@@ -420,11 +421,11 @@ class MaterialPackage(Object):
                 result = MaterialPackage(self.material,
                                          self._compound_masses +
                                          other._compound_masses)
-                result._set_H(self._H + other._H)
-                result._P = self._P
+                result.H = self._H + other._H
+                result.P = self.P
                 return result
             else:  # Packages of different materials.
-                H = self._get_H() + other._get_H()
+                H = self.H + other.H
                 result = self.clone()
                 for compound in other.material.compounds:
                     if compound not in self.material.compounds:
@@ -436,7 +437,7 @@ class MaterialPackage(Object):
                                         self.material.name + "'.")
                     result = result + (compound,
                                        other.get_compound_mass(compound))
-                result._set_H(H)
+                result.H = H
                 return result
 
         # Add the specified mass of the specified compound.
@@ -450,8 +451,8 @@ class MaterialPackage(Object):
             # Create the result package.
             result = self.clone()
             result._compound_masses[index] = result._compound_masses[index] + \
-                                             mass
-            result._H = result._H + enthalpy
+                mass
+            result._H += enthalpy
             result._P = self._P
             return result
 
@@ -467,8 +468,8 @@ class MaterialPackage(Object):
             # Create the result package.
             result = self * 1.0
             result._compound_masses[index] = result._compound_masses[index] + \
-                                             mass
-            result._set_H(self._H + enthalpy)
+                mass
+            result.H = self._H + enthalpy
             result._P = self._P
             return result
 
@@ -500,10 +501,6 @@ class MaterialPackage(Object):
         else:
             raise TypeError("Invalid multiplication argument.")
 
-
-    # -------------------------------------------------------------------------
-    # Private methods.
-    # -------------------------------------------------------------------------
     def _calculate_H(self, T):
         """Calculate the enthalpy of the package at the specified temperature.
 
@@ -591,51 +588,65 @@ class MaterialPackage(Object):
         else:
             return True
 
-    def _set_H(self, H):
-        """Set the enthalpy of the package to the specified value, and
+    @property
+    def H(self):
+        """
+        Get the enthalpy of the package.
+
+        :returns: Enthalpy. [kWh]
+        """
+
+        return self._H
+
+    @H.setter
+    def H(self, H):
+        """
+        Set the enthalpy of the package to the specified value, and
         recalculate it's temperature.
 
-        :param H: The new enthalpy value. [kWh]"""
+        :param H: The new enthalpy value. [kWh]
+        """
 
         self._H = H
         self._T = self._calculate_T(H)
 
-    def _get_H(self):
-        """Determine the enthalpy of the package.
+    @property
+    def T(self):
+        """
+        Get the temperature of of the package.
 
-        :returns: Enthalpy. [kWh]"""
+        :returns: Temperature. [°C]
+        """
 
-        return self._H
+        return self._T
 
-    def _set_T(self, T):
-        """Set the temperature of the package to the specified value, and
+    @T.setter
+    def T(self, T):
+        """
+        Set the temperature of the package to the specified value, and
         recalculate it's enthalpy.
 
-        :param T: Temperature. [°C]"""
+        :param T: Temperature. [°C]
+        """
 
         self._T = T
         self._H = self._calculate_H(T)
 
-    def _get_T(self):
-        """Determine the temperature of of the package.
-
-        :returns: Temperature. [°C]"""
-
-        return self._T
-
-    def _set_P(self, P):
-        """Set the pressure of the package to the specified value.
-
-        :param P: Pressure. [atm]"""
-
-        self._P = P
-
-    def _get_P(self):
+    @property
+    def P(self):
         """Determine the pressure of the package.
 
         :returns: Pressure. [atm]"""
 
         return self._P
+
+    @P.setter
+    def P(self, P):
+        """Set the pressure of the package to the specified value.
+
+        :param P: Pressure. [atm]"""
+
+        self._P = P
 
     # -------------------------------------------------------------------------
     # Public methods.
@@ -650,7 +661,9 @@ class MaterialPackage(Object):
         return result
 
     def clear(self):
-        """Clear the package."""
+        """
+        Clear the package.
+        """
 
         self._compound_masses = self._compound_masses * 0.0
         self._P = 1.0
@@ -658,25 +671,32 @@ class MaterialPackage(Object):
         self._H = 0.0
 
     def get_assay(self):
-        """Determine the assay of the package.
+        """
+        Determine the assay of the package.
 
-        :returns: Array of mass fractions."""
+        :returns: Array of mass fractions.
+        """
 
         return self._compound_masses / self._compound_masses.sum()
 
-    def get_mass(self):
-        """Determine the mass of the package.
+    @property
+    def mass(self):
+        """
+        Get the mass of the package.
 
-        :returns: Mass. [kg]"""
+        :returns: [kg]
+        """
 
         return self._compound_masses.sum()
 
     def get_compound_mass(self, compound):
-        """Determine the mass of the specified compound in the package.
+        """
+        Determine the mass of the specified compound in the package.
 
         :param compound: Formula and phase of a compound, e.g. "Fe2O3[S1]".
 
-        :returns: Mass. [kg]"""
+        :returns: Mass. [kg]
+        """
 
         if compound in self.material.compounds:
             return self._compound_masses[self.material.get_compound_index(compound)]
@@ -686,7 +706,7 @@ class MaterialPackage(Object):
     def get_compound_amounts(self):
         """Determine the mole amounts of all the compounds.
 
-        :returns: List of amounts. [mol]"""
+        :returns: List of amounts. [kmol]"""
 
         result = self._compound_masses * 1.0
         for compound in self.material.compounds:
@@ -697,29 +717,25 @@ class MaterialPackage(Object):
     def get_compound_amount(self, compound):
         """Determine the mole amount of the specified compound.
 
-        :returns: Amount. [mol]"""
+        :returns: Amount. [kmol]"""
 
         index = self.material.get_compound_index(compound)
         result = self._compound_masses[index]
         result = stoich.amount(compound, result)
         return result
 
-    def get_amount(self):
-        """Determine the sum of mole amounts of all the compounds.
+    @property
+    def amount(self):
+        """
+        Determine the sum of mole amounts of all the compounds.
 
-        :returns: Amount. [mol]
+        :returns: Amount. [kmol]
         """
 
         result = 0.0
         for compound in self.material.compounds:
             result += self.get_compound_amount(compound)
         return result
-
-    H = property(_get_H, _set_H, None, "Enthalpy. [kWh]")
-    T = property(_get_T, _set_T, None, "Temperature. [°C]")
-    P = property(_get_P, _set_P, None, "Pressure. [atm]")
-    mass = property(get_mass, None, None, "[kg]")
-    amount = property(get_amount, None, None, "[kmol]")
 
     def get_element_masses(self, elements = None):
         """Determine the masses of elements in the package.
@@ -805,9 +821,9 @@ class MaterialPackage(Object):
             raise TypeError("Invalid extraction argument.")
 
     def _extract_mass(self, mass):
-        if mass > self.get_mass():
+        if mass > self.mass:
             raise Exception("Invalid extraction operation. Cannot extract a mass larger than the package's mass.")
-        fraction_to_subtract = mass / self.get_mass()
+        fraction_to_subtract = mass / self.mass
         result = MaterialPackage(self.material, self._compound_masses * fraction_to_subtract, self._P, self._T)
 
         self._compound_masses = self._compound_masses * (1.0 - fraction_to_subtract)
@@ -824,6 +840,7 @@ class MaterialPackage(Object):
         index = self.material.get_compound_index(compound)
         result._compound_masses[index] = self._compound_masses[index]
         result.T = self.T
+        result.P = self.P
 
         self._compound_masses[index] = 0.0
         self.T = self.T
