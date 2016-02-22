@@ -1,4 +1,4 @@
- auxi tools chemistry package
+auxi tools chemistry package
 =============================
 
 .. toctree::

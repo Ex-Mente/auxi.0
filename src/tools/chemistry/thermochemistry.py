@@ -9,6 +9,8 @@ import sys
 import glob
 import math
 
+import jsonpickle
+
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
@@ -384,8 +386,8 @@ def _get_default_data_path_():
 
 def _read_compound_from_factsage_file_(file_name):
     """
-    Build a dictionary containing the thermochemical data of a compound by
-    reading the data from a file.
+    Build a dictionary containing the factsage thermochemical data of a
+    compound by reading the data from a file.
 
     :param file_name: Name of file to read the data from.
 
@@ -525,9 +527,28 @@ def _finalise_result_(compound, value, mass):
     return result
 
 
-def load_data(path=''):
+def _read_compound_from_auxi_file_(self, file_name):
     """
-    Load all the thermochemical data files located at a path.
+    Build a dictionary containing the auxi thermochemical data of a compound by
+    reading the data from a file.
+
+    :param file_name: Name of file to read the data from.
+
+    :returns: Dictionary containing compound data.
+    """
+    with open(file_name) as f:
+        content = f.read()
+    return jsonpickle.decode(content)
+
+
+def write_compound_to_auxi_file(self, dir, compound):
+    with open(os.path.join(dir, compound.formula), 'w') as f:
+        f.write(str(compound))
+
+
+def load_data_factsage(path=''):
+    """
+    Load all the thermochemical data factsage files located at a path.
 
     :param path: Path at which the data files are located.
     """
@@ -543,6 +564,27 @@ def load_data(path=''):
 
     for file in files:
         compound = Compound(_read_compound_from_factsage_file_(file))
+        compounds[compound.formula] = compound
+
+
+def load_data_auxi(path=''):
+    """
+    Load all the thermochemical data auxi files located at a path.
+
+    :param path: Path at which the data files are located.
+    """
+
+    compounds.clear()
+
+    if path == '':
+        path = default_data_path
+    if not os.path.exists(path):
+        raise Exception('The path does not exist.')
+
+    files = glob.glob(os.path.join(path, 'Compound_*.json'))
+
+    for file in files:
+        compound = Compound(_read_compound_from_auxi_file_(file))
         compounds[compound.formula] = compound
 
 
@@ -658,7 +700,7 @@ def G(compound_string, temperature, mass=1.0):
 
 compounds = {}
 default_data_path = _get_default_data_path_()
-load_data()
+load_data_auxi()
 
 
 if __name__ == '__main__':

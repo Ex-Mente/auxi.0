@@ -7,7 +7,7 @@ from distutils.core import setup
 
 # build the distribution
 setup(name='auxi',
-      version='0.2.0rc3',
+      version='0.2.0rc4',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.txt').read(),
@@ -17,7 +17,7 @@ setup(name='auxi',
       maintainer_email='dev@ex-mente.co.za',
       url='https://github.com/Ex-Mente/auxi.0',
       download_url='https://pypi.python.org/pypi/auxi',
-      license='LICENSE.txt',
+      license='LGPL v3.0',
       keywords='metallurgy,chemistry,modelling,simulation,thermochemistry,'
                'engineering,mass balance,energy balance',
       platforms='Ubunutu 14.04,Ubuntu 15.04,Windows 7 (For the stoichiometry '
@@ -28,16 +28,13 @@ setup(name='auxi',
                 'auxi.modeling',
                 'auxi.modeling.process',
                 'auxi.modeling.process.materials',
-                'auxi.modeling.process.materials.chemistry',
-                'auxi.modeling.process.materials.psd',
-                'auxi.modeling.process.materials.thermochemistry',
                 'auxi.modeling.financial',
                 'auxi.modeling.financial.des',
                 'auxi.modeling.financial.tax',
                 'auxi.modeling.business',
                 'auxi.tools',
                 'auxi.tools.chemistry'],
-      package_data={'auxi.tools.chemistry': [r'data/thermo/*.txt'],
+      package_data={'auxi.tools.chemistry': [r'data/thermo/*.json'],
                     'auxi.modeling.process.materials': [r'data/*.txt'],
                     'auxi': [r'*.txt']}
       )

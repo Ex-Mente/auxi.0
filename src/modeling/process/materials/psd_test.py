@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 This module provides testing code for the psdmaterial module.
 
@@ -8,24 +8,33 @@ This module provides testing code for the psdmaterial module.
 import unittest
 import os
 import numpy
-from auxi.modeling.process.materials.psd import material
-from auxi.modeling.process.materials.psd.material import Material
-from auxi.modeling.process.materials.psd.material import MaterialPackage
+from auxi.modeling.process.materials import psd
+from auxi.modeling.process.materials.psd import Material, MaterialPackage
 
-__version__ = "0.2.0"
+__version__ = '0.2.0rc4'
+__license__ = 'LGPL v3'
+__copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
+__author__ = 'Christoff Kok, Johan Zietsman'
+__credits__ = ['Christoff Kok', 'Johan Zietsman']
+__maintainer__ = 'Christoff Kok'
+__email__ = 'christoff.kok@ex-mente.co.za'
+__status__ = 'Planning'
 
 
 # =============================================================================
 # Types.
 # =============================================================================
 
-class TestMaterial(unittest.TestCase):
-    """Tester for the auxi.modeling.process.materials.psd.material.Material class."""
+class PsdMaterialUnitTester(unittest.TestCase):
+    """
+    Tester for the auxi.modeling.process.materials.psd.Material class.
+    """
 
     def setUp(self):
-        self.material = Material("material",
-                                 os.path.join(material.DEFAULT_DATA_PATH,
-                                 r"psdmaterial.test.materiala.txt"))
+        self.material = Material(
+            "material",
+            os.path.join(psd.DEFAULT_DATA_PATH,
+                         r"psdmaterial.test.materiala.txt"))
 
     def test_constructor(self):
         self.assertEqual(self.material.name, "material")
@@ -64,16 +73,20 @@ class TestMaterial(unittest.TestCase):
         self.assertEqual(package.get_mass(), 123.45599999999999)
 
 
-class TestMaterialPackage(unittest.TestCase):
-    """Tester for the auxi.modeling.process.materials.psd.material.MaterialPackage class."""
+class PsdMaterialPackageUnitTester(unittest.TestCase):
+    """
+    Tester for the auxi.modeling.process.materials.psd.material.MaterialPackage
+    class.
+    """
     def setUp(self):
-        self.materiala = Material("materiala",
-                                 os.path.join(material.DEFAULT_DATA_PATH,
-                                 r"psdmaterial.test.materiala.txt"))
+        self.materiala = Material(
+            "materiala",
+            os.path.join(psd.DEFAULT_DATA_PATH,
+                         r"psdmaterial.test.materiala.txt"))
         self.materiala_package_a = self.materiala.create_package("FeedA",
-                                                             1234.5, True)
+                                                                 1234.5, True)
         self.materiala_package_b = self.materiala.create_package("MillCharge",
-                                                             2345.6, True)
+                                                                 2345.6, True)
 
     def test_constructor(self):
         size_class_masses = self.materiala.assays["FeedA"] * 123.4 / \
@@ -84,7 +97,8 @@ class TestMaterialPackage(unittest.TestCase):
                                places=10)
 
     def test_add_operator_1(self):
-        """other = MaterialPackage
+        """
+        other = MaterialPackage
         Test whether the add operator calculates the resulting package
         correctly.
         """
@@ -109,8 +123,8 @@ class TestMaterialPackage(unittest.TestCase):
         # mix_package = mix_package + self.reductant_package_a
 
         # self.assertEqual(mix_package.get_mass(),
-                         # self.materiala_package_a.get_mass() +
-                         # self.reductant_package_a.get_mass())
+                        # self.materiala_package_a.get_mass() +
+                        # self.reductant_package_a.get_mass())
 
         # self.assertRaises(Exception, self.add_incompatible_packages)
 
@@ -119,7 +133,8 @@ class TestMaterialPackage(unittest.TestCase):
         # result = result * 1.0
 
     def test_add_operator_3(self):
-        """other = tuple (size_class, mass)
+        """
+        other = tuple (size_class, mass)
         Test whether the add operator calculates the resulting package
         correctly. Results were checked against FactSage results. They are not
         exactly the same, since the magnetic and other non-cp contributions are
@@ -151,12 +166,13 @@ class TestMaterialPackage(unittest.TestCase):
         mass = 123.4
         diff_package = temp_package_a.extract((size_class, mass))
 
-        self.assertAlmostEqual(temp_package_a.get_mass(),
-                               self.materiala_package_a.get_mass() - mass,
-                               places=10)
-        self.assertEqual(temp_package_a.get_size_class_mass(size_class),
-                         self.materiala_package_a.get_size_class_mass(size_class) -
-                         mass)
+        self.assertAlmostEqual(
+            temp_package_a.get_mass(),
+            self.materiala_package_a.get_mass() - mass,
+            places=10)
+        self.assertEqual(
+            temp_package_a.get_size_class_mass(size_class),
+            self.materiala_package_a.get_size_class_mass(size_class) - mass)
 
         self.assertEqual(diff_package.get_mass(), mass)
         self.assertEqual(diff_package.get_size_class_mass(size_class), mass)
@@ -167,11 +183,12 @@ class TestMaterialPackage(unittest.TestCase):
         mass = temp_package_a.get_size_class_mass(size_class)
         diff_package = temp_package_a.extract(str(size_class))
 
-        self.assertEqual(temp_package_a.get_mass(),
-                         self.materiala_package_a.get_mass() - mass + 1.0E-13)
-        self.assertEqual(temp_package_a.get_size_class_mass(size_class),
-                         self.materiala_package_a.get_size_class_mass(size_class) -
-                         mass)
+        self.assertEqual(
+            temp_package_a.get_mass(),
+            self.materiala_package_a.get_mass() - mass + 1.0E-13)
+        self.assertEqual(
+            temp_package_a.get_size_class_mass(size_class),
+            self.materiala_package_a.get_size_class_mass(size_class) - mass)
 
         self.assertEqual(diff_package.get_mass(), mass)
         self.assertEqual(diff_package.get_size_class_mass(size_class), mass)
@@ -212,14 +229,14 @@ class TestMaterialPackage(unittest.TestCase):
                                places=10)
 
     def test_get_assay(self):
-        self.assertTrue(numpy.all(self.materiala_package_a.get_assay() -
-                                  self.materiala.assays["FeedA"] /
-                                  self.materiala.assays["FeedA"].sum() <
-                                  1.0E-16))
-        self.assertTrue(numpy.all(self.materiala_package_a.get_assay() -
-                                  self.materiala.assays["FeedA"] /
-                                  self.materiala.assays["FeedA"].sum() >
-                                  -1.0E-16))
+        self.assertTrue(
+            numpy.all(self.materiala_package_a.get_assay() -
+                      self.materiala.assays["FeedA"] /
+                      self.materiala.assays["FeedA"].sum() < 1.0E-16))
+        self.assertTrue(
+            numpy.all(self.materiala_package_a.get_assay() -
+                      self.materiala.assays["FeedA"] /
+                      self.materiala.assays["FeedA"].sum() > -1.0E-16))
 
     def test_get_size_class_mass(self):
         assay = "FeedA"
@@ -227,7 +244,7 @@ class TestMaterialPackage(unittest.TestCase):
         for size_class in self.materiala.size_classes:
             index = self.materiala.get_size_class_index(size_class)
             mass = 1234.5 * self.materiala.assays[assay][index] / \
-                   self.materiala.get_assay_total(assay)
+                self.materiala.get_assay_total(assay)
             self.assertEqual(
                 self.materiala_package_a.get_size_class_mass(size_class),
                 mass)
@@ -238,8 +255,8 @@ class TestMaterialPackage(unittest.TestCase):
 # =============================================================================
 # os.system("cls")
 
-#help(Material)
-#help(MaterialPackage)
+# help(Material)
+# help(MaterialPackage)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 This module provides testing code for classes in the chem module.
 """
@@ -11,7 +11,7 @@ from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.modeling.process.materials.chem import Material, MaterialPackage
 
 
-__version__ = '0.2.0rc3'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -25,6 +25,15 @@ class ChemMaterialUnitTester(unittest.TestCase):
     """
     Tester for the auxi.modeling.process.materials.chem.Material class.
     """
+
+    def assertAlmostEqual(self, first, second, places=14, msg=None,
+                          delta=None):
+        if type(first) is list and type(second) is list:
+            self.assertEqual(len(first), len(second))
+            for f, s in zip(first, second):
+                self.assertAlmostEqual(f, s)
+        else:
+            super().assertAlmostEqual(first, second, places, msg, delta)
 
     def setUp(self):
         test_data_file_path = get_path(
@@ -61,21 +70,18 @@ class ChemMaterialUnitTester(unittest.TestCase):
 
     def test_get_assay_total(self):
         self.assertAlmostEqual(self.material.get_assay_total("IlmeniteA"),
-                               0.99791999999999992,
-                               places=10)
+                               0.99791999999999992)
         self.assertAlmostEqual(self.material.get_assay_total("IlmeniteB"),
-                               0.99760999999999989,
-                               places=10)
+                               0.99760999999999989)
         self.assertAlmostEqual(self.material.get_assay_total("IlmeniteC"),
-                               1.0000200000000001,
-                               places=10)
+                               1.0000200000000001)
 
     def test_create_package(self):
         package = self.material.create_package("IlmeniteA", 123.456, True)
         self.assertEqual(package.get_mass(), 123.456)
 
 
-class TestMaterialPackage(unittest.TestCase):
+class ChemMaterialPackageUnitTester(unittest.TestCase):
     """
     Tester for the auxi.modeling.process.materials.chemistry.material.Material
     class.
@@ -101,8 +107,7 @@ class TestMaterialPackage(unittest.TestCase):
         compound_masses = self.ilm.assays["IlmeniteB"] * 123.4 / \
             self.ilm.assays["IlmeniteB"].sum()
         package = MaterialPackage(self.ilm, compound_masses)
-        self.assertAlmostEqual(package.get_mass(), 123.4,
-                               places=10)
+        self.assertAlmostEqual(package.get_mass(), 123.4)
 
     def test_add_operator_1(self):
         """
@@ -120,20 +125,19 @@ class TestMaterialPackage(unittest.TestCase):
         pkg_a_plus_b_plus_c = self.ilm_pkg_a + self.ilm_pkg_b + \
             self.ilm_pkg_c
 
-        self.assertAlmostEqual(self.ilm_pkg_a.get_mass(), 1234.5, places=10)
+        self.assertAlmostEqual(self.ilm_pkg_a.get_mass(), 1234.5)
 
-        self.assertAlmostEqual(self.ilm_pkg_b.get_mass(), 2345.6, places=10)
+        self.assertAlmostEqual(self.ilm_pkg_b.get_mass(), 2345.6)
 
-        self.assertAlmostEqual(self.ilm_pkg_c.get_mass(), 3456.7, places=10)
+        self.assertAlmostEqual(self.ilm_pkg_c.get_mass(), 3456.7)
 
-        self.assertAlmostEqual(pkg_a_plus_b.get_mass(), 3580.1, places=10)
+        self.assertAlmostEqual(pkg_a_plus_b.get_mass(), 3580.1)
 
-        self.assertAlmostEqual(pkg_a_plus_c.get_mass(), 4691.2, places=10)
+        self.assertAlmostEqual(pkg_a_plus_c.get_mass(), 4691.2)
 
-        self.assertAlmostEqual(pkg_b_plus_c.get_mass(), 5802.3, places=10)
+        self.assertAlmostEqual(pkg_b_plus_c.get_mass(), 5802.3)
 
-        self.assertAlmostEqual(pkg_a_plus_b_plus_c.get_mass(), 7036.8,
-                               places=10)
+        self.assertAlmostEqual(pkg_a_plus_b_plus_c.get_mass(), 7036.8)
 
     def test_add_operator_2(self):
         mix_package = self.mix.create_package(None, 0.0)
@@ -169,11 +173,9 @@ class TestMaterialPackage(unittest.TestCase):
         diff_package = temp_package_a.extract(mass)
 
         self.assertAlmostEqual(temp_package_a.get_mass(),
-                               self.ilm_pkg_a.get_mass() - mass,
-                               places=10)
+                               self.ilm_pkg_a.get_mass() - mass)
 
-        self.assertAlmostEqual(diff_package.get_mass(), mass,
-                               places=10)
+        self.assertAlmostEqual(diff_package.get_mass(), mass)
 
     def test_subtract_operator_2(self):
         temp_package_a = self.ilm_pkg_a.clone()
@@ -182,12 +184,10 @@ class TestMaterialPackage(unittest.TestCase):
         diff_package = temp_package_a.extract((compound, mass))
 
         self.assertAlmostEqual(temp_package_a.get_mass(),
-                               self.ilm_pkg_a.get_mass() - mass,
-                               places=10)
+                               self.ilm_pkg_a.get_mass() - mass)
         self.assertAlmostEqual(temp_package_a.get_compound_mass(compound),
                                self.ilm_pkg_a.get_compound_mass(compound) -
-                               mass,
-                               places=10)
+                               mass)
 
         self.assertEqual(diff_package.get_mass(), mass)
         self.assertEqual(diff_package.get_compound_mass(compound), mass)
@@ -199,12 +199,10 @@ class TestMaterialPackage(unittest.TestCase):
         diff_package = temp_package_a.extract(compound)
 
         self.assertAlmostEqual(temp_package_a.get_mass(),
-                               self.ilm_pkg_a.get_mass() - mass,
-                               places=10)
+                               self.ilm_pkg_a.get_mass() - mass)
         self.assertAlmostEqual(temp_package_a.get_compound_mass(compound),
                                self.ilm_pkg_a.get_compound_mass(compound) -
-                               mass,
-                               places=10)
+                               mass)
 
         self.assertEqual(diff_package.get_mass(), mass)
         self.assertEqual(diff_package.get_compound_mass(compound), mass)
@@ -226,8 +224,7 @@ class TestMaterialPackage(unittest.TestCase):
 
         mul_package_2 = temp_package_a * 123.4
         self.assertAlmostEqual(mul_package_2.get_mass(),
-                               temp_package_a.get_mass() * 123.4,
-                               places=10)
+                               temp_package_a.get_mass() * 123.4)
         self.assertTrue(numpy.all(mul_package_2.compound_masses ==
                                   temp_package_a.compound_masses * 123.4))
 
@@ -239,12 +236,9 @@ class TestMaterialPackage(unittest.TestCase):
                                   self.ilm_pkg_a.compound_masses))
 
     def test_get_mass(self):
-        self.assertAlmostEqual(self.ilm_pkg_a.get_mass(), 1234.5,
-                               places=10)
-        self.assertAlmostEqual(self.ilm_pkg_b.get_mass(), 2345.6,
-                               places=10)
-        self.assertAlmostEqual(self.ilm_pkg_c.get_mass(), 3456.7,
-                               places=10)
+        self.assertAlmostEqual(self.ilm_pkg_a.get_mass(), 1234.5)
+        self.assertAlmostEqual(self.ilm_pkg_b.get_mass(), 2345.6)
+        self.assertAlmostEqual(self.ilm_pkg_c.get_mass(), 3456.7)
 
     def test_get_assay(self):
         self.assertTrue(numpy.all(self.ilm_pkg_a.get_assay() -

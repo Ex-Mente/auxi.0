@@ -8,7 +8,6 @@ This module provides testing code for classes in the thermo module.
 #       only a raw_assays and converted_assays property.
 
 import unittest
-import os
 
 import numpy as np
 
@@ -72,7 +71,7 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         self.assertEqual(pkg.H, -278.35680682442677)
 
 
-class TestMaterialPackage(unittest.TestCase):
+class ThermoMaterialPackageUnitTester(unittest.TestCase):
     """
     Unit tester for the auxi.modeling.process.materials.thermo.MaterialPackage
     class.

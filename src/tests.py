@@ -5,20 +5,20 @@ This module runs all the tests of the auxi package at once.
 
 import unittest
 
-from auxi.core.object_test import ObjectUnitTester
-from auxi.core.namedobject_test import NamedObjectUnitTester
+from auxi.core.objects_test import ObjectUnitTester
+from auxi.core.objects_test import NamedObjectUnitTester
 
 from auxi.tools.chemistry.stoichiometry_test import StoichFunctionTester
-from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
+#from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
 
-from auxi.modeling.process.materials.chem import ChemMaterialUnitTester
-#from auxi.modeling.process.materials.chem.materialpackage_test import *
-#from auxi.modeling.process.materials.thermo.material_test import *
-#from auxi.modeling.process.materials.thermo.materialpackage_test import *
-#from auxi.modeling.process.materials.psd.material_test import *
-#from auxi.modeling.process.materials.psd.materialpackage_test import *
-#from auxi.modeling.process.materials.slurry.material_test import *
-#from auxi.modeling.process.materials.slurry.materialpackage_test import *
+from auxi.modeling.process.materials.chem_test import ChemMaterialUnitTester
+from auxi.modeling.process.materials.chem_test import ChemMaterialPackageUnitTester
+#from auxi.modeling.process.materials.thermo_test import ThermoMaterialUnitTester
+#from auxi.modeling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
+from auxi.modeling.process.materials.psd_test import PsdMaterialUnitTester
+from auxi.modeling.process.materials.psd_test import PsdMaterialPackageUnitTester
+from auxi.modeling.process.materials.slurry_test import SlurryMaterialUnitTester
+from auxi.modeling.process.materials.slurry_test import SlurryMaterialPackageUnitTester
 #
 #from auxi.modeling.financial.des.transactiontemplate_test import *
 #from auxi.modeling.financial.des.transaction_test import *
@@ -42,7 +42,7 @@ from auxi.modeling.process.materials.chem import ChemMaterialUnitTester
 #from auxi.modeling.business.timebasedmodel_test import *
 
 
-__version__ = "0.2.0rc3"
+__version__ = "0.2.0rc4"
 __license__ = "LGPL v3"
 __copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
 __author__ = "Christoff Kok, Johan Zietsman"

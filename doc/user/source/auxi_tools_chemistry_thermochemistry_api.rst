@@ -1,7 +1,7 @@
-auxi.tools.chemistry.thermochemistry package
+auxi tools chemistry thermochemistry package
 ============================================
 
-auxi.tools.chemistry.thermochemistry module
+auxi tools chemistry thermochemistry module
 -------------------------------------------
 
 .. automodule:: auxi.tools.chemistry.thermochemistry

@@ -278,14 +278,22 @@ class MaterialPackage(Object):
 
         # Add another package.
         if type(other) is MaterialPackage:
-            if self.material == other.material: # Packages of the same material.
-                result =  MaterialPackage(self.material, self.compound_masses + other.compound_masses)
+            # Packages of the same material.
+            if self.material == other.material:
+                result = MaterialPackage(
+                    self.material,
+                    self.compound_masses + other.compound_masses)
                 return result
-            else: # Packages of different materials.
+            else:  # Packages of different materials.
                 result = self.clone()
                 for compound in other.material.compounds:
                     if compound not in self.material.compounds:
-                        raise Exception("Packages of '" + other.material.name + "' cannot be added to packages of '" + self.material.name + "'. The compound '" + compound + "' was not found in '" + self.material.name + "'.")
+                        raise Exception(
+                            "Packages of '" + other.material.name +
+                            "' cannot be added to packages of '" +
+                            self.material.name +
+                            "'. The compound '" + compound +
+                            "' was not found in '" + self.material.name + "'.")
                     result += (compound, other.get_compound_mass(compound))
                 return result
 
@@ -322,8 +330,11 @@ class MaterialPackage(Object):
         if type(scalar) is float or type(scalar) is numpy.float64 or \
            type(scalar) is numpy.float32:
             if scalar < 0.0:
-                raise Exception('Invalid multiplication operation. Cannot multiply package with negative number.')
-            result = MaterialPackage(self.material, self.compound_masses * scalar)
+                raise Exception(
+                    'Invalid multiplication operation. '
+                    'Cannot multiply package with negative number.')
+            result = MaterialPackage(
+                self.material, self.compound_masses * scalar)
             return result
 
         # If not one of the above, it must be an invalid argument.
@@ -350,7 +361,9 @@ class MaterialPackage(Object):
             return False
         elif not type(value[0]) is str:
             return False
-        elif not type(value[1]) is float and not type(value[1]) is numpy.float64 and not type(value[1]) is numpy.float32:
+        elif not type(value[1]) is float and \
+                not type(value[1]) is numpy.float64 and \
+                not type(value[1]) is numpy.float32:
             return False
         else:
             return True

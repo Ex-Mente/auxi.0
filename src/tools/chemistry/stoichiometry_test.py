@@ -9,7 +9,7 @@ import unittest
 from auxi.tools.chemistry import stoichiometry as testee
 
 
-__version__ = '0.2.0rc3'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -21,7 +21,7 @@ __status__ = 'Planning'
 
 class StoichFunctionTester(unittest.TestCase):
     """
-    The function tester for the class being tested.
+    The function tester for the stoichiometry module.
     """
 
     def assertAlmostEqual(self, first, second, places=14, msg=None,
@@ -134,7 +134,7 @@ class StoichFunctionTester(unittest.TestCase):
         x_CaO2H2 = [0.5409171324346751, 0.43187532155673136,
                     0.027207546008593562, 0.0]
         self.assertAlmostEqual(list(func('Ca(OH)2', ['Ca', 'O', 'H', 'Fe'])),
-                         x_CaO2H2)
+                               x_CaO2H2)
 
     def test_elements(self):
         """

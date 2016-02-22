@@ -19,10 +19,18 @@ __status__ = 'Planning'
 
 
 class ThermoFunctionTester(unittest.TestCase):
+    """
+    The function tester for the thermochemistry module.
+    """
 
     def assertAlmostEqual(self, first, second, places=14, msg=None,
                           delta=None):
-        super().assertAlmostEqual(first, second, places, msg, delta)
+        if type(first) is list and type(second) is list:
+            self.assertEqual(len(first), len(second))
+            for f, s in zip(first, second):
+                self.assertAlmostEqual(f, s)
+        else:
+            super().assertAlmostEqual(first, second, places, msg, delta)
 
     def test_Cp(self):
         self.assertAlmostEqual(thermo.Cp("Al2O3[S1]", 1000.0),
