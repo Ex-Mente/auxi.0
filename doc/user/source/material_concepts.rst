@@ -3,23 +3,23 @@ Concepts
 
 Motivation
 ==========
-The material, material assay and material package concepts used in :py:mod:`auxi.modeling.process.materials` may initially seem somewhat foreign to new users. These concepts were developed to assist process engineers when doing metallurgical calculations, and while developing process models. It aims to reduce the complexity and time involved in performing these important but sometimes tedious tasks. Once these concepts have been mastered, they become incredibly powerful in the hands of a metallurgical process engineer.
+The material, material assay and material package concepts used in :py:mod:`auxi.modelling.process.materials` may initially seem somewhat foreign to new users. These concepts were developed to assist process engineers when doing metallurgical calculations, and while developing process models. It aims to reduce the complexity and time involved in performing these important but sometimes tedious tasks. Once these concepts have been mastered, they become incredibly powerful in the hands of a metallurgical process engineer.
 
 
 Materials, Material Assays and Material Packages
 ================================================
-:py:mod:`auxi.modeling.process.materials` includes a number of different representations of materials, material assays and material packages, each of which is contained in a separate Python module. The different modules cater for different situations as follows:
+:py:mod:`auxi.modelling.process.materials` includes a number of different representations of materials, material assays and material packages, each of which is contained in a separate Python module. The different modules cater for different situations as follows:
 
-* :py:mod:`auxi.modeling.process.materials.psd.material` describes materials using particle size distributions. It can be used for processes in which particle size is the most important material property, such as a comminution circuit.
-* :py:mod:`auxi.modeling.process.materials.psd.slurrymaterial` adds water to :py:mod:`~.auxi.modeling.process.materials.psd.material`. It can describe the solid and liquid portion of a particulate process such as a comminution circuit.
-* :py:mod:`auxi.modeling.process.materials.chemistry.material` can be used for doing mass balances in chemically reactive processes such as leaching, precipitation, direct reduction and smelting. Its material class describes a material using its chemical composition. This module cannot perform any energy balance calculations.
-* :py:mod:`auxi.modeling.process.materials.thermochemistry.material` adds thermochemistry to :py:mod:`~.auxi.modeling.process.materials.chemistry.material`. It can be used to do mass and energy balances in chemically reactive system such as smelting furnaces, direct reduction kilns, etc.
+* :py:mod:`auxi.modelling.process.materials.psd.material` describes materials using particle size distributions. It can be used for processes in which particle size is the most important material property, such as a comminution circuit.
+* :py:mod:`auxi.modelling.process.materials.psd.slurrymaterial` adds water to :py:mod:`~.auxi.modelling.process.materials.psd.material`. It can describe the solid and liquid portion of a particulate process such as a comminution circuit.
+* :py:mod:`auxi.modelling.process.materials.chemistry.material` can be used for doing mass balances in chemically reactive processes such as leaching, precipitation, direct reduction and smelting. Its material class describes a material using its chemical composition. This module cannot perform any energy balance calculations.
+* :py:mod:`auxi.modelling.process.materials.thermochemistry.material` adds thermochemistry to :py:mod:`~.auxi.modelling.process.materials.chemistry.material`. It can be used to do mass and energy balances in chemically reactive system such as smelting furnaces, direct reduction kilns, etc.
 
-The :py:mod:`auxi.modeling.process.materials.thermochemistry.material` module will be used to illustrate the concepts here.
+The :py:mod:`auxi.modelling.process.materials.thermochemistry.material` module will be used to illustrate the concepts here.
 
 Material
 --------
-A Material class is used to represent a "type of material". Examples are ilmenite, iron ore, coal, ferrochrome alloy, etc. These terms are fairly abstract and generic, since they don't refer to something specific. The :py:mod:`~.auxi.modeling.process.materials.thermochemistry.material` module's :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` class uses uses a list of specific phases of chemical compounds to describe a "type of material". Here are some examples::
+A Material class is used to represent a "type of material". Examples are ilmenite, iron ore, coal, ferrochrome alloy, etc. These terms are fairly abstract and generic, since they don't refer to something specific. The :py:mod:`~.auxi.modelling.process.materials.thermochemistry.material` module's :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` class uses uses a list of specific phases of chemical compounds to describe a "type of material". Here are some examples::
 
     ============================             ========================
     Material                                 Material
@@ -103,7 +103,7 @@ Two assays were added to our Coal material. The first, ReductantA, refers to a c
 
 Material Packages
 -----------------
-Using :py:mod:`auxi.modeling.process` we can now create a certain quantity of a "specific material" that is identified by a material and material assay. When we do this with the :py:mod:`~.auxi.modeling.process.materials.thermochemistry.material` :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` class, we also have to specify pressure and temperature. The result of creating 1000 kg of IlmeniteB at 1 atm pressure and 500 °C temperature is the following::
+Using :py:mod:`auxi.modelling.process` we can now create a certain quantity of a "specific material" that is identified by a material and material assay. When we do this with the :py:mod:`~.auxi.modelling.process.materials.thermochemistry.material` :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` class, we also have to specify pressure and temperature. The result of creating 1000 kg of IlmeniteB at 1 atm pressure and 500 °C temperature is the following::
 
     ==================================================================
     MaterialPackage
@@ -134,12 +134,12 @@ Using :py:mod:`auxi.modeling.process` we can now create a certain quantity of a 
     V2O5[S]             8.01916581e+00  8.01916581e-03  4.49078466e-03
     ==================================================================
 
-In the above result some of the useful work that :py:mod:`auxi.modeling.process.materials` does behind the scenes is already evident. The amount in kmol and the enthalpy in kWh of the material package was calculated, as were the masses and mole fractions of the compounds. You will notice that the mass fractions in the material package is slightly different from those in the IlmeniteB material assay. This is because the assay was automatically normalised to add up to 1.0. You can switch of normalisation if that is more appropriate.
+In the above result some of the useful work that :py:mod:`auxi.modelling.process.materials` does behind the scenes is already evident. The amount in kmol and the enthalpy in kWh of the material package was calculated, as were the masses and mole fractions of the compounds. You will notice that the mass fractions in the material package is slightly different from those in the IlmeniteB material assay. This is because the assay was automatically normalised to add up to 1.0. You can switch of normalisation if that is more appropriate.
 
 
 Summary
 -------
-The :py:mod:`auxi.modeling.process.materials` concepts described above can be summarised as follows:
+The :py:mod:`auxi.modelling.process.materials` concepts described above can be summarised as follows:
 
 * A material provides a list of properties that describes a "type of material".
 * A material assay describes a "specific material" by providing values for the listed properties.
@@ -150,9 +150,9 @@ You may be wondering what the use of all this is. Why go through all the effort 
 
 Material Package Calculations
 =============================
-The use of materials and material packages are demonstrated here through the use of code snippets and the results produce by that code. We will be using ilmenite in the example. Firstly, let us import the :py:class:`auxi.modeling.process.materials.thermochemistry.material.Material`class, create a material object and print it out::
+The use of materials and material packages are demonstrated here through the use of code snippets and the results produce by that code. We will be using ilmenite in the example. Firstly, let us import the :py:class:`auxi.modelling.process.materials.thermochemistry.material.Material`class, create a material object and print it out::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     print(ilmenite)
@@ -194,7 +194,7 @@ Next we can use the material object (called ilmenite) to create a material packa
     ilmc_package = ilmenite.create_package("IlmeniteC", 250.0, 1.0, 1200.0)
     print(ilmc_package)
 
-Different masses were created from each assay (300 kg of IlmeniteA, 500.0 kg of IlmeniteB and 250.0 kg of IlmeniteC). All three packages were assigned a pressure of 1 atm, which is of no consequence. The packages were assigned temperatures of 25, 750 and 1200 °C respectively. In three short lines of code, :py:mod:`auxi.modeling.process.materials` did the following for us:
+Different masses were created from each assay (300 kg of IlmeniteA, 500.0 kg of IlmeniteB and 250.0 kg of IlmeniteC). All three packages were assigned a pressure of 1 atm, which is of no consequence. The packages were assigned temperatures of 25, 750 and 1200 °C respectively. In three short lines of code, :py:mod:`auxi.modelling.process.materials` did the following for us:
 
 * Normalise the specified assay so that the mass fractions add up to 1.0. (We can choose not to do this.)
 * Calculate the mass of each compound by multiplying the component mass fraction by the total package mass.
@@ -408,11 +408,11 @@ The original package, which now contains 30 kg less, now looks like this::
 
 Summary
 -------
-All the other capabilities of the :py:class:`auxi.modeling.process.materials.thermomaterial.MaterialPackage` class are not demonstrated here, since the purpose of this section is simply to introduce you to the material, material assay and material package concepts in :py:mod:`auxi.modeling.process.materials`. For full details on how to use the different Material and MaterialPackage classes and objects, refer to the following section:
+All the other capabilities of the :py:class:`auxi.modelling.process.materials.thermomaterial.MaterialPackage` class are not demonstrated here, since the purpose of this section is simply to introduce you to the material, material assay and material package concepts in :py:mod:`auxi.modelling.process.materials`. For full details on how to use the different Material and MaterialPackage classes and objects, refer to the following section:
 
 * :ref:`section_chemistry_material_calculations`
 * :ref:`section_psd_material_calculations`
 * :ref:`section_psd_slurry_material_calculations`
 * :ref:`section_thermochemistry_material_calculations`
 
-The final point to make is that the classes in :py:mod:`auxi.modeling.process.materials` can assist you in perming large numbers of metallurgical calculations with very few lines of code. The purpose of this is to focus you on the process concepts rather than entagle you in the detail of tens or hundreds of stoichiometry and thermochemical calculations. This should keep your code clean and your mind clear, getting the job done well in a short space of time.
+The final point to make is that the classes in :py:mod:`auxi.modelling.process.materials` can assist you in perming large numbers of metallurgical calculations with very few lines of code. The purpose of this is to focus you on the process concepts rather than entagle you in the detail of tens or hundreds of stoichiometry and thermochemical calculations. This should keep your code clean and your mind clear, getting the job done well in a short space of time.

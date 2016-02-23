@@ -4,13 +4,13 @@
    contain the root `toctree` directive.
 
 Welcome to auxi' user manual!
-*********************************
+*****************************
 
 Introduction
 ============
 auxi' Python package was developed to make auxi available and extendible in Python. The aim of auxi is to enable engineers to develop models and perform simulations with these models efficiently and effectively. The package contains the following sub-packages and modules:
 
-- modeling sub-package
+- modelling sub-package
 
   This package contains modules, functions and classes for developing different types of computational models.
 
@@ -30,15 +30,15 @@ Getting Started
    gettingstarted
 
 
-Modeling Frameworks
-===================
-The auxi.modeling sub-package provides you with modeling frameworks.
+Modelling Frameworks
+====================
+The auxi.modelling sub-package provides you with modelling frameworks.
 
 .. toctree::
    :maxdepth: 1
 
-   modeling_concepts
-   process_modeling
+   modelling_concepts
+   process_modelling
 
 
 
@@ -53,7 +53,7 @@ The auxi.tools sub-package provides you with modules, classes and functions that
 
 
 auxi Reference
-==================
+==============
 
 .. toctree::
     :maxdepth: 1

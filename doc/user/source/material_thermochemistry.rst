@@ -5,7 +5,7 @@
 
 thermochemistry material Calculations
 *************************************
-The purpose of this section is to explain a number of concepts and demonstrate the use of the :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` and :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.MaterialPackage` classes in the :py:mod:`auxi.modeling.process.materials.thermochemistry.material` module.
+The purpose of this section is to explain a number of concepts and demonstrate the use of the :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` and :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.MaterialPackage` classes in the :py:mod:`auxi.modelling.process.materials.thermochemistry.material` module.
 
 
 Material Description Files
@@ -105,7 +105,7 @@ Now that we have created a few material description files, we can create materia
     mix = Material("Mix", "./materials/mix.txt")
     print(mix)
 
-The :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` class is imported on line 1. On line 3 a :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` object is created, specifying the name of the object as the first parameter, and the location and name of the material description file as the second parameter. Two more :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` objects are created on lines 6 and 9. The materials are preted out after creation, with the following result:
+The :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` class is imported on line 1. On line 3 a :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` object is created, specifying the name of the object as the first parameter, and the location and name of the material description file as the second parameter. Two more :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` objects are created on lines 6 and 9. The materials are preted out after creation, with the following result:
 
 .. code-block:: none
 
@@ -197,7 +197,7 @@ The simplest way to create material packages is to create empty ones.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -212,7 +212,7 @@ The simplest way to create material packages is to create empty ones.
     empty_mix_package = mix.create_package()
     print(empty_mix_package)
 
-The empty packages are created by calling the "create_package" method of the :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.Material` objects without passing any parameters.
+The empty packages are created by calling the "create_package" method of the :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.Material` objects without passing any parameters.
 
 .. code-block:: none
 
@@ -311,7 +311,7 @@ It is just as easy to create packages that contain some mass. Let's do that with
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -367,7 +367,7 @@ Now we create another ilmenite package with a different composition, mass and te
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -458,7 +458,7 @@ Sometimes you need to add material to a package, one compound at a time.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -509,7 +509,7 @@ We can also add a certain mass of a specified compound at a temperature differen
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -560,7 +560,7 @@ We very often need to add packages from different materials together. For exampl
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -588,7 +588,7 @@ Let's try it by swopping the two material packages around.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -615,7 +615,7 @@ Still no luck. These packages cannot be added together because their materials a
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -674,7 +674,7 @@ In the above three sections we demonstrated how material can be added to an exis
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -728,7 +728,7 @@ Now we add a package and specific mass of a compound together to produce a new p
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -830,7 +830,7 @@ When we need to create a new package by extracting material from an existing mat
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -911,7 +911,7 @@ We can also extract all the mass of a single compound from an existing package i
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -992,7 +992,7 @@ We may not want to extract all the mass of a specific compound. In this case we 
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -1073,7 +1073,7 @@ We may need to extract all the compounds that appear in a specific material into
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -1150,7 +1150,7 @@ It may sometimes be useful to multiply a package by a scalar.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -1197,11 +1197,11 @@ This doubles the package mass and enthalpy. Temperature, pressure and compositio
 
 Setting Package Temperature
 ===========================
-Using the "T" property of a :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.MaterialPackage` object, it is easy to set the temperature of a package to a new value.
+Using the "T" property of a :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.MaterialPackage` object, it is easy to set the temperature of a package to a new value.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
@@ -1248,11 +1248,11 @@ This results in the temperature to be updated, as well as the package's enthalpy
 
 Setting Package Enthalpy
 ========================
-We can use the "H" property of a :py:class:`~.auxi.modeling.process.materials.thermochemistry.material.MaterialPackage` object to add or subtract enthalpy, or to set it to a new value. This is very useful when building an energy balance.
+We can use the "H" property of a :py:class:`~.auxi.modelling.process.materials.thermochemistry.material.MaterialPackage` object to add or subtract enthalpy, or to set it to a new value. This is very useful when building an energy balance.
 
 ::
 
-    from auxi.modeling.process.materials.thermochemistry.material import Material
+    from auxi.modelling.process.materials.thermochemistry.material import Material
 
     ilmenite = Material("Ilmenite", "./materials/ilmenite.txt")
     reductant = Material("Reductant", "./materials/reductant.txt")
