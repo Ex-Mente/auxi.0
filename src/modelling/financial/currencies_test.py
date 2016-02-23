@@ -7,7 +7,7 @@ auxi.modelling.financial.currencies module.
 """
 
 import unittest
-from auxi.modelling.financial.currency import Currency, CurrencyTable
+from auxi.modelling.financial.currencies import Currency, CurrencyTable
 
 __version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
