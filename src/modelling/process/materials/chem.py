@@ -28,43 +28,42 @@ class Material(NamedObject):
     """
     A material consisting of multiple chemical compounds.
 
-    The format of the text file is as follows:
-    * The lines are space separated. The values in a line are separated by
-      one or more spaces.
-    * The first line is a heading line.
-    * All subsequent lines contain a compound formula, followed by mass
-      fractions.
-    * The first column lists the compounds in the material.
-    * All subsequent columns describe assays of the material.
-
-    The following is an example of a material text file:
-    Compound   IlmeniteA  IlmeniteB  IlmeniteC
-    Al2O3      0.01160    0.01550    0.00941
-    CaO        0.00022    0.00001    0.00017
-    Cr2O3      0.00008    0.00022    0.00011
-    Fe2O3      0.20200    0.47300    0.49674
-    Fe3O4      0.00000    0.00000    0.00000
-    FeO        0.27900    0.19100    0.00000
-    K2O        0.00004    0.00001    0.00005
-    MgO        0.01040    0.00580    0.01090
-    MnO        0.00540    0.00480    0.00525
-    Na2O       0.00007    0.00005    0.00031
-    P4O10      0.00001    0.00032    0.00015
-    SiO2       0.00850    0.00490    0.01744
-    TiO2       0.47700    0.29400    0.45949
-    V2O5       0.00360    0.00800    0.00000
-
     :param name: The material's name.
     :param file_path: The path of the material definition file.
     :param description: the material's description
+
+    The format of the text file is as follows:
+
+    * The lines are space separated. The values in a line are separated by \
+      one or more spaces.
+    * The first line is a heading line.
+    * All subsequent lines contain a compound formula, followed by mass \
+        fractions.
+    * The first column lists the compounds in the material.
+    * All subsequent columns describe assays of the material.
+
+    The following is an example of a material text file::
+
+        Compound   IlmeniteA  IlmeniteB  IlmeniteC
+        Al2O3      0.01160    0.01550    0.00941
+        CaO        0.00022    0.00001    0.00017
+        Cr2O3      0.00008    0.00022    0.00011
+        Fe2O3      0.20200    0.47300    0.49674
+        Fe3O4      0.00000    0.00000    0.00000
+        FeO        0.27900    0.19100    0.00000
+        K2O        0.00004    0.00001    0.00005
+        MgO        0.01040    0.00580    0.01090
+        MnO        0.00540    0.00480    0.00525
+        Na2O       0.00007    0.00005    0.00031
+        P4O10      0.00001    0.00032    0.00015
+        SiO2       0.00850    0.00490    0.01744
+        TiO2       0.47700    0.29400    0.45949
+        V2O5       0.00360    0.00800    0.00000
     """
 
     def __init__(self, name, file_path, description=None):
-        """
-        """
-
         self._validate_params_(name, file_path, description)
-        super().__init__(name, description)
+        super(Material, self).__init__(name, description)
         self._read_configuration_(file_path)
 
     def __str__(self):
@@ -88,7 +87,7 @@ class Material(NamedObject):
         return result
 
     def _validate_params_(self, name, file_path, description):
-        super()._validate_params_(name, description)
+        super(Material, self)._validate_params_(name, description)
 
         if not isfile(file_path):
             raise ValueError('The specified file ({}) does not exist.'
@@ -207,6 +206,7 @@ class Material(NamedObject):
         Calculate the total of the specified assay.
 
         :param name: The name of the assay.
+
         :returns: The total mass fraction of the specified assay.
         """
 
@@ -239,8 +239,6 @@ class MaterialPackage(Object):
     """
     A package of a material consisting of multiple chemical compounds.
 
-    Properties defined here:
-
     :param material: A reference to the Material to which self belongs.
     :param compound_masses: [kg] The masses of the compounds in the package.
     """
@@ -268,10 +266,9 @@ class MaterialPackage(Object):
         leave self unchanged.
 
         :param other: Can can be one of the following:
-          1. MaterialPackage
-             'other' is added to self to create a new package.
-          2. tuple: (compound, mass)
-             The specified mass of the specified compound is added to self.
+          1. MaterialPackage: 'other' is added to self to create a new package.
+          2. tuple: (compound, mass): The specified mass of the specified
+          compound is added to self.
 
         :returns: A new Material package that is the sum of self and 'other'.
         """
@@ -385,6 +382,7 @@ class MaterialPackage(Object):
         """
         Set all the compound masses in the package to zero.
         """
+
         self.compound_masses *= 0.0
 
     def get_assay(self):
@@ -450,7 +448,7 @@ class MaterialPackage(Object):
         Determine the masses of elements in the package and return as a
         dictionary.
 
-        return : [kg] A dictionary of element symbols and masses.
+        :returns: [kg] A dictionary of element symbols and masses.
         """
 
         element_symbols = self.material.elements
@@ -480,23 +478,21 @@ class MaterialPackage(Object):
 
     def extract(self, other):
         """
-        Extract some material from self.
-
         Extract 'other' from self, modifying self and returning the extracted
         material as a new package.
 
         :param other: Can be one of the following:
-          1. float
-             A mass equal to other is extracted from self. Self is reduced by
-             other and the extracted package is returned as a new package.
-          2. tuple: (compound, mass)
-             The other tuple specifies the mass of a compound to be extracted.
-             It is extracted from self and the extracted mass is returned as a
-             new package.
-          3. string
-             The 'other' string specifies the compound to be extracted. All of
-             the mass of that compound will be removed from self and a new
-             package created with it.
+
+          * float: A mass equal to other is extracted from self. Self is
+            reduced by other and the extracted package is returned as a
+            new package.
+          * tuple (compound, mass): The other tuple specifies the mass of
+            a compound to be extracted. It is extracted from self and the
+            extracted mass is returned as a new package.
+          * string: The 'other' string specifies the compound to be extracted.
+            All of the mass of that compound will be removed from self and a
+            new package created with it.
+
 
         :returns: A new material package containing the material that was
           extracted from self.

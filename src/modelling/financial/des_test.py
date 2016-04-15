@@ -40,6 +40,10 @@ class GeneralLedgerAccountUnitTester(unittest.TestCase):
         self.assertEqual(self.object.number, "010")
         self.assertEqual(self.object.account_type, AccountType.asset)
 
+    def test_set_parent_path(self):
+        self.object.set_parent_path("accyA/accyB")
+        self.assertEqual(self.object.path, "accyA/accyB/NameA")
+
     def test_create_account(self):
         new_account = self.object.create_account("TestA",
                                                  description="TestA_Desc",
@@ -59,6 +63,24 @@ class GeneralLedgerAccountUnitTester(unittest.TestCase):
         self.object.remove_account("TestA")
         self.assertEqual(len(self.object.accounts), num_accounts)
 
+    def test_get_child_account(self):
+        sub_acc = self.object.create_account(
+            "TestA",
+            description="TestA_Desc",
+            number="011")
+        sub_sub_acc = sub_acc.create_account(
+            "TestA1",
+            description="TestA1_Desc",
+            number="012")
+        result = self.object.get_child_account("TestA/TestA1")
+
+        self.assertEqual(result.name, sub_sub_acc.name)
+        self.assertEqual(result.description, sub_sub_acc.description)
+        self.assertEqual(result.number, sub_sub_acc.number)
+        self.assertEqual(result.account_type, sub_sub_acc.account_type)
+
+        self.assertEqual(result, sub_sub_acc)
+
 
 class TransactionUnitTester(unittest.TestCase):
     """
@@ -68,7 +90,7 @@ class TransactionUnitTester(unittest.TestCase):
     def setUp(self):
         self.object = Transaction("NameA",
                                   description="DescriptionA",
-                                  tx_datetime=datetime(2016, 2, 1),
+                                  tx_date=datetime(2016, 2, 1).date(),
                                   dt_account="Bank",
                                   cr_account="Sales",
                                   source="PigeonSales",
@@ -78,7 +100,7 @@ class TransactionUnitTester(unittest.TestCase):
         self.assertEqual(self.object.name, "NameA")
         self.assertEqual(self.object.description, "DescriptionA")
         self.assertEqual(self.object.dt_account, "Bank")
-        self.assertEqual(self.object.tx_datetime, datetime(2016, 2, 1))
+        self.assertEqual(self.object.tx_date, datetime(2016, 2, 1).date())
         self.assertEqual(self.object.cr_account, "Sales")
         self.assertEqual(self.object.source, "PigeonSales")
         self.assertEqual(self.object.is_closing_cr_account, False)
@@ -120,95 +142,165 @@ class GeneralLedgerStructureUnitTester(unittest.TestCase):
         """
         self.assertEqual(self.object.name, "NameA")
         self.assertEqual(self.object.description, "DescriptionA")
-        self.assertEqual(self.object.accounts[0].name, "Bank")
-        self.assertEqual(self.object.accounts[0].account_type,
-                         AccountType.asset)
-        self.assertEqual(self.object.accounts[1].name, "IncomeTaxPayable")
-        self.assertEqual(self.object.accounts[1],
-                         self.object.incometaxpayable_account)
-        self.assertEqual(self.object.accounts[1].account_type,
-                         AccountType.liability)
-        self.assertEqual(self.object.accounts[2].name, "IncomeTaxExpense")
-        self.assertEqual(self.object.accounts[2],
-                         self.object.incometaxexpense_account)
-        self.assertEqual(self.object.accounts[2].account_type,
-                         AccountType.expense)
-        self.assertEqual(self.object.accounts[3].name, "Sales")
-        self.assertEqual(self.object.accounts[3],
-                         self.object.sales_account)
-        self.assertEqual(self.object.accounts[3].account_type,
-                         AccountType.revenue)
-        self.assertEqual(self.object.accounts[4].name, "CostOfSales")
-        self.assertEqual(self.object.accounts[4],
-                         self.object.costofsales_account)
-        self.assertEqual(self.object.accounts[4].account_type,
-                         AccountType.expense)
-        self.assertEqual(self.object.accounts[5].name, "GrossProfit")
-        self.assertEqual(self.object.accounts[5],
-                         self.object.gross_profit_account)
-        self.assertEqual(self.object.accounts[5].account_type,
-                         AccountType.revenue)
-        self.assertEqual(self.object.accounts[6].name, "IncomeSummary")
-        self.assertEqual(self.object.accounts[6],
-                         self.object.incomesummary_account)
-        self.assertEqual(self.object.accounts[6].account_type,
-                         AccountType.revenue)
-        self.assertEqual(self.object.accounts[7].name, "RetainedEarnings")
-        self.assertEqual(self.object.accounts[7],
-                         self.object.retainedearnings_account)
-        self.assertEqual(self.object.accounts[7].account_type,
-                         AccountType.equity)
-        self.assertEqual(self.object.tax_payment_account, "Bank")
+        self.assertNotEqual(self.object["Bank"], None)
+        self.assertEqual(
+            self.object['Unallocated Income Statement'].account_type,
+            AccountType.revenue)
+        self.assertEqual(self.object["Sales"].number, "I10")
+        self.assertEqual(
+            self.object["Sales"].account_type,
+            AccountType.revenue)
+        self.assertEqual(self.object["Cost of Sales"].number, "I15")
+        self.assertEqual(
+            self.object["Cost of Sales"].account_type,
+            AccountType.expense)
+        self.assertEqual(self.object["Other Income"].number, "I20")
+        self.assertEqual(
+            self.object["Other Income"].account_type,
+            AccountType.revenue)
+        self.assertEqual(self.object["Expense"].number, "I25")
+        self.assertEqual(
+            self.object["Expense"].account_type,
+            AccountType.expense)
+        self.assertEqual(self.object["Tax"].number, "I30")
+        self.assertEqual(
+            self.object["Tax"].account_type,
+            AccountType.expense)
+        self.assertEqual(self.object["Dividends"].number, "I35")
+        self.assertEqual(
+            self.object["Dividends"].account_type,
+            AccountType.expense)
+        self.assertEqual(self.object["Share Capital"].number, "B10")
+        self.assertEqual(
+            self.object["Share Capital"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Retained Income"].number, "B15")
+        self.assertEqual(
+            self.object["Retained Income"].account_type,
+            AccountType.equity)
+        self.assertEqual(self.object["Shareholders Loan"].number, "B20")
+        self.assertEqual(
+            self.object["Shareholders Loan"].account_type,
+            AccountType.liability)
+        self.assertEqual(self.object["Long Term Borrowing"].number, "B25")
+        self.assertEqual(
+            self.object["Long Term Borrowing"].account_type,
+            AccountType.liability)
+        self.assertEqual(
+            self.object["Other Long Term Liabilities"].number,
+            "B30")
+        self.assertEqual(
+            self.object["Other Long Term Liabilities"].account_type,
+            AccountType.liability)
+        self.assertEqual(self.object["Fixed Assets"].number, "B35")
+        self.assertEqual(
+            self.object["Fixed Assets"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Investments"].number, "B40")
+        self.assertEqual(
+            self.object["Investments"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Other Fixed Assets"].number, "B45")
+        self.assertEqual(
+            self.object["Other Fixed Assets"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Inventory"].number, "B50")
+        self.assertEqual(
+            self.object["Inventory"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Accounts Receivable"].number, "B55")
+        self.assertEqual(
+            self.object["Accounts Receivable"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Bank"].number, "B60")
+        self.assertEqual(
+            self.object["Bank"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Bank"]["Default"].number, "0000")
+        self.assertEqual(
+            self.object["Bank"]["Default"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Other Current Assets"].number, "B65")
+        self.assertEqual(
+            self.object["Other Current Assets"].account_type,
+            AccountType.asset)
+        self.assertEqual(self.object["Account Payable"].number, "B70")
+        self.assertEqual(
+            self.object["Account Payable"].account_type,
+            AccountType.liability)
+        self.assertEqual(self.object["Taxation"].number, "B75")
+        self.assertEqual(
+            self.object["Taxation"].account_type,
+            AccountType.liability)
+        self.assertEqual(
+            self.object["Other Current Liabilities"].number,
+            "B80")
+        self.assertEqual(
+            self.object["Other Current Liabilities"].account_type,
+            AccountType.liability)
 
-    def test_create_account(self):
-        orig_length = len(self.object.accounts)
-        new_acc = self.object.create_account("TestA",
-                                             description="TestA_Desc",
-                                             number="011",
-                                             account_type=AccountType.equity)
-        self.assertEqual(new_acc.name, "TestA")
-        self.assertEqual(new_acc.description, "TestA_Desc")
-        self.assertEqual(new_acc.number, "011")
-        self.assertEqual(new_acc.account_type, AccountType.equity)
+        self.assertEqual(
+            self.object['Unallocated Income Statement']["Gross Profit"].number,
+            "0000")
+        self.assertEqual(
+            self.object['Unallocated Income Statement']
+            ["Gross Profit"].account_type,
+            AccountType.revenue)
+        self.assertEqual(
+            self.object['Unallocated Income Statement']
+            ["Income Summary"].number,
+            "0010")
+        self.assertEqual(
+            self.object['Unallocated Income Statement']
+            ["Income Summary"].account_type,
+            AccountType.revenue)
+        self.assertEqual(
+            self.object['Retained Income']
+            ["Retained Earnings"].number,
+            "0000")
+        self.assertEqual(
+            self.object['Retained Income']
+            ["Retained Earnings"].account_type,
+            AccountType.equity)
+        self.assertEqual(
+            self.object['Tax']
+            ["Income Tax Expense"].number,
+            "0000")
+        self.assertEqual(
+            self.object['Tax']
+            ["Income Tax Expense"].account_type,
+            AccountType.expense)
 
-        self.assertEqual(new_acc, self.object.accounts[orig_length])
-
-    def test_remove_account(self):
-        orig_length = len(self.object.accounts)
-        self.object.create_account("TestA",
-                                   description="TestA_Desc",
-                                   number="011",
-                                   account_type=AccountType.equity)
-        self.object.remove_account("TestA")
-        self.assertEqual(len(self.object.accounts), orig_length)
+        self.assertEqual(self.object.tax_payment_account, "Bank/Default")
 
     def test_get_account(self):
-        self.object.create_account("TestA",
-                                   description="TestA_Desc",
-                                   number="010",
-                                   account_type=AccountType.equity)
-        acc = self.object.create_account("TestB",
-                                         description="TestB_Desc",
-                                         number="020",
-                                         account_type=AccountType.asset)
-        sub_acc = acc.create_account("TestB1",
-                                     description="TestB1_Desc",
-                                     number="010")
-        sub_acc.create_account("TestB1.1",
-                               description="TestB1.1_Desc",
-                               number="010")
-        orig = sub_acc.create_account("TestB1.2",
-                                      description="TestB1.1_Desc",
-                                      number="011")
-        result = self.object.get_account("TestB1.2")
+        self.object["Retained Income"].create_account(
+            "TestA",
+            number="010")
+        acc = self.object["Bank"].create_account(
+            "TestB",
+            number="020")
+        sub_acc = acc.create_account(
+            "TestB1",
+            description="TestB1_Desc",
+            number="010")
+        sub_acc.create_account(
+            "TestB1.1",
+            description="TestB1.1_Desc",
+            number="010")
+        orig = sub_acc.create_account(
+            "TestB1.2",
+            description="TestB1.1_Desc",
+            number="011")
+        result = self.object.get_account("Bank/TestB/TestB1/TestB1.2")
 
         self.assertEqual(result.name, orig.name)
         self.assertEqual(result.description, orig.description)
         self.assertEqual(result.number, orig.number)
 
-    def test_get_account_and_decendants(self):
+    def test_get_account_decendants(self):
         # Set up this test.
-        self.sales_fish_acc = self.object.accounts[3].create_account(
+        self.sales_fish_acc = self.object["Sales"].create_account(
             "SalesFish",
             description="Sales of Fish",
             number="010")
@@ -221,14 +313,21 @@ class GeneralLedgerStructureUnitTester(unittest.TestCase):
             description="Sales of Nemos",
             number="020")
         # perform the test.
-        result = []
-        self.object.get_account_and_decendants(
-            self.object.accounts[3], result)
-        self.assertEqual(len(result), 4)
-        self.assertEqual(result[0], self.object.accounts[3])
-        self.assertEqual(result[1], self.sales_fish_acc)
-        self.assertEqual(result[2], self.sales_barracuda_acc)
-        self.assertEqual(result[3], self.sales_nemo_acc)
+        result = self.object.get_account_decendants(self.object["Sales"])
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0], self.sales_fish_acc)
+        self.assertEqual(result[1], self.sales_barracuda_acc)
+        self.assertEqual(result[2], self.sales_nemo_acc)
+
+    def test_validate_account_name_valid(self):
+        self.object.validate_account_names(
+            ["Bank/Default", "Retained Income/Retained Earnings"])
+
+    def test_validate_account_name_invalid(self):
+        self.assertRaises(
+            ValueError,
+            self.object.validate_account_names,
+            ["invalid_acc_name_a", "invalid_acc_name_b"])
 
 
 class GeneralLedgerUnitTester(unittest.TestCase):
@@ -239,10 +338,10 @@ class GeneralLedgerUnitTester(unittest.TestCase):
     def setUp(self):
         self.structure = GeneralLedgerStructure("NameA",
                                                 description="DescriptionA")
-        self.structure.create_account("TestA",
-                                      description="TestA_Desc",
-                                      number="010",
-                                      account_type=AccountType.equity)
+        self.structure["Retained Income"].create_account(
+            "TestA",
+            description="TestA_Desc",
+            number="010")
         self.object = GeneralLedger("NameA",
                                     self.structure,
                                     description="DescriptionA")
@@ -256,7 +355,7 @@ class GeneralLedgerUnitTester(unittest.TestCase):
         new_tx = self.object.create_transaction(
             "TestA",
             description="TestA_Desc",
-            tx_datetime=datetime(2016, 2, 1),
+            tx_date=datetime(2016, 2, 1).date(),
             dt_account="Bank",
             cr_account="Sales",
             source="Peanut Sales",
@@ -264,22 +363,12 @@ class GeneralLedgerUnitTester(unittest.TestCase):
 
         tx_list = self.object.transactions
         self.assertEqual(new_tx.name, tx_list[0].name)
-        self.assertEqual(new_tx.tx_datetime, tx_list[0].tx_datetime)
+        self.assertEqual(new_tx.tx_date, tx_list[0].tx_date)
         self.assertEqual(new_tx.dt_account, tx_list[0].dt_account)
         self.assertEqual(new_tx.cr_account, tx_list[0].cr_account)
         self.assertEqual(new_tx.source, tx_list[0].source)
         self.assertEqual(new_tx.amount, tx_list[0].amount)
 
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-# help(GeneralLedgerAccount)
-# help(Transaction)
-# help(TransactionTemplate)
-# help(GeneralLedgerStructure)
-# help(GeneralLedger)
 
 if __name__ == '__main__':
     unittest.main()

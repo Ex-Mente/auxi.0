@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
 This module provides testing code for classes in the thermo module.
 """
@@ -15,11 +15,14 @@ from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.tools.chemistry import thermochemistry as thermo
 from auxi.modelling.process.materials.thermo import Material, MaterialPackage
 
-__version__ = "0.2.0"
-
-# =============================================================================
-# Types.
-# =============================================================================
+__version__ = '0.2.0rc4'
+__license__ = 'LGPL v3'
+__copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
+__author__ = 'Christoff Kok, Johan Zietsman'
+__credits__ = ['Christoff Kok', 'Johan Zietsman']
+__maintainer__ = 'Christoff Kok'
+__email__ = 'christoff.kok@ex-mente.co.za'
+__status__ = 'Planning'
 
 
 class ThermoMaterialUnitTester(unittest.TestCase):
@@ -56,7 +59,8 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         new_assay[0] = 0.5
         new_assay[2] = 0.5
         self.m.add_assay("new_assay", new_assay)
-        self.assertEqual(np.all(self.m.converted_assays["new_assay"] == new_assay), True)
+        self.assertEqual(
+            np.all(self.m.converted_assays["new_assay"] == new_assay), True)
 
     def test_get_assay_total(self):
         self.assertAlmostEqual(self.m.get_assay_total("IlmeniteA"), 0.99792)
@@ -340,14 +344,6 @@ class ThermoMaterialPackageUnitTester(unittest.TestCase):
         x = self.ilm_pkg_a.get_element_masses()
         y = self.ilm_pkg_a.get_element_mass("Ti")
 
-
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-#help(Material)
-#help(MaterialPackage)
 
 if __name__ == '__main__':
     unittest.main()

@@ -33,7 +33,8 @@ class ChemMaterialUnitTester(unittest.TestCase):
             for f, s in zip(first, second):
                 self.assertAlmostEqual(f, s)
         else:
-            super().assertAlmostEqual(first, second, places, msg, delta)
+            super(ChemMaterialUnitTester, self).assertAlmostEqual(
+                first, second, places, msg, delta)
 
     def setUp(self):
         test_data_file_path = get_path(
@@ -140,6 +141,10 @@ class ChemMaterialPackageUnitTester(unittest.TestCase):
         self.assertAlmostEqual(pkg_a_plus_b_plus_c.get_mass(), 7036.8)
 
     def test_add_operator_2(self):
+        """
+        Tests the scenario when a 'mix' is created and two packages
+        'mixed' into the mix package.
+        """
         mix_package = self.mix.create_package(None, 0.0)
         mix_package = mix_package + self.ilm_pkg_a
         mix_package = mix_package + self.red_pkg_a

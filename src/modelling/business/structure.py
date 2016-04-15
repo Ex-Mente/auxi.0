@@ -3,8 +3,7 @@
 This module provides an classes used to create a business structure.
 """
 
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from collections import OrderedDict
 
@@ -36,22 +35,32 @@ class Activity(NamedObject):
     :param interval: The interval of the activity.
     """
 
-    def __init__(self, name, description=None,
-                 start=datetime.min,
-                 end=datetime.max,
-                 interval=1):
-        """
-        """
+    def __init__(self, name,
+                 start=datetime.min, end=datetime.max,
+                 interval=1,
+                 description=None):
         self._parent_path = ""
-        super().__init__(name, description)
-        self.start_datetime = start
-        self.end_datetime = end
+        super(Activity, self).__init__(name, description)
+        self.start_datetime = self._get_date_(start)
+        self.end_datetime = self._get_date_(end)
         self.interval = interval
         self.start_period_ix = -1
         self.end_period_ix = -1
         self.period_count = -1
 
+    def _get_date_(self, date):
+        if type(date) is str:
+            return datetime.strptime(date, '%Y-%m-%d')
+        else:
+            return date
+
     def set_parent_path(self, value):
+        """
+        Set the parent path and the path from the new parent path.
+
+        :param value: The path to the object's parent
+        """
+
         self._parent_path = value
         self.path = value + r'/' + self.name
 
@@ -71,13 +80,15 @@ class Activity(NamedObject):
             ix_period + self.interval <= self.end_period_ix
 
     def prepare_to_run(self, clock, period_count):
-        """Prepare the activity for execution.
+        """
+        Prepare the activity for execution.
 
         :param clock: The clock containing the execution start time and
           execution period information.
         :param period_count: The total amount of periods this activity will be
           requested to be run for.
         """
+
         if self.start_period_ix == -1 and self.start_datetime != datetime.min:
             # Set the Start period index
             for i in range(0, period_count):
@@ -97,6 +108,15 @@ class Activity(NamedObject):
         else:
             self.end_period_ix = self.start_period_ix + period_count
 
+    def get_referenced_accouts(self):
+        """
+        Retrieve the general ledger accounts referenced in this instance.
+
+        :returns: The referenced accounts.
+        """
+
+        return []
+
 
 class Component(NamedObject):
     """
@@ -107,21 +127,27 @@ class Component(NamedObject):
     :param description: The description.
     """
 
-    def __init__(self, name, description=None):
-        """
-        """
+    def __init__(self, name, gl, description=None):
         self._parent_path = ""
         self.path = name
+        self.gl = gl
         self.components = []
         self.activities = []
-        super().__init__(name, description=description)
+        super(Component, self).__init__(name, description=description)
+
+    def __getitem__(self, name):
+        return self.get_component(name)
+
+    def __call__(self, name):
+        return self.get_activity(name)
 
     def set_parent_path(self, value):
         """
         Set the parent path and the path from the new parent path.
 
-        :param value: The path to the object's parent
+        :param value: The path to the object's parent.
         """
+
         self._parent_path = value
         self.path = value + r'/' + self.name
         self._update_childrens_parent_path()
@@ -151,7 +177,9 @@ class Component(NamedObject):
 
         :returns: The created component.
         """
-        new_comp = Component(name, description=description)
+
+        new_comp = Component(name, self.gl, description=description)
+        new_comp.set_parent_path(self.path)
         self.components.append(new_comp)
         return new_comp
 
@@ -161,12 +189,47 @@ class Component(NamedObject):
 
         :param name: The name of the component to remove.
         """
+
         component_to_remove = None
         for c in self.components:
             if c.name == name:
                 component_to_remove = c
         if component_to_remove is not None:
             self.components.remove(component_to_remove)
+
+    def get_component(self, name):
+        """
+        Retrieve a child component given its name.
+
+        :param name: The name of the component.
+
+        :returns: The component.
+        """
+
+        return [c for c in self.components if c.name == name][0]
+
+    def add_activity(self, activity):
+        """
+        Add an activity to the component.
+
+        :param activity: The activity.
+        """
+
+        self.gl.structure.validate_account_names(
+            activity.get_referenced_accounts())
+        self.activities.append(activity)
+        activity.set_parent_path(self.path)
+
+    def get_activity(self, name):
+        """
+        Retrieve an activity given its name.
+
+        :param name: The name of the activity.
+
+        :returns: The activity.
+        """
+
+        return [a for a in self.activities if a.name == name][0]
 
     def prepare_to_run(self, clock, period_count):
         """
@@ -177,19 +240,22 @@ class Component(NamedObject):
         :param period_count: The total amount of periods this activity will be
           requested to be run for.
         """
+
         for c in self.components:
             c.prepare_to_run(clock, period_count)
         for a in self.activities:
             a.prepare_to_run(clock, period_count)
 
     def run(self, clock, generalLedger):
-        """Execute the component at the current clock cycle.
+        """
+        Execute the component at the current clock cycle.
 
         :param clock: The clock containing the current execution time and
           period information.
         :param generalLedger: The general ledger into which to create the
           transactions.
         """
+
         for c in self.components:
             c.run(clock, generalLedger)
         for a in self.activities:
@@ -209,12 +275,7 @@ class Entity(NamedObject):
     :param period_count: The number of periods the entity should be run for.
     """
 
-    # -------------------------------------------------------------------------
-    # Standard methods.
-    # -------------------------------------------------------------------------
     def __init__(self, name, gl_structure, description=None):
-        """
-        """
         self.gl = GeneralLedger(
             "General Ledger",
             gl_structure,
@@ -228,7 +289,10 @@ class Entity(NamedObject):
         self._curr_year_end_datetime = datetime.min
         self._exec_year_end_datetime = datetime.min
         self.period_count = -1
-        super().__init__(name, description=description)
+        super(Entity, self).__init__(name, description=description)
+
+    def __getitem__(self, key):
+        return [c for c in self.components if c.name == key][0]
 
     def set_parent_path(self, value):
         """
@@ -236,6 +300,7 @@ class Entity(NamedObject):
 
         :param value: The path to the object's parent
         """
+
         self._parent_path = value
         self.path = value + r'/' + self.name
         self._update_childrens_parent_path()
@@ -263,7 +328,9 @@ class Entity(NamedObject):
 
         :returns: The created component.
         """
-        new_comp = Component(name, description=description)
+
+        new_comp = Component(name, self.gl, description=description)
+        new_comp.set_parent_path(self.path)
         self.components.append(new_comp)
         return new_comp
 
@@ -273,6 +340,7 @@ class Entity(NamedObject):
 
         :param name: The name of the component to remove.
         """
+
         component_to_remove = None
         for c in self.components:
             if c.name == name:
@@ -281,13 +349,15 @@ class Entity(NamedObject):
             self.components.remove(component_to_remove)
 
     def prepare_to_run(self, clock, period_count):
-        """Prepare the entity for execution.
+        """
+        Prepare the entity for execution.
 
         :param clock: The clock containing the execution start time and
           execution period information.
         :param period_count: The total amount of periods this activity will be
           requested to be run for.
         """
+
         self.period_count = period_count
 
         self._exec_year_end_datetime = clock.get_datetime_at_period_ix(
@@ -305,11 +375,13 @@ class Entity(NamedObject):
         self.negative_income_tax_total = 0
 
     def run(self, clock):
-        """Execute the entity at the current clock cycle.
+        """
+        Execute the entity at the current clock cycle.
 
         :param clock: The clock containing the current execution time and
           period information.
         """
+
         if clock.timestep_ix >= self.period_count:
             return
 
@@ -333,19 +405,14 @@ class Entity(NamedObject):
 
             gross_profit_write_off_accs = OrderedDict()
             inc_summary_write_off_accs = OrderedDict()
-            sales_accs = []
-            cost_of_sales_accs = []
-            gls.get_account_and_decendants(gls.sales_account, sales_accs)
-            gls.get_account_and_decendants(
-                gls.costofsales_account,
-                cost_of_sales_accs)
-
-            year_txes = []
+            sales_accs = gls.get_account_decendants(gls._acci_sales_)
+            cost_of_sales_accs = gls.get_account_decendants(gls._acci_cos_)
+            year_taxes = []
             for tx in self.gl.transactions:
-                if tx.tx_datetime >= year_start_date and\
-                 tx.tx_datetime <= year_end_date:
-                    year_txes.append(tx)
-            for tx in year_txes:
+                if tx.tx_date >= year_start_date and\
+                 tx.tx_date <= year_end_date:
+                    year_taxes.append(tx)
+            for tx in year_taxes:
                 cr_acc = gls.get_account(tx.cr_account)
                 dt_acc = gls.get_account(tx.dt_account)
 
@@ -419,12 +486,12 @@ class Entity(NamedObject):
             income_summary_write_off_accounts)
 
         def create_tx(dt_account, cr_account):
-            tx_name = "Settle the '" + gls.gross_profit_account.name +\
+            tx_name = "Settle the '" + gls._acci_gross_prof_.path +\
              "' Account"
             new_tx = self.gl.create_transaction(
                 tx_name,
                 description=tx_name,
-                tx_datetime=year_end_datetime,
+                tx_date=year_end_datetime,
                 dt_account=dt_account,
                 cr_account=cr_account,
                 source=self.path,
@@ -432,11 +499,11 @@ class Entity(NamedObject):
             new_tx.is_closing_cr_account = True
 
         if gross_profit > 0:
-            create_tx(gls.gross_profit_account.name,
-                      gls.incomesummary_account.name)
+            create_tx(gls._acci_gross_prof_.path,
+                      gls._acci_inc_sum_.path)
         elif gross_profit < 0:
-            create_tx(gls.incomesummary_account.name,
-                      gls.gross_profit_account.name)
+            create_tx(gls._acci_inc_sum_.path,
+                      gls._acci_gross_prof_.path)
 
         return income_summary_amount
 
@@ -448,11 +515,11 @@ class Entity(NamedObject):
 
         for acc, amount in gross_profit_write_off_accounts.items():
             def create_tx(dt_account, cr_account):
-                tx_name = "Settle the '" + acc.name + "' Account"
+                tx_name = "Settle the '" + acc.path + "' Account"
                 new_tx = self.gl.create_transaction(
                     tx_name,
                     description=tx_name,
-                    tx_datetime=year_end_datetime,
+                    tx_date=year_end_datetime,
                     dt_account=dt_account,
                     cr_account=cr_account,
                     source=self.path,
@@ -461,9 +528,9 @@ class Entity(NamedObject):
 
             gross_profit += amount
             if amount > 0:
-                create_tx(gls.gross_profit_account.name, acc.name)
+                create_tx(gls._acci_gross_prof_.path, acc.path)
             elif amount < 0:
-                create_tx(acc.name, gls.gross_profit_account.name)
+                create_tx(acc.path, gls._acci_gross_prof_.path)
         return gross_profit
 
     def _perform_year_end_income_summary(self,
@@ -475,11 +542,11 @@ class Entity(NamedObject):
 
         for acc, amount in income_summary_write_off_accounts.items():
             def create_tx(dt_account, cr_account):
-                tx_name = "Settle the '" + acc.name + "' Account"
+                tx_name = "Settle the '" + acc.path + "' Account"
                 new_tx = self.gl.create_transaction(
                     tx_name,
                     description=tx_name,
-                    tx_datetime=year_end_datetime,
+                    tx_date=year_end_datetime,
                     dt_account=dt_account,
                     cr_account=cr_account,
                     source=self.path,
@@ -489,17 +556,17 @@ class Entity(NamedObject):
             if amount > 0:
                 if acc.account_type == AccountType.expense:
                     income_summary_amount -= amount
-                    create_tx(gls.incomesummary_account.name, acc.name)
+                    create_tx(gls._acci_inc_sum_.path, acc.path)
                 else:
                     income_summary_amount += amount
-                    create_tx(acc.name, gls.incomesummary_account.name)
+                    create_tx(acc.path, gls._acci_inc_sum_.path)
             elif amount < 0:
                 if acc.account_type == AccountType.expense:
                     income_summary_amount -= amount
-                    create_tx(acc.name, gls.incomesummary_account.name)
+                    create_tx(acc.path, gls._acci_inc_sum_.path)
                 else:
                     income_summary_amount += amount
-                    create_tx(gls.incomesummary_account.name, acc.name)
+                    create_tx(gls._acci_inc_sum_.path, acc.path)
         return income_summary_amount
 
     def _perform_year_end_income_tax(self,
@@ -511,12 +578,12 @@ class Entity(NamedObject):
                                             year_end_datetime,
                                             income_summary_amount):
         def create_tx(dt_account, cr_account):
-            tx_name = "Settle the '" + gls.incomesummary_account.name +\
+            tx_name = "Settle the '" + gls._acci_inc_sum_.path +\
                       "' Account, adjust Retained Earnings accordingly."
             new_tx = self.gl.create_transaction(
                 tx_name,
                 description=tx_name,
-                tx_datetime=year_end_datetime,
+                tx_date=year_end_datetime,
                 dt_account=dt_account,
                 cr_account=cr_account,
                 source=self.path,
@@ -525,11 +592,11 @@ class Entity(NamedObject):
         gls = self.gl.structure
 
         if income_summary_amount > 0:
-            create_tx(gls.incomesummary_account.name,
-                      gls.retainedearnings_account.name)
+            create_tx(gls._acci_inc_sum_.path,
+                      gls._accb_ret_earnings_acc_.path)
         elif income_summary_amount < 0:
-            create_tx(gls.retainedearnings_account.name,
-                      gls.incomesummary_account.name)
+            create_tx(gls._accb_ret_earnings_acc_.path,
+                      gls._acci_inc_sum_.path)
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ import numpy as np
 from auxi.core.objects import Object
 
 
-__version__ = '0.2.0rc3'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -32,8 +32,8 @@ class Element(Object):
     :param molar_mass: [kg/kmol] Element's standard atomic mass.
     """
 
-    #TODO: Add tests.
-    #TODO: Implement validate method.
+    # TODO: Add tests.
+    # TODO: Implement validate method.
 
     def __init__(self, period, group, atomic_number, symbol, molar_mass):
         self.period = period
@@ -334,7 +334,7 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
         multiplier = float(multplier_string)
         for k, v in stoich_dict.items():
             stoich_dict[k] = stoich_dict[k] * multiplier
-    
+
     return index
 
 

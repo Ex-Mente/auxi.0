@@ -30,7 +30,7 @@ class Currency(NamedObject):
     def __init__(self, name, description=None, symbol=None):
         """
         """
-        super().__init__(name, description)
+        super(Currency, self).__init__(name, description)
         self.symbol = symbol
 
 
@@ -48,7 +48,7 @@ class CurrencyTable(NamedObject):
                     "USD", "United States Dollars", "$")):
         """
         """
-        super().__init__(name, description)
+        super(CurrencyTable, self).__init__(name, description)
         self.default_currency = default_currency
         self.table = {}
         self.table[self.default_currency] = "1.0"

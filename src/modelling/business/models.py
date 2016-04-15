@@ -7,6 +7,7 @@ from datetime import datetime
 
 from auxi.core.objects import NamedObject
 from auxi.core.time import Clock, TimePeriod
+from auxi.core.helpers import get_date
 from auxi.modelling.business.structure import Entity
 
 __version__ = '0.2.0rc4'
@@ -40,15 +41,13 @@ class TimeBasedModel(NamedObject):
                  start_datetime=datetime.now(),
                  period_duration=TimePeriod.year,
                  period_count=1):
-        """
-        """
         self.clock = Clock(
             "Clock",
-            start_datetime=start_datetime,
+            start_datetime=get_date(start_datetime),
             timestep_period_duration=period_duration)
         self.period_count = period_count
         self.entities = []
-        super().__init__(name, description=description)
+        super(TimeBasedModel, self).__init__(name, description=description)
 
     def _update_childrens_parent_path(self):
         for e in self.entities:
@@ -65,7 +64,7 @@ class TimeBasedModel(NamedObject):
 
     def create_entity(self, name, gl_structure, description=None):
         """
-        Create an entity in the model.
+        Create an entity and add it to the model.
 
         :param name: The entity name.
         :param gl_structure: The entity's general ledger structure.
@@ -73,6 +72,7 @@ class TimeBasedModel(NamedObject):
 
         :returns: The created entity.
         """
+
         new_entity = Entity(name, gl_structure, description=description)
         self.entities.append(new_entity)
         return new_entity
@@ -83,6 +83,7 @@ class TimeBasedModel(NamedObject):
 
         :param name: The name of the entity to remove.
         """
+
         entity_to_remove = None
         for e in self.entities:
             if e.name == name:
@@ -94,6 +95,7 @@ class TimeBasedModel(NamedObject):
         """
         Prepare the model for execution.
         """
+
         self.clock.reset()
         for e in self.entities:
             e.prepare_to_run(self.clock, self.period_count)
@@ -102,11 +104,16 @@ class TimeBasedModel(NamedObject):
         """
         Execute the model.
         """
+
         self.prepare_to_run()
         for i in range(0, self.period_count):
-            self.clock.tick()
             for e in self.entities:
                 e.run(self.clock)
+            self.clock.tick()
+
+    def __getitem__(self, key):
+        return [e for e in self.entities if e.name == key][0]
+
 
 if __name__ == "__main__":
     import unittest

@@ -4,12 +4,14 @@ This module provides psd material and material package classes that can do
 size distribution calculations.
 """
 
-from auxi.core.objects import Object
-from auxi.core.objects import NamedObject
 import os
 import sys
-import numpy
 import copy
+
+import numpy
+
+from auxi.core.objects import Object
+from auxi.core.objects import NamedObject
 
 __version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
@@ -26,23 +28,28 @@ class Material(NamedObject):
     Represents a particulate material consisting of multiple particle size
     classes.
 
+    :param name: The material's name.
+    :param file_path: The path of the material definition file.
+    :param description: the material's description
+
     The format of the text file is as follows:
-        * The lines are space separated. The values in a line are separated
-          by one or more spaces.
-        * The first line is a heading line.
-        * All subsequent lines contain a particle size, followed by mass
-          fractions.
-        * Particle sizes are indicated in [meter].
-        * The first column lists the particle sizes in the material. Each class
-          must be interpreted as "mass fraction retained". In other words if
-          the size class is indicated as 307.2E-3, it means that it is the
-          class of material retained on a 307.2mm screen, and can also be
-          though of as +307.2mm material. The first size class represents the
-          largest particles.
-          The final size class should be zero, as it represents
-          all material that passed through the smallest aperture screen.
-        * All subsequent columns describe assays of the material.
-        The following is an example of a material text file:
+
+    * The lines are space separated. The values in a line are separated \
+        by one or more spaces.
+    * The first line is a heading line.
+    * All subsequent lines contain a particle size, followed by mass fractions.
+    * Particle sizes are indicated in [meter].
+    * The first column lists the particle sizes in the material. Each class \
+      must be interpreted as "mass fraction retained". In other words if \
+      the size class is indicated as 307.2E-3, it means that it is the \
+      class of material retained on a 307.2mm screen, and can also be \
+      though of as +307.2mm material. The first size class represents the \
+      largest particles. The final size class should be zero, as it \
+      represents all material that passed through the smallest aperture screen.
+    * All subsequent columns describe assays of the material.
+
+    The following is an example of a material text file::
+
         Compound   FeedA  MillCharge
         307.2E-3   0.20   0.02
         108.6E-3   0.18   0.06
@@ -54,16 +61,9 @@ class Material(NamedObject):
         210.0E-6   0.02   0.50
         75.0E-6    0.10   0.10
         0.0E0      0.00   0.00
-
-    :param name: The material's name.
-    :param file_path: The path of the material definition file.
-    :param description: the material's description
     """
 
     def __init__(self, name, file_path, description=None):
-        """
-        """
-
         # Initialise the material's properties.
         self.name = name
         self.size_classes = list()
@@ -102,6 +102,7 @@ class Material(NamedObject):
         """
         Create a string representation of self.
         """
+
         result = "Material: name='" + self.name + "'\n"
 
         # Create the header line of the table.
@@ -121,9 +122,6 @@ class Material(NamedObject):
             result = result + "\n"
         return result
 
-    # -------------------------------------------------------------------------
-    # Private methods.
-    # -------------------------------------------------------------------------
     def _prepare_lines(self, lines):
         """
         Prepare the lines read from the text file before starting to process
@@ -143,9 +141,6 @@ class Material(NamedObject):
             result.append(line)
         return result
 
-    # -------------------------------------------------------------------------
-    # Public methods.
-    # -------------------------------------------------------------------------
     def get_size_class_index(self, size_class):
         """
         Determine the index of the specified size class.
@@ -169,7 +164,9 @@ class Material(NamedObject):
         return numpy.zeros(self.size_class_count)
 
     def add_assay(self, name, assay):
-        """Add an assay to the material.\n
+        """
+        Add an assay to the material.
+
         :param name: The name of the new assay.
         :param assay: A numpy array containing the size class mass fractions
           for the assay. The sequence of the assay's elements must correspond
@@ -208,7 +205,7 @@ class Material(NamedObject):
         :param normalise: Indicates whether the assay must be normalised before
           creating the package.
 
-        :returns:       The created MaterialPackage.
+        :returns: The created MaterialPackage.
         """
 
         if assay is None:
@@ -233,9 +230,6 @@ class MaterialPackage(Object):
     """
 
     def __init__(self, material, size_class_masses):
-        """
-        """
-
         # Confirm that the parameters are OK.
         if not type(material) is Material:
             raise TypeError(
@@ -252,6 +246,7 @@ class MaterialPackage(Object):
         """
         Create a string representation of the object.
         """
+
         result = "MaterialPackage\n"
         result = result + "material".ljust(20) + self.material.name + "\n"
         result = result + "mass".ljust(20) + str(self.get_mass()) + "\n"
@@ -266,7 +261,8 @@ class MaterialPackage(Object):
     # Operators.
     # -------------------------------------------------------------------------
     def __add__(self, other):
-        """Addition operator (+).
+        """
+        Addition operator (+).
         Add self and 'other' together, return the result as a new package, and
         leave self unchanged.
 
@@ -319,13 +315,14 @@ class MaterialPackage(Object):
             raise TypeError("Invalid addition argument.")
 
     def __mul__(self, scalar):
-        """The multiplication operator (*).
+        """
+        The multiplication operator (*).
         Create a new package by multiplying self with other.
 
         :param scalar: The result is a new package with its content equal to
           self multiplied by a scalar, leaving self unchanged.
 
-        :results: A new MaterialPackage equal to self package multiplied by
+        :returns: A new MaterialPackage equal to self package multiplied by
           other.
         """
 
@@ -368,9 +365,6 @@ class MaterialPackage(Object):
         else:
             return True
 
-    # -------------------------------------------------------------------------
-    # Public methods.
-    # -------------------------------------------------------------------------
     def clone(self):
         """
         Create a complete copy of self.
@@ -382,9 +376,12 @@ class MaterialPackage(Object):
         result.size_class_masses = copy.deepcopy(self.size_class_masses)
         return result
 
-    # TODO: document
     # TODO: test
     def clear(self):
+        """
+        Set all the size class masses in the package to zero.
+        """
+
         self.size_class_masses = self.size_class_masses * 0.0
 
     def get_assay(self):
@@ -407,11 +404,12 @@ class MaterialPackage(Object):
 
     def get_size_class_mass(self, size_class):
         """
-        Determine the mass of the specified size class in self.\n
-        :param sze_class: The formula and phase of the size class,
+        Determine the mass of the specified size class in self.
+
+        :param size_class: The formula and phase of the size class,
           e.g. 'Fe2O3[S1]'
 
-        :returns   : [kg] The mass of the size class in self.
+        :returns: [kg] The mass of the size class in self.
         """
 
         return self.size_class_masses[self.material.get_size_class_index(
@@ -424,6 +422,7 @@ class MaterialPackage(Object):
 
         :param size_class: The formula and phase of the size class,
           e.g. 'Fe2O3[S1]'
+
         :returns: The mass fraction of the size class in self.
         """
 
@@ -431,20 +430,21 @@ class MaterialPackage(Object):
 
     def extract(self, other):
         """
-        Extract some material from self.
         Extract 'other' from self, modifying self and returning the extracted
         material as a new package.
 
         :param other: Can be one of the following:
-          1. float: A mass equal to other is extracted from self. Self is
-          reduced by other and the extracted package is returned as a new
-          package.
-          2. tuple: (size class, mass) The other tuple specifies the mass of
-          a size class to be extracted. It is extracted from self and the
-          extracted mass is returned as a new package.
-          3. string The 'other' string specifies the size class to be
-          extracted. All of the mass of that size class will be removed from
-          self and a new package created with it.
+
+          * float: A mass equal to other is extracted from self. Self is
+            reduced by other and the extracted package is returned as a new
+            package.
+          * tuple (size class, mass): The other tuple specifies the mass
+            of a size class to be extracted. It is extracted from self and
+            the extracted mass is returned as a new package.
+          * string: The 'other' string specifies the size class to be
+            extracted. All of the mass of that size class will be removed
+            from self and a new package created with it.
+
 
         :returns: A new material package containing the material that was
           extracted from self.

@@ -4,7 +4,7 @@ import json
 import jsonpickle
 
 
-__version__ = "0.2.0rc3"
+__version__ = "0.2.0rc4"
 __license__ = "LGPL v3"
 __copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
 __author__ = "Christoff Kok, Johan Zietsman"
@@ -45,7 +45,7 @@ class NamedObject(Object):
         self.description = description
 
     def _validate_params_(self, name, description):
-        #TODO: Enforce name format.
+        # TODO: Enforce name format.
         pass
 
     @property

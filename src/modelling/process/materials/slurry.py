@@ -6,8 +6,10 @@ size distribution and slurry calculations.
 
 import os
 import sys
-import numpy
 import copy
+
+import numpy
+
 from auxi.core.objects import Object
 from auxi.core.objects import NamedObject
 
@@ -21,56 +23,56 @@ __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
 
 
-# =============================================================================
-# Types.
-# =============================================================================
+# TODO: Johan, I replaced 'self.psds' with 'self.assays'
+#   to match the psd.py module.
+
 
 class Material(NamedObject):
     """
     Represents a particulate material consisting of multiple particle size
     classes.
 
-    The format of the text file is as follows:
-    * The lines are space separated. The values in a line are separated by one
-      or more spaces.
-    * The first line is a heading line.
-    * The second line contains the density of the solid material.
-    * The third line contains the water fraction of the slurry (wet basis).
-    * All subsequent lines contain a particle size, followed by mass fractions
-      (dry basis).
-    * Particle sizes are indicated in [meter].
-    * The first column lists the particle sizes in the material. Each class
-      must be interpreted as "mass fraction retained". In other words if the
-      size class is indicated as 307.2E-3, it means that it is the class of
-      material retained on a 307.2mm screen, and can also be though of as
-      +307.2mm material. The first size class represents the largest particles.
-      The final size class should be zero, as it represents
-      all material that passed through the smallest aperture screen.
-      * All subsequent columns describe assays of the material.
-      The following is an example of a material text file:
-      SizeClass       DryFeedA  DryMillCharge  WetFeedA  WetMillCharge  Water
-      solid_density   3.00      3.00           3.00      3.00           1.0.
-      H2O             0.00      0.00           0.80      0.60           1.00
-      307.2E-3        0.20      0.02           0.20      0.02           0.00
-      108.6E-3        0.18      0.06           0.18      0.06           0.00
-      38.4E-3         0.17      0.04           0.17      0.04           0.00
-      13.6E-3         0.07      0.03           0.07      0.03           0.00
-      4.8E-3          0.13      0.03           0.13      0.03           0.00
-      1.7E-3          0.07      0.04           0.07      0.04           0.00
-      600.0E-6        0.06      0.18           0.06      0.18           0.00
-      210.0E-6        0.02      0.50           0.02      0.50           0.00
-      75.0E-6         0.10      0.09           0.10      0.09           0.00
-      0.0E0           0.00      0.00           0.00      0.00           0.00
-
     :param name: The material's name.
     :param file_path: The path of the material definition file.
     :param description: the material's description
+
+    The format of the text file is as follows:
+
+    * The lines are space separated. The values in a line are separated by \
+      one or more spaces.
+    * The first line is a heading line.
+    * The second line contains the density of the solid material.
+    * The third line contains the water fraction of the slurry (wet basis).
+    * All subsequent lines contain a particle size, followed by mass \
+      fractions (dry basis).
+    * Particle sizes are indicated in [meter].
+    * The first column lists the particle sizes in the material. Each class \
+      must be interpreted as "mass fraction retained". In other words if the \
+      size class is indicated as 307.2E-3, it means that it is the class of \
+      material retained on a 307.2mm screen, and can also be though of as \
+      +307.2mm material. The first size class represents the largest \
+      particles. The final size class should be zero, as it represents \
+      all material that passed through the smallest aperture screen.
+    * All subsequent columns describe assays of the material.
+
+    The following is an example of a material text file::
+
+        SizeClass       DryFeedA  DryMillCharge  WetFeedA  WetMillCharge  Water
+        solid_density   3.00      3.00           3.00      3.00           1.0.
+        H2O             0.00      0.00           0.80      0.60           1.00
+        307.2E-3        0.20      0.02           0.20      0.02           0.00
+        108.6E-3        0.18      0.06           0.18      0.06           0.00
+        38.4E-3         0.17      0.04           0.17      0.04           0.00
+        13.6E-3         0.07      0.03           0.07      0.03           0.00
+        4.8E-3          0.13      0.03           0.13      0.03           0.00
+        1.7E-3          0.07      0.04           0.07      0.04           0.00
+        600.0E-6        0.06      0.18           0.06      0.18           0.00
+        210.0E-6        0.02      0.50           0.02      0.50           0.00
+        75.0E-6         0.10      0.09           0.10      0.09           0.00
+        0.0E0           0.00      0.00           0.00      0.00           0.00
     """
 
     def __init__(self, name, file_path, description=None):
-        """
-        """
-
         # Initialise the material's properties.
         self.name = name
         self.size_classes = list()
@@ -85,11 +87,11 @@ class Material(NamedObject):
         # for each assay.
         assay_names = lines[0].split(" ")
         del(assay_names[0:1])
-        self.psds = dict()
+        self.assays = dict()
         self.solid_densities = dict()
         self.H2O_fractions = dict()
         for assay_name in assay_names:
-            self.psds[assay_name] = numpy.array([])
+            self.assays[assay_name] = numpy.array([])
             self.solid_densities[assay_name] = 1.0
             self.H2O_fractions[assay_name] = 0.0
 
@@ -125,10 +127,10 @@ class Material(NamedObject):
             # Add the new size class.
             self.size_classes.append(float(strings[0]))
             # Add the mass fractions to the assays.
-            for j in range(0, len(self.psds)):
+            for j in range(0, len(self.assays)):
                 assay_name = assay_names[j]
-                self.psds[assay_name] = numpy.append(
-                    self.psds[assay_name], float(strings[j+1]))
+                self.assays[assay_name] = numpy.append(
+                    self.assays[assay_name], float(strings[j+1]))
 
         # Initialise the remaining properties.
         self.size_class_count = len(self.size_classes)
@@ -137,25 +139,26 @@ class Material(NamedObject):
         """
         Create a string representation of self.
         """
+
         result = "Material: name='" + self.name + "'\n"
 
         # Create the header line of the table.
         result = result + "Compound".ljust(20)
-        assay_names = sorted(self.psds.keys())
+        assay_names = sorted(self.assays.keys())
         for assay_name in assay_names:
             result = result + assay_name.ljust(20)
         result = result + "\n"
 
         # Create the solid density line.
         result = result + "Solid density".ljust(20)
-        assay_names = sorted(self.psds.keys())
+        assay_names = sorted(self.assays.keys())
         for assay_name in assay_names:
             result = result + str(self.solid_densities[assay_name]).ljust(20)
         result = result + "\n"
 
         # Create the H2O fraction line.
         result = result + "H2O fraction".ljust(20)
-        assay_names = sorted(self.psds.keys())
+        assay_names = sorted(self.assays.keys())
         for assay_name in assay_names:
             result = result + str(self.H2O_fractions[assay_name]).ljust(20)
         result = result + "\n"
@@ -166,7 +169,7 @@ class Material(NamedObject):
             compound_index = self.get_size_class_index(size_class)
             for assay_name in assay_names:
                 result = result + str(
-                    self.psds[assay_name][compound_index]).ljust(20)
+                    self.assays[assay_name][compound_index]).ljust(20)
             result = result + "\n"
         return result
 
@@ -193,7 +196,7 @@ class Material(NamedObject):
         """
         Determine the index of the specified size class.
 
-        :param size class : The formula and phase of the specified size class,
+        :param size_class: The formula and phase of the specified size class,
           e.g. 'Fe2O3[S1]'.
 
         :returns: The index of the specified size class.
@@ -201,6 +204,18 @@ class Material(NamedObject):
 
         return self.size_classes.index(size_class)
 
+    def create_empty_assay(self):
+        """
+        Create an empty array to store an assay. The array's length will be
+        equal to the number of size classes in the material.
+
+        :returns: A floating point array.
+        """
+
+        return numpy.zeros(self.size_class_count)
+
+    '''
+    # TODO: Johan I replaced this method with the method above.
     def create_empty_psd(self):
         """
         Create an empty array to store a psd. The array's length will be equal
@@ -210,12 +225,13 @@ class Material(NamedObject):
         """
 
         return numpy.zeros(self.size_class_count)
+    '''
 
-    def add_assay(self, name, solid_density, H2O_fraction, psd):
+    def add_assay(self, name, solid_density, H2O_fraction, assay):
         """Add an assay to the material.
 
         :param name: The name of the new assay.
-        :param: psd: A numpy array containing the size class mass fractions
+        :param assay: A numpy array containing the size class mass fractions
           for the assay. The sequence of the assay's elements must correspond
           to the sequence of the material's size classes.
         """
@@ -228,24 +244,39 @@ class Material(NamedObject):
             raise Exception("Invalid H2O fraction. It must be a float.")
         self.H2O_fractions[name] = H2O_fraction
 
-        if not type(psd) is numpy.ndarray:
-            raise Exception("Invalid psd. It must be a numpy array.")
-        elif not psd.shape == (self.size_class_count,):
+        if not type(assay) is numpy.ndarray:
+            raise Exception("Invalid assay. It must be a numpy array.")
+        elif not assay.shape == (self.size_class_count,):
             raise Exception(
-                "Invalid psd: It must have the same number of elements as the "
-                "material has size classes.")
-        elif name in self.psds.keys():
+                "Invalid assay: It must have the same number of elements as "
+                "the material has size classes.")
+        elif name in self.assays.keys():
             raise Exception(
-                "Invalid psd: An assay with that name already exists.")
-        self.psds[name] = psd
+                "Invalid assay: An assay with that name already exists.")
+        self.assays[name] = assay
 
-    def get_psd_total(self, name):
-        """Calculate the total of the specified assay's psd.\n
-        name   : The name of the assay.\n
-        return : The total mass fraction of the specified assay.
+    def get_assay_total(self, name):
+        """
+        Calculate the total of the specified assay.
+
+        :param name: The name of the assay.
+
+        :returns: The total mass fraction of the specified assay.
         """
 
-        return sum(self.psds[name])
+        return sum(self.assays[name])
+
+    '''
+    # TODO: Johan I replaced this method with the method above.
+    def get_psd_total(self, name):
+        """Calculate the total of the specified assay's psd.
+        :param name: The name of the assay.
+
+        :returns: The total mass fraction of the specified assay.
+        """
+
+        return sum(self.assays[name])
+    '''
 
     def create_package(self, assay=None, mass=0.0, normalise=True):
         """
@@ -264,17 +295,17 @@ class Material(NamedObject):
             return MaterialPackage(self, 1.0, 0.0, self.create_empty_assay())
 
         if normalise:
-            psd_total = self.get_psd_total(assay)
-            if psd_total == 0.0:
-                psd_total = 1.0
+            assay_total = self.get_assay_total(assay)
+            if assay_total == 0.0:
+                assay_total = 1.0
         else:
-            psd_total = 1.0
+            assay_total = 1.0
         H2O_mass = mass * self.H2O_fractions[assay]
         solid_mass = mass - H2O_mass
         return MaterialPackage(self,
                                self.solid_densities[assay],
                                H2O_mass,
-                               solid_mass * self.psds[assay] / psd_total)
+                               solid_mass * self.assays[assay] / assay_total)
 
 
 class MaterialPackage(Object):
@@ -282,17 +313,12 @@ class MaterialPackage(Object):
     A package of a slurry material consisting of multiple particle size
     classes.
 
-    Properties defined here:
-
     :param material: A reference to the Material to which self belongs.
     :param size_class_masses: [kg] [kg] The masses of the size classes in the
           package.
     """
 
     def __init__(self, material, solid_density, H2O_mass, size_class_masses):
-        """
-        """
-
         # Confirm that the parameters are OK.
         if not type(material) is Material:
             raise TypeError(
@@ -308,7 +334,10 @@ class MaterialPackage(Object):
         self.size_class_masses = size_class_masses
 
     def __str__(self):
-        """Create a string representation of the object."""
+        """
+        Create a string representation of the object.
+        """
+
         result = "MaterialPackage\n"
         result = result + "material".ljust(24) + self.material.name + "\n"
         result = result + "mass fraction solids".ljust(24) + \
@@ -329,9 +358,6 @@ class MaterialPackage(Object):
                 self.size_class_masses[index]) + "\n"
         return result
 
-    # -------------------------------------------------------------------------
-    # Operators.
-    # -------------------------------------------------------------------------
     def __add__(self, other):
         """
         Addition operator (+).
@@ -413,7 +439,7 @@ class MaterialPackage(Object):
         :param scalar: The result is a new package with its content equal to
           self multiplied by a scalar, leaving self unchanged.
 
-        :results: A new MaterialPackage equal to self package multiplied by
+        :returns: A new MaterialPackage equal to self package multiplied by
           other.
         """
 
@@ -435,9 +461,6 @@ class MaterialPackage(Object):
         else:
             raise TypeError("Invalid multiplication argument.")
 
-    # -------------------------------------------------------------------------
-    # Private methods.
-    # -------------------------------------------------------------------------
     def _is_size_class_mass_tuple(self, value):
         """
         Determines whether value is a tuple of the format
@@ -496,22 +519,40 @@ class MaterialPackage(Object):
         return result
 
     # TODO: document
-    # TODO: test
     def clear(self):
+        """
+        Set all the size class masses and H20_mass in the package to zero
+        and the solid_density to 1.0
+        """
+
         self.solid_density = 1.0
         self.H2O_mass = 0.0
         self.size_class_masses = self.size_class_masses * 0.0
 
+    def get_assay(self):
+        """
+        Determine the assay of self.
+
+        :returns: [mass fractions] An array containing the assay of self.
+        """
+
+        return self.size_class_masses / self.size_class_masses.sum()
+
+    '''
+    # TODO: Johan I replaced this method with the method above.
     def get_psd(self):
-        """Determine the assay of self.
+        """
+        Determine the assay of self.
 
         :returns: [mass fractions] An array containing the psd of self.
         """
 
         return self.size_class_masses / self.size_class_masses.sum()
+    '''
 
     def get_mass(self):
-        """Determine the mass of self.
+        """
+        Determine the mass of self.
 
         :returns: [kg] The mass of self.
         """
@@ -531,7 +572,7 @@ class MaterialPackage(Object):
         """
         Determine the mass of the specified size class in self.
 
-        :param size class :      The formula and phase of the size class,
+        :param size_class: The formula and phase of the size class,
           e.g. 'Fe2O3[S1]'
 
         :returns: [kg] The mass of the size class in self.
@@ -545,7 +586,7 @@ class MaterialPackage(Object):
         """
         Determine the mass fraction of the specified size class in self.
 
-        :param size class: The formula and phase of the size class,
+        :param size_class: The formula and phase of the size class,
           e.g. Fe2O3[S1]
 
         :returns: The mass fraction of the size class in self.
@@ -554,33 +595,50 @@ class MaterialPackage(Object):
         return self.get_size_class_mass(size_class) / self.get_solid_mass()
 
     def get_density(self):
+        """
+        Determine the density of self.
+        """
+
         return self.get_mass() / self.get_volume()
 
     def get_mass_fraction_solids(self):
+        """
+        Determine the mass fraction of the solids of self.
+        """
+
         return self.get_solid_mass() / self.get_mass()
 
     def get_volume(self):
+        """
+        Determine the volume of self.
+        """
+
         return self.H2O_mass / 1.0 + self.get_solid_mass() / self.solid_density
 
     def get_volume_fraction_solids(self):
+        """
+        Determine the volume fraction of the solids of self.
+        """
+
         return 1.0 - (self.H2O_mass / 1.0) / self.get_volume()
 
     def extract(self, other):
         """
-        Extract some material from self.
         Extract 'other' from self, modifying self and returning the extracted
         material as a new package.
 
         :param other: Can be one of the following:
-          1. float: A mass equal to other is extracted from self. Self is
-          reduced by other and the extracted package is returned as a new
-          package.
-          2. tuple: (size class, mass): The other tuple specifies the mass of a
-          size class to be extracted. It is extracted from self and the
-          extracted mass is returned as a new package.
-          3. string: The 'other' string specifies the size class to be
-          extracted. All of the mass of that size class will be removed from
-          self and a new package created with it.
+
+          * float: A mass equal to other is extracted from self. Self is
+            reduced by other and the extracted package is returned as a new
+            package.
+          * tuple (size class, mass): The other tuple specifies the mass of a
+            size class to be extracted. It is extracted from self and the
+            extracted mass is returned as a new package.
+          * string: The 'other' string specifies the size class to be
+            extracted. All of the mass of that size class will be removed from
+            self and a new package created with it.
+
 
         :returns: A new material package containing the material that was
           extracted from self.

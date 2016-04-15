@@ -15,7 +15,7 @@ from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
-__version__ = '0.2.0rc3'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -123,9 +123,9 @@ class CpRecord(Object):
             if e_modified == -1.0:
                 result += c * (math.log(T) - math.log(Tref))
             else:
-                result += c * (T ** (e_modified + 1.0)
-                               - Tref ** (e_modified + 1.0)) \
-                    / (e_modified + 1.0)
+                e_mod = e_modified + 1.0
+                result += c * (T ** (e_mod) - Tref ** (e_mod))  \
+                    / (e_mod)
         return result
 
 

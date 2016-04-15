@@ -11,7 +11,6 @@ from auxi.modelling.business.models import TimeBasedModel
 from auxi.modelling.business.basic import BasicActivity
 from auxi.core.time import TimePeriod
 from auxi.modelling.financial.des import GeneralLedgerStructure
-from auxi.modelling.financial.des import TransactionTemplate
 
 __version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
@@ -46,17 +45,14 @@ class TimeBasedModelUnitTester(unittest.TestCase):
             description="DescriptionA")
         # Set up the needed objects
         comp1 = entity.create_component("ComponentA1", description="ca1")
-        tx_template = TransactionTemplate("NameA",
-                                          description="DescriptionA",
-                                          dt_account="Bank",
-                                          cr_account="Sales")
         basic_activity = BasicActivity("BasicActivityA",
                                        description="DescriptionA",
+                                       dt_account="Bank",
+                                       cr_account="Sales",
+                                       amount=5000,
                                        start=datetime(2016, 2, 1),
                                        end=datetime(2016, 2, 14),
-                                       interval=1,
-                                       amount=5000,
-                                       tx_template=tx_template)
+                                       interval=1)
         comp1.activities.append(basic_activity)
 
     def test_constructor(self):
@@ -121,12 +117,6 @@ class TimeBasedModelUnitTester(unittest.TestCase):
         # (as configured).
         self.assertEqual(len(self.object.entities[0].gl.transactions), 13)
 
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-# help(Component)
 
 if __name__ == '__main__':
     unittest.main()

@@ -27,7 +27,7 @@ class Rule(NamedObject):
     def __init__(self, name, description=None):
         """
         """
-        super().__init__(name, description)
+        super(Rule, self).__init__(name, description)
 
 
 class RuleSet(NamedObject):
@@ -43,7 +43,7 @@ class RuleSet(NamedObject):
     def __init__(self, name, description=None, code=None):
         """
         """
-        super().__init__(name, description)
+        super(RuleSet, self).__init__(name, description)
         self.code = code
         self.rules = []
 
@@ -60,7 +60,7 @@ class SalesRule(NamedObject):
     def __init__(self, name, description=None, percentage=1.0):
         """
         """
-        super().__init__(name, description)
+        super(SalesRule, self).__init__(name, description)
         self.percentage = percentage
 
 
@@ -76,7 +76,7 @@ class IncomeRule(NamedObject):
     def __init__(self, name, description=None, percentage=1.0):
         """
         """
-        super().__init__(name, description)
+        super(IncomeRule, self).__init__(name, description)
         self.percentage = percentage
 
 
@@ -92,7 +92,7 @@ class CapitalGainsRule(NamedObject):
     def __init__(self, name, description=None, percentage=1.0):
         """
         """
-        super().__init__(name, description)
+        super(CapitalGainsRule, self).__init__(name, description)
         self.percentage = percentage
 
 

@@ -6,6 +6,7 @@ auxi.core.time module.
 
 import unittest
 from datetime import datetime
+
 from auxi.core.time import Clock, TimePeriod
 
 __version__ = '0.2.0rc4'
@@ -55,12 +56,6 @@ class ClockUnitTester(unittest.TestCase):
         self.object.tick()
         self.assertEqual(self.object.get_datetime(), datetime(2017, 2, 1))
 
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-# help(SalesRule)
 
 if __name__ == '__main__':
     unittest.main()

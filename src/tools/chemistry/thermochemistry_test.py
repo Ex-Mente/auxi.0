@@ -8,7 +8,7 @@ import unittest
 from auxi.tools.chemistry import thermochemistry as thermo
 
 
-__version__ = '0.2.0rc3'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -17,6 +17,10 @@ __maintainer__ = 'Christoff Kok'
 __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
 
+
+# TODO: Create tests for: write_compound_to_auxi_file, load_data_factsage,
+#   load_data_auxi, list_compounds, molar_mass
+# TODO: Test CpRecord, Phase and Compound classes sperately?
 
 class ThermoFunctionTester(unittest.TestCase):
     """
@@ -30,7 +34,8 @@ class ThermoFunctionTester(unittest.TestCase):
             for f, s in zip(first, second):
                 self.assertAlmostEqual(f, s)
         else:
-            super().assertAlmostEqual(first, second, places, msg, delta)
+            super(ThermoFunctionTester, self).assertAlmostEqual(
+                first, second, places, msg, delta)
 
     def test_Cp(self):
         self.assertAlmostEqual(thermo.Cp("Al2O3[S1]", 1000.0),

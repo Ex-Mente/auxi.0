@@ -82,8 +82,9 @@ class SlurryMaterialPackageUnitTester(unittest.TestCase):
                          r"psdslurrymaterial.test.materiala.txt"))
         self.materiala_package_a = self.materiala.create_package("DryFeedA",
                                                                  1234.5, True)
-        self.materiala_package_b = self.materiala.create_package("DryMillCharge",
-                                                                 2345.6, True)
+        self.materiala_package_b = self.materiala.create_package(
+            "DryMillCharge",
+            2345.6, True)
 
     def test_constructor(self):
         size_class_masses = self.materiala.assays["DryFeedA"] * 123.4 / \
@@ -113,8 +114,8 @@ class SlurryMaterialPackageUnitTester(unittest.TestCase):
         # mix_package = mix_package + self.reductant_package_a
 
         # self.assertEqual(mix_package.get_mass(),
-                           # self.materiala_package_a.get_mass() +
-                           # self.reductant_package_a.get_mass())
+        #                  self.materiala_package_a.get_mass() +
+        #                  self.reductant_package_a.get_mass())
 
         # self.assertRaises(Exception, self.add_incompatible_packages)
 
@@ -237,14 +238,6 @@ class SlurryMaterialPackageUnitTester(unittest.TestCase):
                 self.materiala_package_a.get_size_class_mass(size_class),
                 mass)
 
-
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-# help(Material)
-# help(MaterialPackage)
 
 if __name__ == '__main__':
     unittest.main()

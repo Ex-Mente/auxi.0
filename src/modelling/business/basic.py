@@ -8,7 +8,6 @@ periodically create a transaction between two specified accounts.
 
 from datetime import datetime
 
-from auxi.modelling.financial.des import TransactionTemplate
 from auxi.modelling.business.structure import Activity
 
 __version__ = '0.2.0rc4'
@@ -23,8 +22,7 @@ __status__ = 'Planning'
 
 class BasicActivity(Activity):
     """
-    Represents an basic activity class that provides the most basic activity
-    functionality:
+    An activity class that provides the most basic activity functionality:
     periodically create a transaction between two specified accounts.
 
     :param name: The name.
@@ -36,27 +34,30 @@ class BasicActivity(Activity):
     :param tx_template: The template for the transaction.
     """
 
-    def __init__(self, name, description=None,
+    def __init__(self, name,
+                 dt_account,
+                 cr_account,
+                 amount=0,
                  start=datetime.min,
                  end=datetime.max,
                  interval=1,
-                 amount=1000,
-                 tx_template=TransactionTemplate("Unknown")):
+                 description=None):
         """
         """
-        super().__init__(name,
-                         description=description,
-                         start=start,
-                         end=end,
-                         interval=interval)
-        self.start_datetime = start
-        self.end_datetime = end
+        super(BasicActivity, self).__init__(
+            name,
+            description=description,
+            start=start,
+            end=end,
+            interval=interval)
         self.interval = interval
         self.amount = amount
-        self.tx_template = tx_template
+        self.dt_account = dt_account
+        self.cr_account = cr_account
 
     def _meet_execution_criteria(self, ix_period):
-        return super()._meet_execution_criteria(ix_period) and self.amount > 0
+        return super(BasicActivity, self)._meet_execution_criteria(
+            ix_period) and self.amount > 0
 
     def run(self, clock, generalLedger):
         """
@@ -67,17 +68,28 @@ class BasicActivity(Activity):
         :param generalLedger: The general ledger into which to create the
           transactions.
         """
+
         if not self._meet_execution_criteria(clock.timestep_ix):
             return
 
         generalLedger.create_transaction(
-            self.tx_template.name,
-            description=self.tx_template.description,
-            tx_datetime=clock.get_datetime(),
-            dt_account=self.tx_template.dt_account,
-            cr_account=self.tx_template.cr_account,
+            self.description,
+            description='',
+            tx_date=clock.get_datetime(),
+            dt_account=self.dt_account,
+            cr_account=self.cr_account,
             source=self.path,
             amount=self.amount)
+
+    def get_referenced_accounts(self):
+        """
+        Retrieve the general ledger accounts referenced in this instance.
+
+        :returns: The referenced accounts.
+        """
+
+        return [self.dt_account, self.cr_account]
+
 
 if __name__ == "__main__":
     import unittest

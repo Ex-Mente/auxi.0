@@ -123,8 +123,8 @@ class PsdMaterialPackageUnitTester(unittest.TestCase):
         # mix_package = mix_package + self.reductant_package_a
 
         # self.assertEqual(mix_package.get_mass(),
-                        # self.materiala_package_a.get_mass() +
-                        # self.reductant_package_a.get_mass())
+        #                  self.materiala_package_a.get_mass() +
+        #                  self.reductant_package_a.get_mass())
 
         # self.assertRaises(Exception, self.add_incompatible_packages)
 
@@ -183,9 +183,10 @@ class PsdMaterialPackageUnitTester(unittest.TestCase):
         mass = temp_package_a.get_size_class_mass(size_class)
         diff_package = temp_package_a.extract(str(size_class))
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             temp_package_a.get_mass(),
-            self.materiala_package_a.get_mass() - mass + 1.0E-13)
+            self.materiala_package_a.get_mass() - mass + 1.0E-13,
+            places=10)
         self.assertEqual(
             temp_package_a.get_size_class_mass(size_class),
             self.materiala_package_a.get_size_class_mass(size_class) - mass)
@@ -248,15 +249,6 @@ class PsdMaterialPackageUnitTester(unittest.TestCase):
             self.assertEqual(
                 self.materiala_package_a.get_size_class_mass(size_class),
                 mass)
-
-
-# =============================================================================
-# Display documentation and run tests.
-# =============================================================================
-# os.system("cls")
-
-# help(Material)
-# help(MaterialPackage)
 
 if __name__ == '__main__':
     unittest.main()

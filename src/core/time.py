@@ -3,11 +3,12 @@
 This module provides classes to manage time.
 """
 
+from datetime import datetime, timedelta
+
 from enum import Enum
-from datetime import datetime
-from datetime import timedelta
-from auxi.core.objects import NamedObject
 from dateutil.relativedelta import relativedelta
+
+from auxi.core.objects import NamedObject
 
 __version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
@@ -23,6 +24,7 @@ class TimePeriod(Enum):
     """
     Represents a period in time.
     """
+
     millisecond = 1
     second = 2
     minute = 3
@@ -53,19 +55,36 @@ class Clock(NamedObject):
         :param timestep_period_count: The number of periods that makes up a
           timestep.
         """
-        super().__init__(name, description)
+
+        super(Clock, self).__init__(name, description)
         self.start_datetime = start_datetime
         self.timestep_period_duration = timestep_period_duration
         self.timestep_period_count = timestep_period_count
         self.timestep_ix = 0
 
     def tick(self):
+        """
+        Increment the clock's timestep index.
+        """
+
         self.timestep_ix += 1
 
     def reset(self):
+        """
+        Resets the clock's timestep index to '0'.
+        """
+
         self.timestep_ix = 0
 
     def get_datetime_at_period_ix(self, ix):
+        """
+        Get the datetime at a given period.
+
+        :param period: The index of the period.
+
+        :returns: The datetime.
+        """
+
         if self.timestep_period_duration == TimePeriod.millisecond:
             return self.start_datetime + timedelta(milliseconds=ix)
         elif self.timestep_period_duration == TimePeriod.second:
@@ -84,6 +103,12 @@ class Clock(NamedObject):
             return self.start_datetime + relativedelta(years=ix)
 
     def get_datetime(self):
+        """
+        Get the clock's current datetime.
+
+        :returns: The datetime.
+        """
+
         return self.get_datetime_at_period_ix(self.timestep_ix)
 
 if __name__ == "__main__":
