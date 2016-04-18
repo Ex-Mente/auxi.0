@@ -15,7 +15,7 @@ from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.tools.chemistry import thermochemistry as thermo
 from auxi.modelling.process.materials.thermo import Material, MaterialPackage
 
-__version__ = '0.2.0rc4'
+__version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -110,6 +110,9 @@ class ThermoMaterialPackageUnitTester(unittest.TestCase):
         self.assertEqual(package.P, 0.8)
         self.assertEqual(package.T, 300.0)
         self.assertAlmostEqual(package.H, -236.60618829889296)
+
+    def test___str__(self):
+        print(self.ilm_pkg_a.__str__())
 
     def test_add_operator_1(self):
         """
@@ -299,7 +302,7 @@ class ThermoMaterialPackageUnitTester(unittest.TestCase):
         self.assertEqual(clone.T, self.ilm_pkg_a.T)
         self.assertEqual(clone.H, self.ilm_pkg_a.H)
 
-    def test_get_mass(self):
+    def test_mass(self):
         self.assertEqual(self.ilm_pkg_a.mass, 1234.5)
         self.assertEqual(self.ilm_pkg_b.mass, 2345.6)
         self.assertEqual(self.ilm_pkg_c.mass, 3456.7)

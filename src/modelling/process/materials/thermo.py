@@ -13,7 +13,7 @@ from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
 from auxi.tools.chemistry import thermochemistry as thermo
 
-__version__ = '0.2.0rc4'
+__version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -371,7 +371,7 @@ class MaterialPackage(Object):
         result += b1
         result += "Material".ljust(20) + self.material.name + "\n"
         result += "Mass".ljust(20) + '{:.8e}'.format(
-            self.get_mass()).rjust(15) + " kg\n"
+            self.mass()).rjust(15) + " kg\n"
         result += "Amount".ljust(20) + '{:.8e}'.format(
             self.get_amount()).rjust(15) + " kmol\n"
         result += "Pressure".ljust(20) + '{:.8e}'.format(
@@ -386,7 +386,7 @@ class MaterialPackage(Object):
                   "Mass Fraction".ljust(16) + \
                   "Mole Fraction".ljust(16) + "\n"
         result += b2
-        mass = self.get_mass()
+        mass = self.mass()
         compound_moles = self.get_compound_amounts()
         total_moles = compound_moles.sum()
         if mass > 0.0:

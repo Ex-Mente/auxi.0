@@ -15,7 +15,7 @@ from auxi.tools.chemistry.stoichiometry_test import StoichFunctionTester
 from auxi.modelling.process.materials.chem_test import ChemMaterialUnitTester
 from auxi.modelling.process.materials.chem_test import ChemMaterialPackageUnitTester
 #from auxi.modelling.process.materials.thermo_test import ThermoMaterialUnitTester
-#from auxi.modelling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
+from auxi.modelling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
 from auxi.modelling.process.materials.psd_test import PsdMaterialUnitTester
 from auxi.modelling.process.materials.psd_test import PsdMaterialPackageUnitTester
 #from auxi.modelling.process.materials.slurry_test import SlurryMaterialUnitTester
@@ -49,7 +49,7 @@ from auxi.modelling.business.basic_test import BasicLoanActivityUnitTester
 from auxi.modelling.business.models_test import TimeBasedModelUnitTester
 
 
-__version__ = "0.2.0rc4"
+__version__ = "0.2.0rc6"
 __license__ = "LGPL v3"
 __copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
 __author__ = "Christoff Kok, Johan Zietsman"

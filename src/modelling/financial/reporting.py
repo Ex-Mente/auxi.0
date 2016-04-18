@@ -11,7 +11,7 @@ from auxi.core.helpers import get_date
 from auxi.core.reporting import Report as ReportBase
 from auxi.modelling.financial.des import AccountType
 
-__version__ = '0.2.0rc4'
+__version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -128,7 +128,7 @@ class BalanceSheet(Report):
         """
         """
         self.end_date = get_date(end)
-        super().__init__(data_source, output_path)
+        super(BalanceSheet, self).__init__(data_source, output_path)
 
     def _sum_amounts_per_account_(self):
         gls = self.data_source.structure
@@ -245,7 +245,7 @@ class IncomeStatement(Report):
         """
         self.start_date = get_date(start)
         self.end_date = get_date(end)
-        super().__init__(data_source, output_path)
+        super(IncomeStatement, self).__init__(data_source, output_path)
 
     def _sum_amounts_per_account_(self):
         gls = self.data_source.structure
@@ -293,6 +293,9 @@ class IncomeStatement(Report):
         table.append(["--------", "", ""])
         for entry in summedIncome:
             table.append([entry, "", "%.2f" % summedIncome[entry]])
+        table.append(["", "", ""])
+        table.append(["Cost of Sales", "", ""])
+        table.append(["-------------", "", ""])
         for entry in summedExpenses:
             if entry.startswith('Cost of Sales'):
                 table.append([entry, "%.2f" % summedExpenses[entry], ""])

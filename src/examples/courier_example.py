@@ -5,6 +5,7 @@ from auxi.core.time import TimePeriod
 from auxi.modelling.business.models import TimeBasedModel
 from auxi.modelling.business.basic import BasicActivity, BasicLoanActivity
 from auxi.modelling.financial.des import GeneralLedgerStructure
+from auxi.core.reporting import ReportFormat
 
 # Create general ledger structure and accounts.
 gl_structure = GeneralLedgerStructure("Courier GL Structure")
@@ -59,5 +60,7 @@ hr.add_activity(pay_wages)
 model.run()
 
 # Print the reports.
+#courier_company.gl.balance_sheet(format=ReportFormat.latex, output_path="balance_sheet.tex")
+#courier_company.gl.income_statement(format=ReportFormat.latex, output_path="income_statement.tex")
 courier_company.gl.balance_sheet()
 courier_company.gl.income_statement()
