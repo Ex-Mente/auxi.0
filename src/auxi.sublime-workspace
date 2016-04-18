@@ -163,6 +163,30 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "modelling/business/models_test.py",
+			"settings":
+			{
+				"buffer_size": 4597,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_process_api.rst",
+			"settings":
+			{
+				"buffer_size": 133,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/doc/user/source/process_modelling.rst",
+			"settings":
+			{
+				"buffer_size": 487,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
@@ -247,15 +271,14 @@
 	"expanded_folders":
 	[
 		"/home/christoff/em/software/auxi.0/src",
+		"/home/christoff/em/software/auxi.0/src/modelling",
 		"/home/christoff/em/software/auxi.0/src/modelling/business",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial",
-		"/home/christoff/em/software/auxi.0/src/modelling/process",
-		"/home/christoff/em/software/auxi.0/src/modelling/process/materials",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry",
-		"/home/christoff/em/software/auxi.0/doc/user/source"
+		"/home/christoff/em/software/auxi.0/src/tools"
 	],
 	"file_history":
 	[
+		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_process_api.rst",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial/des.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting.py",
 		"/home/christoff/em/software/auxi.0/src/core/helpers.py",
@@ -363,7 +386,6 @@
 		"/home/christoff/em/software/auxi.0/src/modelling/__init__.py",
 		"/home/christoff/em/software/auxi.0/doc/user/source/modelling_concepts.rst",
 		"/home/christoff/em/software/auxi.0/doc/user/source/material_modeling.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_process_api.rst",
 		"/home/christoff/em/software/auxi.0/doc/user/source/process_modelling.rst",
 		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_api.rst",
 		"/home/christoff/pmpy/trunk/0.1/src/materials/data/psdslurrymaterial.test.materiala.txt",
@@ -680,8 +702,93 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "modelling/business/models_test.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4597,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3054,
+								3054
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": -0.0,
+						"translation.y": 105.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_process_api.rst",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/RestructuredText/reStructuredText.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/christoff/em/software/auxi.0/doc/user/source/process_modelling.rst",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 487,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/RestructuredText/reStructuredText.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -723,7 +830,7 @@
 		"rows":
 		[
 			0.0,
-			0.465364346782,
+			0.700897341706,
 			1.0
 		]
 	},
