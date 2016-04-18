@@ -22,7 +22,7 @@ start_datetime = datetime(2016, 2, 1)
 end_datetime = datetime(2021, 1, 1)
 
 model = TimeBasedModel("Business Model", start_datetime=start_datetime,
-                       period_duration=TimePeriod.month, period_count=61)
+                       period_duration=TimePeriod.month, period_count=13)
 
 courier_company = model.create_entity("CourierZA", gl_structure=gl_structure)
 ops = courier_company.create_component("Operations")
@@ -44,7 +44,7 @@ ops.add_activity(purchase_vehicle)
 
 make_delivery_sale = BasicActivity("Make Delivery",
     dt_account="Bank/Default", cr_account="Sales/Sales Delivery",
-    amount=5000, start=start_datetime, end=end_datetime, interval=1)
+    amount=15000, start=start_datetime, end=end_datetime, interval=1)
 ops.add_activity(make_delivery_sale)
 
 pay_delivery_costs = BasicActivity("Pay for Fuel",

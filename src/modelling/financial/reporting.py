@@ -296,12 +296,14 @@ class IncomeStatement(Report):
         table.append(["", "", ""])
         table.append(["Cost of Sales", "", ""])
         table.append(["-------------", "", ""])
+        cos_sum = 0
         for entry in summedExpenses:
             if entry.startswith('Cost of Sales'):
+                cos_sum += summedExpenses[entry]
                 table.append([entry, "%.2f" % summedExpenses[entry], ""])
         table.append(["", "", "--------"])
         table.append(["Gross Revenues (including interest income)",
-                     "", "%.2f" % sum_incomes])
+                     "", "%.2f" % (sum_incomes - cos_sum)])
         table.append(["", "", "--------"])
 
         table.append(["Expenses", "", ""])
@@ -310,7 +312,7 @@ class IncomeStatement(Report):
             if not entry.startswith('Cost of Sales'):
                 table.append([entry, "%.2f" % summedExpenses[entry], ""])
         table.append(["", "--------", ""])
-        table.append(["Total Expenses", "%.2f" % sum_expenses, ""])
+        table.append(["Total Expenses", "%.2f" % (sum_expenses - cos_sum), ""])
         table.append(["", "--------", "--------"])
         if net_income < 0:
             table.append(["Net Income", "", "(%.2f)" % abs(net_income)])
