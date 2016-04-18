@@ -3,7 +3,9 @@
 
 # from setuptools import setup, Extension, Command
 
-from distutils.core import setup
+# from distutils.core import setup
+
+from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
@@ -35,5 +37,6 @@ setup(name='auxi',
                 'auxi.examples'],
       package_data={'auxi.tools.chemistry': [r'data/thermo/*.json'],
                     'auxi.modelling.process.materials': [r'data/*.txt'],
-                    'auxi': [r'*.txt']}
+                    'auxi': [r'*.txt']},
+      install_requires=['jsonpickle', 'tabulate', 'enum34']
       )

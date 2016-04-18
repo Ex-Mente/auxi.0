@@ -107,10 +107,10 @@ class TransactionList(Report):
                     name = t.name
                 table.append([t.tx_date, t.source, name,
                               t.dt_account, t.cr_account,
-                              t.amount,
+                              "%.2f" % t.amount,
                               "" if t.description is None else t.description])
                 amount_tot += t.amount
-        table.append(["", "", "Total", "", "", amount_tot, ""])
+        table.append(["", "", "Total", "", "", "%.2f" % amount_tot, ""])
         return table
 
 
@@ -191,7 +191,7 @@ class BalanceSheet(Report):
         ix = 0
         for entry in sumAssets:
             rows[ix][0] = entry
-            rows[ix][1] = sumAssets[entry]
+            rows[ix][1] = "%.2f" % sumAssets[entry]
             ix += 1
 
         rows[0][2] = "Liabilities"
@@ -199,11 +199,11 @@ class BalanceSheet(Report):
         ix = 2
         for entry in sumLiability:
             rows[ix][2] = entry
-            rows[ix][3] = sumLiability[entry]
+            rows[ix][3] = "%.2f" % sumLiability[entry]
             ix += 1
 
         rows[ix][2] = "Total liabilities"
-        rows[ix][4] = liabilities_sum
+        rows[ix][4] = "%.2f" % liabilities_sum
         ix += 1
         rows[ix][2] = "-----------------"
         ix += 1
@@ -213,15 +213,15 @@ class BalanceSheet(Report):
         ix += 1
         for entry in sumEquity:
             rows[ix][2] = entry
-            rows[ix][3] = sumEquity[entry]
+            rows[ix][3] = "%.2f" % sumEquity[entry]
             ix += 1
         rows[ix][2] = "Total owners' equities"
-        rows[ix][4] = sum(sumEquity.values())
+        rows[ix][4] = "%.2f" % sum(sumEquity.values())
 
         rows.append(["-----", "--------", "----------------------", "",
                      "--------"])
-        rows.append(["Total", assets_sum, "Total", "",
-                     liabilities_sum + equities_sum])
+        rows.append(["Total", "%.2f" % assets_sum, "Total", "",
+                     "%.2f" % (liabilities_sum + equities_sum)])
 
         [table.append(row) for row in rows]
 
@@ -292,23 +292,27 @@ class IncomeStatement(Report):
         table.append(["Revenues", "", ""])
         table.append(["--------", "", ""])
         for entry in summedIncome:
-            table.append([entry, "", summedIncome[entry]])
+            table.append([entry, "", "%.2f" % summedIncome[entry]])
+        for entry in summedExpenses:
+            if entry.startswith('Cost of Sales'):
+                table.append([entry, "%.2f" % summedExpenses[entry], ""])
         table.append(["", "", "--------"])
         table.append(["Gross Revenues (including interest income)",
-                     "", sum_incomes])
+                     "", "%.2f" % sum_incomes])
         table.append(["", "", "--------"])
 
         table.append(["Expenses", "", ""])
         table.append(["--------", "", ""])
         for entry in summedExpenses:
-            table.append([entry, summedExpenses[entry], ""])
+            if not entry.startswith('Cost of Sales'):
+                table.append([entry, "%.2f" % summedExpenses[entry], ""])
         table.append(["", "--------", ""])
         table.append(["Total Expenses", "%.2f" % sum_expenses, ""])
         table.append(["", "--------", "--------"])
         if net_income < 0:
             table.append(["Net Income", "", "(%.2f)" % abs(net_income)])
         else:
-            table.append(["Net Income", "", abs(net_income)])
+            table.append(["Net Income", "", "%.2f" % abs(net_income)])
         return table
 
 

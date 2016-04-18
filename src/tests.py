@@ -44,6 +44,7 @@ from auxi.modelling.business.structure_test import ComponentUnitTester
 from auxi.modelling.business.structure_test import EntityUnitTester
 
 from auxi.modelling.business.basic_test import BasicActivityUnitTester
+from auxi.modelling.business.basic_test import BasicLoanActivityUnitTester
 
 from auxi.modelling.business.models_test import TimeBasedModelUnitTester
 

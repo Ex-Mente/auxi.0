@@ -1,170 +1,63 @@
-
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from auxi.core.time import TimePeriod
 from auxi.modelling.business.models import TimeBasedModel
-from auxi.modelling.business.basic import BasicActivity
+from auxi.modelling.business.basic import BasicActivity, BasicLoanActivity
 from auxi.modelling.financial.des import GeneralLedgerStructure
 
-print("\033[32mStart.\033[38m")
-print()
-print("\033[33mConfigure the model\033[38m")
-print()
+# Create general ledger structure and accounts.
+gl_structure = GeneralLedgerStructure("Courier GL Structure")
 
-# -----------------------------------------------------------------------------
-# Set up the financial objects
-# -----------------------------------------------------------------------------
-gl_structure = GeneralLedgerStructure(
-    "Courier GL Structure",
-    description="Courier General Ledger Structure")
+gl_structure["Long Term Borrowing"].create_account("Capital Loan", "0000")
+gl_structure["Expense"].create_account("Interest Expense", "0000")
+gl_structure["Fixed Assets"].create_account("Vehicle Asset", "0000")
+gl_structure["Sales"].create_account("Sales Delivery", "0000")
+gl_structure["Cost of Sales"].create_account("Fuel", "0000")
+gl_structure["Expense"].create_account("Wages", "0000")
 
-# -----------------------------------------------------------------------------
-# Accounts
-
-# Vehicle
-vehicle_asset_acc = gl_structure["Fixed Assets"].create_account(
-    "Vehicle Asset",
-    "0000")
-vehicle_loan_acc = gl_structure["Long Term Borrowing"].create_account(
-    "Vehicle Loan",
-    "0000")
-vehicle_maintenance_acc = gl_structure["Expense"].create_account(
-    "Vehicle Maintenace",
-    number="0000")
-
-# Sales operations
-sales_acc = gl_structure["Sales"].create_account(
-    "Sales Delivery",
-    "0000")
-cos_acc = gl_structure["Cost of Sales"].create_account(
-    "Cos Delivery",
-    "0000")
-
-# Wages
-vehicle_maintenance_acc = gl_structure["Expense"].create_account(
-    "Wages",
-    number="0000")
-
-
-# -----------------------------------------------------------------------------
-# Set up the business objects
-# -----------------------------------------------------------------------------
-
+# Create the business model, entity and components.
 start_datetime = datetime(2016, 2, 1)
-end_datetime = datetime(2021, 2, 1)
+end_datetime = datetime(2021, 1, 1)
 
-# Create the model.
-model = TimeBasedModel(
-    "Business Model",
-    description="The business model.",
-    start_datetime=start_datetime,
-    period_duration=TimePeriod.month,
-    period_count=60)
+model = TimeBasedModel("Business Model", start_datetime=start_datetime,
+                       period_duration=TimePeriod.month, period_count=61)
 
-# Create the entity (organisation).
-courier_company = model.create_entity(
-    "CourierZA",
-    gl_structure=gl_structure,
-    description="Courier company in South Africa")
+courier_company = model.create_entity("CourierZA", gl_structure=gl_structure)
+ops = courier_company.create_component("Operations")
+hr = courier_company.create_component("HR")
 
-# Create the different business components.
-ops = courier_company.create_component(
-    "Operations",
-    description="General business operations")
-hr = courier_company.create_component(
-    "HR",
-    description="Human Resources")
+# Create activities
+loan = BasicLoanActivity("Capital Loan",
+    bank_account="Bank/Default", loan_account="Long Term Borrowing/Capital Loan",
+    interest_account="Expense/Interest Expense",
+    amount=200000, interest_rate=0.15, start=start_datetime, duration=36,
+    interval=1)
+ops.add_activity(loan)
 
-
-# -----------------------------------------------------------------------------
-# Activities
-
-# Vehicle purchase activity
-purchase_vehicle = BasicActivity(
-    "Purchase Vehicle",
-    description="Purchase a vehicle on a Loan",
-    dt_account="Fixed Assets/Vehicle Asset",
-    cr_account="Bank/Default",
-    amount=20000,
-    start=start_datetime,
-    end=end_datetime,
+purchase_vehicle = BasicActivity("Purchase Vehicle",
+    dt_account="Fixed Assets/Vehicle Asset", cr_account="Bank/Default",
+    amount=177000, start=start_datetime, end=start_datetime + relativedelta(months=1),
     interval=1)
 ops.add_activity(purchase_vehicle)
-# Vehicle Loan activity
-pay_vehicle_loan = BasicActivity(
-    "Pay vehicle loan",
-    description="Pay the vehicle loan",
-    dt_account="Long Term Borrowing/Vehicle Loan",
-    cr_account="Bank/Default",
-    amount=2000,
-    start=start_datetime,
-    end=end_datetime,
-    interval=1)
-ops.add_activity(pay_vehicle_loan)
 
-# Vehicle maintenance activity
-pay_vehicle_maintenance = BasicActivity(
-    "Pay Vehicle Maintenance",
-    description="Pay the vehicle maintenance",
-    dt_account="Expense/Vehicle Maintenace",
-    cr_account="Bank/Default",
-    amount=4000,
-    start=start_datetime,
-    end=end_datetime,
-    interval=3)
-ops.add_activity(pay_vehicle_loan)
-
-# Make a delivery sale activity
-make_delivery_sale = BasicActivity(
-    "Make delivery",
-    description="Get Sales from a delivery",
-    dr_account="Bank/Default",
-    cr_account="Sales/Sales Delivery",
-    amount=5000,
-    start=start_datetime,
-    end=end_datetime,
-    interval=1)
+make_delivery_sale = BasicActivity("Make Delivery",
+    dt_account="Bank/Default", cr_account="Sales/Sales Delivery",
+    amount=5000, start=start_datetime, end=end_datetime, interval=1)
 ops.add_activity(make_delivery_sale)
-# Pay for delivery costs
-pay_delivery_costs = BasicActivity(
-    "Pay delivery costs",
-    description="Pay the delivery costs",
-    dt_account="Cost Of Sales/Cos Delivery",
-    cr_account="Bank/Default",
-    amount=5000,
-    start=start_datetime,
-    end=end_datetime,
-    interval=1)
+
+pay_delivery_costs = BasicActivity("Pay for Fuel",
+    dt_account="Cost of Sales/Fuel", cr_account="Bank/Default",
+    amount=1000, start=start_datetime, end=end_datetime, interval=1)
 ops.add_activity(pay_delivery_costs)
 
-# pay wages for employees
-pay_wages = BasicActivity(
-    "Pay Wages",
-    description="Pay Wages",
-    dt_account="Expenses/Wages",
-    cr_account="Bank/Default",
-    amount=10000,
-    start=start_datetime,
-    end=end_datetime,
-    interval=1)
+pay_wages = BasicActivity("Pay Wages", dt_account="Expense/Wages", cr_account="Bank/Default",
+    amount=10000, start=start_datetime, end=end_datetime, interval=1)
 hr.add_activity(pay_wages)
 
-# -----------------------------------------------------------------------------
 # Run the model
-# -----------------------------------------------------------------------------
-
-print()
-print("\033[33mRun the model\033[38m")
-print()
-
 model.run()
 
-print
-print("\033[33mRESULTS\033[38m")
-print
-print
-
-# Todo: Print results
-print
-print
-print("\033[32mThe End.\033[38m")
+# Print the reports.
+courier_company.gl.balance_sheet()
+courier_company.gl.income_statement()

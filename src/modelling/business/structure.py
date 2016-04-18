@@ -77,7 +77,7 @@ class Activity(NamedObject):
         if self.interval != 0 and (ix_period+1) % self.interval != 0:
             return False
         return ix_period >= self.start_period_ix and \
-            ix_period + self.interval <= self.end_period_ix
+            ix_period + self.interval  <= self.end_period_ix
 
     def prepare_to_run(self, clock, period_count):
         """

@@ -392,8 +392,8 @@ class GeneralLedger(NamedObject):
         self.transactions.append(new_tx)
         return new_tx
 
-    def transaction_list(self, start=datetime.min.date(),
-                         end=datetime.max.date(),
+    def transaction_list(self, start=datetime.min,
+                         end=datetime.max,
                          format=ReportFormat.printout, output_path=None):
         """
         Generate a transaction list report.
@@ -410,7 +410,7 @@ class GeneralLedger(NamedObject):
         rpt = TransactionList(self, start, end, output_path)
         return rpt.render(format)
 
-    def balance_sheet(self, end=datetime.max.date(),
+    def balance_sheet(self, end=datetime.max,
                       format=ReportFormat.printout, output_path=None):
         """
         Generate a transaction list report.
@@ -426,8 +426,8 @@ class GeneralLedger(NamedObject):
         rpt = BalanceSheet(self, end, output_path)
         return rpt.render(format)
 
-    def income_statement(self, start=datetime.min.date(),
-                         end=datetime.max.date(),
+    def income_statement(self, start=datetime.min,
+                         end=datetime.max,
                          format=ReportFormat.printout, output_path=None):
         """
         Generate a transaction list report.
