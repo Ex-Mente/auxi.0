@@ -75,7 +75,7 @@ class BasicActivity(Activity):
             return
 
         generalLedger.create_transaction(
-            self.description,
+            self.description if self.description is not None else self.name,
             description='',
             tx_date=clock.get_datetime(),
             dt_account=self.dt_account,
@@ -251,9 +251,14 @@ class BasicLoanActivity(Activity):
         if not self._meet_execution_criteria(clock.timestep_ix):
             return
 
+        if self.description is None:
+            tx_name = self.name
+        else:
+            tx_name = self.description
+
         if self._months_executed == 0:
             generalLedger.create_transaction(
-                self.description,
+                tx_name,
                 description='Make a loan',
                 tx_date=clock.get_datetime(),
                 dt_account=self.bank_account,
@@ -265,7 +270,7 @@ class BasicLoanActivity(Activity):
                                     self.interest_rate) / 12.0
 
             generalLedger.create_transaction(
-                self.description,
+                tx_name,
                 description='Consider interest',
                 tx_date=clock.get_datetime(),
                 dt_account=self.interest_account,
@@ -274,7 +279,7 @@ class BasicLoanActivity(Activity):
                 amount=curr_interest_amount)
 
             generalLedger.create_transaction(
-                self.description,
+                tx_name,
                 description='Pay principle',
                 tx_date=clock.get_datetime(),
                 dt_account=self.loan_account,

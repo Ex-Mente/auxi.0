@@ -83,14 +83,18 @@ class TransactionList(Report):
     :param data_source: The object to report on.
     :param end: The start date to generate the report for.
     :param end: The end date to generate the report for.
+    :param component_path: The path of the component to filter the report's
+      transactions by.
     :param output_path: The path to write the report file to.
     """
     # TODO: Generate transaction for a component at a path only.
 
     def __init__(self, data_source, start=datetime.min.date(),
-                 end=datetime.max.date(), output_path=None):
+                 end=datetime.max.date(), component_path="",
+                 output_path=None):
         self.start_date = get_date(start)
         self.end_date = get_date(end)
+        self.component_path = component_path
         super(TransactionList, self).__init__(data_source, output_path)
 
     def _generate_table_(self):
@@ -99,8 +103,11 @@ class TransactionList(Report):
         amount_tot = 0
         tx_list = self.data_source.transactions
         for t in sorted(tx_list, key=lambda v: v.tx_date):
+            if not t.source.startswith(self.component_path):
+                continue
             if t.tx_date >= self.start_date and \
                t.tx_date <= self.end_date:
+                print(t.name, t.source, t.tx_date, t.amount)
                 if t.source.endswith(t.name):
                     name = ''
                 else:
@@ -235,16 +242,19 @@ class IncomeStatement(Report):
     :param data_source: The object to report on.
     :param end: The start date to generate the report for.
     :param end: The end date to generate the report for.
+    :param component_path: The path of the component to filter the report's
+      transactions by.
     :param output_path: The path to write the report file to.
     """
     # TODO: Generate transaction for a component at a path only.
 
     def __init__(self, data_source, start=datetime.min.date(),
-                 end=datetime.max.date(), output_path=None):
+                 end=datetime.max.date(), component_path="", output_path=None):
         """
         """
         self.start_date = get_date(start)
         self.end_date = get_date(end)
+        self.component_path = component_path
         super(IncomeStatement, self).__init__(data_source, output_path)
 
     def _sum_amounts_per_account_(self):
@@ -252,6 +262,8 @@ class IncomeStatement(Report):
         summedIncome = {}
         summedExpenses = {}
         for t in self.data_source.transactions:
+            if not t.source.startswith(self.component_path):
+                continue
             if t.tx_date >= self.start_date and t.tx_date <= self.end_date:
                 cr_account_type = gls.get_account(t.cr_account).account_type
                 dt_account_type = gls.get_account(t.dt_account).account_type

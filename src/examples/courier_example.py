@@ -10,7 +10,7 @@ from auxi.core.reporting import ReportFormat
 # Create general ledger structure and accounts.
 gl_structure = GeneralLedgerStructure("Courier GL Structure")
 
-gl_structure["Long Term Borrowing"].create_account("Capital Loan", "0000")
+gl_structure["Long Term Borrowing"].create_account("Loan", "0000")
 gl_structure["Expense"].create_account("Interest Expense", "0000")
 gl_structure["Fixed Assets"].create_account("Vehicle Asset", "0000")
 gl_structure["Sales"].create_account("Sales Delivery", "0000")
@@ -22,15 +22,15 @@ start_datetime = datetime(2016, 2, 1)
 end_datetime = datetime(2021, 1, 1)
 
 model = TimeBasedModel("Business Model", start_datetime=start_datetime,
-                       period_duration=TimePeriod.month, period_count=13)
+                       period_duration=TimePeriod.month, period_count=61)
 
 courier_company = model.create_entity("CourierZA", gl_structure=gl_structure)
 ops = courier_company.create_component("Operations")
 hr = courier_company.create_component("HR")
 
 # Create activities
-loan = BasicLoanActivity("Capital Loan",
-    bank_account="Bank/Default", loan_account="Long Term Borrowing/Capital Loan",
+loan = BasicLoanActivity("Loan",
+    bank_account="Bank/Default", loan_account="Long Term Borrowing/Loan",
     interest_account="Expense/Interest Expense",
     amount=200000, interest_rate=0.15, start=start_datetime, duration=36,
     interval=1)
@@ -62,5 +62,6 @@ model.run()
 # Print the reports.
 #courier_company.gl.balance_sheet(format=ReportFormat.latex, output_path="balance_sheet.tex")
 #courier_company.gl.income_statement(format=ReportFormat.latex, output_path="income_statement.tex")
+courier_company.gl.transaction_list(component_path=ops.path)
 courier_company.gl.balance_sheet()
-courier_company.gl.income_statement()
+courier_company.gl.income_statement(component_path=hr.path)

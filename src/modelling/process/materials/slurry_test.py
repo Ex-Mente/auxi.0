@@ -40,7 +40,7 @@ class SlurryMaterialUnitTester(unittest.TestCase):
         self.assertEqual(self.material.name, "material")
         self.assertEqual(len(self.material.size_classes), 10)
         self.assertEqual(self.material.size_class_count, 10)
-        self.assertEqual(len(self.material.assays), 2)
+        self.assertEqual(len(self.material.assays), 5)
 
     def test_get_size_class_index(self):
         self.assertEqual(self.material.get_size_class_index(307.2E-3), 0)
@@ -57,10 +57,11 @@ class SlurryMaterialUnitTester(unittest.TestCase):
         new_assay = self.material.create_empty_assay()
         new_assay[0] = 0.5
         new_assay[2] = 0.5
-        self.material.add_assay("new_assay", new_assay)
-        self.assertEqual(
-            numpy.all(self.material.assays["new_assay"] == new_assay),
-            True)
+        self.material.add_assay("new_assay", 0.3, 0.05, new_assay)
+        self.assertTrue(
+            numpy.all(self.material.assays["new_assay"] == new_assay))
+        self.assertEqual(self.material.solid_densities["new_assay"], 0.3)
+        self.assertEqual(self.material.H2O_fractions["new_assay"], 0.05)
 
     def test_get_assay_total(self):
         self.assertEqual(self.material.get_assay_total("DryFeedA"),
@@ -70,7 +71,8 @@ class SlurryMaterialUnitTester(unittest.TestCase):
 
     def test_create_package(self):
         package = self.material.create_package("DryFeedA", 123.456, True)
-        self.assertEqual(package.get_mass(), 123.45599999999999)
+        self.assertAlmostEqual(package.get_mass(), 123.45599999999999,
+                               places=10)
 
 
 class SlurryMaterialPackageUnitTester(unittest.TestCase):
@@ -89,8 +91,16 @@ class SlurryMaterialPackageUnitTester(unittest.TestCase):
     def test_constructor(self):
         size_class_masses = self.materiala.assays["DryFeedA"] * 123.4 / \
                           self.materiala.assays["DryFeedA"].sum()
-        package = MaterialPackage(self.materiala, size_class_masses)
-        self.assertEqual(package.get_mass(), 123.4)
+        package = MaterialPackage(self.materiala, 0.3, 0.05, size_class_masses)
+        self.assertEqual(package.material, self.materiala)
+        self.assertAlmostEqual(package.get_mass(), 123.45, places=10)
+        self.assertEqual(package.solid_density, 0.3)
+        self.assertEqual(package.H2O_mass, 0.05)
+        self.assertTrue(numpy.all(package.size_class_masses ==
+                                  size_class_masses))
+
+    def test___str__(self):
+        self.assertGreater(len(self.materiala_package_a.__str__()), 0)
 
     def test_add_operator_1(self):
         """
@@ -228,7 +238,7 @@ class SlurryMaterialPackageUnitTester(unittest.TestCase):
                       self.materiala.assays["DryFeedA"].sum() > -1.0E-16))
 
     def test_get_size_class_mass(self):
-        assay = "FeedA"
+        assay = "DryFeedA"
         size_class = 4.8E-3
         for size_class in self.materiala.size_classes:
             index = self.materiala.get_size_class_index(size_class)
