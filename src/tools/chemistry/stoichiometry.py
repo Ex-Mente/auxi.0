@@ -6,12 +6,10 @@ calculations.
 
 import re
 
-import numpy as np
-
 from auxi.core.objects import Object
 
 
-__version__ = '0.2.0rc6'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -567,9 +565,9 @@ def element_mass_fractions(compound, elements):
     """
 
     formula = _get_formula_(compound)
-    result = np.array([])
+    result = []
     for i in range(0, len(elements)):
-        result = np.append(result, element_mass_fraction(formula, elements[i]))
+        result.append(element_mass_fraction(formula, elements[i]))
     return result
 
 

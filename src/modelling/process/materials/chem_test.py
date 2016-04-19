@@ -5,8 +5,6 @@ This module provides testing code for classes in the chem module.
 
 import unittest
 
-import numpy
-
 from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.modelling.process.materials.chem import Material, MaterialPackage
 
@@ -56,18 +54,16 @@ class ChemMaterialUnitTester(unittest.TestCase):
     def test_create_empty_assay(self):
         empty_assay = self.material.create_empty_assay()
         self.assertEqual(len(empty_assay), 14)
-        self.assertEqual(empty_assay.sum(), 0.0)
-        self.assertEqual(empty_assay.sum(), 0.0)
-        self.assertEqual(empty_assay.sum(), 0.0)
+        self.assertEqual(sum(empty_assay), 0.0)
+        self.assertEqual(sum(empty_assay), 0.0)
+        self.assertEqual(sum(empty_assay), 0.0)
 
     def test_add_assay(self):
         new_assay = self.material.create_empty_assay()
         new_assay[0] = 0.5
         new_assay[2] = 0.5
         self.material.add_assay("new_assay", new_assay)
-        self.assertEqual(
-            numpy.all(self.material.assays["new_assay"] == new_assay),
-            True)
+        self.assertTrue(self.material.assays["new_assay"] == new_assay)
 
     def test_get_assay_total(self):
         self.assertAlmostEqual(self.material.get_assay_total("IlmeniteA"),
@@ -105,8 +101,9 @@ class ChemMaterialPackageUnitTester(unittest.TestCase):
         self.mix = Material("mix", path)
 
     def test_constructor(self):
-        compound_masses = self.ilm.assays["IlmeniteB"] * 123.4 / \
-            self.ilm.assays["IlmeniteB"].sum()
+        m_sum = sum(self.ilm.assays["IlmeniteB"])
+        compound_masses = [(m * 123.4) / m_sum
+                           for m in self.ilm.assays["IlmeniteB"]]
         package = MaterialPackage(self.ilm, compound_masses)
         self.assertAlmostEqual(package.get_mass(), 123.4)
 
@@ -217,28 +214,28 @@ class ChemMaterialPackageUnitTester(unittest.TestCase):
 
         mul_package_1 = temp_package_a * 0.0
         self.assertEqual(mul_package_1.get_mass(), 0.0)
-        self.assertTrue(numpy.all(mul_package_1.compound_masses ==
-                                  temp_package_a.compound_masses * 0.0))
+        self.assertTrue(mul_package_1.compound_masses == [0.0] *
+                        len(temp_package_a.compound_masses))
 
         mul_package_2 = temp_package_a * 1.0
         self.assertAlmostEqual(mul_package_2.get_mass(),
                                temp_package_a.get_mass(),
                                places=10)
-        self.assertTrue(numpy.all(mul_package_2.compound_masses ==
-                                  temp_package_a.compound_masses))
+        self.assertTrue(mul_package_2.compound_masses ==
+                        temp_package_a.compound_masses)
 
         mul_package_2 = temp_package_a * 123.4
         self.assertAlmostEqual(mul_package_2.get_mass(),
                                temp_package_a.get_mass() * 123.4)
-        self.assertTrue(numpy.all(mul_package_2.compound_masses ==
-                                  temp_package_a.compound_masses * 123.4))
+        self.assertTrue(mul_package_2.compound_masses ==
+                        [m * 123.4 for m in temp_package_a.compound_masses])
 
     def test_clone(self):
         clone = self.ilm_pkg_a.clone()
 
         self.assertEqual(clone.get_mass(), self.ilm_pkg_a.get_mass())
-        self.assertTrue(numpy.all(clone.compound_masses ==
-                                  self.ilm_pkg_a.compound_masses))
+        self.assertTrue(clone.compound_masses ==
+                        self.ilm_pkg_a.compound_masses)
 
     def test_get_mass(self):
         self.assertAlmostEqual(self.ilm_pkg_a.get_mass(), 1234.5)
@@ -246,13 +243,11 @@ class ChemMaterialPackageUnitTester(unittest.TestCase):
         self.assertAlmostEqual(self.ilm_pkg_c.get_mass(), 3456.7)
 
     def test_get_assay(self):
-        self.assertTrue(numpy.all(self.ilm_pkg_a.get_assay() -
-                                  self.ilm.assays["IlmeniteA"] /
-                                  self.ilm.assays["IlmeniteA"].sum() <
-                                  1.0E-16))
-        self.assertTrue(numpy.all(
-            self.ilm_pkg_a.get_assay() - self.ilm.assays["IlmeniteA"] /
-            self.ilm.assays["IlmeniteA"].sum() > -1.0E-16))
+        ass = self.ilm.assays["IlmeniteA"]
+        ass_sum = sum(ass)
+        for ix, val in enumerate(self.ilm_pkg_a.get_assay()):
+            self.assertTrue(val-(ass[ix] / ass_sum) < 1.0E-16)
+            self.assertTrue(val-(ass[ix] / ass_sum) > -1.0E-16)
 
     def test_get_compound_mass(self):
         assay = "IlmeniteA"

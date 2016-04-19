@@ -7,8 +7,6 @@ are described with chemical compositions.
 import copy
 from os.path import isfile
 
-import numpy
-
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import element_mass_fractions as emf
 from auxi.tools.chemistry import stoichiometry as stoich
@@ -106,7 +104,7 @@ class Material(NamedObject):
         del(assay_names[0:1])
         self.assays = dict()
         for assay_name in assay_names:
-            self.assays[assay_name] = numpy.array([])
+            self.assays[assay_name] = []
 
         # Read the compounds and assays.
         for i in range(1, len(lines)):
@@ -116,8 +114,7 @@ class Material(NamedObject):
             self.compounds.append(strings[0])  # Add the new compound.
             for j in range(0, len(self.assays)):  # Add mass fractions.
                 assay_name = assay_names[j]
-                self.assays[assay_name] = numpy.append(self.assays[assay_name],
-                                                       float(strings[j+1]))
+                self.assays[assay_name].append(float(strings[j+1]))
         self.compound_count = len(self.compounds)
 
         # Determine the list of elements.
@@ -176,26 +173,26 @@ class Material(NamedObject):
         :returns: A floating point array.
         """
 
-        return numpy.zeros(self.compound_count)
+        return [0] * self.compound_count
 
     def add_assay(self, name, assay):
         """
         Add an assay to the material.
 
         :param name: The name of the new assay.
-        :param assay: A numpy array containing the compound mass fractions for
+        :param assay: A list containing the compound mass fractions for
           the assay. The sequence of the assay's elements must correspond to
           the sequence of the material's compounds.
         """
 
-        if not type(assay) is numpy.ndarray:
-            raise Exception('Invalid assay. It must be a numpy array.')
+        if not type(assay) is list:
+            raise Exception('Invalid assay. It must be a list.')
 
-        elif not assay.shape == (self.compound_count,):
+        elif not len(assay) == self.compound_count:
             raise Exception('Invalid assay: It must have the same number of '
                             'elements as the material has compounds.')
 
-        elif name in self.assays.keys():
+        elif name in self.assays:
             raise Exception('Invalid assay: An assay with that name already '
                             'exists.')
 
@@ -232,7 +229,8 @@ class Material(NamedObject):
             assay_total = self.get_assay_total(assay)
         else:
             assay_total = 1.0
-        return MaterialPackage(self, mass * self.assays[assay] / assay_total)
+        masses = [(mass * m) / assay_total for m in self.assays[assay]]
+        return MaterialPackage(self, masses)
 
 
 class MaterialPackage(Object):
@@ -324,14 +322,13 @@ class MaterialPackage(Object):
         """
 
         # Multiply with a scalar floating point number.
-        if type(scalar) is float or type(scalar) is numpy.float64 or \
-           type(scalar) is numpy.float32:
+        if type(scalar) is float:
             if scalar < 0.0:
                 raise Exception(
                     'Invalid multiplication operation. '
                     'Cannot multiply package with negative number.')
             result = MaterialPackage(
-                self.material, self.compound_masses * scalar)
+                self.material, [c * scalar for c in self.compound_masses])
             return result
 
         # If not one of the above, it must be an invalid argument.
@@ -342,9 +339,9 @@ class MaterialPackage(Object):
         if not type(material) is Material:
             raise TypeError('Invalid material type. Must be '
                             'chemistry.material.Material')
-        if not type(compound_masses) is numpy.ndarray:
+        if not type(compound_masses) is list:
             raise TypeError('Invalid compound_masses type. Must be '
-                            'numpy.ndarray.')
+                            'list.')
 
     def _is_compound_mass_tuple(self, value):
         """
@@ -358,9 +355,7 @@ class MaterialPackage(Object):
             return False
         elif not type(value[0]) is str:
             return False
-        elif not type(value[1]) is float and \
-                not type(value[1]) is numpy.float64 and \
-                not type(value[1]) is numpy.float32:
+        elif not type(value[1]) is float:
             return False
         else:
             return True
@@ -392,7 +387,8 @@ class MaterialPackage(Object):
         :returns: [mass fractions] An array containing the assay of self.
         """
 
-        return self.compound_masses / self.compound_masses.sum()
+        masses_sum = sum(self.compound_masses)
+        return [m / masses_sum for m in self.compound_masses]
 
     def get_mass(self):
         """
@@ -401,7 +397,7 @@ class MaterialPackage(Object):
         :returns: [kg]
         """
 
-        return self.compound_masses.sum()
+        return sum(self.compound_masses)
 
     def get_compound_mass(self, compound):
         """
@@ -435,11 +431,11 @@ class MaterialPackage(Object):
           element list of the material.
         """
 
-        result = numpy.zeros(len(self.material.elements))
-
+        result = [0] * len(self.material.elements)
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) * \
-                      emf(compound, self.material.elements)
+            c = self.get_compound_mass(compound)
+            f = [c * x for x in emf(compound, self.material.elements)]
+            result = [v+f[ix] for ix, v in enumerate(result)]
 
         return result
 
@@ -469,10 +465,11 @@ class MaterialPackage(Object):
           element list of the material.
         """
 
-        result = numpy.zeros(1)
+        result = [0]
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) * \
-                      emf(compound, [element])
+            c = self.get_compound_mass(compound)
+            f = [c * x for x in emf(compound, [element])]
+            result = [v+f[ix] for ix, v in enumerate(result)]
 
         return result[0]
 
@@ -499,8 +496,7 @@ class MaterialPackage(Object):
         """
 
         # Extract the specified mass.
-        if type(other) is float or type(other) is numpy.float64 or \
-           type(other) is numpy.float32:
+        if type(other) is float:
 
             if other > self.get_mass():
                 raise Exception('Invalid extraction operation. Cannot extract'
@@ -508,8 +504,10 @@ class MaterialPackage(Object):
 
             fraction_to_subtract = other / self.get_mass()
             result = MaterialPackage(
-                self.material, self.compound_masses * fraction_to_subtract)
-            self.compound_masses *= (1.0 - fraction_to_subtract)
+                self.material,
+                [m * fraction_to_subtract for m in self.compound_masses])
+            self.compound_masses = [m * (1.0 - fraction_to_subtract)
+                                    for m in self.compound_masses]
 
             return result
 
@@ -523,7 +521,7 @@ class MaterialPackage(Object):
                                 'contains.')
 
             self.compound_masses[index] -= other[1]
-            resultarray = self.compound_masses*0.0
+            resultarray = [0.0] * len(self.compound_masses)
             resultarray[index] = other[1]
             result = MaterialPackage(self.material, resultarray)
 

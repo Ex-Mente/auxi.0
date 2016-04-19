@@ -15,7 +15,7 @@ from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
-__version__ = '0.2.0rc6'
+__version__ = '0.2.0rc4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -379,7 +379,7 @@ def _get_default_data_path_():
     """
 
     module_path = os.path.dirname(sys.modules[__name__].__file__)
-    data_path = os.path.join(module_path, r'data/thermo')
+    data_path = os.path.join(module_path, r'data/rao')
     data_path = os.path.abspath(data_path)
     return data_path
 
@@ -527,7 +527,7 @@ def _finalise_result_(compound, value, mass):
     return result
 
 
-def _read_compound_from_auxi_file_(self, file_name):
+def _read_compound_from_auxi_file_(file_name):
     """
     Build a dictionary containing the auxi thermochemical data of a compound by
     reading the data from a file.
@@ -537,12 +537,13 @@ def _read_compound_from_auxi_file_(self, file_name):
     :returns: Dictionary containing compound data.
     """
     with open(file_name) as f:
-        content = f.read()
-    return jsonpickle.decode(content)
+        content = eval(f.read())
+    return content
+    # return jsonpickle.decode(content)
 
 
-def write_compound_to_auxi_file(self, dir, compound):
-    with open(os.path.join(dir, compound.formula), 'w') as f:
+def write_compound_to_auxi_file(dir, compound):
+    with open(os.path.join(dir, "Compound_" + compound.formula + ".json"), 'w') as f:
         f.write(str(compound))
 
 
@@ -563,6 +564,7 @@ def load_data_factsage(path=''):
     files = glob.glob(os.path.join(path, 'Compound_*.txt'))
 
     for file in files:
+        print(_read_compound_from_factsage_file_(file))
         compound = Compound(_read_compound_from_factsage_file_(file))
         compounds[compound.formula] = compound
 
