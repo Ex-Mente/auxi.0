@@ -6,6 +6,7 @@ auxi.modelling.business.basic module.
 
 import unittest
 from datetime import datetime
+from dateutil import relativedelta
 
 from auxi.core.time import Clock
 from auxi.modelling.business.basic import BasicActivity
@@ -108,7 +109,7 @@ class BasicLoanActivityUnitTester(unittest.TestCase):
             self.gl_structure,
             description="General Ledger")
 
-        self.clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
+        self.clock = Clock("NameA", start_datetime=datetime(2016, 2, 1))
 
         self.object = BasicLoanActivity(
             "Capital Loan",
@@ -167,17 +168,56 @@ class BasicLoanActivityUnitTester(unittest.TestCase):
         Test that the activity run method accrued the interest correctly.
         """
 
-        # self.assertEqual("Done", "Not Done")
-        pass
+        self.clock.tick()
+        self.object.prepare_to_run(self.clock, 61)
+        self.clock.tick()
+        self.object.run(self.clock, self.gl)
+        self.clock.tick()
+        self.object.run(self.clock, self.gl)
+        self.clock.tick()
+        self.object.run(self.clock, self.gl)
+        self.assertEqual(len(self.gl.transactions), 5)
+        # Test the intreset rate for the first month
+        # loan amount = 180000
+        # First month's interest should be (180000 * 0.15) / 12 = 2250
+        self.assertEqual(self.gl.transactions[1].amount, 2250)
+        # Principle payment is 6239.76 (see below)
+        # The interest payed the previous month is 2250
+        # Making the total amount payed to the loan 6239.76 - 2250 = 3,989.76
+        # New amount to calculate interest from: 180000 - 3,989.76 = 176,010.24
+        # 2nd month's interest should be 176,010.24 * 0.15) / 12 = 2,200.13
+        self.assertEqual("%.2f" % self.gl.transactions[3].amount, "2200.13")
+        # Test the monthly principle payment
+        # interest rate = 0.15: per month 0.0125.
+        # loan amount = 180000
+        # duration of the loan = 36
+        # payment = (180000*0.0125) / (1-(1/pow((1+0.0125), 36))) = 6239.76
+        self.assertEqual("%.2f" % self.gl.transactions[2].amount, "6239.76")
+        self.assertEqual("%.2f" % self.gl.transactions[4].amount, "6239.76")
 
     def test_run_last_month(self):
         """
         Test that the activity run method creates settled the loan on the
-        loans' last month.
+        loans' last month and that the transactions
         """
 
-        # self.assertEqual("Done", "Not Done")
-        pass
+        self.clock.tick()
+        self.object.prepare_to_run(self.clock, 61)
+        for i in range(0, 60):
+            self.object.run(self.clock, self.gl)
+            self.clock.tick()
+        # Test the number of transaction that was created during the
+        # loan's lifetime.
+        # 2 transactions per months should be created + the initial loan amount
+        # transaction. 36*2 + 1 = 73
+        last_tx_ix = len(self.gl.transactions)
+        self.assertEqual(len(self.gl.transactions), 73)
+        # The transactions should have run only run for 36 months
+        # (the duration of the loan)
+        r = relativedelta.relativedelta(
+            self.gl.transactions[last_tx_ix-1].tx_date,
+            self.gl.transactions[0].tx_date)
+        self.assertEqual(r.years * 12 + r.months, 36)
 
     def test_get_referenced_accounts(self):
         """
