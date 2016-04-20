@@ -518,7 +518,6 @@ class MaterialPackage(Object):
         result.size_class_masses = copy.deepcopy(self.size_class_masses)
         return result
 
-    # TODO: document
     def clear(self):
         """
         Set all the size class masses and H20_mass in the package to zero
@@ -537,18 +536,6 @@ class MaterialPackage(Object):
         """
 
         return self.size_class_masses / self.size_class_masses.sum()
-
-    '''
-    # TODO: Johan I replaced this method with the method above.
-    def get_psd(self):
-        """
-        Determine the assay of self.
-
-        :returns: [mass fractions] An array containing the psd of self.
-        """
-
-        return self.size_class_masses / self.size_class_masses.sum()
-    '''
 
     def get_mass(self):
         """

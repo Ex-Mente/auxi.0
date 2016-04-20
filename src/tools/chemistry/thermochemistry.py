@@ -9,8 +9,6 @@ import sys
 import glob
 import math
 
-import jsonpickle
-
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
@@ -37,9 +35,13 @@ class CpRecord(Object):
     def __init__(self, dictionary):
         self.Tmin = dictionary['Tmin']
         """[K] The minimum temperature of the range covered by this record."""
+        if type(self.Tmin) is not float:
+            self.Tmin = float(self.Tmin)
 
         self.Tmax = dictionary['Tmax']
         """[K] The maximum temperature of the range covered by this record."""
+        if type(self.Tmax) is not float:
+            self.Tmax = float(self.Tmax)
 
         self._coefficients = []
         """The coefficiencts of the terms in the Cp equation."""
@@ -48,8 +50,14 @@ class CpRecord(Object):
         """The exponents of the terms in the Cp equation."""
 
         for t in dictionary['Terms']:
-            self._coefficients.append(t['Coefficient'])
-            self._exponents.append(t['Exponent'])
+            c = t['Coefficient']
+            e = t['Exponent']
+            if type(c) is not float:
+                c = float(c)
+            if type(e) is not float:
+                e = float(e)
+            self._coefficients.append(c)
+            self._exponents.append(e)
 
     def __str__(self):
         result = '\t\tCp RECORD:' + '\n'
@@ -157,7 +165,10 @@ class Phase(NamedObject):
         """A dictionary containing the phase's Cp records."""
 
         for k, v in dictionary['Cp_records'].items():
-            self._Cp_records[k] = CpRecord(v)
+            tmax = k
+            if type(tmax) is not float:
+                tmax = float(tmax)
+            self._Cp_records[tmax] = CpRecord(v)
 
     def __str__(self):
         result = '\tPHASE: ' + self.name + '\n'

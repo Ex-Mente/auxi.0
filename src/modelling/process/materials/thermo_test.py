@@ -42,7 +42,7 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         self.assertEqual(len(self.m.converted_assays), 3)
 
     def test_get_compound_index(self):
-        self.assertEqual(self.m.get_compound_index("Al2O3[S1]"), 0)
+        self.assertEqual(self.m.get_compound_index("Al2O3[S]"), 0)
         self.assertEqual(self.m.get_compound_index("K2O[S]"), 6)
         self.assertEqual(self.m.get_compound_index("P4O10[S]"), 10)
         self.assertEqual(self.m.get_compound_index("V2O5[S]"), 13)

@@ -10,11 +10,11 @@ from auxi.core.objects_test import NamedObjectUnitTester
 from auxi.core.time_test import ClockUnitTester
 
 from auxi.tools.chemistry.stoichiometry_test import StoichFunctionTester
-#from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
+from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
 
 from auxi.modelling.process.materials.chem_test import ChemMaterialUnitTester
 from auxi.modelling.process.materials.chem_test import ChemMaterialPackageUnitTester
-#from auxi.modelling.process.materials.thermo_test import ThermoMaterialUnitTester
+from auxi.modelling.process.materials.thermo_test import ThermoMaterialUnitTester
 #from auxi.modelling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
 from auxi.modelling.process.materials.psd_test import PsdMaterialUnitTester
 from auxi.modelling.process.materials.psd_test import PsdMaterialPackageUnitTester
