@@ -536,14 +536,22 @@ def _read_compound_from_auxi_file_(file_name):
 
     :returns: Dictionary containing compound data.
     """
+
     with open(file_name) as f:
         content = eval(f.read())
     return content
-    # return jsonpickle.decode(content)
 
 
-def write_compound_to_auxi_file(dir, compound):
-    with open(os.path.join(dir, "Compound_" + compound.formula + ".json"), 'w') as f:
+def write_compound_to_auxi_file(directory, compound):
+    """
+    Writes a compound to an auxi file at the specified directory.
+
+    :param dir: The directory.
+    :param compound: The compound.
+    """
+
+    file_name = "Compound_" + compound.formula + ".json"
+    with open(os.path.join(directory, file_name), 'w') as f:
         f.write(str(compound))
 
 

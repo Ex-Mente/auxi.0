@@ -9,7 +9,6 @@ from enum import Enum
 
 from auxi.core.helpers import get_date
 from auxi.core.reporting import Report as ReportBase
-from auxi.modelling.financial.des import AccountType
 
 __version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
@@ -331,6 +330,9 @@ class IncomeStatement(Report):
         else:
             table.append(["Net Income", "", "%.2f" % abs(net_income)])
         return table
+
+
+from auxi.modelling.financial.des import AccountType
 
 
 if __name__ == "__main__":

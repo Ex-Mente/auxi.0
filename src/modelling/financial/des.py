@@ -39,8 +39,8 @@ class GeneralLedgerAccount(NamedObject):
     """
     Represents an account of a general ledger.
 
-    :param name:
-    :param description:
+    :param name: The name.
+    :param description: The description.
     :param number: The number.
     :param account_type: The type of account.
     """
@@ -147,8 +147,8 @@ class Transaction(NamedObject):
     """
     Represents a financial transaction between two general ledger accounts.
 
-    :param name:
-    :param description:
+    :param name: The name.
+    :param description: The description.
     :param tx_date: The transaction's date.
     :param dt_account: The account to debit.
     :param cr_account: The account to credit.
@@ -180,8 +180,8 @@ class TransactionTemplate(NamedObject):
     """
     Represents a template for how a transaction is to be created.
 
-    :param name:
-    :param description:
+    :param name: The name of the transaction.
+    :param description: The description of the transaction.
     :param dt_account: The account to debit.
     :param cr_account: The account to credit.
     """
@@ -198,8 +198,8 @@ class GeneralLedgerStructure(NamedObject):
     """
     The account structure of a general ledger.
 
-    :param name:
-    :param description:
+    :param name: The name.
+    :param description: The description.
     """
 
     # TODO: add _acc_ name abbr. descriptions
@@ -359,9 +359,9 @@ class GeneralLedger(NamedObject):
     """
     Represents the account structure of a general ledger.
 
-    :param name:
+    :param name: The name.
     :param structure: The general ledger structure.
-    :param description:
+    :param description: The description.
     """
 
     def __init__(self, name, structure, description=None):

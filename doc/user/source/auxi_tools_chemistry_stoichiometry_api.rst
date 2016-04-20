@@ -1,8 +1,5 @@
-auxi tools chemistry stoichiometry package
-==========================================
-
 auxi tools chemistry stoichiometry module
------------------------------------------
+=========================================
 
 .. automodule:: auxi.tools.chemistry.stoichiometry
     :members:

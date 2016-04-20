@@ -10,7 +10,7 @@ The auxi.modelling.process.materials sub-package provides you with modules, clas
    :maxdepth: 1
 
    material_concepts
-   material_chemistry
-   material_psd
-   material_psd_slurry
+   ..  material_chemistry
+   ..  material_psd
+   ..  material_psd_slurry
    material_thermochemistry

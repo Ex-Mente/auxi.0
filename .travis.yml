@@ -4,54 +4,8 @@ python:
 compiler: gcc
 sudo: required
 dist: trusty
-before_script:
-- cd $HOME
-- wget http://nixos.org/releases/patchelf/patchelf-0.8/patchelf-0.8.tar.bz2
-- tar xf patchelf-0.8.tar.bz2
-- cd patchelf-0.8/
-- sudo ./configure --prefix="$HOME/.local"
-- sudo make install
-- sudo strip ~/.local/bin/patchelf
-- sudo gzip -9 ~/.local/share/man/man1/patchelf.1
-- cd $HOME
-- sudo apt-get update -qq
-- sudo apt-get install -y libboost1.54-all-dev
-- wget https://github.com/ned14/boost-trunk/archive/release/Boost_1_54_0.tar.gz
-- tar zxf Boost_1_54_0.tar.gz
-- mv boost-trunk-release-Boost_1_54_0 $HOME/boost-trunk
-- BOOST="$HOME/boost-trunk/"
-- BOOST_ROOT="$HOME/boost-trunk"
-- export BOOST_ROOT
-- export BOOST
-- cd $BOOST/tools/build/v2
-- ./bootstrap.sh
-- sudo ./b2 install
 script:
-- cd $TRAVIS_BUILD_DIR/src
-- cd auxi/core
-- b2 variant=release target-os=linux
-- cd ../tools/chemistry/stoichiometry
-- b2 variant=release target-os=linux
-- cd ../thermochemistry
-- b2 variant=release target-os=linux
-- cd ../../../modelling/accounting/financial
-- b2 variant=release target-os=linux
-- cd ../stock
-- b2 variant=release target-os=linux
-- cd ../../../auxi4py/core
-- b2 variant=release target-os=linux
-- cd ../tools/chemistry/stoichiometry
-- b2 variant=release target-os=linux
-- cd ../thermochemistry
-- b2 variant=release target-os=linux
-- cd ../../../modelling/accounting/financial
-- b2 variant=release target-os=linux
-- cd ../stock
-- b2 variant=release target-os=linux
-- cd ../../business
-- b2 variant=release target-os=linux
-- cd ../../../../setup/auxi4py
-- sudo python3 copy_distribution_files.py build
+- cd $TRAVIS_BUILD_DIR
 - sudo python3 setup.py sdist
 deploy:
   provider: pypi

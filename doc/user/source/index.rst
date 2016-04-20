@@ -8,17 +8,9 @@ Welcome to auxi' user manual!
 
 Introduction
 ============
-auxi' Python package was developed to make auxi available and extendible in Python. The aim of auxi is to enable engineers to develop models and perform simulations with these models efficiently and effectively. The package contains the following sub-packages and modules:
+auxi is a toolkit to help metallurgical process engineers with their day-to-day tasks. Many of the calculations that we do require things like molar masses, conversion of one compound to another using stoichiometry, heat transfer calculations, mass balances, energy balances, etc. It is usually quite time consuming to get started with these calculations in a tool like Excel. auxi aims to save you time by making many of these calculations available from within python.
 
-- modelling sub-package
-
-  This package contains modules, functions and classes for developing different types of computational models.
-
-- tools sub-package
-
-  This package contains modules, functions and classes used to provide tools to aid the engineer with calculations.
-
-auxi aims to provide a powerful set of infrastructure to take care of many repetitive and mundane tasks that need to be performed during modelling and simulation. This should help you to focus on higher level concepts and problems.
+We hope that auxi will help you spend less time focusing on searching for formulas and data, and setting up calculations, and more on thinking about the problems that you need to solve with these calculations. Enjoy!
 
 
 Getting Started
@@ -30,21 +22,25 @@ Getting Started
    gettingstarted
 
 
+Structure
+=========
+auxi is a python package that packages modules containing functions and classes that the engineers will ultimately use to help with their day-to-day tasks.
+auxi consists of python packages that are divided into two packages, the modelling framework package and the tools package.
+
+
 Modelling Frameworks
-====================
-The auxi.modelling sub-package provides you with modelling frameworks.
+--------------------
+This package contains modules, functions and classes for developing different types of computational models.
 
 .. toctree::
    :maxdepth: 1
 
-   modelling_concepts
    process_modelling
-
-
+   business_modelling
 
 Tools
-=====
-The auxi.tools sub-package provides you with modules, classes and functions that serves as chemistry tools.
+-----
+This package contains modules, functions and classes used to provide tools to aid the engineer with calculations.
 
 .. toctree::
    :maxdepth: 1

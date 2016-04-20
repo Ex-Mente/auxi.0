@@ -1,5 +1,0 @@
-Abbreviations
-=============
-
-Todo:
-Abbreviations used:

@@ -1,8 +1,5 @@
-auxi tools chemistry thermochemistry package
-============================================
-
 auxi tools chemistry thermochemistry module
--------------------------------------------
+===========================================
 
 .. automodule:: auxi.tools.chemistry.thermochemistry
     :members:

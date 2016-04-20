@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
 This module provides class and functions for basic business activities.
-
-that provides the most basic functionality:
-periodically create a transaction between two specified accounts.
 """
 
 from datetime import datetime

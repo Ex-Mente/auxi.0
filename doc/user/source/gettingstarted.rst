@@ -1,31 +1,20 @@
 auxi Installation
 =================
-Currently, auxi only runs on Linux.
+auxi runs on both Linux and Windows.
 
-Prerequisites
--------------
-You need the following before starting your auxi Python package installation:
-
-* Python 3.4
-* pip3
-
-  * sudo apt-get update
-  * sudo apt-get install -y python3-pip
-
-* tabulate
-
-  * sudo pip3 install tabulate
 
 Installation
 ------------
 
 To install auxi::
 
-  sudo pip3 install auxi
+  * On Linux: sudo pip install auxi
+  * On Windows: pip install auxi
 
 To uninstall auxi::
 
-  sudo pip3 uninstall auxi
+  * On Linux: sudo pip uninstall auxi
+  * On Windows: pip uninstall auxi
 
 
 Importing auxi Components
@@ -34,7 +23,7 @@ If you want to use auxi in one of your python modules, you need to import its co
 
   from auxi.tools.chemistry import stoichiometry
 
-The same method is used for all modules, functions and classes in auxi4py. Here are a few more import examples::
+The same method is used for all modules, functions and classes in auxi. Here are a few more import examples::
 
   from auxi.tools.chemistry.stoichiometry import molar_mass
   from auxi.tools.chemistry.stoichiometry import molar_mass as mm
