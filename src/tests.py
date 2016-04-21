@@ -31,6 +31,8 @@ from auxi.modelling.financial.des_test import TransactionTemplateUnitTester
 from auxi.modelling.financial.des_test import GeneralLedgerStructureUnitTester
 from auxi.modelling.financial.des_test import GeneralLedgerUnitTester
 
+from auxi.modelling.financial.reporting_test import GeneralLedgerStructureUnitTester
+
 from auxi.modelling.financial.tax_test import RuleUnitTester
 from auxi.modelling.financial.tax_test import RuleSetUnitTester
 from auxi.modelling.financial.tax_test import SalesRuleUnitTester

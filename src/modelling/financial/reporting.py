@@ -86,6 +86,7 @@ class TransactionList(Report):
       transactions by.
     :param output_path: The path to write the report file to.
     """
+
     # TODO: Generate transaction for a component at a path only.
 
     def __init__(self, data_source, start=datetime.min.date(),
@@ -337,4 +338,5 @@ from auxi.modelling.financial.des import AccountType
 
 if __name__ == "__main__":
     import unittest
+    from auxi.modelling.reporting import GeneralLedgerStructureUnitTester
     unittest.main()

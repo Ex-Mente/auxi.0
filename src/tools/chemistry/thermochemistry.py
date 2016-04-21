@@ -10,10 +10,11 @@ import glob
 import math
 
 from auxi.core.objects import Object, NamedObject
+from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
-__version__ = '0.2.0rc4'
+__version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -292,6 +293,9 @@ class Compound(Object):
         self._phases = {}
         """Dictionary containing the compound's phase objects."""
 
+        self.reference = dictionary['Reference']
+        """Reference to the publisher of the thermo data."""
+
         for k, v in dictionary['Phases'].items():
             self._phases[k] = Phase(v)
 
@@ -312,6 +316,11 @@ class Compound(Object):
         """
 
         return sorted(self._phases.keys())
+
+    def get_reference(self):
+        if self.reference in [None, ""]:
+            return ""
+        return get_datafile_references()[self.reference]
 
     def Cp(self, phase, temperature):
         """
@@ -620,6 +629,17 @@ def list_compounds():
         phases = compounds[compound].get_phase_list()
         for phase in phases:
             print(compound + '[' + phase + ']')
+
+
+def get_datafile_references():
+    """
+    Retrieve all the references used by the datafiles.
+    """
+
+    with open(get_path(__file__, "data/references.json")) as f:
+        content = eval(f.read())
+
+    return content
 
 
 def molar_mass(compound):

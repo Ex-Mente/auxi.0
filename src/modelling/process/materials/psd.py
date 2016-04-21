@@ -493,8 +493,13 @@ class MaterialPackage(Object):
             raise TypeError("Invalid extraction argument.")
 
     # TODO: Test
-    # TODO: Document
     def add_to(self, other):
+        """
+        Add another psd material package to this material package.
+
+        :param other: The other material package.
+        """
+
         # Add another package.
         if type(other) is MaterialPackage:
             # Packages of the same material.

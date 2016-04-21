@@ -37,6 +37,40 @@ class ThermoFunctionTester(unittest.TestCase):
             super(ThermoFunctionTester, self).assertAlmostEqual(
                 first, second, places, msg, delta)
 
+    def test_load_data_auxi(self):
+        thermo.compounds.clear()
+        thermo.load_data_auxi()
+        self.assertEqual(len(thermo.compounds), 81)
+
+    def test_compound_get_phase_list(self):
+        phs = thermo.compounds["Ag"].get_phase_list()
+        self.assertEqual(phs[0], "L")
+        self.assertEqual(phs[1], "S")
+
+    def test_phase___str__(self):
+        phs = thermo.compounds["Ag"].get_phase_list()
+        self.assertTrue(len(phs[0].__str__()) > 0)
+
+    def test_cpRecord___str__(self):
+        ph = thermo.compounds["Ag"]._phases['L']
+        for t, cpr in ph._Cp_records.items():
+            self.assertTrue(len(cpr.__str__()) > 0)
+            break
+
+    def test_get_datafile_references(self):
+        refs = thermo.get_datafile_references()
+        self.assertTrue("rao1985" in refs)
+        self.assertTrue("dinsdale1991" in refs)
+        self.assertTrue(len(refs["rao1985"]) > 0)
+        self.assertTrue(len(refs["dinsdale1991"]) > 0)
+
+    def test_get_reference(self):
+        self.assertEqual("rao1985", thermo.compounds["Ag"].reference)
+        self.assertTrue(len(thermo.compounds["Ag"].get_reference()) > 0)
+
+    def test_molar_mass(self):
+        self.assertAlmostEqual(thermo.molar_mass("FeO"), 0.0718444)
+
     def test_Cp(self):
         self.assertAlmostEqual(thermo.Cp("Al2O3[S]", 1000.0),
                                0.00034731792422193833)

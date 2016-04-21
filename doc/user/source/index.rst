@@ -12,6 +12,8 @@ auxi is a toolkit to help metallurgical process engineers with their day-to-day 
 
 We hope that auxi will help you spend less time focusing on searching for formulas and data, and setting up calculations, and more on thinking about the problems that you need to solve with these calculations. Enjoy!
 
+For video tutorials on using auxi visit `auxi youtube <https://www.youtube.com/channel/UCdklSCJ8S9wFyayLAO7iINQ>`_ .
+
 
 Getting Started
 ===============

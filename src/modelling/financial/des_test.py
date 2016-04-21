@@ -12,6 +12,7 @@ from auxi.modelling.financial.des import Transaction
 from auxi.modelling.financial.des import TransactionTemplate
 from auxi.modelling.financial.des import GeneralLedgerStructure
 from auxi.modelling.financial.des import GeneralLedger
+from auxi.core.reporting import ReportFormat
 
 __version__ = '0.2.0rc6'
 __license__ = 'LGPL v3'
@@ -328,6 +329,11 @@ class GeneralLedgerStructureUnitTester(unittest.TestCase):
             ValueError,
             self.object.validate_account_names,
             ["invalid_acc_name_a", "invalid_acc_name_b"])
+
+    def test_report(self):
+        report = self.object.report(ReportFormat.string)
+        line1 = report.split("\n")[0]
+        self.assertEqual(line1.replace(" ", ""), "TypeNumberNameDescription")
 
 
 class GeneralLedgerUnitTester(unittest.TestCase):
