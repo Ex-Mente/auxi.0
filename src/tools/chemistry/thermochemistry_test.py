@@ -60,9 +60,7 @@ class ThermoFunctionTester(unittest.TestCase):
     def test_get_datafile_references(self):
         refs = thermo.get_datafile_references()
         self.assertTrue("rao1985" in refs)
-        self.assertTrue("dinsdale1991" in refs)
         self.assertTrue(len(refs["rao1985"]) > 0)
-        self.assertTrue(len(refs["dinsdale1991"]) > 0)
 
     def test_get_reference(self):
         self.assertEqual("rao1985", thermo.compounds["Ag"].reference)

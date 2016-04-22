@@ -107,7 +107,6 @@ class TransactionList(Report):
                 continue
             if t.tx_date >= self.start_date and \
                t.tx_date <= self.end_date:
-                print(t.name, t.source, t.tx_date, t.amount)
                 if t.source.endswith(t.name):
                     name = ''
                 else:
@@ -339,4 +338,7 @@ from auxi.modelling.financial.des import AccountType
 if __name__ == "__main__":
     import unittest
     from auxi.modelling.reporting import GeneralLedgerStructureUnitTester
+    from auxi.modelling.reporting import TransactionListUnitTester
+    from auxi.modelling.reporting import BalanceSheetUnitTester
+    from auxi.modelling.reporting import IncomeStatementUnitTester
     unittest.main()

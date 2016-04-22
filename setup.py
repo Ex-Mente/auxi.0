@@ -36,9 +36,8 @@ setup(name='auxi',
                 'auxi.tools.chemistry',
                 'auxi.examples'],
       package_data={'auxi.tools.chemistry': [r'data/*.json',
-                                             r'data/rao/*.json',
-                                             r'data/dinsdale/*.json'],
+                                             r'data/rao/*.json'],
                     'auxi.modelling.process.materials': [r'data/*.txt'],
-                    'auxi': [r'*.txt']},
+                    'auxi': [r'*.txt', r'doc/*.pdf']},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy']
       )
