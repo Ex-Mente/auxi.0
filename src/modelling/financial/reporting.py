@@ -54,12 +54,12 @@ class GeneralLedgerStructure(Report):
     def __init__(self, data_source, output_path=None):
         super(GeneralLedgerStructure, self).__init__(data_source, output_path)
 
-    def _gl_accounts_to_table_(table, account, prefix=''):
+    def _gl_accounts_to_table_(self, table, account, prefix=''):
         table.append([account.account_type.name,
                       prefix + account.number,
                       account.name, account.description])
         for acc in sorted(account.accounts, key=lambda a: a.number):
-            GeneralLedgerStructure._gl_accounts_to_table_(
+            self._gl_accounts_to_table_(
                 table, acc, account.number + '/')
 
     def _generate_table_(self):
@@ -67,11 +67,11 @@ class GeneralLedgerStructure(Report):
 
         i = [a for a in self.data_source.accounts if a.number.startswith('I')]
         for acc in sorted(i, key=lambda a: a.number):
-            GeneralLedgerStructure._gl_accounts_to_table_(table, acc)
+            self._gl_accounts_to_table_(table, acc)
 
         b = [a for a in self.data_source.accounts if a.number.startswith('B')]
         for acc in sorted(b, key=lambda a: a.number):
-            GeneralLedgerStructure._gl_accounts_to_table_(table, acc)
+            self._gl_accounts_to_table_(table, acc)
         return table
 
 
