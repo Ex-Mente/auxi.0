@@ -10,7 +10,6 @@ from collections import OrderedDict
 from auxi.core.objects import NamedObject
 from auxi.modelling.financial.des import AccountType
 from auxi.modelling.financial.des import GeneralLedger
-from auxi.modelling.financial.tax import RuleSet
 
 
 __version__ = '0.2.0rc7'
@@ -283,7 +282,6 @@ class Entity(NamedObject):
         self._parent_path = ""
         self.path = name
         self.components = []
-        self.tax_rule_set = RuleSet("Default")
         self.negative_income_tax_total = 0
         self._prev_year_end_datetime = datetime.min
         self._curr_year_end_datetime = datetime.min

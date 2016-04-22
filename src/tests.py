@@ -22,8 +22,6 @@ from auxi.modelling.process.materials.slurry_test import SlurryMaterialUnitTeste
 from auxi.modelling.process.materials.slurry_test import SlurryMaterialPackageUnitTester
 
 # MODELLING.FINANCIAL
-from auxi.modelling.financial.currencies_test import CurrencyUnitTester
-from auxi.modelling.financial.currencies_test import CurrencyTableUnitTester
 
 from auxi.modelling.financial.des_test import GeneralLedgerAccountUnitTester
 from auxi.modelling.financial.des_test import TransactionUnitTester
@@ -33,13 +31,6 @@ from auxi.modelling.financial.des_test import GeneralLedgerUnitTester
 
 from auxi.modelling.financial.reporting_test import GeneralLedgerStructureUnitTester
 from auxi.modelling.financial.reporting_test import TransactionListUnitTester
-
-from auxi.modelling.financial.tax_test import RuleUnitTester
-from auxi.modelling.financial.tax_test import RuleSetUnitTester
-from auxi.modelling.financial.tax_test import SalesRuleUnitTester
-from auxi.modelling.financial.tax_test import IncomeRuleUnitTester
-from auxi.modelling.financial.tax_test import CapitalGainsRuleUnitTester
-from auxi.modelling.financial.tax_test import CapitalGainsRuleUnitTester
 
 # MODELLING.BUSINESS
 from auxi.modelling.business.structure_test import ActivityUnitTester

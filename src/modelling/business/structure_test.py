@@ -278,7 +278,6 @@ class EntityUnitTester(unittest.TestCase):
         self.assertEqual(self.object.name, "EntityA")
         self.assertEqual(self.object.description, "DescriptionA")
         self.assertEqual(self.object.gl.structure.name, self.gl_structure.name)
-        self.assertEqual(len(self.object.tax_rule_set.rules), 0)
         self.assertEqual(self.object.period_count, -1)
 
     def test_set_parent_path(self):
