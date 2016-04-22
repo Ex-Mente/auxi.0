@@ -30,7 +30,6 @@ for file in glob.glob("*.sh"):
     with open(file, 'w') as f:
         f.write(content)
 
-old_ver = "0.2.0rc6"
 # Update all the 'src' dirs .py file's __version__ field.
 for root, dirs, files in os.walk("./src"):
     for file in files:
