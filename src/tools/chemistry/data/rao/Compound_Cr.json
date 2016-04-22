@@ -1,0 +1,48 @@
+{
+  "Formula": "Cr",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 23.64,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 24.435,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.009874,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -368200.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 36.233,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 39.33,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 26.104
+    }
+  }
+}

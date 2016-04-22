@@ -1,0 +1,27 @@
+{
+  "Formula": "CdS",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 69.036,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 44.56,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.013807,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -149.369
+    }
+  }
+}

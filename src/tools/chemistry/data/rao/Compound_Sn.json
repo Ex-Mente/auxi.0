@@ -1,0 +1,60 @@
+{
+  "Formula": "Sn",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sgray": {
+      "Symbol": "Sgray",
+      "Sref": 44.141,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1.967
+    },
+    "Swhite": {
+      "Symbol": "Swhite",
+      "Sref": 51.212,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 21.589,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.018159,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 63.97,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 34.685,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": -0.009205,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 6.634
+    }
+  }
+}

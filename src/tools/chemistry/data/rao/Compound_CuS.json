@@ -1,0 +1,27 @@
+{
+  "Formula": "CuS",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 66.526,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 44.35,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.011046,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -52.3
+    }
+  }
+}

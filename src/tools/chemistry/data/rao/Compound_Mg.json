@@ -1,0 +1,69 @@
+{
+  "Formula": "Mg",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 32.68,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 22.3,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.01025,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -43100.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "G": {
+      "Symbol": "G",
+      "Sref": 148.549,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 20.786,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 147.612
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 42.505,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 22.05,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.010904,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 9.029
+    }
+  }
+}

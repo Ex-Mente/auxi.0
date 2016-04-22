@@ -1,0 +1,27 @@
+{
+  "Formula": "CuSO4",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 109.2,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 78.534,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.071965,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -771.1
+    }
+  }
+}

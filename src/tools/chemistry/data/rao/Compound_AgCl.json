@@ -1,0 +1,48 @@
+{
+  "Formula": "AgCl",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 96.23,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 62.258,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.004184,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1129700.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -127.07
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 106.365,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 66.944,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -117.43
+    }
+  }
+}

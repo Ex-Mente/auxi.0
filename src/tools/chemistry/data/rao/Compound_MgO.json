@@ -1,0 +1,31 @@
+{
+  "Formula": "MgO",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 26.95,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 48.995,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.003138,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1171500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -601.5
+    }
+  }
+}

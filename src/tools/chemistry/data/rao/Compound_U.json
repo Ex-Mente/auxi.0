@@ -1,0 +1,31 @@
+{
+  "Formula": "U",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 50.2,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 10.92,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.037447,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 489500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    }
+  }
+}

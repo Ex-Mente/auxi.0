@@ -1,0 +1,48 @@
+{
+  "Formula": "Ti",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sbeta": {
+      "Symbol": "Sbeta",
+      "Sref": 38.38,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 19.832,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.00795,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 6.587
+    },
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 30.627,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 22.092,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.010042,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    }
+  }
+}

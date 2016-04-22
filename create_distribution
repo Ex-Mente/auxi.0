@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd doc/user
+sh deploy
+cd ../../
+
+python3 setup.py sdist

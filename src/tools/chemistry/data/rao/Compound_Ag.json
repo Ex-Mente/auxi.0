@@ -1,0 +1,48 @@
+{
+  "Formula": "Ag",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 42.55,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 21.297,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.008535,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 150600.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 47.187,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 30.543,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 8.936
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "Formula": "Ni",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sbeta": {
+      "Symbol": "Sbeta",
+      "Sref": 30.945,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 25.104,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.007531,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.625
+    },
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 29.874,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 12.535,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.035815,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 246900.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 27.38,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 38.911,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 8.322
+    }
+  }
+}

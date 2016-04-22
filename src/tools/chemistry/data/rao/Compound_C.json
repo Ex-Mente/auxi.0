@@ -1,0 +1,31 @@
+{
+  "Formula": "C",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sgr": {
+      "Symbol": "Sgr",
+      "Sref": 5.74,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 17.154,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.004268,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -878600.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    }
+  }
+}

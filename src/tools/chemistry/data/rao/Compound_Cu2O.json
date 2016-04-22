@@ -1,0 +1,27 @@
+{
+  "Formula": "Cu2O",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 93.094,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 62.342,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.023849,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -167.36
+    }
+  }
+}

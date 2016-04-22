@@ -1,0 +1,48 @@
+{
+  "Formula": "Si",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 18.81,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 23.933,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.002469,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -414200.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 44.459,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 27.196,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 48.472
+    }
+  }
+}

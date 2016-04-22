@@ -1,0 +1,31 @@
+{
+  "Formula": "ZnS",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 57.656,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 50.877,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.188,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -569000.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -205.225
+    }
+  }
+}

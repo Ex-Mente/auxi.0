@@ -1,0 +1,31 @@
+{
+  "Formula": "H2S",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 205.644,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 32.677,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.012385,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -192500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -20.502
+    }
+  }
+}

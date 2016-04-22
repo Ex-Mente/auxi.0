@@ -1,0 +1,31 @@
+{
+  "Formula": "FeO",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 58.785,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 51.798,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.006778,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -159000.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -264.429
+    }
+  }
+}

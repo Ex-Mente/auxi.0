@@ -1,0 +1,65 @@
+{
+  "Formula": "PbO",
+  "Reference": "rao1985",
+  "Phases": {
+    "Syellow": {
+      "Symbol": "Syellow",
+      "Sref": 67.362,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 45.089,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.01223,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -217.861
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 85.965,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 65,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -195.443
+    },
+    "Sred": {
+      "Symbol": "Sred",
+      "Sref": 65.27,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 38.2,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.025522,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -219.283
+    }
+  }
+}

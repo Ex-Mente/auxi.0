@@ -1,0 +1,27 @@
+{
+  "Formula": "K2CO3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 155.519,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 80.291,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.109035,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1150.182
+    }
+  }
+}

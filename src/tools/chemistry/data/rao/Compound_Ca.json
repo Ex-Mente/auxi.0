@@ -1,0 +1,65 @@
+{
+  "Formula": "Ca",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sbeta": {
+      "Symbol": "Sbeta",
+      "Sref": 42.468,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 16.795,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.022175,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.49
+    },
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 41.6,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 25.507,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.002605,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 50.647,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 30.125,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 10.904
+    }
+  }
+}

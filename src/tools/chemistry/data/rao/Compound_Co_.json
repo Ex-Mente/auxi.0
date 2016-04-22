@@ -1,0 +1,69 @@
+{
+  "Formula": "Co",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sbeta": {
+      "Symbol": "Sbeta",
+      "Sref": 32.655,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 13.807,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.024518,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 1.288
+    },
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 30.041,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 21.38,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.014309,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -87900.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 40.97,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 40.376,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 18.004
+    }
+  }
+}

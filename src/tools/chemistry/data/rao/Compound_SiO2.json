@@ -1,0 +1,31 @@
+{
+  "Formula": "SiO2",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 41.46,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 46.945,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.034309,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1129700.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -910.7
+    }
+  }
+}

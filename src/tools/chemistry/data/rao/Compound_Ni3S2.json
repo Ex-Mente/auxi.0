@@ -1,0 +1,31 @@
+{
+  "Formula": "Ni3S2",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 133.888,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 102.006,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.06707,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -386200.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -217.986
+    }
+  }
+}

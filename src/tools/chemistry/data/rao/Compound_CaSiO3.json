@@ -1,0 +1,31 @@
+{
+  "Formula": "CaSiO3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 82.006,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 108.156,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.016485,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -2364000.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1634.909
+    }
+  }
+}

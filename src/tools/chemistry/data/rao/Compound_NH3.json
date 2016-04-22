@@ -1,0 +1,31 @@
+{
+  "Formula": "NH3",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 192.67,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 37.321,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.018661,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -648500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -45.94
+    }
+  }
+}

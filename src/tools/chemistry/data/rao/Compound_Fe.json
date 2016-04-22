@@ -1,0 +1,111 @@
+{
+  "Formula": "Fe",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sgamma": {
+      "Symbol": "Sgamma",
+      "Sref": 33.655,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 26.61,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.006276,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 6.778
+    },
+    "Sbeta": {
+      "Symbol": "Sbeta",
+      "Sref": 29.711,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 28.284,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.007531,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 3.893
+    },
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 27.28,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 17.489,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.024769,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "G": {
+      "Symbol": "G",
+      "Sref": 180.381,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 15.715,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.003473,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 416.308
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 34.288,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 35.4,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.003745,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 13.129
+    }
+  }
+}

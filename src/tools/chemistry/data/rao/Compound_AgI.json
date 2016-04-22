@@ -1,0 +1,27 @@
+{
+  "Formula": "AgI",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 115.478,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 24.351,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.100834,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -61.923
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "Formula": "CaCO3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 88.701,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 104.516,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.021924,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -2594100.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1207.126
+    }
+  }
+}

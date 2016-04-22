@@ -1,0 +1,31 @@
+{
+  "Formula": "ZrO2",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 50.71,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 69.622,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.007531,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1405800.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1100.81
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "Formula": "FeS",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 60.291,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 21.715,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.110458,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -100.416
+    }
+  }
+}

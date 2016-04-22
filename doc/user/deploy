@@ -1,0 +1,6 @@
+#!/bin/bash
+
+make latexpdf
+
+cp build/latex/auxiUserManual.pdf ../../src/doc/
+

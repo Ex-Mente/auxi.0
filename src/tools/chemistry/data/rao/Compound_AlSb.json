@@ -1,0 +1,27 @@
+{
+  "Formula": "AlSb",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 64.978,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 43.514,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.009623,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -50.208
+    }
+  }
+}

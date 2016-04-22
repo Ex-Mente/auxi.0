@@ -1,0 +1,31 @@
+{
+  "Formula": "I2",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 260.567,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 37.405,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.000569,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -62800.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 62.425
+    }
+  }
+}

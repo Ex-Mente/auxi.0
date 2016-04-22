@@ -1,0 +1,31 @@
+{
+  "Formula": "NiO",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 38.074,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": -20.878,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.157235,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 1627600.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -240.58
+    }
+  }
+}

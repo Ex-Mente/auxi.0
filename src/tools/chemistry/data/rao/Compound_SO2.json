@@ -1,0 +1,31 @@
+{
+  "Formula": "SO2",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 248.11,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 43.43,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.010627,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -594100.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -296.81
+    }
+  }
+}

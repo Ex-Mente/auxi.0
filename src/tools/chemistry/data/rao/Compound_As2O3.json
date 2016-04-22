@@ -1,0 +1,27 @@
+{
+  "Formula": "As2O3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 122.717,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 59.831,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.175728,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -653.332
+    }
+  }
+}

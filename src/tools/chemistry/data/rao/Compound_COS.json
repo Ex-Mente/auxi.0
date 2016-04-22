@@ -1,0 +1,31 @@
+{
+  "Formula": "COS",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 231.459,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 47.405,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.009121,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -765700.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -138.407
+    }
+  }
+}

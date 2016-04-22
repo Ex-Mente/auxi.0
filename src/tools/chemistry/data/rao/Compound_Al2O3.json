@@ -1,0 +1,31 @@
+{
+  "Formula": "Al2O3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 50.92,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 106.608,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.017782,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -2853500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1675.7
+    }
+  }
+}

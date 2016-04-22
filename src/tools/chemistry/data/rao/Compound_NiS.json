@@ -1,0 +1,31 @@
+{
+  "Formula": "NiS",
+  "Reference": "rao1985",
+  "Phases": {
+    "Salpha": {
+      "Symbol": "Salpha",
+      "Sref": 52.928,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 43.756,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.0222,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -290400.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -94.14
+    }
+  }
+}

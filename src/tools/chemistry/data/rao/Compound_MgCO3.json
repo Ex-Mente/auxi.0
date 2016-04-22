@@ -1,0 +1,31 @@
+{
+  "Formula": "MgCO3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 65.856,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 77.906,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.057739,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1740500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1111.689
+    }
+  }
+}

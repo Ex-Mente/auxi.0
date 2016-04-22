@@ -1,0 +1,31 @@
+{
+  "Formula": "Na2CO3",
+  "Reference": "rao1985",
+  "Phases": {
+    "S": {
+      "Symbol": "S",
+      "Sref": 138.783,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 58.492,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.22761,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1309600.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -1130.935
+    }
+  }
+}

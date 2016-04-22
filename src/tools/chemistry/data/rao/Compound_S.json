@@ -1,0 +1,52 @@
+{
+  "Formula": "S",
+  "Reference": "rao1985",
+  "Phases": {
+    "Sortho": {
+      "Symbol": "Sortho",
+      "Sref": 32.054,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 14.811,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.024058,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 72800.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.0
+    },
+    "Smono": {
+      "Symbol": "Smono",
+      "Sref": 32.97,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 68.354,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": -0.118545,
+              "Exponent": "1"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": 0.335
+    }
+  }
+}

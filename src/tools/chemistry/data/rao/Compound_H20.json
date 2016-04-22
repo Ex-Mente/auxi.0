@@ -1,0 +1,48 @@
+{
+  "Formula": "H20",
+  "Reference": "rao1985",
+  "Phases": {
+    "G": {
+      "Symbol": "G",
+      "Sref": 188.724,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 30.0,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.010711,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 33500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -241.814
+    },
+    "L": {
+      "Symbol": "L",
+      "Sref": 69.95,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 75.438,
+              "Exponent": "0"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -285.83
+    }
+  }
+}

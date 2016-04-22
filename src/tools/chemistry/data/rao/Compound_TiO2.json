@@ -1,0 +1,31 @@
+{
+  "Formula": "TiO2",
+  "Reference": "rao1985",
+  "Phases": {
+    "Srutile": {
+      "Symbol": "Srutile",
+      "Sref": 50.334,
+      "Cp_records": {
+        "3000": {
+          "Tmin": "298.15",
+          "Terms": [
+            {
+              "Coefficient": 75.187,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.001172,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -1820000.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmax": "3000"
+        }
+      },
+      "DHref": -944.747
+    }
+  }
+}
