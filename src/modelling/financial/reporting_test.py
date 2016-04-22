@@ -15,7 +15,7 @@ from auxi.modelling.financial.des import GeneralLedger
 from auxi.modelling.financial.des import GeneralLedgerStructure as Gls
 
 
-__version__ = '0.2.0rc6'
+__version__ = '0.2.0rc7'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

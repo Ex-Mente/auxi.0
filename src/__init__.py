@@ -19,14 +19,14 @@ documentation at https://auxi.readthedocs.org/en/latest/.
 """
 
 
-__version__ = "0.2.0rc3"
-__license__ = "LGPL v3"
-__copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
-__author__ = "Christoff Kok, Johan Zietsman"
-__credits__ = ["Christoff Kok", "Johan Zietsman"]
-__maintainer__ = "Christoff Kok"
-__email__ = "christoff.kok@ex-mente.co.za"
-__status__ = "Planning"
+__version__ = '0.2.0rc7'
+__license__ = 'LGPL v3'
+__copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
+__author__ = 'Christoff Kok, Johan Zietsman'
+__credits__ = ['Christoff Kok', 'Johan Zietsman']
+__maintainer__ = 'Christoff Kok'
+__email__ = 'christoff.kok@ex-mente.co.za'
+__status__ = 'Planning'
 
 
 #COMMON ISSUES
@@ -39,7 +39,7 @@ __status__ = "Planning"
 #      #!/usr/bin/env python3
 #TODO: Add authorship information according to:
 #      http://stackoverflow.com/questions/1523427/what-is-the-common-header-format-of-python-files
-#TODO: Remove "# -*- coding: utf-8 -*-" from top of code files.
+#TODO: Remove '# -*- coding: utf-8 -*-' from top of code files.
 #TODO: When running code file, run corresponding unit tests.
 #TODO: Use three regions of imports: builtin, third party and own.
 #TODO: Explictly state the purpose of each unit test in a docstring.
