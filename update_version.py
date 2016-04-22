@@ -2,7 +2,7 @@
 
 import glob, os 
 
-new_ver = raw_input("Enter the new version number: ")
+new_ver = input("Enter the new version number: ")
 
 print("...")
 print("Updating the version number to: " + new_ver)
