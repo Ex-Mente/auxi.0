@@ -216,7 +216,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'auxiUserManual.tex', 'auxi User Manual',
-   '0.2.0', 'manual'),
+   'Ex Mente Technologies (Pty) Ltd.', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -246,7 +246,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'auxi', 'auxi Documentation',
-     ['0.2.0'], 1)
+     ['Ex Mente Technologies (Pty) Ltd.'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -260,7 +260,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'auxi', 'auxi User Manual',
-   '0.2.0', 'auxi', 'One line description of project.',
+   'Ex Mente Technologies (Pty) Ltd.', 'auxi', 'auxi is a toolkit to help metallurgical process engineers with their day-to-day tasks.',
    'Miscellaneous'),
 ]
 
@@ -281,9 +281,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = 'auxi'
-epub_author = '0.2.0'
-epub_publisher = '0.2.0'
-epub_copyright = '2015, 0.2.0'
+epub_author = 'Ex Mente Tecnologies (Pty) Ltd.'
+epub_publisher = 'Ex Mente Tecnologies (Pty) Ltd.'
+epub_copyright = '2015, Ex Mente Tecnologies (Pty) Ltd.'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = 'auxi'
