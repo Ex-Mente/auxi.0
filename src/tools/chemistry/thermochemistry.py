@@ -14,7 +14,7 @@ from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -293,7 +293,11 @@ class Compound(Object):
         self._phases = {}
         """Dictionary containing the compound's phase objects."""
 
-        self.reference = dictionary['Reference']
+        if 'Reference' in dictionary:
+            self.reference = dictionary['Reference']
+        else:
+            self.reference = ""
+
         """Reference to the publisher of the thermo data."""
 
         for k, v in dictionary['Phases'].items():
@@ -592,7 +596,6 @@ def load_data_factsage(path=''):
     files = glob.glob(os.path.join(path, 'Compound_*.txt'))
 
     for file in files:
-        print(_read_compound_from_factsage_file_(file))
         compound = Compound(_read_compound_from_factsage_file_(file))
         compounds[compound.formula] = compound
 

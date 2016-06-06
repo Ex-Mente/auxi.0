@@ -1,0 +1,105 @@
+{
+  "Phases": {
+    "S2": {
+      "Sref": 252.8814,
+      "Symbol": "S2",
+      "DHref": -50.1034,
+      "Cp_records": {
+        "1050": {
+          "Tmax": 1050,
+          "Tmin": 950,
+          "Terms": [
+            {
+              "Exponent": "0",
+              "Coefficient": 150.624
+            },
+            {
+              "Exponent": "1",
+              "Coefficient": 0
+            },
+            {
+              "Exponent": "2",
+              "Coefficient": 0
+            },
+            {
+              "Exponent": "3",
+              "Coefficient": 0
+            },
+            {
+              "Exponent": "-2",
+              "Coefficient": 0
+            }
+          ]
+        }
+      }
+    },
+    "S3": {
+      "Sref": 228.3548,
+      "Symbol": "S3",
+      "DHref": -17.6439,
+      "Cp_records": {
+        "2500": {
+          "Tmax": 2500,
+          "Tmin": 1050,
+          "Terms": [
+            {
+              "Exponent": "0",
+              "Coefficient": 110.9362
+            },
+            {
+              "Exponent": "1",
+              "Coefficient": 32.04714
+            },
+            {
+              "Exponent": "2",
+              "Coefficient": -9.192333
+            },
+            {
+              "Exponent": "3",
+              "Coefficient": 0.901506
+            },
+            {
+              "Exponent": "-2",
+              "Coefficient": 5.433677
+            }
+          ]
+        }
+      }
+    },
+    "S1": {
+      "Sref": 161.0719,
+      "Symbol": "S1",
+      "DHref": -37.7062,
+      "Cp_records": {
+        "950": {
+          "Tmax": 950,
+          "Tmin": 298,
+          "Terms": [
+            {
+              "Exponent": "0",
+              "Coefficient": 93.43834
+            },
+            {
+              "Exponent": "1",
+              "Coefficient": 108.3577
+            },
+            {
+              "Exponent": "2",
+              "Coefficient": -50.86447
+            },
+            {
+              "Exponent": "3",
+              "Coefficient": 25.58683
+            },
+            {
+              "Exponent": "-2",
+              "Coefficient": -1.61133
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Reference": "chase1998",
+  "Formula": "Fe2O3"
+}

@@ -9,7 +9,7 @@ from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
-      version='0.2.0',
+      version='0.2.1',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.txt').read(),
@@ -36,8 +36,9 @@ setup(name='auxi',
                 'auxi.tools.chemistry',
                 'auxi.examples'],
       package_data={'auxi.tools.chemistry': [r'data/*.json',
-                                             r'data/rao/*.json'],
+                                             r'data/rao/*.json',
+                                             r'data/nist/*.json'],
                     'auxi.modelling.process.materials': [r'data/*.txt'],
                     'auxi': [r'*.txt', r'doc/*.pdf']},
-      install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy']
+      install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy>=1.8.2']
       )

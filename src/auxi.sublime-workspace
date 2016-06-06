@@ -191,31 +191,7 @@
 			"file": "tools/chemistry/thermochemistry.py",
 			"settings":
 			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "modelling/process/materials/thermo.py",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "modelling/process/materials/chem.py",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 22455,
 				"line_ending": "Unix"
 			}
 		},
@@ -223,15 +199,24 @@
 			"file": "modelling/financial/reporting.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 13331,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "apt-get install texlive-fonts-recommended",
+			"settings":
+			{
+				"buffer_size": 41,
+				"line_ending": "Unix",
+				"name": "apt-get install texlive-fonts-recommended"
 			}
 		},
 		{
 			"file": "modelling/financial/des.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 16024,
 				"line_ending": "Unix"
 			}
 		},
@@ -239,7 +224,15 @@
 			"file": "tests.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 2449,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "modelling/business/structure_test.py",
+			"settings":
+			{
+				"buffer_size": 35927,
 				"line_ending": "Unix"
 			}
 		},
@@ -247,15 +240,15 @@
 			"file": "modelling/process/materials/thermo_test.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 14170,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "tools/chemistry/data/references.json",
+			"file": "/home/christoff/em/software/auxi.0/setup.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1763,
 				"line_ending": "Unix"
 			}
 		},
@@ -263,7 +256,7 @@
 			"file": "modelling/financial/des_test.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 15040,
 				"line_ending": "Unix"
 			}
 		},
@@ -271,7 +264,39 @@
 			"file": "modelling/financial/reporting_test.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 4866,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/create_distribution",
+			"settings":
+			{
+				"buffer_size": 69,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
+			"settings":
+			{
+				"buffer_size": 260,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/doc/user/deploy",
+			"settings":
+			{
+				"buffer_size": 78,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/thermochemistry_test.py",
+			"settings":
+			{
+				"buffer_size": 3180,
 				"line_ending": "Unix"
 			}
 		}
@@ -284,7 +309,7 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "prett",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -364,12 +389,43 @@
 	[
 		"/home/christoff/em/software/auxi.0/src",
 		"/home/christoff/em/software/auxi.0/src/modelling",
-		"/home/christoff/em/software/auxi.0/src/tools"
+		"/home/christoff/em/software/auxi.0/src/modelling/financial"
 	],
 	"file_history":
 	[
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo.py",
+		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/setup-prepare.py",
+		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/mintek/chemapp-v645/C/cademo1.c",
+		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/src/redistributable/cacint_.h",
+		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/src/redistributable/cacint.h",
+		"/home/christoff/em/software/auxi.0/doc/user/source/conf.py",
+		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc7/README.txt",
+		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc7/setup.cfg",
+		"/home/christoff/em/software/auxi.0/src/modelling/business/structure.py",
+		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc7/auxi.egg-info/requires.txt",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/tools/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/tests.py",
+		"/home/christoff/em/software/auxi.0/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/chem.py",
+		"/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting.py",
+		"/home/christoff/em/software/auxi.0/src/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/process/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/examples/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/core/reporting.py",
+		"/home/christoff/em/software/auxi.0/src/core/objects.py",
+		"/home/christoff/em/software/auxi.0/src/core/__init__.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/business/__init__.py",
+		"/home/christoff/em/software/auxi.0/build_and_deploy_test.sh",
+		"/home/christoff/em/software/auxi.0/MANIFEST.in",
+		"/home/christoff/em/software/auxi.0/MANIFEST",
+		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/auxi.egg-info/SOURCES.txt",
+		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/MANIFEST.in",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/references.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/psd.py",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As4.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As2O3.json",
@@ -385,7 +441,6 @@
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaCO3.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ag.json",
 		"/home/christoff/em/software/auxi.0/setup.py",
-		"/home/christoff/em/software/auxi.0/doc/user/source/conf.py",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaO.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaS.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaSiO3.json",
@@ -464,38 +519,8 @@
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
 		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/data/Compound_Ag.json",
 		"/home/christoff/em/software/auxi.0/src/modelling/business/basic.py",
-		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial/des.py",
-		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/slurry.py",
-		"/home/christoff/em/software/auxi.0/doc/user/source/material_modelling.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_business_basic_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_business_models_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_business_structure_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_financial_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_financial_reporting_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_process_materials_api.rst",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_rao_thermo_data_to_auxi.py",
-		"/home/christoff/em/software/auxi.0/doc/user/source/gettingstarted.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_tools_chemistry_thermochemistry_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/thermochemistry_calculations.rst",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/doc/auxi/user/source/auxi_modelling_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_business_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_financial_des.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_modelling_financial_reporting.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_tools_chemistry_stoichiometry_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/auxi_api.rst",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/doc/auxi/user/source/auxi_api.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/material_concepts.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/material_thermochemistry.rst",
-		"/home/christoff/em/software/auxiplus.0/trunk/0.0/doc/user/source/material_concepts.rst",
-		"/home/christoff/em/software/auxiplus.0/trunk/0.0/doc/user/source/business_modelling.rst",
-		"/home/christoff/em/software/auxi.0/doc/user/source/business_modelling.rst",
-		"/home/christoff/em/software/auxiplus.0/trunk/0.0/doc/user/source/material_chemapp.rst",
-		"/home/christoff/em/software/auxiplus.0/trunk/0.0/doc/user/source/modeling_concepts.rst",
-		"/home/christoff/pmpy/trunk/0.1/doc/source/chemistry.rst",
-		"/home/christoff/pmpy/trunk/0.0/doc/source/material_psdmaterial.rst"
+		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/slurry.py"
 	],
 	"find":
 	{
@@ -522,6 +547,26 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"0.2.0rc8",
+			"0.2.0rc3",
+			"0.2.0rc4",
+			"0.2.0rc5",
+			"0.2.0rc6",
+			"0.2.0rc7",
+			"tax",
+			"tax_rule_set",
+			"0.2.0rc6",
+			"\"",
+			"0.2.0rc6",
+			"\"",
+			"0.2.0rc6",
+			"\"",
+			"0.2.0rc6",
+			" \"",
+			"0.2.0rc6",
+			"__version__",
+			"__version__ = \"",
+			"0.2.0rc6",
 			"mm",
 			"'",
 			"}}}",
@@ -629,27 +674,7 @@
 			"gls.incometaxexpense_account",
 			"gls.costofsales_account",
 			"gls.sales_account",
-			"gls.costofsales_account",
-			"gls.",
-			"gls.accounts[0]",
-			"gls.sales_account",
-			"incomesummary_account",
-			"gross_profit_account",
-			"reva_acc",
-			"sales",
-			"generalLedger",
-			"gl",
-			"Report._get_date_",
-			"Report.get_date",
-			".name",
-			"External Labour",
-			"_.name,",
-			"_.name)",
-			"date and ",
-			"year_txes",
-			"tx_datetime",
-			"_account",
-			"gross_profit_account"
+			"gls.costofsales_account"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -657,6 +682,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"'",
+			" '",
 			"\"",
 			"rc6",
 			"from auxi.tools.chemistry import thermochemistry as thermo",
@@ -782,9 +809,7 @@
 			"GetCostOfSales(",
 			"GetDtAccount",
 			"GetCrAccount",
-			"SetIsClosingDtAccount",
-			"SetIsClosingCrAccount",
-			"GetIncomeTaxExpense"
+			"SetIsClosingDtAccount"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -795,7 +820,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -804,15 +829,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 22455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								502,
+								502
 							]
 						],
 						"settings":
@@ -820,27 +845,27 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "modelling/process/materials/thermo.py",
+					"file": "modelling/financial/reporting.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 13331,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								245,
+								245
 							]
 						],
 						"settings":
@@ -856,80 +881,25 @@
 				},
 				{
 					"buffer": 2,
-					"file": "modelling/process/materials/chem.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 41,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								41,
+								41
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/RestructuredText/reStructuredText.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "modelling/financial/reporting.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"auto_name": "apt-get install texlive-fonts-recommended",
+							"default_dir": "/home/christoff/em/software/auxi.0/src",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -939,20 +909,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 3,
 					"file": "modelling/financial/des.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 16024,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								13594,
+								13594
 							]
 						],
 						"settings":
@@ -960,33 +930,33 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 6601.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 5,
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 4,
 					"file": "tests.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2449,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1639,
+								1639
 							]
 						],
 						"settings":
@@ -994,19 +964,47 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
+					"file": "modelling/business/structure_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 35927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10993,
+								10993
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": -0.0,
+						"translation.y": 4523.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "modelling/process/materials/thermo_test.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 14170,
 						"regions":
 						{
 						},
@@ -1029,53 +1027,110 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "tools/chemistry/data/references.json",
+					"buffer": 7,
+					"file": "/home/christoff/em/software/auxi.0/setup.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 1763,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								287,
+								287
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "modelling/financial/des_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15040,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13884,
+								13884
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 459.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "modelling/financial/reporting_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4866,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1762,
+								1762
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 748.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "modelling/financial/des_test.py",
+					"buffer": 10,
+					"file": "/home/christoff/em/software/auxi.0/create_distribution",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 69,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
+								12,
 								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1085,32 +1140,87 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "modelling/financial/reporting_test.py",
+					"buffer": 11,
+					"file": "/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 260,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								139,
+								96
 							]
 						],
 						"settings":
 						{
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/home/christoff/em/software/auxi.0/doc/user/deploy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 78,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								76,
+								76
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "tools/chemistry/thermochemistry_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2086,
+								2086
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 323.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -1194,7 +1304,7 @@
 		[
 			[
 				"",
-				"/home/www-data/web2py/applications/swimfo/swimtime_dev.sublime-project"
+				"~/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/chemapp-python.sublime-workspace"
 			]
 		],
 		"width": 380.0

@@ -15,7 +15,7 @@ from auxi.core.helpers import get_path_relative_to_module as get_path
 from auxi.tools.chemistry import thermochemistry as thermo
 from auxi.modelling.process.materials.thermo import Material, MaterialPackage
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -31,6 +31,7 @@ class ThermoMaterialUnitTester(unittest.TestCase):
     """
 
     def setUp(self):
+        thermo.default_data_path = 'data/nist'
         test_data_file_path = get_path(
             __file__, 'data/thermomaterial.test.ilmenite.txt')
         self.m = Material("material", test_data_file_path)
