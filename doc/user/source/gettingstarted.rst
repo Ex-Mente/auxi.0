@@ -2,6 +2,9 @@ auxi Installation
 =================
 auxi runs on both Linux and Windows.
 
+Prerequisite
+------------
+NumPy is required to run the auxi.modelling.materials packages. You can follow the instructions at http://www.scipy.org/install.html on how to install NumPy.
 
 Installation
 ------------
