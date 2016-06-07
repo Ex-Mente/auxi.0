@@ -76,7 +76,7 @@ class ThermoFunctionTester(unittest.TestCase):
 
     def test_H(self):
         self.assertAlmostEqual(thermo.H("Al2O3[S]", 1000.0),
-                               0.2957519136468089)
+                               -4.264869218634823)
         #                       -4.192397399191783)
 
     def test_S(self):
@@ -86,7 +86,7 @@ class ThermoFunctionTester(unittest.TestCase):
 
     def test_G(self):
         self.assertAlmostEqual(thermo.G("Al2O3[S]", 1000.0),
-                               -0.42515982843797523)
+                               -4.985780960719607)
         #                       0.0005662425810664761)
 
 

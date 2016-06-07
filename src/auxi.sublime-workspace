@@ -188,59 +188,10 @@
 	"buffers":
 	[
 		{
-			"file": "tools/chemistry/thermochemistry.py",
+			"file": "tools/chemistry/data/nist/Compound_Fe2O3.json",
 			"settings":
 			{
-				"buffer_size": 22455,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "modelling/financial/reporting.py",
-			"settings":
-			{
-				"buffer_size": 13331,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "apt-get install texlive-fonts-recommended",
-			"settings":
-			{
-				"buffer_size": 41,
-				"line_ending": "Unix",
-				"name": "apt-get install texlive-fonts-recommended"
-			}
-		},
-		{
-			"file": "modelling/financial/des.py",
-			"settings":
-			{
-				"buffer_size": 16024,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests.py",
-			"settings":
-			{
-				"buffer_size": 2449,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "modelling/business/structure_test.py",
-			"settings":
-			{
-				"buffer_size": 35927,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "modelling/process/materials/thermo_test.py",
-			"settings":
-			{
-				"buffer_size": 14170,
+				"buffer_size": 2196,
 				"line_ending": "Unix"
 			}
 		},
@@ -248,55 +199,65 @@
 			"file": "/home/christoff/em/software/auxi.0/setup.py",
 			"settings":
 			{
-				"buffer_size": 1763,
+				"buffer_size": 1823,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "modelling/financial/des_test.py",
+			"contents": "Searching 1291 files for \"numpy\" (case sensitive)\n\n/home/christoff/em/software/auxi.0/auxi.egg-info/requires.txt:\n    2  tabulate\n    3  enum34\n    4: numpy>=1.8.2\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/auxi.egg-info/requires.txt:\n    2  tabulate\n    3  enum34\n    4: numpy\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/build/lib/auxi/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/setup.py:\n   40                      'auxi.modelling.process.materials': [r'data/*.txt'],\n   41                      'auxi': [r'*.txt', r'doc/*.pdf']},\n   42:       install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy']\n   43        )\n   44  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/auxi.egg-info/requires.txt:\n    2  tabulate\n    3  enum34\n    4: numpy>=1.8.2\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/build/lib/auxi/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/setup.py:\n   41                      'auxi.modelling.process.materials': [r'data/*.txt'],\n   42                      'auxi': [r'*.txt', r'doc/*.pdf']},\n   43:       install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy>=1.8.2']\n   44        )\n   45  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1/src/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/auxi.egg-info/requires.txt:\n    2  tabulate\n    3  enum34\n    4: numpy>=1.8.2\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/build/lib/auxi/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/setup.py:\n   41                      'auxi.modelling.process.materials': [r'data/*.txt'],\n   42                      'auxi': [r'*.txt', r'doc/*.pdf']},\n   43:       install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy>=1.8.2']\n   44        )\n   45  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/dist/auxi-0.2.1rc1/src/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n/home/christoff/em/software/auxi.0/doc/user/build/doctrees/auxi_modelling_process_materials_api.doctree:\n    <binary>\n\n/home/christoff/em/software/auxi.0/doc/user/build/html/auxi_modelling_process_materials_api.html:\n  548  <tr class=\"field-odd field\"><th class=\"field-name\">Parameters:</th><td class=\"field-body\"><ul class=\"first last simple\">\n  549  <li><strong>name</strong> &#8211; The name of the new assay.</li>\n  550: <li><strong>assay</strong> &#8211; A numpy array containing the size class mass fractions\n  551  for the assay. The sequence of the assay&#8217;s elements must correspond\n  552  to the sequence of the material&#8217;s size classes.</li>\n  ...\n  831  <tr class=\"field-odd field\"><th class=\"field-name\">Parameters:</th><td class=\"field-body\"><ul class=\"first last simple\">\n  832  <li><strong>name</strong> &#8211; The name of the new assay.</li>\n  833: <li><strong>assay</strong> &#8211; A numpy array containing the size class mass fractions\n  834  for the assay. The sequence of the assay&#8217;s elements must correspond\n  835  to the sequence of the material&#8217;s size classes.</li>\n\n/home/christoff/em/software/auxi.0/doc/user/build/latex/auxiUserManual.tex:\n 3197  \n 3198  \\item {} \n 3199: \\textbf{\\texttt{assay}} -- A numpy array containing the size class mass fractions\n 3200  for the assay. The sequence of the assay's elements must correspond\n 3201  to the sequence of the material's size classes.\n ....\n 3517  \n 3518  \\item {} \n 3519: \\textbf{\\texttt{assay}} -- A numpy array containing the size class mass fractions\n 3520  for the assay. The sequence of the assay's elements must correspond\n 3521  to the sequence of the material's size classes.\n\n/home/christoff/em/software/auxi.0/setup.py:\n   41                      'auxi.modelling.process.materials': [r'data/*.txt'],\n   42                      'auxi': [r'*.txt', r'doc/*.pdf']},\n   43:       install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy>=1.8.2']\n   44        )\n   45  \n\n/home/christoff/em/software/auxi.0/src/auxi.sublime-workspace:\n  633  			\" \\\"\",\n  634  			\"“\",\n  635: 			\"numpy\",\n  636  			\"strings\",\n  637: 			\"numpy\",\n  638  			\"Capit\",\n  639  			\"np.\",\n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/psd.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   81          self.assays = dict()\n   82          for assay_name in assay_names:\n   83:             self.assays[assay_name] = numpy.array([])\n   84  \n   85          # Read the size classes and assays.\n   ..\n   93              for j in range(0, len(self.assays)):\n   94                  assay_name = assay_names[j]\n   95:                 self.assays[assay_name] = numpy.append(\n   96                      self.assays[assay_name], float(strings[j+1]))\n   97  \n   ..\n  162          \"\"\"\n  163  \n  164:         return numpy.zeros(self.size_class_count)\n  165  \n  166      def add_assay(self, name, assay):\n  ...\n  169  \n  170          :param name: The name of the new assay.\n  171:         :param assay: A numpy array containing the size class mass fractions\n  172            for the assay. The sequence of the assay's elements must correspond\n  173            to the sequence of the material's size classes.\n  174          \"\"\"\n  175  \n  176:         if not type(assay) is numpy.ndarray:\n  177:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  178          elif not assay.shape == (self.size_class_count,):\n  179              raise Exception(\n  ...\n  235              raise TypeError(\n  236                  \"Invalid material type. Must be psdmaterial.Material\")\n  237:         if not type(size_class_masses) is numpy.ndarray:\n  238              raise TypeError(\n  239:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  240  \n  241          # Initialise the object's properties.\n  ...\n  329          # Multiply with a scalar floating point number.\n  330          if type(scalar) is float or \\\n  331:            type(scalar) is numpy.float64 or \\\n  332:            type(scalar) is numpy.float32:\n  333              if scalar < 0.0:\n  334                  raise Exception(\n  ...\n  360              return False\n  361          elif not type(value[1]) is float and \\\n  362:                 not type(value[1]) is numpy.float64 and \\\n  363:                 not type(value[1]) is numpy.float32:\n  364              return False\n  365          else:\n  ...\n  453          # Extract the specified mass.\n  454          if type(other) is float or \\\n  455:                 type(other) is numpy.float64 or \\\n  456:                 type(other) is numpy.float32:\n  457              if other > self.get_mass():\n  458                  raise Exception(\n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/psd_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import psd\n   12  from auxi.modelling.process.materials.psd import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", new_assay)\n   61          self.assertEqual(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay),\n   63              True)\n   64  \n   ..\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212                                 temp_package_a.get_mass() * 123.4,\n  213                                 places=10)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  232      def test_get_assay(self):\n  233          self.assertTrue(\n  234:             numpy.all(self.materiala_package_a.get_assay() -\n  235                        self.materiala.assays[\"FeedA\"] /\n  236                        self.materiala.assays[\"FeedA\"].sum() < 1.0E-16))\n  237          self.assertTrue(\n  238:             numpy.all(self.materiala_package_a.get_assay() -\n  239                        self.materiala.assays[\"FeedA\"] /\n  240                        self.materiala.assays[\"FeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/slurry.py:\n    9  import copy\n   10  \n   11: import numpy\n   12  \n   13  from auxi.core.objects import Object\n   ..\n   92          self.H2O_fractions = dict()\n   93          for assay_name in assay_names:\n   94:             self.assays[assay_name] = numpy.array([])\n   95              self.solid_densities[assay_name] = 1.0\n   96              self.H2O_fractions[assay_name] = 0.0\n   ..\n  130              for j in range(0, len(self.assays)):\n  131                  assay_name = assay_names[j]\n  132:                 self.assays[assay_name] = numpy.append(\n  133                      self.assays[assay_name], float(strings[j+1]))\n  134  \n  ...\n  213          \"\"\"\n  214  \n  215:         return numpy.zeros(self.size_class_count)\n  216  \n  217      '''\n  ...\n  225          \"\"\"\n  226  \n  227:         return numpy.zeros(self.size_class_count)\n  228      '''\n  229  \n  ...\n  232  \n  233          :param name: The name of the new assay.\n  234:         :param assay: A numpy array containing the size class mass fractions\n  235            for the assay. The sequence of the assay's elements must correspond\n  236            to the sequence of the material's size classes.\n  ...\n  245          self.H2O_fractions[name] = H2O_fraction\n  246  \n  247:         if not type(assay) is numpy.ndarray:\n  248:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  249          elif not assay.shape == (self.size_class_count,):\n  250              raise Exception(\n  ...\n  324              raise TypeError(\n  325                  \"Invalid material type. Must be psdslurrymaterial.Material\")\n  326:         if not type(size_class_masses) is numpy.ndarray:\n  327              raise TypeError(\n  328:                 \"Invalid size_class_masses type. Must be numpy.ndarray.\")\n  329  \n  330          # Initialise the object's properties.\n  ...\n  446          # Multiply with a scalar floating point number.\n  447          if type(scalar) is float or \\\n  448:                 type(scalar) is numpy.float64 or \\\n  449:                 type(scalar) is numpy.float32:\n  450              if scalar < 0.0:\n  451                  raise Exception(\n  ...\n  479              return False\n  480          elif not type(value[1]) is float and \\\n  481:                 not type(value[1]) is numpy.float64 and \\\n  482:                 not type(value[1]) is numpy.float32:\n  483              return False\n  484          else:\n  ...\n  502              return False\n  503          elif not type(value[1]) is float and \\\n  504:                 not type(value[1]) is numpy.float64 and \\\n  505:                 not type(value[1]) is numpy.float32:\n  506              return False\n  507          else:\n  ...\n  634          # Extract the specified mass.\n  635          if type(other) is float or \\\n  636:                 type(other) is numpy.float64 or \\\n  637:                 type(other) is numpy.float32:\n  638              if other > self.get_mass():\n  639                  raise Exception(\n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/slurry_test.py:\n    8  import unittest\n    9  import os\n   10: import numpy\n   11  from auxi.modelling.process.materials import slurry\n   12  from auxi.modelling.process.materials.slurry import Material, MaterialPackage\n   ..\n   60          self.material.add_assay(\"new_assay\", 0.3, 0.05, new_assay)\n   61          self.assertTrue(\n   62:             numpy.all(self.material.assays[\"new_assay\"] == new_assay))\n   63          self.assertEqual(self.material.solid_densities[\"new_assay\"], 0.3)\n   64          self.assertEqual(self.material.H2O_fractions[\"new_assay\"], 0.05)\n   ..\n   97          self.assertEqual(package.solid_density, 0.3)\n   98          self.assertEqual(package.H2O_mass, 0.05)\n   99:         self.assertTrue(numpy.all(package.size_class_masses ==\n  100                                    size_class_masses))\n  101  \n  ...\n  200          mul_package_1 = temp_package_a * 0.0\n  201          self.assertEqual(mul_package_1.get_mass(), 0.0)\n  202:         self.assertTrue(numpy.all(mul_package_1.size_class_masses ==\n  203                                    temp_package_a.size_class_masses * 0.0))\n  204  \n  205          mul_package_2 = temp_package_a * 1.0\n  206          self.assertEqual(mul_package_2.get_mass(), temp_package_a.get_mass())\n  207:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  208                                    temp_package_a.size_class_masses))\n  209  \n  ...\n  212              mul_package_2.get_mass(),\n  213              temp_package_a.get_mass() * 123.4)\n  214:         self.assertTrue(numpy.all(mul_package_2.size_class_masses ==\n  215                                    temp_package_a.size_class_masses * 123.4))\n  216  \n  ...\n  219  \n  220          self.assertEqual(clone.get_mass(), self.materiala_package_a.get_mass())\n  221:         self.assertTrue(numpy.all(clone.size_class_masses ==\n  222                                    self.materiala_package_a.size_class_masses))\n  223  \n  ...\n  230      def test_get_assay(self):\n  231          self.assertTrue(\n  232:             numpy.all(self.materiala_package_a.get_assay() -\n  233                        self.materiala.assays[\"DryFeedA\"] /\n  234                        self.materiala.assays[\"DryFeedA\"].sum() < 1.0E-16))\n  235          self.assertTrue(\n  236:             numpy.all(self.materiala_package_a.get_assay() -\n  237                        self.materiala.assays[\"DryFeedA\"] /\n  238                        self.materiala.assays[\"DryFeedA\"].sum() > -1.0E-16))\n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo.py:\n    8  import copy\n    9  \n   10: import numpy\n   11  \n   12  from auxi.core.objects import Object, NamedObject\n   ..\n   94  \n   95          for assay_name in assay_names:\n   96:             self.raw_assays[assay_name] = numpy.array([])\n   97:             self.converted_assays[assay_name] = numpy.array([])\n   98  \n   99          # Read the compounds and assays.\n  ...\n  113              for j in range(0, len(self.raw_assays)):\n  114                  assay_name = assay_names[j]\n  115:                 self.raw_assays[assay_name] = numpy.append(\n  116                      self.raw_assays[assay_name],\n  117                      float(strings[j+1]))\n  118:                 self.converted_assays[assay_name] = numpy.append(\n  119                      self.converted_assays[assay_name],\n  120                      float(strings[j+1]))\n  ...\n  267          \"\"\"\n  268  \n  269:         return numpy.zeros(self.compound_count)\n  270  \n  271      def add_assay(self, name, assay):\n  ...\n  279          \"\"\"\n  280  \n  281:         if not type(assay) is numpy.ndarray:\n  282:             raise Exception(\"Invalid assay. It must be a numpy array.\")\n  283          elif not assay.shape == (self.compound_count,):\n  284              raise Exception(\"Invalid assay: It must have the same number of \"\n  ...\n  346              raise TypeError(\"Invalid material type. Must be \"\n  347                              \"thermomaterial.Material\")\n  348:         if not type(compound_masses) is numpy.ndarray:\n  349              raise TypeError(\"Invalid compound_masses type. Must be \"\n  350:                             \"numpy.ndarray.\")\n  351  \n  352          # Initialise the object's properties.\n  ...\n  518  \n  519          # Multiply with a scalar floating point number.\n  520:         if type(scalar) is float or type(scalar) is numpy.float64 or \\\n  521:            type(scalar) is numpy.float32:\n  522              if scalar < 0.0:\n  523                  raise Exception(\"Invalid multiplication operation. Cannot \"\n  ...\n  593              return False\n  594          elif not type(value[1]) is float and \\\n  595:                 not type(value[1]) is numpy.float64 and \\\n  596:                 not type(value[1]) is numpy.float32:\n  597              return False\n  598          else:\n  ...\n  614              return False\n  615          elif not type(value[1]) is float and \\\n  616:                 not type(value[1]) is numpy.float64 and \\\n  617:                 not type(value[1]) is numpy.float32:\n  618              return False\n  619          elif not type(value[1]) is float and \\\n  620:                 not type(value[1]) is numpy.float64 and \\\n  621:                 not type(value[1]) is numpy.float32:\n  622              return False\n  623          else:\n  ...\n  788          if elements is None:\n  789              elements = self.material.elements\n  790:         result = numpy.zeros(len(elements))\n  791          for compound in self.material.compounds:\n  792              result += self.get_compound_mass(compound) *\\\n  ...\n  816          \"\"\"\n  817  \n  818:         result = numpy.zeros(1)\n  819          for compound in self.material.compounds:\n  820              result += self.get_compound_mass(compound) *\\\n  ...\n  847          # Extract the specified mass.\n  848          if type(other) is float or \\\n  849:            type(other) is numpy.float64 or \\\n  850:            type(other) is numpy.float32:\n  851              return self._extract_mass(other)\n  852  \n\n/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo_test.py:\n   10  import unittest\n   11  \n   12: import numpy as np\n   13  \n   14  from auxi.core.helpers import get_path_relative_to_module as get_path\n\n531 matches across 54 files\n",
 			"settings":
 			{
-				"buffer_size": 15040,
+				"buffer_size": 103073,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/slurry.py",
+			"settings":
+			{
+				"buffer_size": 27467,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "modelling/financial/reporting_test.py",
+			"file": "tools/chemistry/data/rao/Compound_Fe2O3.json",
 			"settings":
 			{
-				"buffer_size": 4866,
+				"buffer_size": 603,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0/create_distribution",
+			"file": "/home/christoff/pmpy/trunk/0.1/src/chemistry/data/thermo/Compound_Fe2O3.txt",
 			"settings":
 			{
-				"buffer_size": 69,
+				"buffer_size": 1225,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
+			"settings":
+			{
+				"buffer_size": 616,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
+			"settings":
+			{
+				"buffer_size": 1000,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
+			"file": "tools/chemistry/thermochemistry.py",
 			"settings":
 			{
-				"buffer_size": 260,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0/doc/user/deploy",
-			"settings":
-			{
-				"buffer_size": 78,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tools/chemistry/thermochemistry_test.py",
-			"settings":
-			{
-				"buffer_size": 3180,
+				"buffer_size": 22491,
 				"line_ending": "Unix"
 			}
 		}
@@ -389,11 +350,37 @@
 	[
 		"/home/christoff/em/software/auxi.0/src",
 		"/home/christoff/em/software/auxi.0/src/modelling",
-		"/home/christoff/em/software/auxi.0/src/modelling/financial"
+		"/home/christoff/em/software/auxi.0/src/modelling/process",
+		"/home/christoff/em/software/auxi.0/src/modelling/process/materials",
+		"/home/christoff/em/software/auxi.0/src/tools",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry"
 	],
 	"file_history":
 	[
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/untitled0.py",
+		"/home/christoff/em/software/auxi.0/setup.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo_test.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/tools/chemistry/data/rao/Compound_Fe2O3.json",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/des.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting.py",
+		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/chemmaterial.test.ilmenite.txt",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/nist_data.csv",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting_test.py",
+		"/home/christoff/em/software/auxi.0/create_distribution",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
+		"/home/christoff/em/software/auxi.0/doc/user/deploy",
+		"/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Fe2O3.json",
+		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/tools/chemistry/data/rao/Compound_CO.json",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_nist_thermo_data_to_auxi.py",
+		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/data/Compound_Fe2O3.json",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Al.json",
+		"/home/christoff/em/software/auxi.0/src/modelling/financial/des_test.py",
+		"/home/christoff/em/software/auxi.0/src/tests.py",
+		"/home/christoff/em/software/auxi.0/src/modelling/business/structure_test.py",
 		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/setup-prepare.py",
 		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/mintek/chemapp-v645/C/cademo1.c",
 		"/home/christoff/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/src/redistributable/cacint_.h",
@@ -405,11 +392,9 @@
 		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc7/auxi.egg-info/requires.txt",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/__init__.py",
 		"/home/christoff/em/software/auxi.0/src/tools/__init__.py",
-		"/home/christoff/em/software/auxi.0/src/tests.py",
 		"/home/christoff/em/software/auxi.0/__init__.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/chem.py",
 		"/home/christoff/em/software/auxi.0/doc/user/source/index.rst",
-		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting.py",
 		"/home/christoff/em/software/auxi.0/src/__init__.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/__init__.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/__init__.py",
@@ -425,7 +410,6 @@
 		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/auxi.egg-info/SOURCES.txt",
 		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/MANIFEST.in",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/references.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/psd.py",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As4.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As2O3.json",
@@ -440,7 +424,6 @@
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ca.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaCO3.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ag.json",
-		"/home/christoff/em/software/auxi.0/setup.py",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaO.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaS.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaSiO3.json",
@@ -501,26 +484,7 @@
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ti.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_TiO2.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_U.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_UO2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_V.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_W.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Zn.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_ZnO.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_ZnS.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Zr.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_ZrO2.json",
-		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/stoichiometry.py",
-		"/home/christoff/em/software/auxi.0/src/auxi.sublime-workspace",
-		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/src/tools/chemistry/thermochemistry.py",
-		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/src/tools/chemistry/stoichiometry.py",
-		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/build/lib/auxi/tools/chemistry/thermochemistry.py",
-		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/build/lib/auxi/tools/chemistry/stoichiometry.py",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
-		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/data/Compound_Ag.json",
-		"/home/christoff/em/software/auxi.0/src/modelling/business/basic.py",
-		"/home/christoff/em/software/auxi.0/src/modelling/financial/des.py",
-		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/slurry.py"
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_UO2.json"
 	],
 	"find":
 	{
@@ -547,6 +511,22 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"numpy",
+			"'",
+			"_get_default_data_path_",
+			"load_data_auxi",
+			"gas",
+			"liquid",
+			"solid",
+			"×10",
+			")",
+			"-2',",
+			",'",
+			"(",
+			"chase1998",
+			"gas",
+			"liquid",
+			"solid",
 			"0.2.0rc8",
 			"0.2.0rc3",
 			"0.2.0rc4",
@@ -658,23 +638,7 @@
 			"super()",
 			".print,",
 			".print",
-			".name",
-			"gls._accb_bank_[0]",
-			"tx_datetime",
-			"_.name",
-			"acc_.name",
-			"tx_datetime",
-			"year_end_datetime",
-			"gls.",
-			"gls.retainedearnings_account",
-			"gls.",
-			"gls.accounts[0]",
-			"gls.gross_profit_account",
-			"gls.incomesummary_account",
-			"gls.incometaxexpense_account",
-			"gls.costofsales_account",
-			"gls.sales_account",
-			"gls.costofsales_account"
+			".name"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -682,6 +646,20 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"",
+			"G",
+			"L",
+			"S",
+			"e",
+			"e10",
+			"),",
+			"-2,",
+			"','",
+			"('",
+			"'chase1998'",
+			"'gas'",
+			"'liquid'",
+			"'solid'",
 			"'",
 			" '",
 			"\"",
@@ -795,21 +773,7 @@
 			"m_period_count",
 			"AccountType::a",
 			"AccountType::e",
-			"AccountType::r",
-			"AccountType",
-			"m_gl",
-			"GetRetainedEarnings",
-			"GetIncomeSummary",
-			"GetGrossProfit",
-			"GetDtAccount",
-			"GetCrAccount",
-			"GetDtAccount",
-			"TxTemplate",
-			"GetSales(",
-			"GetCostOfSales(",
-			"GetDtAccount",
-			"GetCrAccount",
-			"SetIsClosingDtAccount"
+			"AccountType::r"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -820,227 +784,52 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "tools/chemistry/thermochemistry.py",
+					"file": "tools/chemistry/data/nist/Compound_Fe2O3.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 22455,
+						"buffer_size": 2196,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								502,
-								502
+								1696,
+								1696
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 357.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "modelling/financial/reporting.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13331,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								245,
-								245
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 41,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								41,
-								41
-							]
-						],
-						"settings":
-						{
-							"auto_name": "apt-get install texlive-fonts-recommended",
-							"default_dir": "/home/christoff/em/software/auxi.0/src",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "modelling/financial/des.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16024,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13594,
-								13594
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 6601.0,
+						"translation.y": 1020.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 5,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"file": "tests.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2449,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1639,
-								1639
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 204.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "modelling/business/structure_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 35927,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10993,
-								10993
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": -0.0,
-						"translation.y": 4523.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "modelling/process/materials/thermo_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14170,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
+					"buffer": 1,
 					"file": "/home/christoff/em/software/auxi.0/setup.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1763,
+						"buffer_size": 1823,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								287,
-								287
+								1813,
+								1813
 							]
 						],
 						"settings":
@@ -1051,137 +840,2230 @@
 						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "modelling/financial/des_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15040,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13884,
-								13884
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 459.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "modelling/financial/reporting_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4866,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1762,
-								1762
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 748.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "/home/christoff/em/software/auxi.0/create_distribution",
+					"buffer": 2,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 69,
+						"buffer_size": 103073,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										151,
+										156
+									],
+									[
+										281,
+										286
+									],
+									[
+										431,
+										436
+									],
+									[
+										622,
+										627
+									],
+									[
+										859,
+										864
+									],
+									[
+										1009,
+										1014
+									],
+									[
+										1197,
+										1202
+									],
+									[
+										1464,
+										1469
+									],
+									[
+										1543,
+										1548
+									],
+									[
+										1828,
+										1833
+									],
+									[
+										1943,
+										1948
+									],
+									[
+										2169,
+										2174
+									],
+									[
+										2222,
+										2227
+									],
+									[
+										2450,
+										2455
+									],
+									[
+										2515,
+										2520
+									],
+									[
+										2716,
+										2721
+									],
+									[
+										2773,
+										2778
+									],
+									[
+										3037,
+										3042
+									],
+									[
+										3302,
+										3307
+									],
+									[
+										3546,
+										3551
+									],
+									[
+										3849,
+										3854
+									],
+									[
+										4137,
+										4142
+									],
+									[
+										4406,
+										4411
+									],
+									[
+										4631,
+										4636
+									],
+									[
+										4871,
+										4876
+									],
+									[
+										5208,
+										5213
+									],
+									[
+										5406,
+										5411
+									],
+									[
+										5698,
+										5703
+									],
+									[
+										5848,
+										5853
+									],
+									[
+										5961,
+										5966
+									],
+									[
+										6119,
+										6124
+									],
+									[
+										6428,
+										6433
+									],
+									[
+										6507,
+										6512
+									],
+									[
+										6798,
+										6803
+									],
+									[
+										6913,
+										6918
+									],
+									[
+										7144,
+										7149
+									],
+									[
+										7202,
+										7207
+									],
+									[
+										7430,
+										7435
+									],
+									[
+										7495,
+										7500
+									],
+									[
+										7700,
+										7705
+									],
+									[
+										7765,
+										7770
+									],
+									[
+										7966,
+										7971
+									],
+									[
+										8023,
+										8028
+									],
+									[
+										8290,
+										8295
+									],
+									[
+										8571,
+										8576
+									],
+									[
+										8944,
+										8949
+									],
+									[
+										9204,
+										9209
+									],
+									[
+										9507,
+										9512
+									],
+									[
+										9772,
+										9777
+									],
+									[
+										10041,
+										10046
+									],
+									[
+										10266,
+										10271
+									],
+									[
+										10512,
+										10517
+									],
+									[
+										10855,
+										10860
+									],
+									[
+										11035,
+										11040
+									],
+									[
+										11106,
+										11111
+									],
+									[
+										11348,
+										11353
+									],
+									[
+										11525,
+										11530
+									],
+									[
+										11704,
+										11709
+									],
+									[
+										11860,
+										11865
+									],
+									[
+										11939,
+										11944
+									],
+									[
+										12286,
+										12291
+									],
+									[
+										12413,
+										12418
+									],
+									[
+										12627,
+										12632
+									],
+									[
+										12680,
+										12685
+									],
+									[
+										12951,
+										12956
+									],
+									[
+										13016,
+										13021
+									],
+									[
+										13221,
+										13226
+									],
+									[
+										13286,
+										13291
+									],
+									[
+										13432,
+										13437
+									],
+									[
+										13497,
+										13502
+									],
+									[
+										13684,
+										13689
+									],
+									[
+										13889,
+										13894
+									],
+									[
+										14153,
+										14158
+									],
+									[
+										14205,
+										14210
+									],
+									[
+										14436,
+										14441
+									],
+									[
+										14805,
+										14810
+									],
+									[
+										14969,
+										14974
+									],
+									[
+										15160,
+										15165
+									],
+									[
+										15397,
+										15402
+									],
+									[
+										15547,
+										15552
+									],
+									[
+										15735,
+										15740
+									],
+									[
+										16002,
+										16007
+									],
+									[
+										16081,
+										16086
+									],
+									[
+										16366,
+										16371
+									],
+									[
+										16481,
+										16486
+									],
+									[
+										16707,
+										16712
+									],
+									[
+										16760,
+										16765
+									],
+									[
+										16988,
+										16993
+									],
+									[
+										17053,
+										17058
+									],
+									[
+										17254,
+										17259
+									],
+									[
+										17311,
+										17316
+									],
+									[
+										17564,
+										17569
+									],
+									[
+										17829,
+										17834
+									],
+									[
+										18073,
+										18078
+									],
+									[
+										18376,
+										18381
+									],
+									[
+										18664,
+										18669
+									],
+									[
+										18933,
+										18938
+									],
+									[
+										19158,
+										19163
+									],
+									[
+										19398,
+										19403
+									],
+									[
+										19724,
+										19729
+									],
+									[
+										19922,
+										19927
+									],
+									[
+										20214,
+										20219
+									],
+									[
+										20364,
+										20369
+									],
+									[
+										20477,
+										20482
+									],
+									[
+										20635,
+										20640
+									],
+									[
+										20944,
+										20949
+									],
+									[
+										21023,
+										21028
+									],
+									[
+										21314,
+										21319
+									],
+									[
+										21429,
+										21434
+									],
+									[
+										21660,
+										21665
+									],
+									[
+										21718,
+										21723
+									],
+									[
+										21946,
+										21951
+									],
+									[
+										22011,
+										22016
+									],
+									[
+										22216,
+										22221
+									],
+									[
+										22281,
+										22286
+									],
+									[
+										22482,
+										22487
+									],
+									[
+										22539,
+										22544
+									],
+									[
+										22795,
+										22800
+									],
+									[
+										23076,
+										23081
+									],
+									[
+										23449,
+										23454
+									],
+									[
+										23709,
+										23714
+									],
+									[
+										24012,
+										24017
+									],
+									[
+										24277,
+										24282
+									],
+									[
+										24546,
+										24551
+									],
+									[
+										24771,
+										24776
+									],
+									[
+										25017,
+										25022
+									],
+									[
+										25349,
+										25354
+									],
+									[
+										25529,
+										25534
+									],
+									[
+										25600,
+										25605
+									],
+									[
+										25842,
+										25847
+									],
+									[
+										26019,
+										26024
+									],
+									[
+										26198,
+										26203
+									],
+									[
+										26354,
+										26359
+									],
+									[
+										26433,
+										26438
+									],
+									[
+										26780,
+										26785
+									],
+									[
+										26907,
+										26912
+									],
+									[
+										27121,
+										27126
+									],
+									[
+										27174,
+										27179
+									],
+									[
+										27445,
+										27450
+									],
+									[
+										27510,
+										27515
+									],
+									[
+										27715,
+										27720
+									],
+									[
+										27780,
+										27785
+									],
+									[
+										27926,
+										27931
+									],
+									[
+										27991,
+										27996
+									],
+									[
+										28178,
+										28183
+									],
+									[
+										28383,
+										28388
+									],
+									[
+										28647,
+										28652
+									],
+									[
+										28699,
+										28704
+									],
+									[
+										28919,
+										28924
+									],
+									[
+										29133,
+										29138
+									],
+									[
+										29290,
+										29295
+									],
+									[
+										29481,
+										29486
+									],
+									[
+										29718,
+										29723
+									],
+									[
+										29868,
+										29873
+									],
+									[
+										30056,
+										30061
+									],
+									[
+										30323,
+										30328
+									],
+									[
+										30402,
+										30407
+									],
+									[
+										30687,
+										30692
+									],
+									[
+										30802,
+										30807
+									],
+									[
+										31028,
+										31033
+									],
+									[
+										31081,
+										31086
+									],
+									[
+										31309,
+										31314
+									],
+									[
+										31374,
+										31379
+									],
+									[
+										31575,
+										31580
+									],
+									[
+										31632,
+										31637
+									],
+									[
+										31896,
+										31901
+									],
+									[
+										32161,
+										32166
+									],
+									[
+										32405,
+										32410
+									],
+									[
+										32708,
+										32713
+									],
+									[
+										32996,
+										33001
+									],
+									[
+										33265,
+										33270
+									],
+									[
+										33490,
+										33495
+									],
+									[
+										33730,
+										33735
+									],
+									[
+										34067,
+										34072
+									],
+									[
+										34265,
+										34270
+									],
+									[
+										34557,
+										34562
+									],
+									[
+										34707,
+										34712
+									],
+									[
+										34820,
+										34825
+									],
+									[
+										34978,
+										34983
+									],
+									[
+										35287,
+										35292
+									],
+									[
+										35366,
+										35371
+									],
+									[
+										35657,
+										35662
+									],
+									[
+										35772,
+										35777
+									],
+									[
+										36003,
+										36008
+									],
+									[
+										36061,
+										36066
+									],
+									[
+										36289,
+										36294
+									],
+									[
+										36354,
+										36359
+									],
+									[
+										36559,
+										36564
+									],
+									[
+										36624,
+										36629
+									],
+									[
+										36825,
+										36830
+									],
+									[
+										36882,
+										36887
+									],
+									[
+										37149,
+										37154
+									],
+									[
+										37430,
+										37435
+									],
+									[
+										37803,
+										37808
+									],
+									[
+										38063,
+										38068
+									],
+									[
+										38366,
+										38371
+									],
+									[
+										38631,
+										38636
+									],
+									[
+										38900,
+										38905
+									],
+									[
+										39125,
+										39130
+									],
+									[
+										39371,
+										39376
+									],
+									[
+										39714,
+										39719
+									],
+									[
+										39894,
+										39899
+									],
+									[
+										39965,
+										39970
+									],
+									[
+										40207,
+										40212
+									],
+									[
+										40384,
+										40389
+									],
+									[
+										40563,
+										40568
+									],
+									[
+										40719,
+										40724
+									],
+									[
+										40798,
+										40803
+									],
+									[
+										41145,
+										41150
+									],
+									[
+										41272,
+										41277
+									],
+									[
+										41486,
+										41491
+									],
+									[
+										41539,
+										41544
+									],
+									[
+										41810,
+										41815
+									],
+									[
+										41875,
+										41880
+									],
+									[
+										42080,
+										42085
+									],
+									[
+										42145,
+										42150
+									],
+									[
+										42291,
+										42296
+									],
+									[
+										42356,
+										42361
+									],
+									[
+										42543,
+										42548
+									],
+									[
+										42748,
+										42753
+									],
+									[
+										43012,
+										43017
+									],
+									[
+										43064,
+										43069
+									],
+									[
+										43295,
+										43300
+									],
+									[
+										43664,
+										43669
+									],
+									[
+										43835,
+										43840
+									],
+									[
+										44026,
+										44031
+									],
+									[
+										44263,
+										44268
+									],
+									[
+										44413,
+										44418
+									],
+									[
+										44601,
+										44606
+									],
+									[
+										44868,
+										44873
+									],
+									[
+										44947,
+										44952
+									],
+									[
+										45232,
+										45237
+									],
+									[
+										45347,
+										45352
+									],
+									[
+										45573,
+										45578
+									],
+									[
+										45626,
+										45631
+									],
+									[
+										45854,
+										45859
+									],
+									[
+										45919,
+										45924
+									],
+									[
+										46120,
+										46125
+									],
+									[
+										46177,
+										46182
+									],
+									[
+										46430,
+										46435
+									],
+									[
+										46695,
+										46700
+									],
+									[
+										46939,
+										46944
+									],
+									[
+										47242,
+										47247
+									],
+									[
+										47530,
+										47535
+									],
+									[
+										47799,
+										47804
+									],
+									[
+										48024,
+										48029
+									],
+									[
+										48264,
+										48269
+									],
+									[
+										48590,
+										48595
+									],
+									[
+										48788,
+										48793
+									],
+									[
+										49080,
+										49085
+									],
+									[
+										49230,
+										49235
+									],
+									[
+										49343,
+										49348
+									],
+									[
+										49501,
+										49506
+									],
+									[
+										49810,
+										49815
+									],
+									[
+										49889,
+										49894
+									],
+									[
+										50180,
+										50185
+									],
+									[
+										50295,
+										50300
+									],
+									[
+										50526,
+										50531
+									],
+									[
+										50584,
+										50589
+									],
+									[
+										50812,
+										50817
+									],
+									[
+										50877,
+										50882
+									],
+									[
+										51082,
+										51087
+									],
+									[
+										51147,
+										51152
+									],
+									[
+										51348,
+										51353
+									],
+									[
+										51405,
+										51410
+									],
+									[
+										51661,
+										51666
+									],
+									[
+										51942,
+										51947
+									],
+									[
+										52315,
+										52320
+									],
+									[
+										52575,
+										52580
+									],
+									[
+										52878,
+										52883
+									],
+									[
+										53143,
+										53148
+									],
+									[
+										53412,
+										53417
+									],
+									[
+										53637,
+										53642
+									],
+									[
+										53883,
+										53888
+									],
+									[
+										54215,
+										54220
+									],
+									[
+										54395,
+										54400
+									],
+									[
+										54466,
+										54471
+									],
+									[
+										54708,
+										54713
+									],
+									[
+										54885,
+										54890
+									],
+									[
+										55064,
+										55069
+									],
+									[
+										55220,
+										55225
+									],
+									[
+										55299,
+										55304
+									],
+									[
+										55646,
+										55651
+									],
+									[
+										55773,
+										55778
+									],
+									[
+										55987,
+										55992
+									],
+									[
+										56040,
+										56045
+									],
+									[
+										56311,
+										56316
+									],
+									[
+										56376,
+										56381
+									],
+									[
+										56581,
+										56586
+									],
+									[
+										56646,
+										56651
+									],
+									[
+										56792,
+										56797
+									],
+									[
+										56857,
+										56862
+									],
+									[
+										57044,
+										57049
+									],
+									[
+										57249,
+										57254
+									],
+									[
+										57513,
+										57518
+									],
+									[
+										57565,
+										57570
+									],
+									[
+										57785,
+										57790
+									],
+									[
+										58002,
+										58007
+									],
+									[
+										58162,
+										58167
+									],
+									[
+										58353,
+										58358
+									],
+									[
+										58590,
+										58595
+									],
+									[
+										58740,
+										58745
+									],
+									[
+										58928,
+										58933
+									],
+									[
+										59195,
+										59200
+									],
+									[
+										59274,
+										59279
+									],
+									[
+										59559,
+										59564
+									],
+									[
+										59674,
+										59679
+									],
+									[
+										59900,
+										59905
+									],
+									[
+										59953,
+										59958
+									],
+									[
+										60181,
+										60186
+									],
+									[
+										60246,
+										60251
+									],
+									[
+										60447,
+										60452
+									],
+									[
+										60504,
+										60509
+									],
+									[
+										60771,
+										60776
+									],
+									[
+										61036,
+										61041
+									],
+									[
+										61280,
+										61285
+									],
+									[
+										61583,
+										61588
+									],
+									[
+										61871,
+										61876
+									],
+									[
+										62140,
+										62145
+									],
+									[
+										62365,
+										62370
+									],
+									[
+										62605,
+										62610
+									],
+									[
+										62945,
+										62950
+									],
+									[
+										63143,
+										63148
+									],
+									[
+										63435,
+										63440
+									],
+									[
+										63585,
+										63590
+									],
+									[
+										63698,
+										63703
+									],
+									[
+										63856,
+										63861
+									],
+									[
+										64165,
+										64170
+									],
+									[
+										64244,
+										64249
+									],
+									[
+										64535,
+										64540
+									],
+									[
+										64650,
+										64655
+									],
+									[
+										64881,
+										64886
+									],
+									[
+										64939,
+										64944
+									],
+									[
+										65167,
+										65172
+									],
+									[
+										65232,
+										65237
+									],
+									[
+										65437,
+										65442
+									],
+									[
+										65502,
+										65507
+									],
+									[
+										65703,
+										65708
+									],
+									[
+										65760,
+										65765
+									],
+									[
+										66030,
+										66035
+									],
+									[
+										66311,
+										66316
+									],
+									[
+										66684,
+										66689
+									],
+									[
+										66944,
+										66949
+									],
+									[
+										67247,
+										67252
+									],
+									[
+										67512,
+										67517
+									],
+									[
+										67781,
+										67786
+									],
+									[
+										68006,
+										68011
+									],
+									[
+										68252,
+										68257
+									],
+									[
+										68598,
+										68603
+									],
+									[
+										68778,
+										68783
+									],
+									[
+										68849,
+										68854
+									],
+									[
+										69091,
+										69096
+									],
+									[
+										69268,
+										69273
+									],
+									[
+										69447,
+										69452
+									],
+									[
+										69603,
+										69608
+									],
+									[
+										69682,
+										69687
+									],
+									[
+										70029,
+										70034
+									],
+									[
+										70156,
+										70161
+									],
+									[
+										70370,
+										70375
+									],
+									[
+										70423,
+										70428
+									],
+									[
+										70694,
+										70699
+									],
+									[
+										70759,
+										70764
+									],
+									[
+										70964,
+										70969
+									],
+									[
+										71029,
+										71034
+									],
+									[
+										71175,
+										71180
+									],
+									[
+										71240,
+										71245
+									],
+									[
+										71427,
+										71432
+									],
+									[
+										71632,
+										71637
+									],
+									[
+										71896,
+										71901
+									],
+									[
+										71948,
+										71953
+									],
+									[
+										72182,
+										72187
+									],
+									[
+										72554,
+										72559
+									],
+									[
+										72728,
+										72733
+									],
+									[
+										72919,
+										72924
+									],
+									[
+										73156,
+										73161
+									],
+									[
+										73306,
+										73311
+									],
+									[
+										73494,
+										73499
+									],
+									[
+										73761,
+										73766
+									],
+									[
+										73840,
+										73845
+									],
+									[
+										74125,
+										74130
+									],
+									[
+										74240,
+										74245
+									],
+									[
+										74466,
+										74471
+									],
+									[
+										74519,
+										74524
+									],
+									[
+										74747,
+										74752
+									],
+									[
+										74812,
+										74817
+									],
+									[
+										75013,
+										75018
+									],
+									[
+										75070,
+										75075
+									],
+									[
+										75326,
+										75331
+									],
+									[
+										75591,
+										75596
+									],
+									[
+										75835,
+										75840
+									],
+									[
+										76138,
+										76143
+									],
+									[
+										76426,
+										76431
+									],
+									[
+										76695,
+										76700
+									],
+									[
+										76920,
+										76925
+									],
+									[
+										77160,
+										77165
+									],
+									[
+										77489,
+										77494
+									],
+									[
+										77687,
+										77692
+									],
+									[
+										77979,
+										77984
+									],
+									[
+										78129,
+										78134
+									],
+									[
+										78242,
+										78247
+									],
+									[
+										78400,
+										78405
+									],
+									[
+										78709,
+										78714
+									],
+									[
+										78788,
+										78793
+									],
+									[
+										79079,
+										79084
+									],
+									[
+										79194,
+										79199
+									],
+									[
+										79425,
+										79430
+									],
+									[
+										79483,
+										79488
+									],
+									[
+										79711,
+										79716
+									],
+									[
+										79776,
+										79781
+									],
+									[
+										79981,
+										79986
+									],
+									[
+										80046,
+										80051
+									],
+									[
+										80247,
+										80252
+									],
+									[
+										80304,
+										80309
+									],
+									[
+										80563,
+										80568
+									],
+									[
+										80844,
+										80849
+									],
+									[
+										81217,
+										81222
+									],
+									[
+										81477,
+										81482
+									],
+									[
+										81780,
+										81785
+									],
+									[
+										82045,
+										82050
+									],
+									[
+										82314,
+										82319
+									],
+									[
+										82539,
+										82544
+									],
+									[
+										82785,
+										82790
+									],
+									[
+										83120,
+										83125
+									],
+									[
+										83300,
+										83305
+									],
+									[
+										83371,
+										83376
+									],
+									[
+										83613,
+										83618
+									],
+									[
+										83790,
+										83795
+									],
+									[
+										83969,
+										83974
+									],
+									[
+										84125,
+										84130
+									],
+									[
+										84204,
+										84209
+									],
+									[
+										84551,
+										84556
+									],
+									[
+										84678,
+										84683
+									],
+									[
+										84892,
+										84897
+									],
+									[
+										84945,
+										84950
+									],
+									[
+										85216,
+										85221
+									],
+									[
+										85281,
+										85286
+									],
+									[
+										85486,
+										85491
+									],
+									[
+										85551,
+										85556
+									],
+									[
+										85697,
+										85702
+									],
+									[
+										85762,
+										85767
+									],
+									[
+										85949,
+										85954
+									],
+									[
+										86154,
+										86159
+									],
+									[
+										86418,
+										86423
+									],
+									[
+										86470,
+										86475
+									],
+									[
+										86693,
+										86698
+									],
+									[
+										87253,
+										87258
+									],
+									[
+										87704,
+										87709
+									],
+									[
+										88042,
+										88047
+									],
+									[
+										88292,
+										88297
+									],
+									[
+										88731,
+										88736
+									],
+									[
+										88876,
+										88881
+									],
+									[
+										88916,
+										88921
+									],
+									[
+										89077,
+										89082
+									],
+									[
+										89268,
+										89273
+									],
+									[
+										89505,
+										89510
+									],
+									[
+										89655,
+										89660
+									],
+									[
+										89843,
+										89848
+									],
+									[
+										90110,
+										90115
+									],
+									[
+										90189,
+										90194
+									],
+									[
+										90474,
+										90479
+									],
+									[
+										90589,
+										90594
+									],
+									[
+										90815,
+										90820
+									],
+									[
+										90868,
+										90873
+									],
+									[
+										91096,
+										91101
+									],
+									[
+										91161,
+										91166
+									],
+									[
+										91362,
+										91367
+									],
+									[
+										91419,
+										91424
+									],
+									[
+										91656,
+										91661
+									],
+									[
+										91921,
+										91926
+									],
+									[
+										92165,
+										92170
+									],
+									[
+										92468,
+										92473
+									],
+									[
+										92756,
+										92761
+									],
+									[
+										93025,
+										93030
+									],
+									[
+										93250,
+										93255
+									],
+									[
+										93490,
+										93495
+									],
+									[
+										93800,
+										93805
+									],
+									[
+										93998,
+										94003
+									],
+									[
+										94290,
+										94295
+									],
+									[
+										94440,
+										94445
+									],
+									[
+										94553,
+										94558
+									],
+									[
+										94711,
+										94716
+									],
+									[
+										95020,
+										95025
+									],
+									[
+										95099,
+										95104
+									],
+									[
+										95390,
+										95395
+									],
+									[
+										95505,
+										95510
+									],
+									[
+										95736,
+										95741
+									],
+									[
+										95794,
+										95799
+									],
+									[
+										96022,
+										96027
+									],
+									[
+										96087,
+										96092
+									],
+									[
+										96292,
+										96297
+									],
+									[
+										96357,
+										96362
+									],
+									[
+										96558,
+										96563
+									],
+									[
+										96615,
+										96620
+									],
+									[
+										96855,
+										96860
+									],
+									[
+										97136,
+										97141
+									],
+									[
+										97509,
+										97514
+									],
+									[
+										97769,
+										97774
+									],
+									[
+										98072,
+										98077
+									],
+									[
+										98337,
+										98342
+									],
+									[
+										98606,
+										98611
+									],
+									[
+										98831,
+										98836
+									],
+									[
+										99077,
+										99082
+									],
+									[
+										99393,
+										99398
+									],
+									[
+										99573,
+										99578
+									],
+									[
+										99644,
+										99649
+									],
+									[
+										99886,
+										99891
+									],
+									[
+										100063,
+										100068
+									],
+									[
+										100242,
+										100247
+									],
+									[
+										100398,
+										100403
+									],
+									[
+										100477,
+										100482
+									],
+									[
+										100824,
+										100829
+									],
+									[
+										100951,
+										100956
+									],
+									[
+										101165,
+										101170
+									],
+									[
+										101218,
+										101223
+									],
+									[
+										101489,
+										101494
+									],
+									[
+										101554,
+										101559
+									],
+									[
+										101759,
+										101764
+									],
+									[
+										101824,
+										101829
+									],
+									[
+										101970,
+										101975
+									],
+									[
+										102035,
+										102040
+									],
+									[
+										102222,
+										102227
+									],
+									[
+										102427,
+										102432
+									],
+									[
+										102691,
+										102696
+									],
+									[
+										102743,
+										102748
+									],
+									[
+										102947,
+										102952
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								20372,
+								20372
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/home/christoff/em/software/auxi.0/src",
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ 	].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 357.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/slurry.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27467,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12,
-								0
+								8277,
+								8277
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4128.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "tools/chemistry/data/rao/Compound_Fe2O3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 603,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								523,
+								523
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 4,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
 				{
-					"buffer": 11,
-					"file": "/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
+					"buffer": 5,
+					"file": "/home/christoff/pmpy/trunk/0.1/src/chemistry/data/thermo/Compound_Fe2O3.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 260,
+						"buffer_size": 1225,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								139,
-								96
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/home/christoff/em/software/auxi.0/doc/user/deploy",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 78,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								76,
-								76
+								150,
+								150
 							]
 						],
 						"settings":
@@ -1192,24 +3074,52 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "tools/chemistry/thermochemistry_test.py",
+					"buffer": 6,
+					"file": "/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3180,
+						"buffer_size": 616,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2086,
-								2086
+								130,
+								130
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1000,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								44
 							]
 						],
 						"settings":
@@ -1217,10 +3127,38 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 323.0,
+						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "tools/chemistry/thermochemistry.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22491,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11847,
+								11847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2091.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1259,7 +3197,7 @@
 		"rows":
 		[
 			0.0,
-			0.554736842105,
+			0.594964277871,
 			1.0
 		]
 	},
@@ -1304,7 +3242,7 @@
 		[
 			[
 				"",
-				"~/em/software/ChemAppPy/Python 3.3.5/chemApp 6.4.5/chemapp-python.sublime-workspace"
+				"~/em/software/auxi.0/src/auxi.sublime-workspace"
 			]
 		],
 		"width": 380.0
@@ -1318,7 +3256,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

@@ -1,13 +1,11 @@
 {
-  "Formula": "Fe2O3",
-  "Reference": "rao1985",
   "Phases": {
     "Salpha": {
-      "Symbol": "Salpha",
+      "DHref": -821319.0,
       "Sref": 87.446,
+      "Symbol": "Salpha",
       "Cp_records": {
         "3000": {
-          "Tmin": "298.15",
           "Terms": [
             {
               "Coefficient": 98.282,
@@ -22,10 +20,12 @@
               "Exponent": "-2"
             }
           ],
+          "Tmin": "298.15",
           "Tmax": "3000"
         }
-      },
-      "DHref": -821.319
+      }
     }
-  }
+  },
+  "Reference": "rao1985",
+  "Formula": "Fe2O3"
 }

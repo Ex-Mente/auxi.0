@@ -40,5 +40,5 @@ setup(name='auxi',
                                              r'data/nist/*.json'],
                     'auxi.modelling.process.materials': [r'data/*.txt'],
                     'auxi': [r'*.txt', r'doc/*.pdf']},
-      install_requires=['jsonpickle', 'tabulate', 'enum34', 'numpy>=1.8.2']
+      install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil']
       )
