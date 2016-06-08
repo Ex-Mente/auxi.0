@@ -43,7 +43,7 @@ from auxi.modelling.business.basic_test import BasicLoanActivityUnitTester
 from auxi.modelling.business.models_test import TimeBasedModelUnitTester
 
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

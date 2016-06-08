@@ -1,0 +1,48 @@
+{
+  "Phases": {
+    "L": {
+      "DHref": -285830.0,
+      "Sref": 69.95,
+      "Symbol": "L",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 75.438,
+              "Exponent": "0"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    },
+    "G": {
+      "DHref": -241814.0,
+      "Sref": 188.724,
+      "Symbol": "G",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 30.0,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.010711,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": 33500.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    }
+  },
+  "Reference": "rao1985",
+  "Formula": "H2O"
+}
