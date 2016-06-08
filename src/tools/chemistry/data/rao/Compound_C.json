@@ -1,1 +1,31 @@
-{'Phases': {'Sgr': {'DHref': 0.0, 'Sref': 5.74, 'Symbol': 'Sgr', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 17.154, 'Exponent': '0'}, {'Coefficient': 0.004268, 'Exponent': '1'}, {'Coefficient': -878600.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'C'}
+{
+  "Phases": {
+    "Sgr": {
+      "DHref": 0.0,
+      "Sref": 5.74,
+      "Symbol": "Sgr",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 17.154,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.004268,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -878600.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    }
+  },
+  "Reference": "rao1985",
+  "Formula": "C"
+}

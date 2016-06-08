@@ -1,1 +1,31 @@
-{'Phases': {'G': {'DHref': 30910.0, 'Sref': 245.35, 'Symbol': 'G', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 37.363, 'Exponent': '0'}, {'Coefficient': 0.00046, 'Exponent': '1'}, {'Coefficient': -129700.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'Br2'}
+{
+  "Phases": {
+    "G": {
+      "DHref": 30910.0,
+      "Sref": 245.35,
+      "Symbol": "G",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 37.363,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.00046,
+              "Exponent": "1"
+            },
+            {
+              "Coefficient": -129700.0,
+              "Exponent": "-2"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    }
+  },
+  "Reference": "rao1985",
+  "Formula": "Br2"
+}

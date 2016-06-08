@@ -1,1 +1,27 @@
-{'Phases': {'S': {'DHref': -50208.0, 'Sref': 64.978, 'Symbol': 'S', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 43.514, 'Exponent': '0'}, {'Coefficient': 0.009623, 'Exponent': '1'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'AlSb'}
+{
+  "Phases": {
+    "S": {
+      "DHref": -50208.0,
+      "Sref": 64.978,
+      "Symbol": "S",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 43.514,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.009623,
+              "Exponent": "1"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    }
+  },
+  "Reference": "rao1985",
+  "Formula": "AlSb"
+}

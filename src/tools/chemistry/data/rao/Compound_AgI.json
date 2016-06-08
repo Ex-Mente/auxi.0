@@ -1,1 +1,27 @@
-{'Phases': {'Salpha': {'DHref': -61923.0, 'Sref': 115.478, 'Symbol': 'Salpha', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 24.351, 'Exponent': '0'}, {'Coefficient': 0.100834, 'Exponent': '1'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'AgI'}
+{
+  "Phases": {
+    "S1": {
+      "DHref": -61923.0,
+      "Sref": 115.478,
+      "Symbol": "S1",
+      "Cp_records": {
+        "3000": {
+          "Terms": [
+            {
+              "Coefficient": 24.351,
+              "Exponent": "0"
+            },
+            {
+              "Coefficient": 0.100834,
+              "Exponent": "1"
+            }
+          ],
+          "Tmin": "298.15",
+          "Tmax": "3000"
+        }
+      }
+    }
+  },
+  "Reference": "rao1985",
+  "Formula": "AgI"
+}
