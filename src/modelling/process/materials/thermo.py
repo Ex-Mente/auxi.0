@@ -371,9 +371,9 @@ class MaterialPackage(Object):
         result += b1
         result += "Material".ljust(20) + self.material.name + "\n"
         result += "Mass".ljust(20) + '{:.8e}'.format(
-            self.mass()).rjust(15) + " kg\n"
+            self.mass).rjust(15) + " kg\n"
         result += "Amount".ljust(20) + '{:.8e}'.format(
-            self.get_amount()).rjust(15) + " kmol\n"
+            self.amount).rjust(15) + " kmol\n"
         result += "Pressure".ljust(20) + '{:.8e}'.format(
             self.P).rjust(15) + " atm\n"
         result += "Temperature".ljust(20) + '{:.8e}'.format(
@@ -386,7 +386,7 @@ class MaterialPackage(Object):
                   "Mass Fraction".ljust(16) + \
                   "Mole Fraction".ljust(16) + "\n"
         result += b2
-        mass = self.mass()
+        mass = self.mass
         compound_moles = self.get_compound_amounts()
         total_moles = compound_moles.sum()
         if mass > 0.0:
