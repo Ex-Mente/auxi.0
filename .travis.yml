@@ -1,13 +1,16 @@
 language: python
 python:
+- "2.7"
 - "3.4"
 compiler: gcc
 sudo: required
 dist: trusty
 before_install:
+- sudo apt-get -y install python-setuptools
 - sudo apt-get -y install python3-setuptools
 script:
 - cd $TRAVIS_BUILD_DIR
+- sudo python setup.py sdist
 - sudo python3 setup.py sdist
 deploy:
   provider: pypi
