@@ -4,6 +4,8 @@ python:
 compiler: gcc
 sudo: required
 dist: trusty
+before_install:
+- sudo apt-get install python3-setuptools
 script:
 - cd $TRAVIS_BUILD_DIR
 - sudo python3 setup.py sdist
