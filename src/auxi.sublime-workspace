@@ -188,42 +188,18 @@
 	"buffers":
 	[
 		{
-			"file": "tools/chemistry/data/nist/Compound_Fe2O3.json",
+			"file": "tools/chemistry/data/rao/Compound_CaSiO3.json",
 			"settings":
 			{
-				"buffer_size": 1083,
+				"buffer_size": 321,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0/setup.py",
+			"file": "tools/chemistry/data/references.json",
 			"settings":
 			{
-				"buffer_size": 1839,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0/doc/user/source/gettingstarted.rst",
-			"settings":
-			{
-				"buffer_size": 1753,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/videos/auxi-change-thermo-data/auxi-change-thermo-data-vid-script.txt",
-			"settings":
-			{
-				"buffer_size": 1232,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "tools/chemistry/data/rao/Compound_H2O.json",
-			"settings":
-			{
-				"buffer_size": 482,
+				"buffer_size": 306,
 				"line_ending": "Unix"
 			}
 		},
@@ -236,15 +212,167 @@
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/nist_Compound_Fe2O3.json",
+			"file": "tools/chemistry/data/rao/Compound_Cd.json",
 			"settings":
 			{
-				"buffer_size": 2209,
+				"buffer_size": 597,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/rao_Compound_Fe2O3.json",
+			"file": "tools/chemistry/data/rao/Compound_CdO.json",
+			"settings":
+			{
+				"buffer_size": 313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CdS.json",
+			"settings":
+			{
+				"buffer_size": 268,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CH4.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Cl2.json",
+			"settings":
+			{
+				"buffer_size": 310,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Co.json",
+			"settings":
+			{
+				"buffer_size": 704,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CO.json",
+			"settings":
+			{
+				"buffer_size": 312,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CO2.json",
+			"settings":
+			{
+				"buffer_size": 316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_COCl2.json",
+			"settings":
+			{
+				"buffer_size": 319,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CoO.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_COS.json",
+			"settings":
+			{
+				"buffer_size": 316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Cr.json",
+			"settings":
+			{
+				"buffer_size": 475,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Cu.json",
+			"settings":
+			{
+				"buffer_size": 642,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Cu2O.json",
+			"settings":
+			{
+				"buffer_size": 270,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Cu2S.json",
+			"settings":
+			{
+				"buffer_size": 236,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CuO.json",
+			"settings":
+			{
+				"buffer_size": 269,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CuS.json",
+			"settings":
+			{
+				"buffer_size": 267,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_CuSO4.json",
+			"settings":
+			{
+				"buffer_size": 270,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_F2.json",
+			"settings":
+			{
+				"buffer_size": 309,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Fe.json",
+			"settings":
+			{
+				"buffer_size": 1138,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Fe2O3.json",
 			"settings":
 			{
 				"buffer_size": 604,
@@ -252,53 +380,346 @@
 			}
 		},
 		{
-			"file": "/home/christoff/pmpy/trunk/0.1/src/chemistry/data/thermo/Compound_Fe2O3.txt",
+			"file": "tools/chemistry/data/rao/Compound_Fe3O4.json",
 			"settings":
 			{
-				"buffer_size": 1225,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
-			"settings":
-			{
-				"buffer_size": 616,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_nist_thermo_data_to_auxi.py",
-			"settings":
-			{
-				"buffer_size": 8022,
+				"buffer_size": 283,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "tools/chemistry/thermochemistry_test.py",
+			"file": "tools/chemistry/data/rao/Compound_FeO.json",
 			"settings":
 			{
-				"buffer_size": 3178,
+				"buffer_size": 315,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
+			"file": "tools/chemistry/data/rao/Compound_FeS.json",
 			"settings":
 			{
-				"buffer_size": 1000,
+				"buffer_size": 279,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "{'Formula': 'Fe2O3', 'Phases': {'S3': {'Cp_records': {2500: {'Terms': [{'Coefficient': 110.9362, 'Exponent': '0'}, {'Coefficient': 0.03204714, 'Exponent': '1'}, {'Coefficient': -9.192333e-06, 'Exponent': '2'}, {'Coefficient': 9.01506e-10, 'Exponent': '3'}, {'Coefficient': 5433677.0, 'Exponent': '-2'}], 'Tmax': 2500, 'Tmin': 1050}}, 'Symbol': 'S3', 'Sref': 228.3548, 'DHref': -8255032}, 'S2': {'Cp_records': {1050: {'Terms': [{'Coefficient': 150.624, 'Exponent': '0'}, {'Coefficient': 0, 'Exponent': '1'}, {'Coefficient': 0, 'Exponent': '2'}, {'Coefficient': 0, 'Exponent': '3'}, {'Coefficient': 0, 'Exponent': '-2'}], 'Tmax': 1050, 'Tmin': 950}}, 'Symbol': 'S2', 'Sref': 252.8814, 'DHref': -8255032}, 'S1': {'Cp_records': {950: {'Terms': [{'Coefficient': 93.43834, 'Exponent': '0'}, {'Coefficient': 0.1083577, 'Exponent': '1'}, {'Coefficient': -5.086447e-05, 'Exponent': '2'}, {'Coefficient': 2.558683e-08, 'Exponent': '3'}, {'Coefficient': -1611330.0, 'Exponent': '-2'}], 'Tmax': 950, 'Tmin': 298}}, 'Symbol': 'S1', 'Sref': 161.0719, 'DHref': -8255032}}, 'Reference': 'chase1998'}",
-			"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Fe2O3.json",
-			"file_size": 1083,
-			"file_write_time": 131097656162984320,
+			"file": "tools/chemistry/data/rao/Compound_H2.json",
 			"settings":
 			{
-				"buffer_size": 1083,
+				"buffer_size": 305,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_H2O.json",
+			"settings":
+			{
+				"buffer_size": 914,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_H2S.json",
+			"settings":
+			{
+				"buffer_size": 315,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_HBr.json",
+			"settings":
+			{
+				"buffer_size": 313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_HCl.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_HI.json",
+			"settings":
+			{
+				"buffer_size": 310,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_I2.json",
+			"settings":
+			{
+				"buffer_size": 312,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_K2CO3.json",
+			"settings":
+			{
+				"buffer_size": 273,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Mg.json",
+			"settings":
+			{
+				"buffer_size": 685,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_MgCO3.json",
+			"settings":
+			{
+				"buffer_size": 319,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_MgO.json",
+			"settings":
+			{
+				"buffer_size": 315,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_N2.json",
+			"settings":
+			{
+				"buffer_size": 263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Na2CO3.json",
+			"settings":
+			{
+				"buffer_size": 320,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_NH3.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Ni.json",
+			"settings":
+			{
+				"buffer_size": 703,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Ni3S2.json",
+			"settings":
+			{
+				"buffer_size": 328,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_NiO.json",
+			"settings":
+			{
+				"buffer_size": 326,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_NiS.json",
+			"settings":
+			{
+				"buffer_size": 322,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_O2.json",
+			"settings":
+			{
+				"buffer_size": 309,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Pb.json",
+			"settings":
+			{
+				"buffer_size": 686,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_PbO.json",
+			"settings":
+			{
+				"buffer_size": 665,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_S.json",
+			"settings":
+			{
+				"buffer_size": 534,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_S2.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Sb.json",
+			"settings":
+			{
+				"buffer_size": 429,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Si.json",
+			"settings":
+			{
+				"buffer_size": 476,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_SiO2.json",
+			"settings":
+			{
+				"buffer_size": 316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Sn.json",
+			"settings":
+			{
+				"buffer_size": 621,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_SnO2.json",
+			"settings":
+			{
+				"buffer_size": 315,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_SO2.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_SO3.json",
+			"settings":
+			{
+				"buffer_size": 317,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Ti.json",
+			"settings":
+			{
+				"buffer_size": 490,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_TiO2.json",
+			"settings":
+			{
+				"buffer_size": 329,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_U.json",
+			"settings":
+			{
+				"buffer_size": 313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_UO2.json",
+			"settings":
+			{
+				"buffer_size": 316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_V.json",
+			"settings":
+			{
+				"buffer_size": 305,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_W.json",
+			"settings":
+			{
+				"buffer_size": 261,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Zn.json",
+			"settings":
+			{
+				"buffer_size": 599,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_ZnO.json",
+			"settings":
+			{
+				"buffer_size": 314,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_ZnS.json",
+			"settings":
+			{
+				"buffer_size": 312,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tools/chemistry/data/rao/Compound_Zr.json",
+			"settings":
+			{
+				"buffer_size": 272,
 				"line_ending": "Unix"
 			}
 		}
@@ -398,15 +819,42 @@
 	],
 	"file_history":
 	[
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As2O3.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As4.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Br2.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_C.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ca.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaCO3.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaO.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaS.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_ZrO2.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ag.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AgCl.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AgI.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Al.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Al2O3.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AlSb.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As.json",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/videos/auxi-change-thermo-data/auxi-change-thermo-data-vid-script.txt",
+		"/home/christoff/em/software/auxi.0/doc/user/source/gettingstarted.rst",
+		"/home/christoff/em/software/auxi.0/setup.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/nist/Compound_Fe2O3.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/nist_Compound_Fe2O3.json",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/rao_Compound_Fe2O3.json",
+		"/home/christoff/pmpy/trunk/0.1/src/chemistry/data/thermo/Compound_Fe2O3.txt",
+		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_nist_thermo_data_to_auxi.py",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
+		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Fe2O3.json",
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_H2O.json",
 		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0/src/modelling/process/materials/slurry.py",
 		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/tools/chemistry/data/rao/Compound_Fe3O4.json",
 		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_rao_thermo_data_to_auxi.py",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Fe2O3.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry.py",
 		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/Compound_Fe2O3.json",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
 		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/untitled0.py",
-		"/home/christoff/em/software/auxi.0/setup.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo.py",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/thermo_test.py",
 		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/tools/chemistry/data/rao/Compound_Fe2O3.json",
@@ -416,12 +864,9 @@
 		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/nist_data.csv",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial/reporting_test.py",
 		"/home/christoff/em/software/auxi.0/create_distribution",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/thermochemistry_test.py",
 		"/home/christoff/em/software/auxi.0/doc/user/deploy",
 		"/home/christoff/em/software/auxi.0/build_and_deploy_test_py27.sh",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Fe2O3.json",
 		"/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/tools/chemistry/data/rao/Compound_CO.json",
-		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_nist_thermo_data_to_auxi.py",
 		"/home/christoff/em/software/auxi.1_svn/trunk/0.0/src/auxi/tools/chemistry/thermochemistry/data/Compound_Fe2O3.json",
 		"/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Al.json",
 		"/home/christoff/em/software/auxi.0/src/modelling/financial/des_test.py",
@@ -457,21 +902,6 @@
 		"/home/christoff/em/software/auxi.0/dist/auxi-0.2.0rc6/MANIFEST.in",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/references.json",
 		"/home/christoff/em/software/auxi.0/src/modelling/process/materials/psd.py",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As4.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As2O3.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_As.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AlSb.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Al.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AgI.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_AgCl.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Al2O3.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Br2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_C.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ca.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaCO3.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ag.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaO.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaS.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CaSiO3.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Cd.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_CdO.json",
@@ -516,16 +946,7 @@
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_NiO.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_NH3.json",
 		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ni3S2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ni.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_SO2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_S.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_S2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Sb.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Si.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_SiO2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Sn.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_SnO2.json",
-		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_SO3.json"
+		"/home/christoff/em/software/auxi.0/src/tools/chemistry/data/rao/Compound_Ni.json"
 	],
 	"find":
 	{
@@ -825,24 +1246,1592 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "tools/chemistry/data/nist/Compound_Fe2O3.json",
+					"file": "tools/chemistry/data/rao/Compound_CaSiO3.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1083,
+						"buffer_size": 321,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1083,
-								1083
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "tools/chemistry/data/references.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								302,
+								302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "tools/chemistry/thermochemistry.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 22488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								367,
+								367
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5211.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "tools/chemistry/data/rao/Compound_Cd.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 597,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 66,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "tools/chemistry/data/rao/Compound_CdO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 65,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "tools/chemistry/data/rao/Compound_CdS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 268,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 64,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "tools/chemistry/data/rao/Compound_CH4.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 63,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "tools/chemistry/data/rao/Compound_Cl2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 310,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 62,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "tools/chemistry/data/rao/Compound_Co.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 704,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 61,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "tools/chemistry/data/rao/Compound_CO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 60,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "tools/chemistry/data/rao/Compound_CO2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 59,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "tools/chemistry/data/rao/Compound_COCl2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 319,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 58,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "tools/chemistry/data/rao/Compound_CoO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 57,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "tools/chemistry/data/rao/Compound_COS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 56,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "tools/chemistry/data/rao/Compound_Cr.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 475,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 55,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "tools/chemistry/data/rao/Compound_Cu.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 54,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "tools/chemistry/data/rao/Compound_Cu2O.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 53,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "tools/chemistry/data/rao/Compound_Cu2S.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 52,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "tools/chemistry/data/rao/Compound_CuO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 269,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 51,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "tools/chemistry/data/rao/Compound_CuS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 50,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "tools/chemistry/data/rao/Compound_CuSO4.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 49,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "tools/chemistry/data/rao/Compound_F2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 48,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "tools/chemistry/data/rao/Compound_Fe.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1138,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 47,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "tools/chemistry/data/rao/Compound_Fe2O3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 604,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 46,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "tools/chemistry/data/rao/Compound_Fe3O4.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 45,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "tools/chemistry/data/rao/Compound_FeO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 44,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "tools/chemistry/data/rao/Compound_FeS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 279,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 43,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "tools/chemistry/data/rao/Compound_H2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 305,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 42,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "tools/chemistry/data/rao/Compound_H2O.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 914,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 41,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "tools/chemistry/data/rao/Compound_H2S.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 40,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"file": "tools/chemistry/data/rao/Compound_HBr.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 39,
+					"type": "text"
+				},
+				{
+					"buffer": 31,
+					"file": "tools/chemistry/data/rao/Compound_HCl.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 38,
+					"type": "text"
+				},
+				{
+					"buffer": 32,
+					"file": "tools/chemistry/data/rao/Compound_HI.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 310,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 37,
+					"type": "text"
+				},
+				{
+					"buffer": 33,
+					"file": "tools/chemistry/data/rao/Compound_I2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 36,
+					"type": "text"
+				},
+				{
+					"buffer": 34,
+					"file": "tools/chemistry/data/rao/Compound_K2CO3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 35,
+					"type": "text"
+				},
+				{
+					"buffer": 35,
+					"file": "tools/chemistry/data/rao/Compound_Mg.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 34,
+					"type": "text"
+				},
+				{
+					"buffer": 36,
+					"file": "tools/chemistry/data/rao/Compound_MgCO3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 319,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 33,
+					"type": "text"
+				},
+				{
+					"buffer": 37,
+					"file": "tools/chemistry/data/rao/Compound_MgO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 38,
+					"file": "tools/chemistry/data/rao/Compound_N2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 39,
+					"file": "tools/chemistry/data/rao/Compound_Na2CO3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 320,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 40,
+					"file": "tools/chemistry/data/rao/Compound_NH3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 41,
+					"file": "tools/chemistry/data/rao/Compound_Ni.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 703,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 42,
+					"file": "tools/chemistry/data/rao/Compound_Ni3S2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 328,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 43,
+					"file": "tools/chemistry/data/rao/Compound_NiO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 44,
+					"file": "tools/chemistry/data/rao/Compound_NiS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 45,
+					"file": "tools/chemistry/data/rao/Compound_O2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 46,
+					"file": "tools/chemistry/data/rao/Compound_Pb.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 686,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 47,
+					"file": "tools/chemistry/data/rao/Compound_PbO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 665,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 48,
+					"file": "tools/chemistry/data/rao/Compound_S.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 49,
+					"file": "tools/chemistry/data/rao/Compound_S2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 50,
+					"file": "tools/chemistry/data/rao/Compound_Sb.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 429,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 51,
+					"file": "tools/chemistry/data/rao/Compound_Si.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 52,
+					"file": "tools/chemistry/data/rao/Compound_SiO2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 53,
+					"file": "tools/chemistry/data/rao/Compound_Sn.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 621,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 54,
+					"file": "tools/chemistry/data/rao/Compound_SnO2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 55,
+					"file": "tools/chemistry/data/rao/Compound_SO2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 56,
+					"file": "tools/chemistry/data/rao/Compound_SO3.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 317,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -857,96 +2846,12 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "/home/christoff/em/software/auxi.0/setup.py",
+					"buffer": 57,
+					"file": "tools/chemistry/data/rao/Compound_Ti.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1839,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1823,
-								1823
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 408.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/christoff/em/software/auxi.0/doc/user/source/gettingstarted.rst",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1753,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								104,
-								104
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/RestructuredText/reStructuredText.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/videos/auxi-change-thermo-data/auxi-change-thermo-data-vid-script.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1232,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1232,
-								1232
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 208.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "tools/chemistry/data/rao/Compound_H2O.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 482,
+						"buffer_size": 490,
 						"regions":
 						{
 						},
@@ -955,90 +2860,6 @@
 							[
 								0,
 								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "tools/chemistry/thermochemistry.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 22488,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 12342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/nist_Compound_Fe2O3.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2209,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								115,
-								115
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1275.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/data/rao_Compound_Fe2O3.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 604,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								63,
-								63
 							]
 						],
 						"settings":
@@ -1051,168 +2872,22 @@
 					},
 					"stack_index": 12,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 8,
-					"file": "/home/christoff/pmpy/trunk/0.1/src/chemistry/data/thermo/Compound_Fe2O3.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1225,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								150,
-								150
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "/usr/local/lib/python3.4/dist-packages/auxi-0.2.1-py3.4.egg/auxi/modelling/process/materials/data/thermomaterial.test.ilmenite.txt",
+					"buffer": 58,
+					"file": "tools/chemistry/data/rao/Compound_TiO2.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 616,
+						"buffer_size": 329,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								370,
-								370
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/convert_nist_thermo_data_to_auxi.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8022,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2727,
-								2727
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 612.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "tools/chemistry/thermochemistry_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3178,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3133,
-								3133
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1173.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/compare_thermo_data.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								261,
-								261
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 204.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "/home/christoff/em/software/auxi.0_svn/trunk/0.0/sandbox/Compound_Fe2O3.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1083,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1083,
-								1083
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1225,7 +2900,236 @@
 					},
 					"stack_index": 11,
 					"type": "text"
+				},
+				{
+					"buffer": 59,
+					"file": "tools/chemistry/data/rao/Compound_U.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 60,
+					"file": "tools/chemistry/data/rao/Compound_UO2.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 61,
+					"file": "tools/chemistry/data/rao/Compound_V.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 305,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 62,
+					"file": "tools/chemistry/data/rao/Compound_W.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 261,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 63,
+					"file": "tools/chemistry/data/rao/Compound_Zn.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 599,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 64,
+					"file": "tools/chemistry/data/rao/Compound_ZnO.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 65,
+					"file": "tools/chemistry/data/rao/Compound_ZnS.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 66,
+					"file": "tools/chemistry/data/rao/Compound_Zr.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 272,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -1307,7 +3211,7 @@
 		[
 			[
 				"",
-				"~/em/software/auxi.0/src/auxi.sublime-workspace"
+				"~/em/software/ChemAppPy/Python3.3.5/chemApp6.4.5/chemapp-python.sublime-project"
 			]
 		],
 		"width": 380.0

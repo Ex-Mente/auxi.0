@@ -26,8 +26,16 @@ Getting Started
 
 Structure
 =========
-auxi is a python package that packages modules containing functions and classes that the engineers will ultimately use to help with their day-to-day tasks.
-auxi consists of python packages that are divided into two packages, the modelling framework package and the tools package.
+auxi is a Python package, and it is currently divided into two main sub-packages, namely tools and modelling. The tools package provides help with simple tasks like calculating molar masses, enthalpies of heat capacities. The modelling package helps you to do more sophisticated calculations, and to build process models.
+
+Tools
+-----
+This package currently only contains a single set of tools, namely for chemistry calculations.
+
+.. toctree::
+   :maxdepth: 1
+
+   chemistry_tools
 
 
 Modelling Frameworks
@@ -39,15 +47,6 @@ This package contains modules, functions and classes for developing different ty
 
    process_modelling
    business_modelling
-
-Tools
------
-This package contains modules, functions and classes used to provide tools to aid the engineer with calculations.
-
-.. toctree::
-   :maxdepth: 1
-
-   chemistry_tools
 
 
 auxi Reference

@@ -12,7 +12,7 @@ setup(name='auxi',
       version='0.2.3',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
-      long_description=open('README.txt').read(),
+      long_description=open('README.md').read(),
       author='Ex Mente (Pty) Ltd',
       author_email='dev@ex-mente.co.za',
       maintainer='Ex Mente (Pty) Ltd',
