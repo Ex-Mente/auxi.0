@@ -30,7 +30,7 @@ auxi is a Python package, and it is currently divided into two main sub-packages
 
 Tools
 -----
-This package contains modules, functions and classes used to provide tools to aid the engineer with calculations.
+This package currently only contains a single set of tools, namely for chemistry calculations.
 
 .. toctree::
    :maxdepth: 1
