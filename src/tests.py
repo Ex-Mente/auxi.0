@@ -11,15 +11,22 @@ from auxi.core.time_test import ClockUnitTester
 
 from auxi.tools.chemistry.stoichiometry_test import StoichFunctionTester
 from auxi.tools.chemistry.thermochemistry_test import ThermoFunctionTester
+from auxi.tools.materialphysicalproperties.core_test import DataSetTester
+from auxi.tools.materialphysicalproperties.idealgas_test \
+    import BetaTTester, RhoTTester, RhoTPTester, RhoTPxTester
+from auxi.tools.materialphysicalproperties.polynomial_test \
+    import PolynomialModelTTester
 
-from auxi.modelling.process.materials.chem_test import ChemMaterialUnitTester
-from auxi.modelling.process.materials.chem_test import ChemMaterialPackageUnitTester
-from auxi.modelling.process.materials.thermo_test import ThermoMaterialUnitTester
+from auxi.modelling.process.materials.chem_test \
+    import ChemMaterialUnitTester, ChemMaterialPackageUnitTester
+from auxi.modelling.process.materials.thermo_test \
+    import ThermoMaterialUnitTester
 #from auxi.modelling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
-from auxi.modelling.process.materials.psd_test import PsdMaterialUnitTester
-from auxi.modelling.process.materials.psd_test import PsdMaterialPackageUnitTester
-from auxi.modelling.process.materials.slurry_test import SlurryMaterialUnitTester
-from auxi.modelling.process.materials.slurry_test import SlurryMaterialPackageUnitTester
+from auxi.modelling.process.materials.psd_test \
+    import PsdMaterialUnitTester, PsdMaterialPackageUnitTester
+from auxi.modelling.process.materials.slurry_test \
+    import SlurryMaterialUnitTester, SlurryMaterialPackageUnitTester
+
 
 # MODELLING.FINANCIAL
 
@@ -32,7 +39,9 @@ from auxi.modelling.financial.des_test import GeneralLedgerUnitTester
 from auxi.modelling.financial.reporting_test import GeneralLedgerStructureUnitTester
 from auxi.modelling.financial.reporting_test import TransactionListUnitTester
 
+
 # MODELLING.BUSINESS
+
 from auxi.modelling.business.structure_test import ActivityUnitTester
 from auxi.modelling.business.structure_test import ComponentUnitTester
 from auxi.modelling.business.structure_test import EntityUnitTester
