@@ -1,5 +1,5 @@
 """
-This package provides a set of physical constants that are used frequently.
+This module provides a set of physical constants that are used frequently.
 """
 
 __version__ = '0.2.3'
