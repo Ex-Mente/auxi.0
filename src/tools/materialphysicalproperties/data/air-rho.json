@@ -1,0 +1,25 @@
+{
+    "_coeffs": [
+        2.207010112413834e-28,
+        -1.8498386015487013e-24,
+        6.761238643515948e-21,
+        -1.415594789179995e-17,
+        1.875696238757754e-14,
+        -1.6406192076125332e-11,
+        9.591604317302061e-09,
+        -3.714488392719117e-06,
+        0.0009239972475093591,
+        -0.13882710545123356,
+        11.147387712425617
+    ],
+    "datasets": [
+        "dataset-air-lienhard2015.csv"
+    ],
+    "display_symbol": "\\rho",
+    "material": "Air",
+    "property": "Density",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "rho",
+    "units": "kg/m3"
+}
