@@ -1,0 +1,19 @@
+{
+    "_coeffs": [
+        -9.337481982684464e-15,
+        4.1023395581940547e-11,
+        -6.979724336412334e-08,
+        0.00010612385011314907,
+        -0.00042791051872903004
+    ],
+    "datasets": [
+        "dataset-air-lienhard2015.csv"
+    ],
+    "display_symbol": "k",
+    "material": "Air",
+    "property": "Thermal Conductivity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "k",
+    "units": "W/m/K"
+}

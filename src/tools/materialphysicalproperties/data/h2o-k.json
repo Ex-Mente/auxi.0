@@ -1,0 +1,21 @@
+{
+    "_coeffs": [
+        1.707224101142289e-15,
+        -4.4524540106630766e-12,
+        4.723725130744225e-09,
+        -2.6010380220944207e-06,
+        0.0007754490692413495,
+        -0.11609125699111705,
+        7.188094564905322
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "k",
+    "material": "Water",
+    "property": "Thermal Conductivity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "k",
+    "units": "W/m*K"
+}

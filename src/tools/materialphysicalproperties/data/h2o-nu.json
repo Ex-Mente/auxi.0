@@ -1,0 +1,24 @@
+{
+    "_coeffs": [
+        -9.942318873295921e-27,
+        4.136676530777023e-23,
+        -7.597636897812699e-20,
+        8.084449223147463e-17,
+        -5.49248869630539e-14,
+        2.4709392519288656e-11,
+        -7.362091543373816e-09,
+        1.4012608993377448e-06,
+        -0.0001546767988786474,
+        0.007550298815840251
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\nu",
+    "material": "Water",
+    "property": "Kinematic Viscosity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "nu",
+    "units": "m2 /s"
+}

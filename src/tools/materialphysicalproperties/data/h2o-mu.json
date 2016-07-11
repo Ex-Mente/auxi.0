@@ -1,0 +1,24 @@
+{
+    "_coeffs": [
+        -1.0465468839421267e-23,
+        4.347509161562933e-20,
+        -7.971715344405068e-17,
+        8.467847413700933e-14,
+        -5.7425532743240465e-11,
+        2.578542144089749e-08,
+        -7.667468116187431e-06,
+        0.0014563643767645435,
+        -0.1604123101344244,
+        7.812644707089953
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\mu",
+    "material": "Water",
+    "property": "",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "mu",
+    "units": "kg/m/s"
+}

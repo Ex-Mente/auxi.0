@@ -1,0 +1,19 @@
+{
+    "_coeffs": [
+        -6.985105484221435e-18,
+        3.097018075281875e-14,
+        -5.555231913301272e-11,
+        7.464163493347827e-08,
+        3.0521602025722415e-07
+    ],
+    "datasets": [
+        "dataset-air-lienhard2015.csv"
+    ],
+    "display_symbol": "\\mu",
+    "material": "Air",
+    "property": "Dynamic Viscosity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "mu",
+    "units": "kg/m/s"
+}

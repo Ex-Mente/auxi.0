@@ -1,0 +1,23 @@
+{
+    "_coeffs": [
+        4.568975386685084e-15,
+        -1.5536003630425715e-11,
+        2.2910141038542335e-08,
+        -1.9130761806112016e-05,
+        0.009891646591959744,
+        -3.2423563993775657,
+        657.9052060038257,
+        -75551.99079738365,
+        3763808.5282696844
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "C_p",
+    "material": "Water",
+    "property": "Specific Heat",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "Cp",
+    "units": "J/kg*K"
+}

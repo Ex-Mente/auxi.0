@@ -1,0 +1,27 @@
+{
+    "_coeffs": [
+        -3.1815384512949225e-24,
+        1.714174034487096e-20,
+        -4.2019777558546384e-17,
+        6.19596041777135e-14,
+        -6.120010547874507e-11,
+        4.2654830218892186e-08,
+        -2.150811283044076e-05,
+        0.007904910619868808,
+        -2.101565215710739,
+        394.12042605413103,
+        -49488.94751249011,
+        3735842.7331746663,
+        -128214388.82330982
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\rho",
+    "material": "Water",
+    "property": " Density",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "rho",
+    "units": "kg/m3"
+}
