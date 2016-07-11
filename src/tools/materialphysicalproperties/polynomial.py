@@ -109,12 +109,12 @@ class PolynomialModelT(ModelT):
 
             x_vals2 = np.linspace(min(x_vals), max(x_vals), 80)
             fx = np.polyval(self._coeffs, x_vals2)
-            plt.plot(x_vals2, fx, linewidth=0.3,
-                     label=_formula_string(self._coeffs, 'T'))
+            plt.plot(x_vals2, fx, linewidth=0.3, label='')
+#                     label=_formula_string(self._coeffs, 'T'))
 
             plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
             plt.legend(loc=3, bbox_to_anchor=(0, 0.8))
-            plt.setp(plt.gca().get_legend().get_texts(), fontsize='5')
+#            plt.setp(plt.gca().get_legend().get_texts(), fontsize='5')
             plt.title('$%s$ vs $T$' % self.display_symbol)
             plt.xlabel('$T$ (K)')
 

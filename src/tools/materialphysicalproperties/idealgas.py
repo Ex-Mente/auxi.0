@@ -26,7 +26,7 @@ class BetaT(Model):
 
     def __init__(self):
         super().__init__('Ideal Gas', 'Thermal Expansion Coefficient', 'beta',
-                         '1/K', None, None)
+                         '\\beta', '1/K', None, None)
 
     def __call__(self, T):
         return self.calculate(T)
@@ -53,7 +53,8 @@ class RhoT(Model):
     """
 
     def __init__(self, molar_mass, P):
-        super().__init__('Ideal Gas', 'Density', 'rho', 'kg/m3', None, None)
+        super().__init__('Ideal Gas', 'Density', 'rho', '\\rho', 'kg/m3', None,
+                         None)
 
         self.mm = molar_mass / 1000.0
         """[kg/mol] average molar mass of the gas"""

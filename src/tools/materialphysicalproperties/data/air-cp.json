@@ -1,0 +1,25 @@
+{
+    "_coeffs": [
+        1.6142223540232397e-26,
+        -1.341439352025271e-22,
+        4.846430661380701e-19,
+        -9.983760307701643e-16,
+        1.2922276441694e-12,
+        -1.0913137545324396e-09,
+        6.04524983912734e-07,
+        -0.00021544512693259248,
+        0.04742383019010666,
+        -5.856224354092481,
+        1314.9297295791703
+    ],
+    "datasets": [
+        "dataset-air-lienhard2015.csv"
+    ],
+    "display_symbol": "C_p",
+    "material": "Air",
+    "property": "Heat Capacity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "Cp",
+    "units": "J/kg/K"
+}

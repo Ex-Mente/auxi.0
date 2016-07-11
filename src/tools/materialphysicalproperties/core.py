@@ -7,6 +7,9 @@ import csv
 import os
 import pandas as pd
 import webbrowser
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 from auxi.core.objects import Object
 
@@ -157,6 +160,76 @@ class ModelT(Model):
         Calculate the property value.
 
         :param T: [K] temperature
+
+        :returns: property value in the units specified for the model
+        """
+        raise NotImplementedError("This method has not yet been implemented.")
+
+    def plot(self, dataset, path, show=False):
+        with PdfPages(path) as pdf:
+            x_vals = dataset.data['T'].tolist()
+            y_vals = dataset.data[self.symbol].tolist()
+            plt.plot(x_vals, y_vals, 'ro', alpha=0.4, markersize=4)
+
+            x_vals2 = np.linspace(min(x_vals), max(x_vals), 80)
+            fx = [self(T) for T in x_vals2]
+            plt.plot(x_vals2, fx, linewidth=0.3, label='')
+#                     label=_formula_string(self._coeffs, 'T'))
+
+            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
+            plt.legend(loc=3, bbox_to_anchor=(0, 0.8))
+#            plt.setp(plt.gca().get_legend().get_texts(), fontsize='5')
+            plt.title('$%s$ vs $T$' % self.display_symbol)
+            plt.xlabel('$T$ (K)')
+
+            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
+
+            fig = plt.gcf()
+            pdf.savefig(fig)
+            plt.close()
+
+        if show:
+            webbrowser.open_new(path)
+
+
+class ModelTx(Model):
+    """
+    Base class of models that describe the variation of a specific material
+    physical property as a function of temperature, and composition expressed
+    in mole fraction.
+    """
+
+    def __call__(self, T, x):
+        return self.calculate(T, x)
+
+    def calculate(self, T, x):
+        """
+        Calculate the property value.
+
+        :param T: [K] temperature
+        :param x: mole fraction dictionary, e.g. { 'N2': 0.79, 'O2': 0.21}
+
+        :returns: property value in the units specified for the model
+        """
+        raise NotImplementedError("This method has not yet been implemented.")
+
+
+class ModelTy(Model):
+    """
+    Base class of models that describe the variation of a specific material
+    physical property as a function of temperature, and composition expressed
+    in mass fraction.
+    """
+
+    def __call__(self, T, y):
+        return self.calculate(T, y)
+
+    def calculate(self, T, y):
+        """
+        Calculate the property value.
+
+        :param T: [K] temperature
+        :param y: massfraction dictionary, e.g. { 'Fe2O3': 0.98, 'SiO2': 0.02}
 
         :returns: property value in the units specified for the model
         """

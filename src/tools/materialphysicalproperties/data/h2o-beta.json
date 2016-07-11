@@ -1,0 +1,24 @@
+{
+    "_coeffs": [
+        4.898871148070541e-23,
+        -1.8795958544810693e-19,
+        3.1797895835248814e-16,
+        -3.112480116053827e-13,
+        1.9423121662633924e-10,
+        -8.012823499240817e-08,
+        2.185187192108287e-05,
+        -0.0037988169011906135,
+        0.3820548705610243,
+        -16.940777971029252
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\beta",
+    "material": "Water",
+    "property": "Coefficient of thermal expansion",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "symbol": "beta",
+    "units": "1/K"
+}
