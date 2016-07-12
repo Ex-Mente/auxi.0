@@ -1,12 +1,14 @@
 {
     "_coeffs": [
-        1.707224101142289e-15,
-        -4.4524540106630766e-12,
-        4.723725130744225e-09,
-        -2.6010380220944207e-06,
-        0.0007754490692413495,
-        -0.11609125699111705,
-        7.188094564905322
+        4.014203387792431e-20,
+        -1.4725504184644487e-16,
+        2.354004072747528e-13,
+        -2.1391433541830797e-10,
+        1.2064709128396774e-07,
+        -4.3148928997117895e-05,
+        0.009526236891261555,
+        -1.181149910785125,
+        63.149462236055705
     ],
     "datasets": [
         "dataset-h2o-lienhard2015.csv"
@@ -16,6 +18,40 @@
     "property": "Thermal Conductivity",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "k",
     "units": "W/m*K"
 }

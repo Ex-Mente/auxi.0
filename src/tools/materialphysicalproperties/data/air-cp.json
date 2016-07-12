@@ -1,16 +1,20 @@
 {
     "_coeffs": [
-        1.6142223540232397e-26,
-        -1.341439352025271e-22,
-        4.846430661380701e-19,
-        -9.983760307701643e-16,
-        1.2922276441694e-12,
-        -1.0913137545324396e-09,
-        6.04524983912734e-07,
-        -0.00021544512693259248,
-        0.04742383019010666,
-        -5.856224354092481,
-        1314.9297295791703
+        -2.167240248257414e-37,
+        2.1745654012865567e-33,
+        -9.691876176390862e-30,
+        2.521611062196522e-26,
+        -4.223472506977001e-23,
+        4.711379525068972e-20,
+        -3.4493975389096804e-17,
+        1.483360062386287e-14,
+        -1.5650633426714446e-12,
+        -2.2950188342272744e-09,
+        1.5976710871823376e-06,
+        -0.000528272322948944,
+        0.09999320976244447,
+        -10.411579293598411,
+        1472.057621000476
     ],
     "datasets": [
         "dataset-air-lienhard2015.csv"
@@ -20,6 +24,40 @@
     "property": "Heat Capacity",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1500.0,
+            "min": 100.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1500.0,
+                    "min": 100.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1500.0,
+                "min": 100.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "Cp",
     "units": "J/kg/K"
 }

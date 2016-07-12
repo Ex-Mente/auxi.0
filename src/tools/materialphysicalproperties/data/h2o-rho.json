@@ -1,18 +1,13 @@
 {
     "_coeffs": [
-        -3.1815384512949225e-24,
-        1.714174034487096e-20,
-        -4.2019777558546384e-17,
-        6.19596041777135e-14,
-        -6.120010547874507e-11,
-        4.2654830218892186e-08,
-        -2.150811283044076e-05,
-        0.007904910619868808,
-        -2.101565215710739,
-        394.12042605413103,
-        -49488.94751249011,
-        3735842.7331746663,
-        -128214388.82330982
+        -2.4899492173821607e-15,
+        6.845778520236573e-12,
+        -7.910174083118955e-09,
+        4.941601559384215e-06,
+        -0.0017826134753816955,
+        0.3622930530553223,
+        -36.77256681983131,
+        2301.1927270014394
     ],
     "datasets": [
         "dataset-h2o-lienhard2015.csv"
@@ -22,6 +17,40 @@
     "property": " Density",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "rho",
     "units": "kg/m3"
 }

@@ -3,14 +3,9 @@
 This module provides a material class that can do thermochemical calculations.
 """
 
-import os
-import sys
-import copy
-import numpy
+from auxi.core.objects import NamedObject
+from auxi.tools.materialphysicalproperties.core import StateOfMatter
 
-from auxi.core.objects import Object, NamedObject
-from auxi.tools.chemistry import stoichiometry as stoich
-from auxi.tools.chemistry import thermochemistry as thermo
 
 __version__ = '0.2.3'
 __license__ = 'LGPL v3'
@@ -28,13 +23,20 @@ class Material(NamedObject):
     the ability to do thermochemical calculations.
 
     :param name: A name for the material.
+    :param state_of_matter: The material's state of matter, e.g. liquid.
     :param file_path: The location of the file containing the material's data.
     :param description: the material's description
     """
 
-    def __init__(self, name, property_models=None,
-                 description=None):
+    def __init__(self, name, state_of_matter=StateOfMatter.unknown,
+                 property_models=None, description=None):
         super().__init__(name, description)
+
+        self.mstate = state_of_matter
+        """State of matter."""
+
+        if 'alpha' in property_models:
+            self.beta = property_models['alpha']
 
         if 'beta' in property_models:
             self.beta = property_models['beta']
@@ -48,8 +50,14 @@ class Material(NamedObject):
         if 'mu' in property_models:
             self.mu = property_models['mu']
 
+        if 'nu' in property_models:
+            self.nu = property_models['nu']
+
         if 'rho' in property_models:
             self.rho = property_models['rho']
+
+    def alpha(self, **state):
+        return self.k(**state) / self.rho(**state) / self.Cp(**state)
 
     def beta(self, **state):
         raise NotImplementedError()
@@ -62,6 +70,9 @@ class Material(NamedObject):
 
     def mu(self, **state):
         raise NotImplementedError()
+
+    def nu(self, **state):
+        return self.mu(**state) / self.rho(**state)
 
     def rho(self, **state):
         raise NotImplementedError()
