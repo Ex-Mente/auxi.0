@@ -1,15 +1,17 @@
 {
     "_coeffs": [
-        -1.0465468839421267e-23,
-        4.347509161562933e-20,
-        -7.971715344405068e-17,
-        8.467847413700933e-14,
-        -5.7425532743240465e-11,
-        2.578542144089749e-08,
-        -7.667468116187431e-06,
-        0.0014563643767645435,
-        -0.1604123101344244,
-        7.812644707089953
+        -3.9576813586997624e-28,
+        1.9927902677896665e-24,
+        -4.534895528467415e-21,
+        6.156133074563933e-18,
+        -5.538934051384477e-15,
+        3.4682240740966084e-12,
+        -1.542178173827812e-09,
+        4.870074428583442e-07,
+        -0.00010704982419974998,
+        0.015601831420755104,
+        -1.3572736113039676,
+        53.41588607993808
     ],
     "datasets": [
         "dataset-h2o-lienhard2015.csv"
@@ -19,6 +21,40 @@
     "property": "",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "mu",
     "units": "kg/m/s"
 }

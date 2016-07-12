@@ -13,6 +13,7 @@ from auxi.tools.materialphysicalproperties.polynomial import PolynomialModelT
 from auxi.tools.materialphysicalproperties.idealgas import \
     BetaT as IgBetaT, RhoT as IgRhoT
 from auxi.modelling.process.materials.core import Material
+from auxi.tools.materialphysicalproperties.core import StateOfMatter
 
 
 __version__ = '0.2.3'
@@ -31,7 +32,19 @@ def _path(relative_path):
     path = dirname(path)
     return join(path, relative_path)
 
+
+def _create_polynomial_model(symbol, degree):
+    newmod = PolynomialModelT.create(air_dataset, symbol, degree)
+    newmod.plot(air_dataset, _path('temp.pdf'), False)
+    newmod.write(_path('data/air-%s.json' % symbol.lower()))
+
+
 air_dataset = DataSet(_path(r'data\dataset-air-lienhard2015.csv'))
+
+_create_polynomial_model('Cp', 14)
+_create_polynomial_model('k', 8)
+_create_polynomial_model('mu', 8)
+_create_polynomial_model('rho', 14)
 
 air_dict = {}
 air_dict['rho'] = IgRhoT(28.9645, 101325.0)
@@ -40,4 +53,4 @@ air_dict['mu'] = PolynomialModelT.read(_path(r'data/air-mu.json'))
 air_dict['k'] = PolynomialModelT.read(_path(r'data/air-k.json'))
 air_dict['beta'] = IgBetaT()
 
-air = Material("Air", air_dict)
+air = Material("Air", StateOfMatter.gas, air_dict)
