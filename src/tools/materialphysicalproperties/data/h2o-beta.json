@@ -1,15 +1,17 @@
 {
     "_coeffs": [
-        4.898871148070541e-23,
-        -1.8795958544810693e-19,
-        3.1797895835248814e-16,
-        -3.112480116053827e-13,
-        1.9423121662633924e-10,
-        -8.012823499240817e-08,
-        2.185187192108287e-05,
-        -0.0037988169011906135,
-        0.3820548705610243,
-        -16.940777971029252
+        1.5877993584429898e-27,
+        -7.462949315026452e-24,
+        1.584218550777903e-20,
+        -2.004607724126008e-17,
+        1.679833894302975e-14,
+        -9.787697981107019e-12,
+        4.045965192654793e-09,
+        -1.1865315348929102e-06,
+        0.00024192458453606907,
+        -0.032662780395132984,
+        2.6283313831788995,
+        -95.51095118960401
     ],
     "datasets": [
         "dataset-h2o-lienhard2015.csv"
@@ -19,6 +21,40 @@
     "property": "Coefficient of thermal expansion",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "beta",
     "units": "1/K"
 }

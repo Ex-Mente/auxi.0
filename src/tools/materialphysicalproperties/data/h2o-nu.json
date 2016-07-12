@@ -1,15 +1,17 @@
 {
     "_coeffs": [
-        -9.942318873295921e-27,
-        4.136676530777023e-23,
-        -7.597636897812699e-20,
-        8.084449223147463e-17,
-        -5.49248869630539e-14,
-        2.4709392519288656e-11,
-        -7.362091543373816e-09,
-        1.4012608993377448e-06,
-        -0.0001546767988786474,
-        0.007550298815840251
+        -3.2762658467332257e-31,
+        1.6560446220891963e-27,
+        -3.783589559921135e-24,
+        5.157383750280944e-21,
+        -4.6601042426399626e-18,
+        2.9308482982272053e-15,
+        -1.3092195411704365e-12,
+        4.154198967120011e-10,
+        -9.177016763181252e-08,
+        1.3444806112382141e-05,
+        -0.0011760362173690452,
+        0.04655045594078784
     ],
     "datasets": [
         "dataset-h2o-lienhard2015.csv"
@@ -19,6 +21,40 @@
     "property": "Kinematic Viscosity",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
     "symbol": "nu",
     "units": "m2 /s"
 }

@@ -60,13 +60,6 @@ class PolynomialModelT(Model):
     :param coeffs: polynomial coefficients sorted from highest to lowest power
     """
 
-    def __new__(cls, *args, **kwargs):
-        obj = object.__new__(cls, *args, **kwargs)
-        obj.state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
-        obj.state_validator = Validator(obj.state_schema)
-        return obj
-
-    
     def create(dataset, symbol, degree):
         """
         Create a model object from the data set for the property specified by
@@ -83,11 +76,16 @@ class PolynomialModelT(Model):
         y_vals = dataset.data[symbol].tolist()
         coeffs = np.polyfit(x_vals, y_vals, degree)
 
-        return PolynomialModelT(dataset.material,
-                                dataset.names_dict[symbol],
-                                symbol, dataset.display_symbols_dict[symbol],
-                                dataset.units_dict[symbol],
-                                None, [dataset.name], coeffs)
+        result = PolynomialModelT(dataset.material,
+                                  dataset.names_dict[symbol],
+                                  symbol, dataset.display_symbols_dict[symbol],
+                                  dataset.units_dict[symbol],
+                                  None, [dataset.name], coeffs)
+
+        result.state_schema['T']['min'] = float(min(x_vals))
+        result.state_schema['T']['max'] = float(max(x_vals))
+
+        return result
 
     def __init__(self, material, proprty, symbol, display_symbol, units,
                  references, datasets, coeffs):
