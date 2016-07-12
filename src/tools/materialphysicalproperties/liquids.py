@@ -38,12 +38,12 @@ def _create_polynomial_model(symbol, degree):
 
 h2o_dataset = DataSet(_path('data/dataset-h2o-lienhard2015.csv'))
 
-_create_polynomial_model('beta', 11)
-_create_polynomial_model('Cp', 10)
-_create_polynomial_model('k', 8)
-_create_polynomial_model('mu', 11)
-_create_polynomial_model('nu', 11)
-_create_polynomial_model('rho', 7)
+#_create_polynomial_model('beta', 11)
+#_create_polynomial_model('Cp', 10)
+#_create_polynomial_model('k', 8)
+#_create_polynomial_model('mu', 11)
+#_create_polynomial_model('nu', 11)
+#_create_polynomial_model('rho', 7)
 
 h2o_dict = {}
 h2o_dict['beta'] = PolynomialModelT.read(_path('data/h2o-beta.json'))

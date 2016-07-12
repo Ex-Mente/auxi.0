@@ -222,11 +222,11 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         thetar = radians(theta)
 
         if self._isgas:
-            Tr = Ts - 0.38 * (Ts - Tf)
+            self.Tr = Ts - 0.38 * (Ts - Tf)
             beta = self._fluid.beta(T=Tf)
         else:  # for liquids
-            Tr = Ts - 0.5 * (Ts - Tf)
-            beta = self._fluid.beta(T=Tr)
+            self.Tr = Ts - 0.5 * (Ts - Tf)
+            beta = self._fluid.beta(T=self.Tr)
 
         if Ts > Tf:  # hot surface
             if 0.0 < theta < 45.0:
@@ -239,8 +239,8 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
             else:
                 g = const.g
 
-        nu = self._fluid.nu(T=Tr)
-        alpha = self._fluid.alpha(T=Tr)
+        nu = self._fluid.nu(T=self.Tr)
+        alpha = self._fluid.alpha(T=self.Tr)
 
         Gr = dq.Gr(L, Ts, Tf, beta, nu, g)
         Pr = dq.Pr(nu, alpha)
@@ -249,7 +249,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         eq = [self.equation_dict[r]
               for r in self.regions if r.contains_point(theta, Ra)][0]
 
-        return eq(Ra, Pr)
+        return eq(self, Ra, Pr)
 
     def Nu_L(self, L, theta, Ts, **statef):
         """
@@ -277,9 +277,11 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         :returns: [W/m2/K] float
         """
-        print(self, L, theta, Ts, statef)
-        print('h_x', statef)
-#        return self.Nu_x(L, theta, Ts, **statef) * k / L
+#        print(self, L, theta, Ts, statef)
+#        print('h_x', statef)
+        Nu_x = self.Nu_x(L, theta, Ts, **statef)
+        k = self._fluid.k(T=self.Tr)
+        return Nu_x * k / L
 
     def h_L(self, L, theta, Ts, **statef):
         """
@@ -292,8 +294,10 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         :returns: [W/m2/K] float
         """
-        print('h_L', statef)
-#        return self.Nu_L(L, theta, Ts, 34, **statef) * k / L
+#        print('h_L', statef)
+        Nu_L = self.Nu_L(L, theta, Ts, **statef)
+        k = self._fluid.k(T=self.Tr)
+        return Nu_L * k / L
 
 #
 #model = IsothermalFlatSurface(h2o, False, None)

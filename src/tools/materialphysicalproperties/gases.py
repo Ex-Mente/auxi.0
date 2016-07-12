@@ -41,10 +41,10 @@ def _create_polynomial_model(symbol, degree):
 
 air_dataset = DataSet(_path(r'data\dataset-air-lienhard2015.csv'))
 
-_create_polynomial_model('Cp', 14)
-_create_polynomial_model('k', 8)
-_create_polynomial_model('mu', 8)
-_create_polynomial_model('rho', 14)
+#_create_polynomial_model('Cp', 14)
+#_create_polynomial_model('k', 8)
+#_create_polynomial_model('mu', 8)
+#_create_polynomial_model('rho', 14)
 
 air_dict = {}
 air_dict['rho'] = IgRhoT(28.9645, 101325.0)

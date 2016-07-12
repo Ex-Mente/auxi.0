@@ -15,7 +15,7 @@ doing transport phenomena calculations.
 #              'Ts' and 'Tinf' instead of 'dT'
 
 
-from auxi.tools.physicalconstants import g
+#from auxi.tools.physicalconstants import g
 
 
 __version__ = '0.2.3'
@@ -29,7 +29,7 @@ __status__ = 'Planning'
 
 
 
-def Gr(L: float, Ts: float, Tf: float, beta: float, nu: float) -> float:
+def Gr(L: float, Ts: float, Tf: float, beta: float, nu: float, g: float):
     """
     Calculate the Grashof number.
 
