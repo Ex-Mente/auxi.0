@@ -5,10 +5,15 @@ Created on Mon Jun 27 11:13:03 2016
 @author: Marno Grewar
 """
 
+from sys import modules
+from os.path import realpath, dirname, join
+
 from auxi.tools.materialphysicalproperties.core import DataSet
 from auxi.tools.materialphysicalproperties.polynomial import PolynomialModelT
 from auxi.tools.materialphysicalproperties.idealgas import \
     BetaT as IgBetaT, RhoT as IgRhoT
+from auxi.modelling.process.materials.core import Material
+
 
 __version__ = '0.2.3'
 __license__ = 'LGPL v3'
@@ -20,11 +25,19 @@ __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
 
 
-air_dataset = DataSet('data/dataset-air-lienhard2015.csv')
+def _path(relative_path):
+    path = modules[__name__].__file__
+    path = realpath(path)
+    path = dirname(path)
+    return join(path, relative_path)
 
-air = {}
-air['rho'] = IgRhoT(28.9645, 101325.0)
-air['cp'] = PolynomialModelT.read('data/air-cp.json')
-air['mu'] = PolynomialModelT.read('data/air-mu.json')
-air['k'] = PolynomialModelT.read('data/air-k.json')
-air['beta'] = IgBetaT()
+air_dataset = DataSet(_path(r'data\dataset-air-lienhard2015.csv'))
+
+air_dict = {}
+air_dict['rho'] = IgRhoT(28.9645, 101325.0)
+air_dict['Cp'] = PolynomialModelT.read(_path(r'data/air-cp.json'))
+air_dict['mu'] = PolynomialModelT.read(_path(r'data/air-mu.json'))
+air_dict['k'] = PolynomialModelT.read(_path(r'data/air-k.json'))
+air_dict['beta'] = IgBetaT()
+
+air = Material("Air", air_dict)
