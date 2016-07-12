@@ -104,17 +104,17 @@ class PolynomialModelTTester(unittest.TestCase):
         model = testee.PolynomialModelT.read(file_path)
 
         T = 100.0
-        self.assertEqual(model.calculate(T), 3.6026669128620208)
+        self.assertEqual(model.calculate(T=T), 3.6026669128620208)
         T = 200.0
-        self.assertEqual(model.calculate(T), 1.7581685372604081)
+        self.assertEqual(model.calculate(T=T), 1.7581685372604081)
         T = 300.0
-        self.assertEqual(model.calculate(T), 1.1791874628593089)
+        self.assertEqual(model.calculate(T=T), 1.1791874628593089)
         T = 400.0
-        self.assertEqual(model.calculate(T), 0.87918802181468259)
+        self.assertEqual(model.calculate(T=T), 0.87918802181468259)
         T = 500.0
-        self.assertEqual(model.calculate(T), 0.70171039180794637)
+        self.assertEqual(model.calculate(T=T), 0.70171039180794637)
         T = 600.0
-        self.assertEqual(model.calculate(T), 0.59118824960721206)
+        self.assertEqual(model.calculate(T=T), 0.59118824960721206)
 
     def test_call(self):
         """
@@ -125,17 +125,17 @@ class PolynomialModelTTester(unittest.TestCase):
         model = testee.PolynomialModelT.read(file_path)
 
         T = 100.0
-        self.assertEqual(model(T), 3.6026669128620208)
+        self.assertEqual(model(T=T), 3.6026669128620208)
         T = 200.0
-        self.assertEqual(model(T), 1.7581685372604081)
+        self.assertEqual(model(T=T), 1.7581685372604081)
         T = 300.0
-        self.assertEqual(model(T), 1.1791874628593089)
+        self.assertEqual(model(T=T), 1.1791874628593089)
         T = 400.0
-        self.assertEqual(model(T), 0.87918802181468259)
+        self.assertEqual(model(T=T), 0.87918802181468259)
         T = 500.0
-        self.assertEqual(model(T), 0.70171039180794637)
+        self.assertEqual(model(T=T), 0.70171039180794637)
         T = 600.0
-        self.assertEqual(model(T), 0.59118824960721206)
+        self.assertEqual(model(T=T), 0.59118824960721206)
 
 
 if __name__ == '__main__':

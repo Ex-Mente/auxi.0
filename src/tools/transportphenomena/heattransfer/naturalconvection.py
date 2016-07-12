@@ -2,9 +2,9 @@
 This package provides tools to do calculations related to heat transfer.
 """
 
-from math import radians, pi as PI
+from math import radians
 
-from auxi.core.objects import Object
+from auxi.core.objects import Object, NamedObject
 from auxi.tools.transportphenomena import dimensionlessquantities as dq
 
 
@@ -155,7 +155,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
                                 xytext=(mid_theta, mid_Ra), fontsize=14)
 
 
-    def __init__(self, fluid, isgas=True, references):
+    def __init__(self, fluid, isgas=True, references=None):
         super().__init__(fluid, references)
         
         self._isgas = isgas
@@ -247,7 +247,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         
         eq = [self.equation_dict[r] for r in self.regions if r.contains_point(theta, Ra)][0]
 
-        return = eq(Ra, Pr)
+        return eq(Ra, Pr)
 
 
     @classmethod
@@ -293,3 +293,4 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         """
 
         return self.Nu_L(L, theta, Ts, Tf) * k / L
+
