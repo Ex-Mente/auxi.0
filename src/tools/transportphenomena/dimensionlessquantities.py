@@ -50,7 +50,7 @@ def Gr(L: float, Ts: float, Tf: float, beta: float, nu: float) -> float:
         * bluff body: diameter
     """
 
-    return g * beta * (Ts - Tinf) * L**3.0 / nu**2.0
+    return g * beta * (Ts - Tf) * L**3.0 / nu**2.0
 
 
 def Pr(nu: float, alpha: float) -> float:

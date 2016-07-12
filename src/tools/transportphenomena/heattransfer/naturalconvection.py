@@ -2,10 +2,12 @@
 This package provides tools to do calculations related to heat transfer.
 """
 
-from math import radians
-
+from math import radians, cos
+from matplotlib import pyplot as plt
+from auxi.tools.materialphysicalproperties.liquids import h2o
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.transportphenomena import dimensionlessquantities as dq
+from auxi.tools import physicalconstants as const
 
 
 __version__ = '0.2.3'
@@ -31,15 +33,14 @@ class EmpiricalCorrelation(Object):
 
 class IsothermalFlatSurface(EmpiricalCorrelation):
 
-
     class Region(NamedObject):
 
         def __init__(self, name,
-                    theta_min, theta_min_incl,
-                    theta_max, theta_max_incl,
-                    Ra_min=None, Ra_min_incl=True,
-                    Ra_max=None, Ra_max_incl=True,
-                    description=None):
+                     theta_min, theta_min_incl,
+                     theta_max, theta_max_incl,
+                     Ra_min=None, Ra_min_incl=True,
+                     Ra_max=None, Ra_max_incl=True,
+                     description=None):
             super().__init__(name, description)
 
             self.theta_min = theta_min
@@ -106,16 +107,16 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         def contains_point(self, theta, Ra):
             if not self._theta_min(theta):
-    #            print("1")
+
                 return False
             if not self._theta_max(theta):
-    #            print("2")
+
                 return False
             if not self._Ra_min(Ra):
-    #            print("3")
+
                 return False
             if not self._Ra_max(Ra):
-    #            print("4")
+
                 return False
             return True
 
@@ -152,37 +153,36 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
             mid_theta = (self.theta_max + self.theta_min-5) / 2.0
             mid_Ra = (Ra_max_plot + Ra_min_plot-0.6) / 2.0
             currentAxis.annotate(self.name, xy=(mid_theta, mid_Ra),
-                                xytext=(mid_theta, mid_Ra), fontsize=14)
-
+                                 xytext=(mid_theta, mid_Ra), fontsize=14)
 
     def __init__(self, fluid, isgas=True, references=None):
         super().__init__(fluid, references)
-        
+
         self._isgas = isgas
 
         self.equation_dict = {}
-        self.equation_dict[Region("r1", -90, True, -60, True, None, False, 4, False)] = _Nu_x__9_22
-        self.equation_dict[Region("r2", -90, True, -60, True, 4, True, 7, True,"In_Eq_Region")] = _Nu_x__9_22
-        self.equation_dict[Region("r3", -90, True, -60, True, 7, True, 11, True,"In_Eq_Region")] = _Nu_x__9_23
-        self.equation_dict[Region("r4", -90, True, -60, True, 11, False, None, False)] = _Nu_x__9_23
+        self.equation_dict[self.Region("r1", -90, True, -60, True, None, False, 4, False)] = IsothermalFlatSurface._Nu_x__9_22
+        self.equation_dict[self.Region("r2", -90, True, -60, True, 4, True, 7, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__9_22
+        self.equation_dict[self.Region("r3", -90, True, -60, True, 7, True, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__9_23
+        self.equation_dict[self.Region("r4", -90, True, -60, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__9_23
         #self.equation_dict[Region("r5", -60, True, -45, False, None, True, 5,False)] = 
         #self.equation_dict[Region("r6", -60, True, -45, False, 5, True, 9, True)]
         #self.equation_dict[Region("r7", -60, True, -45, False, 5, True, 9, True)]
         #self.equation_dict[Region("r8", -60, False, -45, False, 9, True, None, True)]
-        self.equation_dict[Region("r9", -45, True, 0, False, None, False, 5, False)] = _Nu_x__8_27_g
-        self.equation_dict[Region("r10", -45, True, 0, False, 5, True, 9, True,"In_Eq_Region")] = _Nu_x__8_27_g
-        self.equation_dict[Region("r11", -45, True, 0, False, 9, True, None, True)] = _Nu_x__8_27_g
-        self.equation_dict[Region("r12", 0, True, 0, True, None, False, 5, True)] = _Nu_x__8_26
-        self.equation_dict[Region("r13", 0, True, 0, True, 5, False, 11, False,"In_Eq_Region")] = _Nu_x__8_26
-        self.equation_dict[Region("r14", 0, True, 0, True, 11, False, None, False)] = _Nu_x__8_26
-        self.equation_dict[Region("r15", 0, False, 88, False, None, False, 5, False)] = _Nu_x__8_27
-        self.equation_dict[Region("r16", 0, True, 88, False, 5, True, 11, True,"In_Eq_Region")] = _Nu_x__8_27
-        self.equation_dict[Region("r17", 0, False, 88, False, 11, False, None, False)] = _Nu_x__8_27
-        self.equation_dict[Region("r18", 88, False, 90, True, None, False, 6, False)] = _Nu_x__8_38
-        self.equation_dict[Region("r19", 88, True, 90, True, 6, True, 9, True,"In_Eq_Region")] =_Nu_x__8_38
-        self.equation_dict[Region("r20", 88, True, 89, False, 9, False, None, False)] = _Nu_x__8_38
-        self.equation_dict[Region("r21", 89, True, 90, True, 9, True, 11, True,"In_Eq_Region")] = _Nu_x__8_38
-        self.equation_dict[Region("r22", 88, False, 90, True, 11, False, None, False)] = _Nu_x__8_38
+        self.equation_dict[self.Region("r9", -45, True, 0, False, None, False, 5, False)] = IsothermalFlatSurface._Nu_x__8_27_g
+        self.equation_dict[self.Region("r10", -45, True, 0, False, 5, True, 9, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_27_g
+        self.equation_dict[self.Region("r11", -45, True, 0, False, 9, True, None, True)] = IsothermalFlatSurface._Nu_x__8_27_g
+        self.equation_dict[self.Region("r12", 0, True, 0, True, None, False, 5, True)] = IsothermalFlatSurface._Nu_x__8_26
+        self.equation_dict[self.Region("r13", 0, True, 0, True, 5, False, 11, False,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_26
+        self.equation_dict[self.Region("r14", 0, True, 0, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_26
+        self.equation_dict[self.Region("r15", 0, False, 88, False, None, False, 5, False)] = IsothermalFlatSurface._Nu_x__8_27
+        self.equation_dict[self.Region("r16", 0, True, 88, False, 5, True, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_27
+        self.equation_dict[self.Region("r17", 0, False, 88, False, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_27
+        self.equation_dict[self.Region("r18", 88, False, 90, True, None, False, 6, False)] = IsothermalFlatSurface._Nu_x__8_38
+        self.equation_dict[self.Region("r19", 88, True, 90, True, 6, True, 9, True,"In_Eq_Region")] =IsothermalFlatSurface._Nu_x__8_38
+        self.equation_dict[self.Region("r20", 88, True, 89, False, 9, False, None, False)] = IsothermalFlatSurface._Nu_x__8_38
+        self.equation_dict[self.Region("r21", 89, True, 90, True, 9, True, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_38
+        self.equation_dict[self.Region("r22", 88, False, 90, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_38
 
         self.regions = list(self.equation_dict.keys())
 
@@ -191,11 +191,11 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
     def _Nu_x__8_27(self, Ra, Pr):
         return (0.68 + (0.67 * Ra**0.25) / ((1.0 + (0.492 / Pr) **
-                            (9.0/16.0)) ** (4.0/9.0)))
+                (9.0/16.0)) ** (4.0/9.0)))
 
     def _Nu_x__8_27_g(self, Ra, Pr):
         return (0.68 + (0.67 * Ra**0.25) / ((1.0 + (0.492 / Pr) **
-                            (9.0/16.0)) ** (4.0/9.0)))
+                (9.0/16.0)) ** (4.0/9.0)))
 
     def _Nu_x__8_38(self, Ra, Pr):
         return 0.58 * Ra**0.2
@@ -217,16 +217,16 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         :returns: float
         """
-
+        print('Nu_x', statef)
         Tf = statef['T']
         thetar = radians(theta)
 
-        if self.isgas:
+        if self._isgas:
             Tr = Ts - 0.38 * (Ts - Tf)
-            beta = self.fluid.beta(Tf)
+            beta = self._fluid.beta(T=Tf)
         else:  # for liquids
             Tr = Ts - 0.5 * (Ts - Tf)
-            beta = self.fluid.beta(Tr)
+            beta = self._fluid.beta(T=Tr)
 
         if Ts > Tf:  # hot surface
             if 0.0 < theta < 45.0:
@@ -239,35 +239,34 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
             else:
                 g = const.g
 
-        nu = self.fluid.nu(Tr)
-        alpha = self.fluid.alpha(Tr)
+        nu = self._fluid.nu(T=Tr)
+        alpha = self._fluid.alpha(T=Tr)
 
         Gr = dq.Gr(L, Ts, Tf, beta, nu, g)
         Pr = dq.Pr(nu, alpha)
         Ra = Gr * Pr
-        
-        eq = [self.equation_dict[r] for r in self.regions if r.contains_point(theta, Ra)][0]
+
+        eq = [self.equation_dict[r]
+              for r in self.regions if r.contains_point(theta, Ra)][0]
 
         return eq(Ra, Pr)
 
-
-    @classmethod
-    def Nu_L(self, L, theta, Ts, Tf):
+    def Nu_L(self, L, theta, Ts, **statef):
         """
-        Calculate the average Nusselt number.
+        Calculate the saverage Nusselt number.
 
         :param L: [m] characteristic length of the heat transfer surface
         :param theta: [°] angle of the surface with the vertical
         :param Ts: [K] heat transfer surface temperature
-        :param Tf: [K] bulk fluid temperature
+        :param **statef: [K] bulk fluid temperature
 
         :returns: float
         """
 
-        return self.Nu_x(L, theta, Ts, Tf) / 0.75
+        print('Nu_L', statef)
+        return self.Nu_x(L, theta, Ts, **statef) / 0.75
 
-
-    def h_x(self, L, theta, Ts, Tf):
+    def h_x(self, L, theta, Ts, **statef):
         """
         Calculate the local heat transfer coefficient.
 
@@ -278,10 +277,11 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         :returns: [W/m2/K] float
         """
+        print(self, L, theta, Ts, statef)
+        print('h_x', statef)
+#        return self.Nu_x(L, theta, Ts, **statef) * k / L
 
-        return self.Nu_x(L, theta, Ts, Tf) * k / L
-
-    def h_L(self, L, theta, Ts, Tf):
+    def h_L(self, L, theta, Ts, **statef):
         """
         Calculate the average heat transfer coefficient.
 
@@ -292,8 +292,9 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         :returns: [W/m2/K] float
         """
+        print('h_L', statef)
+#        return self.Nu_L(L, theta, Ts, 34, **statef) * k / L
 
-        return self.Nu_L(L, theta, Ts, Tf) * k / L
-
-model = IsothermalFlatSurface(h2o, False, None)
-model.Nu_L()
+#
+#model = IsothermalFlatSurface(h2o, False, None)
+#model.Nu_L(0.4,45,288, T = 350)
