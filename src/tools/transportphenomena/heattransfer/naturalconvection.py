@@ -206,7 +206,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
     def _Nu_x__9_23(self, Ra, Pr):
         return 0.1 * Ra**(1/3.0)
 
-    def Nu_x(self, L, theta, Ts, Tf):
+    def Nu_x(self, L, theta, Ts, **statef):
         """
         Calculate the local Nusselt number.
 
@@ -218,6 +218,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         :returns: float
         """
 
+        Tf = statef['T']
         thetar = radians(theta)
 
         if self.isgas:
@@ -294,3 +295,5 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
         return self.Nu_L(L, theta, Ts, Tf) * k / L
 
+model = IsothermalFlatSurface(h2o, False, None)
+model.Nu_L()

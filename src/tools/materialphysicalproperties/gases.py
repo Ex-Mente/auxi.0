@@ -12,6 +12,8 @@ from auxi.tools.materialphysicalproperties.core import DataSet
 from auxi.tools.materialphysicalproperties.polynomial import PolynomialModelT
 from auxi.tools.materialphysicalproperties.idealgas import \
     BetaT as IgBetaT, RhoT as IgRhoT
+from auxi.modelling.process.materials.core import Material
+
 
 __version__ = '0.2.3'
 __license__ = 'LGPL v3'
@@ -37,3 +39,5 @@ air_dict['Cp'] = PolynomialModelT.read(_path(r'data/air-cp.json'))
 air_dict['mu'] = PolynomialModelT.read(_path(r'data/air-mu.json'))
 air_dict['k'] = PolynomialModelT.read(_path(r'data/air-k.json'))
 air_dict['beta'] = IgBetaT()
+
+air = Material("Air", air_dict)

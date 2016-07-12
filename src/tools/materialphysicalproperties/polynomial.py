@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import webbrowser
+from cerberus import Validator, ValidationError
 
 from auxi.tools.materialphysicalproperties.core import Model
 
@@ -59,6 +60,13 @@ class PolynomialModelT(Model):
     :param coeffs: polynomial coefficients sorted from highest to lowest power
     """
 
+    def __new__(cls, *args, **kwargs):
+        obj = object.__new__(cls, *args, **kwargs)
+        obj.state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
+        obj.state_validator = Validator(obj.state_schema)
+        return obj
+
+    
     def create(dataset, symbol, degree):
         """
         Create a model object from the data set for the property specified by
@@ -97,6 +105,7 @@ class PolynomialModelT(Model):
 
         :returns: physical property value
         """
+        super().calculate(**state)
         return np.polyval(self._coeffs, state['T'])
 
     def plot(self, dataset, path, show=False):
