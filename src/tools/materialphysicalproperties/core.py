@@ -173,13 +173,17 @@ class Model(Object):
         self.references = references
         self.datasets = datasets
         self.state_schema = state_schema
-        self.state_validator = Validator(self.state_schema)
+        self._create_validator(self.state_schema)
 
     def __call__(self, **state):
         """
         For details about this method, please refer to the calculate method.
         """
         return self.calculate(**state)
+
+    def _create_validator(self, state_schema):
+        self.state_schema = state_schema
+        self.state_validator = Validator(self.state_schema)
 
     def calculate(self, **state):
         if not self.state_validator.validate(state):
