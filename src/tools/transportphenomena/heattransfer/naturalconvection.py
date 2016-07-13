@@ -4,6 +4,7 @@ This package provides tools to do calculations related to heat transfer.
 
 from math import radians, cos
 from matplotlib import pyplot as plt
+from matplotlib.patches import Rectangle
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.transportphenomena import dimensionlessquantities as dq
 from auxi.tools import physicalconstants as const
@@ -256,7 +257,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
     def Nu_L(self, L, theta, Ts, **statef):
         """
-        Calculate the saverage Nusselt number.
+        Calculate the average Nusselt number.
 
         :param L: [m] characteristic length of the heat transfer surface
         :param theta: [°] angle of the surface with the vertical
@@ -299,3 +300,8 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         Nu_L = self.Nu_L(L, theta, Ts, **statef)
         k = self._fluid.k(T=self.Tr)
         return Nu_L * k / L
+
+    def plot_regions(self):
+        for region in self.regions:
+            region.plot_region()
+        plt.show()
