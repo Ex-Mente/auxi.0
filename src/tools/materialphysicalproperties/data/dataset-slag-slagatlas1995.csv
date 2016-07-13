@@ -1,6 +1,6 @@
-Material Name,LDAC Slag,,,,,
-Description,Dynamic viscosity of LDAC slags.,,,,,
-Reference,slagatlas1995,,,,,
+Material Name,LDAC Slag
+Description,Dynamic viscosity of LDAC slags. Based on data in Figure 9.110, page 395 in the reference.
+Reference,slagatlas1995
 Temperature,FeO Content,P2O5 Content,CaO Content,MnO Content,SiO2 Content,Viscosity
 T,y_{FeO},y_{P_2O_5},y_{CaO},y_{MnO},y_{SiO_2},\mu
 K,mass fraction,mass fraction,mass fraction,mass fraction,mass fraction,Pa.s
