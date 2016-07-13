@@ -2,8 +2,9 @@
 This package provides tools to do calculations related to heat transfer.
 """
 
-from math import radians, cos
+from math import radians, cos, log10
 from matplotlib import pyplot as plt
+from matplotlib.patches import Rectangle
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.transportphenomena import dimensionlessquantities as dq
 from auxi.tools import physicalconstants as const
@@ -12,8 +13,8 @@ from auxi.tools import physicalconstants as const
 __version__ = '0.2.3'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
-__author__ = 'Christoff Kok, Johan Zietsman'
-__credits__ = ['Christoff Kok', 'Johan Zietsman']
+__author__ = 'Marno Grewar, Johan Zietsman, Christoff Kok'
+__credits__ = ['Marno Grewar', 'Johan Zietsman', 'Christoff Kok']
 __maintainer__ = 'Christoff Kok'
 __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
@@ -248,6 +249,8 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         Gr = dq.Gr(L, Ts, Tf, beta, nu, g)
         Pr = dq.Pr(nu, alpha)
         Ra = Gr * Pr
+        self.Ra_y_cor = Ra
+        self.theta_x_cor = theta
 
         eq = [self.equation_dict[r]
               for r in self.regions if r.contains_point(theta, Ra)][0]
@@ -256,7 +259,7 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
 
     def Nu_L(self, L, theta, Ts, **statef):
         """
-        Calculate the saverage Nusselt number.
+        Calculate the average Nusselt number.
 
         :param L: [m] characteristic length of the heat transfer surface
         :param theta: [°] angle of the surface with the vertical
@@ -299,3 +302,16 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         Nu_L = self.Nu_L(L, theta, Ts, **statef)
         k = self._fluid.k(T=self.Tr)
         return Nu_L * k / L
+
+    def plot_regions(self):
+        for region in self.regions:
+            region.plot_region()
+        plt.show()
+
+    def plot_theta_Ra_point(self, show_point=False):
+        for region in self.regions:
+            region.plot_region()
+        if show_point:
+            plt.plot(self.theta_x_cor, log10(self.Ra_y_cor),
+                     "bo", markersize=10)
+        plt.show()
