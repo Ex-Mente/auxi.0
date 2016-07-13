@@ -36,7 +36,7 @@ class Material(NamedObject):
         """State of matter."""
 
         if 'alpha' in property_models:
-            self.beta = property_models['alpha']
+            self.alpha = property_models['alpha']
 
         if 'beta' in property_models:
             self.beta = property_models['beta']
