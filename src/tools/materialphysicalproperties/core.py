@@ -88,6 +88,19 @@ class DataSet(object):
         self._read_header_information()
         self._read_data()
 
+    def __str__(self):
+        result = 'Material:         %s\n' % self.material
+        result += 'Description:      %s\n' % self.description
+        result += 'References:       %s\n' % self.reference
+        result += 'Properties:       %s\n' % self.col_names
+        result += 'Symbols:          %s\n' % self.col_symbols
+        result += 'Display symbols:  %s\n' % self.col_display_symbols
+        result += 'Units:            %s\n' % self.col_units
+        result += 'Data:\n'
+        result += str(self.data)
+        
+        return result
+
     def _read_header_information(self):
         with open(self._file_path, newline='') as file:
             lines = csv.reader(file, delimiter=',', quotechar='"')
