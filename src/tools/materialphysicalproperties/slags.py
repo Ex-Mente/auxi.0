@@ -37,7 +37,7 @@ class UrbainViscosityTx(Model):
     def __init__(self):
         state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
                         'x': {'required': True, 'type': 'dict'}}
-        super().__init__('Slag', 'Dynamic Viscosity', 'mu', '\\mu', 'kg/m/s',
+        super().__init__('Slag', 'Dynamic Viscosity', 'mu', '\\mu', 'Pa.s',
                          state_schema, None, None)
 
     def calculate(self, **state):
@@ -138,7 +138,7 @@ class RiboudViscosityTx(Model):
     def __init__(self):
         state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
                         'x': {'required': True, 'type': 'dict'}}
-        super().__init__('Slag', 'Dynamic Viscosity', 'mu', '\\mu', 'kg/m/s',
+        super().__init__('Slag', 'Dynamic Viscosity', 'mu', '\\mu', 'Pa.s',
                          state_schema, None, None)
 
     def calculate(self, **state):
@@ -231,11 +231,3 @@ class RiboudViscosityTy(RiboudViscosityTx):
 
 
 ds1 = DataSet(_path('data/dataset-slag-slagatlas1995.csv'))
-
-print('measured', 'Riboud', 'Urbain')
-for index, row in ds1.data.iterrows():
-    T = row['T']
-    y = {'FeO': row['FeO'], 'P2O5': row['P2O5'], 'MnO': row['MnO'],
-         'SiO2': row['SiO2']}
-    print(row['mu'], muTy_R(T=T, y=y), muTy_U(T=T, y=y))
-    
