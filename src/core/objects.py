@@ -31,6 +31,15 @@ class Object(object):
     def _validate_params_(self):
         pass
 
+    def write(self, path):
+        with open(path, 'w') as file:
+            file.write(str(self))
+
+    def read(path):
+        with open(path, 'r') as file:
+            s = file.read()
+        return jsonpickle.decode(s)
+
 
 class NamedObject(Object):
     """

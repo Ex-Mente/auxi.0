@@ -1,0 +1,57 @@
+{
+    "_coeffs": [
+        -4.558440703922605e-26,
+        3.0571969419086796e-22,
+        -8.551724401170449e-19,
+        1.2969089999631389e-15,
+        -1.1687496602760367e-12,
+        6.610324137593374e-10,
+        -2.6027769820050955e-07,
+        0.00013590957445444203,
+        -0.0021529604862111263
+    ],
+    "datasets": [
+        "dataset-air-lienhard2015.csv"
+    ],
+    "display_symbol": "k",
+    "material": "Air",
+    "property": "Thermal Conductivity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1500.0,
+            "min": 100.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1500.0,
+                    "min": 100.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1500.0,
+                "min": 100.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
+    "symbol": "k",
+    "units": "W/m/K"
+}

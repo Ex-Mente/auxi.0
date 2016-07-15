@@ -1,0 +1,60 @@
+{
+    "_coeffs": [
+        1.587800908402146e-27,
+        -7.462956853528314e-24,
+        1.5842202051322773e-20,
+        -2.0046098863032268e-17,
+        1.6798357641438072e-14,
+        -9.787709215243496e-12,
+        4.045969977419189e-09,
+        -1.1865329795540545e-06,
+        0.00024192488756867358,
+        -0.032662822453926536,
+        2.6283348596121425,
+        -95.51108084082152
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\beta",
+    "material": "Water",
+    "property": "Coefficient of thermal expansion",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
+    "symbol": "beta",
+    "units": "1/K"
+}
