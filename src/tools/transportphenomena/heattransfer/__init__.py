@@ -1,7 +1,6 @@
 """
-This package contains examples on using auxi.
+This package provides tools to do calculations related to heat transfer.
 """
-
 
 __version__ = '0.2.3'
 __license__ = 'LGPL v3'
