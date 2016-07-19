@@ -5,17 +5,15 @@ doing transport phenomena calculations.
 """
 
 
-#TODO: Add mathematical formula to each function. See Gr for example.
-#TODO: Test to make sure that math formulae appear correctly on readthedocs.
-#TODO: Test to make sure that math formulae appear correctly in LaTeX.
-#DECISION: Use the most compact set of parameters for each function, as long as
+# TODO: Add mathematical formula to each function. See Gr for example.
+# TODO: Test to make sure that math formulae appear correctly on readthedocs.
+# TODO: Test to make sure that math formulae appear correctly in LaTeX.
+# DECISION: Use the most compact set of parameters for each function, as long
+#   as
 #          it does not cause ambiguity.
 #          For example,
 #              'nu' instead of 'mu' and 'rho'
 #              'Ts' and 'Tinf' instead of 'dT'
-
-
-#from auxi.tools.physicalconstants import g
 
 
 __version__ = '0.2.3'
@@ -26,7 +24,6 @@ __credits__ = ['Christoff Kok', 'Johan Zietsman', 'Marno Grewar']
 __maintainer__ = 'Christoff Kok'
 __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
-
 
 
 def Gr(L: float, Ts: float, Tf: float, beta: float, nu: float, g: float):

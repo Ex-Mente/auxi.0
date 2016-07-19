@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This package provides classes and functions for working with different types of
 materials and material packages.

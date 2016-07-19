@@ -104,7 +104,8 @@ class PolynomialModelTTester(unittest.TestCase):
         model = testee.PolynomialModelT.read(file_path)
 
         T = 100.0
-        self.assertEqual(model.calculate(T=T), 3.6026669128620208)
+        # self.assertEqual(model.calculate(T=T), 3.6026669128620208)
+        self.assertEqual(model.calculate(T=T), 3.6049798036305774)
         T = 200.0
         self.assertEqual(model.calculate(T=T), 1.7581685372604081)
         T = 300.0
@@ -115,6 +116,20 @@ class PolynomialModelTTester(unittest.TestCase):
         self.assertEqual(model.calculate(T=T), 0.70171039180794637)
         T = 600.0
         self.assertEqual(model.calculate(T=T), 0.59118824960721206)
+
+    def test_plot(self):
+        """
+        Test whether the plots are created.
+        """
+        dataset_path = join(MODULE_PATH, 'data/dataset-air-lienhard2015.csv')
+        dataset = DataSet(dataset_path)
+        model = testee.PolynomialModelT.create(dataset, 'rho', 10)
+
+        pdf_path = join(MODULE_PATH, 'test.pdf')
+
+        model.plot(dataset, pdf_path)
+        self.assertTrue(isfile(pdf_path))
+        remove(pdf_path)
 
     def test_call(self):
         """

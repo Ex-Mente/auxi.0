@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 A toolkit to help metallurgical process engineers to rapidly do day-to-day
 calculations.

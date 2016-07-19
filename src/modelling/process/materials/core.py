@@ -57,24 +57,74 @@ class Material(NamedObject):
             self.rho = property_models['rho']
 
     def alpha(self, **state):
+        """
+        Calculate the alpha value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
+
         return self.k(**state) / self.rho(**state) / self.Cp(**state)
 
     def beta(self, **state):
+        """
+        Calculate the alpha value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         raise NotImplementedError()
 
     def Cp(self, **state):
+        """
+        Calculate the Cp value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         raise NotImplementedError()
 
     def k(self, **state):
+        """
+        Calculate the k value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         raise NotImplementedError()
 
     def mu(self, **state):
+        """
+        Calculate the mu value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         raise NotImplementedError()
 
     def nu(self, **state):
+        """
+        Calculate the nu value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         return self.mu(**state) / self.rho(**state)
 
     def rho(self, **state):
+        """
+        Calculate the rho value given the material state.
+
+        :param **state: material state
+
+        :returns: float
+        """
         raise NotImplementedError()
 
 

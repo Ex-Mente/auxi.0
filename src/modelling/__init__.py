@@ -1,6 +1,5 @@
+#!/usr/bin/env python3
 """
-auxi.modelling Package
-
 The purpose of this package is to provide common classes and functions for the
 auxi.modelling namespace
 """

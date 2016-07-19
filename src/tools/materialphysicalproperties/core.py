@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This module provides tools for calculating material physical properties.
 """
@@ -98,7 +99,7 @@ class DataSet(object):
         result += 'Units:            %s\n' % self.col_units
         result += 'Data:\n'
         result += str(self.data)
-        
+
         return result
 
     def _read_header_information(self):
@@ -186,6 +187,12 @@ class Model(Object):
         self.state_validator = Validator(self.state_schema)
 
     def calculate(self, **state):
+        """
+        Base calculate method for models.
+        Validates the material state parameter(s).
+
+        :param **state: The material state
+        """
         if not self.state_validator.validate(state):
             msg = 'The state description contains errors:'
             for key, value in self.state_validator.errors.items():
