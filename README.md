@@ -15,6 +15,11 @@ Here are some of the other `auxi` resources:
 * Youtube channel: https://www.youtube.com/channel/UCdklSCJ8S9wFyayLAO7iINQ
 * Discussion forum: https://groups.google.com/forum/#!forum/auxi-za
 
+To install auxi, use the following command:
+```
+pip install auxi
+```
+
 
 ## Repository Overview
 
