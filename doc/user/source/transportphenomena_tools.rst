@@ -7,8 +7,5 @@ Heat transfer Calculations
 ===========================
 The auxi.tools.transportphenomena sub-package provides tools to do calculations related to heat transfer.
 
-.. toctree::
-
-    src/examples/tools/transportphenomena/heattransfer/naturalconvection.IsothermalFlatSurface.ipynb
 
 
