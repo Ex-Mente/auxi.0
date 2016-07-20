@@ -15,6 +15,8 @@
   * [Step 6: Push to Origin](#step-6-push-to-origin)
   * [Step 7: Create Pull Request](#step-7-create-pull-request)
   * [Step 8: Respond to Pull Request Feedback](#step-8-respond-to-pull-request-feedback)
+* [Hotfix Contributions](#hotfix-contributions)
+* [Developer's Certificate of Origin 1.1](developer-s-certificate-of-origin-1-1)
 
 
 `auxi` is a community-driven open-source project. For the software to grow and
@@ -28,7 +30,7 @@ and if it is easy to contribute. This document explains how you can become an
 If you need any help regarding your contribution, you may visit
 [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za)
 
-Ju
+
 ## Adhering to Standards and Procedures
 Getting people to work together to achieve a common goal is not always easy, but it is so worth while when it is successful. If `auxi` is to have any chance of succeeding, and help us all out, we need to work according to a common set of standards and procedures. All these things are open for debate on the [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za). If things are not working well, we discuss them, and make them better.
 
@@ -225,3 +227,21 @@ Great. Things are out of your hands for now. The continuous integration system s
 
 ### Step 8: Respond to Pull Request Feedback
 The `auxi` maintainers may respond to your pull request by giving you feedback about things you need to fix. Do this promptly and inform them of the progress so that they can accept your pull request as quickly as possible, and merge it into the source branch in the central repository. They may also request you to create a pull request to a different issue branch, if the issue branch did not exist before.
+
+
+## Hotfix Contributions
+The purpose of a hotfix is to make a quick revision on an auxi release, without waiting for the next full-scale release to be completed.
+
+Hotfix contributions work the same as code contributions, with one important difference. We do code contributions based on the develop branch, but hotfix contributions based on the master branch. You can therefore follow the instructions under [Code Contributions](#code-contributions), but simply replace references to the develop branch, with references to the master branch.
+
+
+## Developer's Certificate of Origin 1.1
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I have the right to submit it under the open source license indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best of my knowledge, is covered under an appropriate open source license and I have the right under that license to submit that work with modifications, whether created in whole or in part by me, under the same open source license (unless I am permitted to submit under a different license), as indicated in the file; or
+
+(c) The contribution was provided directly to me by some other person who certified (a), (b) or (c) and I have not modified it.
+
+(d) I understand and agree that this project and the contribution are public and that a record of the contribution (including all personal information I submit with it, including my sign-off) is maintained indefinitely and may be redistributed consistent with this project or the open source license(s) involved.
