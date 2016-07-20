@@ -1,5 +1,22 @@
 # How to Contribute to `auxi`
 
+* [Adhering to Standards and Procedures](adhering-to-standards-and-procedures)
+* [GitHub Account](github-account)
+* [Issue Contributions](issue-contributions)
+  * [Content](content)
+  * [Procedure](procedure)
+* [Code Contributions](code-contributions)
+  * [Step 0: Fork and Clone the `auxi` Repository](step-0-fork-and-clone-the-auxi-repository)
+  * [Step 1: Finalise the Issue](step-1-finalise-the-issue)
+  * [Step 2: Create Local Branch](step-2-create-local-branch)
+  * [Step 3: Pull from Upstream](step-3-pull-from-upstream)
+  * [Step 4: Implementation](step-4-implementation)
+  * [Step 5: Rebase](step-5-rebase)
+  * [Step 6: Push to Origin](step-6-push-to-origin)
+  * [Step 7: Create Pull Request](step-7-create-pull-request)
+  * [Step 8: Respond to Pull Request Feedback](step-8-respond-to-pull-request-feedback)
+
+
 `auxi` is a community-driven open-source project. For the software to grow and
 become more powerful, the community must be able to contribute. This will help
 `auxi` to help the community more.
