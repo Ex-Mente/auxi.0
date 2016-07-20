@@ -16,7 +16,7 @@
   * [Step 7: Create Pull Request](#step-7-create-pull-request)
   * [Step 8: Respond to Pull Request Feedback](#step-8-respond-to-pull-request-feedback)
 * [Hotfix Contributions](#hotfix-contributions)
-* [Developer's Certificate of Origin 1.1](developer-s-certificate-of-origin-1-1)
+* [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
 
 
 `auxi` is a community-driven open-source project. For the software to grow and
