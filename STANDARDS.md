@@ -72,7 +72,7 @@ if __name__ == "__main__":
 ```
 
 ### Documentation
-All code files must be completely documented so that this information can be extracted by Sphinx to generate a complete set of user documentation. This following items must be documented in each code file:
+All code files must be completely documented so that this information can be extracted by Sphinx to generate a complete set of API documentation in the user documentation. This following items must be documented in each code file:
 
 * Module
 
@@ -160,6 +160,7 @@ class Model(Object):
 
 
 ## Test Files
+Tests are executed during continuous integration. If any test fails, the pull request will not be accepted into the `auxi` develop or main branches.
 
 ### Code Format
 Test files have exactly the same formatting requirements as code files.
