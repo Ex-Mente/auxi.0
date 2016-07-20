@@ -12,7 +12,7 @@ If you need any help regarding your contribution, you may visit
 [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za)
 
 
-## Adhering to Standards and Procedurse
+## Adhering to Standards and Procedures
 Getting people to work together to achieve a common goal is not always easy, but it is so worth while when it is successful. If `auxi` is to have any chance of succeeding, and help us all out, we need to work according to a common set of standards and procedures. All these things are open for debate on the [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za). If things are not working well, we discuss them, and make them better.
 
 So, if you do want to contribute, please familiarise yourself with the details in the system documentation (README.md, ROLES.md, STANDARDS.md, CONTRIBUTING.md, RELEASING.md) in the root of the GitHub repository, and stick to the standards, procedures and other guidelines provided.
@@ -95,6 +95,68 @@ To submit an issue, follow these steps:
 
 ## Code Contributions
 If you are able to, you can write your own code to address an issue that you have submitted, or one that someone else has submitted. This is where the real fun starts, and where you can really help out. In this case 'code' refers to Python code, test code, examples Jupyter notebooks and user documentation. Whatever you are comfortable with, please dig in and make `auxi` better.
+
+
+### Step 0: Fork and Clone the `auxi` Repository
+You will only need to do this once, hence the number zero.
+
+Contributors cannot work on the central `auxi` repository directly, and need to make their own fork to work on. You can do this on GitHub, from the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) by simply clicking on the "Fork" button and following the instructions. Remember, you need a GitHub account to do this.
+
+Next, you need to clone the `auxi` repository to your local computer:
+
+```
+git clone https://github.com/your-username-here/auxi.0
+cd auxi.0
+git remote -v
+```
+
+The last instruction lists the remote repositories that are linked to the local repository on your computer. There is currently only one, which is the fork that you made. We need to add the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) to the list of remotes.
+
+```
+git remote add upstream https://github.com/Ex-Mente/auxi.0
+git remote -v
+```
+
+Now you should have two remote repositories connected. The first is called `origin`, which is your fork, and the second is called `upstream` and refers to the central `auxi` repository.
+
+
+### Step 1: Finalise the Issue
+Before starting implementation of an issue, it is very important that the issues is finalised. Read through the issue carefully, and make sure that all the headings are populated, even the optional ones like approach and scope.
+
+Communication is very important at this point. Use issue comments to correspond with other `auxi` team members to make sure that you have the best possible starting point, and buy-in from as many members as possible. Use the forum as well to keep other members aware of what you are doing.
+
+
+### Step 2: Create Local Branch
+Now we need to create a branch in our local git repository. We will assume that we are working on issue 999 for this discussion. Do the following:
+
+```
+git checkout -b issue-999
+```
+
+### Step 3: Pull from Upstream
+You should now be on the branch called issue-999 in your local repository. We now need to pull the latest information from the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) in this branch. You can be facing one of two scenarios at this stage:
+
+* Issue branch available
+
+   If an issue-99 branch has already been created in the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), you do the following:
+
+```
+git pull upstream issue-999
+```
+
+   This makes sure that you have the latest information to do your implementation on.
+
+* Issue branch NOT available
+
+   If an issue-99 branch
+
+
+### Step 4: Implementation
+### Step 5: Rebase
+### Step 6: Push to Origin
+### Step 7: Create Pull Request
+### Step 8: Respond to Pull Request Feedback
+
 
 * Create a topic branch from where you want to base your work.
   * This is usually the master branch.
