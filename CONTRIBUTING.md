@@ -148,13 +148,55 @@ git pull upstream issue-999
 
 * Issue branch NOT available
 
-   If an issue-99 branch
+   If an issue-99 branch does not exist in the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), you do the following:
 
+```
+git pull upstream develop
+```
 
 ### Step 4: Implementation
+Now you are ready to get rolling. You can write code, tests, documentation, examples, and user docs to your hearts content. Make sure you adress all the aspects of the issue as thoroughly as possible. Also, make sure that everything you do are in line with the `auxi` standards and procedures.
+
+You can add and submit your changes using the `git add` and `git commit` commands. Once you have done that, make sure that you comply with the standards, and make sure that your tests all run successfully.
+
+
 ### Step 5: Rebase
+While you have been having fun with the implementation, someone else may have made some changes to your source branch (the one you pulled from. Before we start transferring your contribution to the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), we need to rebase so that we are working off an up-to-date version of the source branch. We need to cater for two scenarios again.
+
+* Issue branch available
+
+   If an issue-99 branch was already available in the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), you do the following:
+
+```
+git pull --rebase upstream issue-999
+```
+
+   This makes sure that you have the latest information to do your implementation on.
+
+* Issue branch NOT available
+
+   If an issue-99 branch did not exist in the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), you do the following:
+
+```
+git pull --rebase upstream develop
+```
+
+After rebasing, run your tests again to make sure everything is still OK. If some problems occur, fix them and commit to your local repository before continuing.
+
+
 ### Step 6: Push to Origin
+Now we are ready to push your work to your online fork repository. This is how we do it:
+
+```
+git push origin issue-999
+```
+
+If the issue-999 branch did not already exist in your fork repository, it will be created.
+
+
 ### Step 7: Create Pull Request
+Now back to GitHub in your browser.
+
 ### Step 8: Respond to Pull Request Feedback
 
 
