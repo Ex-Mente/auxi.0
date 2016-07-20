@@ -128,3 +128,9 @@ def Sh(L: float, h: float, D: float) -> float:
     """
 
     return h * L / D
+
+
+if __name__ == '__main__':
+    import unittest
+    from dimensionlessquantities_test import *
+    unittest.main()

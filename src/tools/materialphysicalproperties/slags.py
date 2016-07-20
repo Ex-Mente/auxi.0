@@ -231,3 +231,9 @@ class RiboudViscosityTy(RiboudViscosityTx):
 
 
 ds1 = DataSet(_path('data/dataset-slag-slagatlas1995.csv'))
+
+
+if __name__ == '__main__':
+    import unittest
+    from slags_test import *
+    unittest.main()

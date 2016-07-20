@@ -33,5 +33,6 @@ class MaterialTester(unittest.TestCase):
         T = 300.0
         self.assertEqual(m.beta(T=T), 1.0/T)
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -541,3 +541,9 @@ def _get_default_data_path():
     return data_path
 
 DEFAULT_DATA_PATH = _get_default_data_path()
+
+
+if __name__ == '__main__':
+    import unittest
+    from psd_test import *
+    unittest.main()

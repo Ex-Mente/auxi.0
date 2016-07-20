@@ -111,6 +111,7 @@ class Clock(NamedObject):
 
         return self.get_datetime_at_period_ix(self.timestep_ix)
 
+
 if __name__ == "__main__":
     import unittest
     from auxi.core.time.time_test import ClockUnitTester

@@ -377,3 +377,9 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         for region in self.regions:
             region.plot_region()
         plt.show()
+
+
+if __name__ == '__main__':
+    import unittest
+    from naturalconvection_test import *
+    unittest.main()
