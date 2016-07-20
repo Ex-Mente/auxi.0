@@ -28,7 +28,7 @@ and if it is easy to contribute. This document explains how you can become an
 If you need any help regarding your contribution, you may visit
 [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za)
 
-
+Ju
 ## Adhering to Standards and Procedures
 Getting people to work together to achieve a common goal is not always easy, but it is so worth while when it is successful. If `auxi` is to have any chance of succeeding, and help us all out, we need to work according to a common set of standards and procedures. All these things are open for debate on the [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za). If things are not working well, we discuss them, and make them better.
 
@@ -111,7 +111,7 @@ To submit an issue, follow these steps:
 
 
 ## Code Contributions
-If you are able to, you can write your own code to address an issue that you have submitted, or one that someone else has submitted. This is where the real fun starts, and where you can really help out. In this case 'code' refers to Python code, test code, examples Jupyter notebooks and user documentation. Whatever you are comfortable with, please dig in and make `auxi` better.
+If you are able to, you can write your own code to address an issue that you have submitted, or one that someone else has submitted. This is where the real fun starts, and where you can really help out. In this case 'code' refers to Python code, test code, examples in the form of Jupyter notebooks and user documentation. Whatever you are comfortable with, please dig in and make `auxi` better.
 
 
 ### Step 0: Fork and Clone the `auxi` Repository
