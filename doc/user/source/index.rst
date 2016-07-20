@@ -36,6 +36,8 @@ This package currently only contains a single set of tools, namely for chemistry
    :maxdepth: 1
 
    chemistry_tools
+   materialphysicalproperties_tools
+   transportphenomena_tools
 
 
 Modelling Frameworks
@@ -55,7 +57,7 @@ auxi Reference
 .. toctree::
     :maxdepth: 1
 
-   auxi_api
+   api/auxi
 
 
 

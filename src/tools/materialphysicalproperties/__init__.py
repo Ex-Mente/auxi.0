@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This package provides tools to calculate material physical properties.
 """

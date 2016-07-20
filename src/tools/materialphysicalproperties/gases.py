@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
-Created on Mon Jun 27 11:13:03 2016
-
-@author: Marno Grewar
+This module provides physical property data sets and models for gases.
 """
 
 from sys import modules
@@ -39,12 +37,12 @@ def _create_polynomial_model(symbol, degree):
     newmod.write(_path('data/air-%s.json' % symbol.lower()))
 
 
-air_dataset = DataSet(_path(r'data\dataset-air-lienhard2015.csv'))
+air_dataset = DataSet(_path('data/dataset-air-lienhard2015.csv'))
 
-#_create_polynomial_model('Cp', 14)
-#_create_polynomial_model('k', 8)
-#_create_polynomial_model('mu', 8)
-#_create_polynomial_model('rho', 14)
+# _create_polynomial_model('Cp', 14)
+# _create_polynomial_model('k', 8)
+# _create_polynomial_model('mu', 8)
+# _create_polynomial_model('rho', 14)
 
 air_dict = {}
 air_dict['rho'] = IgRhoT(28.9645, 101325.0)

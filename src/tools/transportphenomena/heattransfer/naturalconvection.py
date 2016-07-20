@@ -5,6 +5,7 @@ This package provides tools to do calculations related to heat transfer.
 from math import radians, cos
 from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle
+
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.transportphenomena import dimensionlessquantities as dq
 from auxi.tools import physicalconstants as const
@@ -32,8 +33,32 @@ class EmpiricalCorrelation(Object):
 
 
 class IsothermalFlatSurface(EmpiricalCorrelation):
+    """
+    Contains configuration and calculations for an isothermal flat surface.
+
+    :param fluid: material physical properties of a fluid
+    :param isgas: Specify if the surface is a gas (default is True)
+    :param references: The references used for the configurations
+      (default is None)
+    """
 
     class Region(NamedObject):
+        """
+        Defines a region in the 2D Ra-theta coordinate system. A region is used
+        to determine which equation should be used to determine the isothermal
+        flat surface.
+
+        :param name: name of the region
+        :param theta_min: minimum theta value
+        :param theta_min_incl: should the minimum theta be included?
+        :param theta_max: maximum theta value
+        :param theta_max_incl: should the maximum theta be included?
+        :param Ra_min: minimum Ra value (default is None)
+        :param Ra_min_incl: should the minimum Ra be included? (default is True)
+        :param Ra_max: maximum Ra value (default is None)
+        :param Ra_max_incl: should the maximum Ra be included? (default is True)
+        :param description: description of the region (default is None)
+        """
 
         def __init__(self, name,
                      theta_min, theta_min_incl,
@@ -106,21 +131,30 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
             return Ra < self.Ra_max
 
         def contains_point(self, theta, Ra):
-            if not self._theta_min(theta):
+            """
+            Determines if a theta and Ra value falls inside the region.
 
+            :param theta: theta value
+            :param Ra: Ra value
+
+            :returns: True of False
+            """
+
+            if not self._theta_min(theta):
                 return False
             if not self._theta_max(theta):
-
                 return False
             if not self._Ra_min(Ra):
-
                 return False
             if not self._Ra_max(Ra):
-
                 return False
             return True
 
         def plot_region(self):
+            """
+            Plots the region to a graph
+            """
+
             theta_diff = self.theta_max - self.theta_min
             Ra_min_plot = self.Ra_min
             Ra_max_plot = self.Ra_max
@@ -161,32 +195,67 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         self._isgas = isgas
 
         self.equation_dict = {}
-        self.equation_dict[self.Region("r1", -90, True, -60, True, None, False, 4, False)] = IsothermalFlatSurface._Nu_x__9_22
-        self.equation_dict[self.Region("r2", -90, True, -60, True, 4, True, 7, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__9_22
-        self.equation_dict[self.Region("r3", -90, True, -60, True, 7, False, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__9_23
-        self.equation_dict[self.Region("r4", -90, True, -60, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__9_23
-        self.equation_dict[self.Region("r5", -60, False, -52, True, None, False, 7,True)] = IsothermalFlatSurface._Nu_x__9_22
-        self.equation_dict[self.Region("r6", -60, False, -52, True, 7, False, None, False)] = IsothermalFlatSurface._Nu_x__9_23
-        self.equation_dict[self.Region("r7", -52, False, -45, False, None, False, 7, True)] = IsothermalFlatSurface._Nu_x__8_27_g
-        self.equation_dict[self.Region("r8", -52, False, -45, False, 7, False, None, False)] = IsothermalFlatSurface._Nu_x__8_27_g
-        #self.equation_dict[Region("r5", -60, True, -45, False, None, True, 5,False)] = 
-        #self.equation_dict[Region("r6", -60, True, -45, False, 5, True, 9, True)]
-        #self.equation_dict[Region("r7", -60, True, -45, False, 5, True, 9, True)]
-        #self.equation_dict[Region("r8", -60, False, -45, False, 9, True, None, True)]
-        self.equation_dict[self.Region("r9", -45, True, 0, False, None, False, 5, False)] = IsothermalFlatSurface._Nu_x__8_27_g
-        self.equation_dict[self.Region("r10", -45, True, 0, False, 5, True, 9, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_27_g
-        self.equation_dict[self.Region("r11", -45, True, 0, False, 9, True, None, True)] = IsothermalFlatSurface._Nu_x__8_27_g
-        self.equation_dict[self.Region("r12", 0, True, 0, True, None, False, 5, True)] = IsothermalFlatSurface._Nu_x__8_26
-        self.equation_dict[self.Region("r13", 0, True, 0, True, 5, False, 11, False,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_26
-        self.equation_dict[self.Region("r14", 0, True, 0, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_26
-        self.equation_dict[self.Region("r15", 0, False, 88, False, None, False, 5, False)] = IsothermalFlatSurface._Nu_x__8_27
-        self.equation_dict[self.Region("r16", 0, True, 88, False, 5, True, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_27
-        self.equation_dict[self.Region("r17", 0, False, 88, False, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_27
-        self.equation_dict[self.Region("r18", 88, False, 90, True, None, False, 6, False)] = IsothermalFlatSurface._Nu_x__8_38
-        self.equation_dict[self.Region("r19", 88, True, 90, True, 6, True, 9, True,"In_Eq_Region")] =IsothermalFlatSurface._Nu_x__8_38
-        self.equation_dict[self.Region("r20", 88, True, 89, False, 9, False, None, False)] = IsothermalFlatSurface._Nu_x__8_38
-        self.equation_dict[self.Region("r21", 89, True, 90, True, 9, True, 11, True,"In_Eq_Region")] = IsothermalFlatSurface._Nu_x__8_38
-        self.equation_dict[self.Region("r22", 88, False, 90, True, 11, False, None, False)] = IsothermalFlatSurface._Nu_x__8_38
+
+        ifs = IsothermalFlatSurface
+        eq_dict = self.equation_dict
+
+        region = self.Region("r1", -90, True, -60, True, None, False, 4, False)
+        eq_dict[region] = ifs._Nu_x__9_22
+        region = self.Region("r2", -90, True, -60, True, 4, True, 7, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__9_22
+        region = self.Region("r3", -90, True, -60, True, 7, False, 11, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__9_23
+        region = self.Region("r4", -90, True, -60, True, 11, False, None,
+                             False)
+        eq_dict[region] = ifs._Nu_x__9_23
+        region = self.Region("r5", -60, False, -52, True, None, False, 7, True)
+        eq_dict[region] = ifs._Nu_x__9_22
+        region = self.Region("r6", -60, False, -52, True, 7, False, None,
+                             False)
+        eq_dict[region] = ifs._Nu_x__9_23
+        region = self.Region("r7", -52, False, -45, False, None, False, 7,
+                             True)
+        eq_dict[region] = ifs._Nu_x__8_27_g
+        region = self.Region("r8", -52, False, -45, False, 7, False, None,
+                             False)
+        eq_dict[region] = ifs._Nu_x__8_27_g
+        region = self.Region("r9", -45, True, 0, False, None, False, 5, False)
+        eq_dict[region] = ifs._Nu_x__8_27_g
+        region = self.Region("r10", -45, True, 0, False, 5, True, 9, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__8_27_g
+        region = self.Region("r11", -45, True, 0, False, 9, True, None, True)
+        eq_dict[region] = ifs._Nu_x__8_27_g
+        region = self.Region("r12", 0, True, 0, True, None, False, 5, True)
+        eq_dict[region] = ifs._Nu_x__8_26
+        region = self.Region("r13", 0, True, 0, True, 5, False, 11, False,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__8_26
+        region = self.Region("r14", 0, True, 0, True, 11, False, None, False)
+        eq_dict[region] = ifs._Nu_x__8_26
+        region = self.Region("r15", 0, False, 88, False, None, False, 5, False)
+        eq_dict[region] = ifs._Nu_x__8_27
+        region = self.Region("r16", 0, True, 88, False, 5, True, 11, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__8_27
+        region = self.Region("r17", 0, False, 88, False, 11, False, None,
+                             False)
+        eq_dict[region] = ifs._Nu_x__8_27
+        region = self.Region("r18", 88, False, 90, True, None, False, 6, False)
+        eq_dict[region] = ifs._Nu_x__8_38
+        region = self.Region("r19", 88, True, 90, True, 6, True, 9, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__8_38
+        region = self.Region("r20", 88, True, 89, False, 9, False, None, False)
+        eq_dict[region] = ifs._Nu_x__8_38
+        region = self.Region("r21", 89, True, 90, True, 9, True, 11, True,
+                             "In_Eq_Region")
+        eq_dict[region] = ifs._Nu_x__8_38
+        region = self.Region("r22", 88, False, 90, True, 11, False, None,
+                             False)
+        eq_dict[region] = ifs._Nu_x__8_38
 
         self.regions = list(self.equation_dict.keys())
 
@@ -302,6 +371,9 @@ class IsothermalFlatSurface(EmpiricalCorrelation):
         return Nu_L * k / L
 
     def plot_regions(self):
+        """
+        Plot all the regions.
+        """
         for region in self.regions:
             region.plot_region()
         plt.show()
