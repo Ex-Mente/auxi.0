@@ -39,11 +39,11 @@ class BetaTTester(unittest.TestCase):
         """
         model = testee.BetaT()
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model.calculate(T), 1.0/T)
+        self.assertEqual(model.calculate(T=T), 1.0/T)
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model.calculate(T), 1.0/T)
+        self.assertEqual(model.calculate(T=T), 1.0/T)
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model.calculate(T), 1.0/T)
+        self.assertEqual(model.calculate(T=T), 1.0/T)
 
     def test_call(self):
         """
@@ -52,11 +52,11 @@ class BetaTTester(unittest.TestCase):
         """
         model = testee.BetaT()
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model(T), 1.0/T)
+        self.assertEqual(model(T=T), 1.0/T)
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model(T), 1.0/T)
+        self.assertEqual(model(T=T), 1.0/T)
         T = random.uniform(0.0, 3000.0)
-        self.assertEqual(model(T), 1.0/T)
+        self.assertEqual(model(T=T), 1.0/T)
 
 
 class RhoTTester(unittest.TestCase):
@@ -83,11 +83,11 @@ class RhoTTester(unittest.TestCase):
         model = testee.RhoT(mm, P)
 
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model.calculate(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model.calculate(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model.calculate(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T), mm*P/R/T/1000.0)
 
     def test_call(self):
         """
@@ -100,11 +100,11 @@ class RhoTTester(unittest.TestCase):
         model = testee.RhoT(mm, P)
 
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
-        self.assertAlmostEqual(model(T), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T), mm*P/R/T/1000.0)
 
 
 class RhoTPTester(unittest.TestCase):
@@ -130,13 +130,13 @@ class RhoTPTester(unittest.TestCase):
 
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model.calculate(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model.calculate(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model.calculate(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P), mm*P/R/T/1000.0)
 
     def test_call(self):
         """
@@ -149,13 +149,13 @@ class RhoTPTester(unittest.TestCase):
 
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
-        self.assertAlmostEqual(model(T, P), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P), mm*P/R/T/1000.0)
 
 
 class RhoTPxTester(unittest.TestCase):
@@ -194,15 +194,15 @@ class RhoTPxTester(unittest.TestCase):
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model.calculate(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P, x=x), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model.calculate(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P, x=x), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model.calculate(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model.calculate(T=T, P=P, x=x), mm*P/R/T/1000.0)
 
     def test_call(self):
         """
@@ -214,15 +214,15 @@ class RhoTPxTester(unittest.TestCase):
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P, x=x), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P, x=x), mm*P/R/T/1000.0)
         T = random.uniform(0.0, 3000.0)
         P = random.uniform(1.0, 101325.0*5.0)
         x, mm = self._create_x_and_mm()
-        self.assertAlmostEqual(model(T, P, x), mm*P/R/T/1000.0)
+        self.assertAlmostEqual(model(T=T, P=P, x=x), mm*P/R/T/1000.0)
 
 
 if __name__ == '__main__':

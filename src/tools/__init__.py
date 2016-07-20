@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This package provides tools to make common tasks quick, easy and accurate.
 """

@@ -16,12 +16,17 @@ from auxi.tools.materialphysicalproperties.idealgas_test \
     import BetaTTester, RhoTTester, RhoTPTester, RhoTPxTester
 from auxi.tools.materialphysicalproperties.polynomial_test \
     import PolynomialModelTTester
+from auxi.tools.transportphenomena.heattransfer.naturalconvection_test \
+    import IsothermalFlatSurface_RegionTester, IsothermalFlatSurfaceTester
+from auxi.tools.transportphenomena.dimensionlessquantities_test \
+    import DimensionlessQiantitiesTester
 
 from auxi.modelling.process.materials.chem_test \
     import ChemMaterialUnitTester, ChemMaterialPackageUnitTester
 from auxi.modelling.process.materials.thermo_test \
     import ThermoMaterialUnitTester
-#from auxi.modelling.process.materials.thermo_test import ThermoMaterialPackageUnitTester
+# from auxi.modelling.process.materials.thermo_test \
+#   import ThermoMaterialPackageUnitTester
 from auxi.modelling.process.materials.psd_test \
     import PsdMaterialUnitTester, PsdMaterialPackageUnitTester
 from auxi.modelling.process.materials.slurry_test \

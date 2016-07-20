@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This module provides a set of physical constants that are used frequently.
 """
@@ -12,7 +13,7 @@ __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
 
 
-#TODO: Add literature references to these constants.
+# TODO: Add literature references to these constants.
 
 # Universal Constants
 

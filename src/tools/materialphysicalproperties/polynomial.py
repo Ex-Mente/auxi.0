@@ -1,14 +1,15 @@
+#!/usr/bin/env python3
 """
 This module provides tools for calculating material physical properties.
 """
-
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import webbrowser
+from cerberus import Validator, ValidationError
 
-from auxi.tools.materialphysicalproperties.core import ModelT
+from auxi.tools.materialphysicalproperties.core import Model
 
 
 __version__ = '0.2.3'
@@ -40,7 +41,7 @@ def _formula_string(coeffs, variable="x"):
     return "$%s$" % result
 
 
-class PolynomialModelT(ModelT):
+class PolynomialModelT(Model):
     """
     A model that uses polynomial fits on experimental data to describe the
     variation of a specific material physical property as a function of
@@ -75,22 +76,25 @@ class PolynomialModelT(ModelT):
         y_vals = dataset.data[symbol].tolist()
         coeffs = np.polyfit(x_vals, y_vals, degree)
 
-        return PolynomialModelT(dataset.material,
-                                dataset.names_dict[symbol],
-                                symbol, dataset.display_symbols_dict[symbol],
-                                dataset.units_dict[symbol],
-                                None, [dataset.name], coeffs)
+        result = PolynomialModelT(dataset.material,
+                                  dataset.names_dict[symbol],
+                                  symbol, dataset.display_symbols_dict[symbol],
+                                  dataset.units_dict[symbol],
+                                  None, [dataset.name], coeffs)
+
+        result.state_schema['T']['min'] = float(min(x_vals))
+        result.state_schema['T']['max'] = float(max(x_vals))
+
+        return result
 
     def __init__(self, material, proprty, symbol, display_symbol, units,
                  references, datasets, coeffs):
+        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
         super().__init__(material, proprty, symbol, display_symbol, units,
-                         references, datasets)
+                         state_schema, references, datasets)
         self._coeffs = [float(x) for x in coeffs]
 
-    def __call__(self, T):
-        return self.calculate(T)
-
-    def calculate(self, T):
+    def calculate(self, **state):
         """
         Calculate the material physical property at the specified temperature
         in the units specified by the object's 'property_units' property.
@@ -99,7 +103,8 @@ class PolynomialModelT(ModelT):
 
         :returns: physical property value
         """
-        return np.polyval(self._coeffs, T)
+        super().calculate(**state)
+        return np.polyval(self._coeffs, state['T'])
 
     def plot(self, dataset, path, show=False):
         with PdfPages(path) as pdf:
@@ -110,11 +115,9 @@ class PolynomialModelT(ModelT):
             x_vals2 = np.linspace(min(x_vals), max(x_vals), 80)
             fx = np.polyval(self._coeffs, x_vals2)
             plt.plot(x_vals2, fx, linewidth=0.3, label='')
-#                     label=_formula_string(self._coeffs, 'T'))
 
             plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
             plt.legend(loc=3, bbox_to_anchor=(0, 0.8))
-#            plt.setp(plt.gca().get_legend().get_texts(), fontsize='5')
             plt.title('$%s$ vs $T$' % self.display_symbol)
             plt.xlabel('$T$ (K)')
 
@@ -130,5 +133,5 @@ class PolynomialModelT(ModelT):
 
 if __name__ == "__main__":
     import unittest
-    from polynomial_test import PolynomialModelTTester
+    from polynomial_test import *
     unittest.main()
