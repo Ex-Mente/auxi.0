@@ -1,28 +1,100 @@
-# How to contribute
+# How to Contribute to `auxi`
 
-New functionality and third-party patches are necessary to help auxi make a
-difference. We can't test for all the different configurations and usages in
-auxi. auxi development is for the community, and thus, new features needed by
-the community helps for auxi make the difference.
+`auxi` is a community-driven open-source project. For the software to grow and
+become more powerful, the community must be able to contribute. This will help
+`auxi` to help the community more.
 
-We want to keep it as easy as possible to contribute features and changes
-that will help you. In order to help us maintain auxi, our contributors need
-to follow a few guidelines.
+Members of the community will only contribute if it is clear how to do this,
+and if it is easy to contribute. This document explains how you can become an
+`auxi` contributor.
 
 If you need any help regarding your contribution, you may visit
-[#auxi-za mailing list](https://groups.google.com/forum/#!forum/auxi-za)
+[#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za)
 
-## Getting Started
 
-* Make sure you have a [GitHub account](https://github.com/signup/free)
-* Submit a ticket for your issue, assuming one does not already exist.
-  * Clearly describe the issue including steps to reproduce when it is a bug.
-  * Make sure you specify the version of auxi that has this issue.
-  * Make sure you specify your OS, its architecture (32 or 64bit).
-  * Make sure you specify the version of Python you are using.
-* Fork the repository on GitHub
+## Adhering to Standards and Procedurse
+Getting people to work together to achieve a common goal is not always easy, but it is so worth while when it is successful. If `auxi` is to have any chance of succeeding, and help us all out, we need to work according to a common set of standards and procedures. All these things are open for debate on the [#auxi-za forum](https://groups.google.com/forum/#!forum/auxi-za). If things are not working well, we discuss them, and make them better.
 
-## Making Changes
+So, if you do want to contribute, please familiarise yourself with the details in the system documentation (README.md, ROLES.md, STANDARDS.md, CONTRIBUTING.md, RELEASING.md) in the root of the GitHub repository, and stick to the standards, procedures and other guidelines provided.
+
+
+## GitHub Account
+`auxi` is hosted on GitHub, and to contribute, you need to create a
+[GitHub account](https://github.com/signup/free) if you do not already have one.
+
+
+## Issue Contributions
+The simplest way to contribute to `auxi` is to raise an issue, especially if you are not confident enough to contribute code. Issues are used for the following scenarios:
+
+* Bugs/problems
+
+   If you are using `auxi`, and something is not working, or it is failing, or it is creating a problem, you can submit an issue.
+
+* Enhancement requests
+
+   If you have an idea of somethign new that could improve `auxi`, or of some changes that would make it better, you can also submit an issue.
+
+### Content
+An issue must be properly documented to enable other contributors and maintainers to understand it clearly, and to implement code that will effectively address the issue. A submitted issue must provide the following information:
+
+* System Details
+
+   If your issue is a bug or problem, you need to clearly specify the `auxi` version that you are working with, the Python version that you are working with, and the details of the operating system that you are working on. (Only required for bugs.)
+
+* Background
+
+   Write some background about the issue to provide some perspective and to put other `auxi` project members in the picture. (This is required for all issues.)
+
+* Purpose
+
+   Write a clear, compact statement to indicate what the purpose of this issue is. Remember, an issue ultimately results in changes to the `auxi` code and documentation. Think about this when writing the purpose. (This is required for all issues.)
+
+* Approach
+
+   If you are able, propose an approach to address the issue. (This is optional for the initial submission of an issue, but it must be provided before a branch will be created to address the issue.)
+
+* Scope
+
+   If you are able, you can provide details of all the items that must be addressed to completely address the issue. (This is optional for the initial submission of an issue, but it must be provided before a branch will be created to address the issue.)
+
+Here is an example of the markdown text of an empty issue:
+
+```
+### System Details
+auxi version:   <<add your auxi verion here>>
+Python version: <<add your Python version here>>
+OS details:     <<add your operating system details here>>
+
+### Background
+<<add your issue background here>>
+
+### Purpose
+<<add your issue purpose here>>
+
+### Approach
+<<add your proposed approach to address the issue here>>
+
+### Scope
+<<specify the scope of items that must be completed here>>
+```
+
+When opening new issues or commenting on existing issues on this repository, please make sure discussions are related to concrete technical issues with the `auxi` software and documentation.
+
+
+### Procedure
+To submit an issue, follow these steps:
+
+1. Open a ticket for your issue on the central `auxi` repository on GitHub. (required)
+2. Write system details if your issue is a bug. (required for bug)
+3. Write background about your issue. (required)
+4. Write a purpose statement for the issue. (required)
+5. Propose an approach to address the issue. (optional for initial submition)
+6. Specify the scope of the issue. (optional for initial submition)
+7. Submit the issue on Github. (required)
+
+
+## Code Contributions
+If you are able to, you can write your own code to address an issue that you have submitted, or one that someone else has submitted. This is where the real fun starts, and where you can really help out. In this case 'code' refers to Python code, test code, examples Jupyter notebooks and user documentation. Whatever you are comfortable with, please dig in and make `auxi` better.
 
 * Create a topic branch from where you want to base your work.
   * This is usually the master branch.
