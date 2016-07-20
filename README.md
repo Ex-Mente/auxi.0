@@ -27,7 +27,7 @@ pip install auxi
 The repository contains the following top-level directories:
 * root
 
-   This directory contains the high-level system documentation such as this readme file, and other files that need to be easily accessible to contributors and maintainers. It also contains the `.gitignore` file to specify ignored files and patthers, and `.travis.yml` file to provide configuration details for the Travis.CI continuous integration tool.
+   This directory contains the high-level system documentation such as this readme file, and other files that need to be easily accessible to contributors and maintainers. It also contains the `.gitignore` file to specify ignored files and patterns, and `.travis.yml` file to provide configuration details for the Travis.CI continuous integration tool.
 
 * doc
 
