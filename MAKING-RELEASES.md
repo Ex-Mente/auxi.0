@@ -15,7 +15,7 @@ A release consists of one or more release candidates. Each release candidate rep
 #### Step 1: Create an Issue
 Create a issue for the new release. As specified in the CONTRIBUTING.md file, the issue should have a `background` and `purpose`. Specifying `scope` is important as well. Make sure that the purpose for this release comes through clearly. Specify the addressed issues highlights in the `scope`.
 
-#### Step 1: Create Release Branch
+#### Step 2: Create Release Branch
 When making a release the first thing that needs to be done is to create a new release branch from `develop`.
 
 First, create the release branch on the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) from `develop`.
@@ -29,13 +29,29 @@ git pull upstream <<release number>>
 ```
 
 
-#### Step 2: Increment the version
+#### Step 3: Increment the version
 Under the auxi.0/scripts folder, run the update_version.py script. You will be prompted for the new version number.
 Make the version the release number plus 'rc1' (release candidate 1) e.g. "0.3.0rc1". For each new release candidate, increase the release candidate number. e.g. if you are repeating step two the new version number should be "0.3.0rc2".
 
+#### Step 4: Build deployment
+Under the auxi.0/scripts folder, run the build_and_deploy.py script
 
-#### Step 3: Deploy the release candidate to PyPi
-Navigate to the setup you created. Go to auxi.0/dist, extract the .zip or .tar.gz release created e.g. "auxi-0.3.0rc1.tar.gz".
+```
+sudo sh build_and_deploy.sh
+```
+
+This will build your setup as well as deploy it to your python distribution.
+
+Test the release by running auxi's test file. e.g.
+
+```
+python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.py
+```
+
+Fix any issues you may find and repeat this step until all issues has been fixed.
+
+#### Step 5: Deploy the release candidate to PyPi
+Navigate to the deployment you created. Go to auxi.0/dist, extract the .zip or .tar.gz release created e.g. "auxi-0.3.0rc1.tar.gz".
 In your command line shell, navigate into the extracted folder and run the following command:
 
 ```
@@ -44,7 +60,7 @@ pip setup.py sdist upload
 
 You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
 
-#### Step 4: Test the deployment
+#### Step 6: Test the deployment
 Run `auxi`'s tests, make sure everything is working. (First make sure that you uninstall any previous versions of auxi)
 
 ```
@@ -53,18 +69,18 @@ pip install auxi==<<release candidate version e.g. "0.3.0rc1">>
 
 Run auxi's test file. e.g.
 ```
-python /usr/local/lib/python3.4/dist-packages/auxi-0.2.3-py3.4.egg/auxi/test.py
+python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.py
 ```
 
-If there are any issues, fix it, and repeat steps 2,3 and 4 until all issues has been fixed.
+If there are any issues, fix it, and repeat steps 3,4, 5 and 6 until all issues has been fixed.
 
-#### Step 5: Finalize release
-The release candidate phase is over and we can move on to create a new release on `master`. Update the version number to the release number (without any suffixes) e.g. "0.3.0". Commit and push your changes.
+#### Step 7: Finalize release
+The release candidate phase is over and we can move on to create a new release on `master`. Update the version number to the release number (without any suffixes) e.g. "0.3.0".
 
-#### Step 5.1 Update Release Notes
+#### Step 7.1 Update Release Notes
 Update the `RELEASE-NOTES.md` file by inserting the new release's notes at the top of the file in the format as specified in the file. Make sure that you list all the issues that this release addressed.
 
-#### Step 6: Push to your online fork repository
+#### Step 8: Push to your online fork repository
 Commit all you changes then push them to your online fork repository.
 
 ```
@@ -73,22 +89,23 @@ git push origin <<release number>>
 ```
 
 The last commit is an important point in our git History. We will mark this by creating a tag of the commit.
+
 ```
 git tag -a Tag-<<release number>>
 git push origin Tag-<<release number>>
 ```
 
-#### Step 7: Update [central `auxi` repository](https://github.com/Ex-Mente/auxi.0)'s release branch
+#### Step 9: Update [central `auxi` repository](https://github.com/Ex-Mente/auxi.0)'s release branch
 Create a pull request from your online fork repository's release branch to the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) release branch.
 
 In the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), approve and merge the release branch ONLY if all of Travis.CI's checks passed. Else, fix the issues and go back to step 2.
 
-#### Step 8: Merge into `develop` and `master`
+#### Step 10: Merge into `develop` and `master`
 The release is now ready to be deployed the world. Merging the release into master will automatically instruct Travis.CI to create a PyPi deployment for `auxi`. We will also have to merge it back into `develop`.
 
 In the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) create a pull request from the release branch to  `develop`. Approve and merge the pull request. Now, do the same for `master`.
 
-#### Step 9: Test the deployment
+#### Step 11: Test the deployment
 Install `auxi` and run the tests.
 
 ```
@@ -99,7 +116,7 @@ Make sure that the version number specified in the output corresponds to the new
 
 Run `auxi`'s test file. e.g.
 ```
-python /usr/local/lib/python3.4/dist-packages/auxi-0.2.3-py3.4.egg/auxi/test.py
+python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.py
 ```
 
 Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix.
