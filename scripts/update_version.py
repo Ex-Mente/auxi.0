@@ -49,4 +49,18 @@ for root, dirs, files in os.walk("../src"):
 for root, dirs, files in os.walk("../doc"):
     for file in files:
         if file.endswith(".py"):
-            print(os.path.join(root, file))
+            file_path = os.path.join(root, file)
+            print("Updating " + file_path)
+            with open(file_path, 'r') as f:
+                content = f.read()
+                content = content.replace(
+                    "copyright = '2015-2016, " + old_ver + "'",
+                    "copyright = '2015-2016, " + new_ver + "'")
+                content = content.replace(
+                    "version = '" + old_ver + "'",
+                    "version = '" + new_ver + "'")
+                content = content.replace(
+                    "release = '" + old_ver + "'",
+                    "release = '" + new_ver + "'")
+            with open(file_path, 'w') as f:
+                f.write(content)
