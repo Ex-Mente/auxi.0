@@ -42,7 +42,7 @@ sudo sh build_and_deploy.sh
 
 This will build your setup as well as deploy it to your python distribution.
 
-Test the release by running auxi's test file. e.g.
+Test the release by running `auxi`'s test file. e.g.
 
 ```
 python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.py
@@ -61,7 +61,7 @@ pip setup.py sdist upload
 You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
 
 #### Step 6: Test the deployment
-Run `auxi`'s tests, make sure everything is working. (First make sure that you uninstall any previous versions of auxi)
+Run `auxi`'s tests, make sure everything is working. (First make sure that you uninstall any previous versions of `auxi`)
 
 ```
 pip install auxi==<<release candidate version e.g. "0.3.0rc1">>
