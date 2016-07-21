@@ -42,7 +42,7 @@ In your command line shell, navigate into the extracted folder and run the follo
 pip setup.py sdist upload
 ```
 
-You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi. 
+You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
 
 #### Step 4: Test the deployment
 Run `auxi`'s tests, make sure everything is working. (First make sure that you uninstall any previous versions of auxi)
@@ -65,7 +65,7 @@ The release candidate phase is over and we can move on to create a new release o
 Update the `RELEASE-NOTES.md` file by inserting the new release's notes at the top of the file in the format as specified in the file. Make sure that you list all the issues that this release addressed.
 
 #### Step 6: Push to your online fork repository
-Commit all you changes then push them to your online fork repository. 
+Commit all you changes then push them to your online fork repository.
 
 ```
 git commit -m "Release <<release number>>. This closes issue #<<issue number>>" -a
@@ -95,11 +95,11 @@ Install `auxi` and run the tests.
 pip install auxi
 ```
 
-Make sure that the version number specified in the output corresponds to the new release's version. 
+Make sure that the version number specified in the output corresponds to the new release's version.
 
 Run `auxi`'s test file. e.g.
 ```
 python /usr/local/lib/python3.4/dist-packages/auxi-0.2.3-py3.4.egg/auxi/test.py
 ```
 
-Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix. 
+Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix.
