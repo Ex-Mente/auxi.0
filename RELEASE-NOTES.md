@@ -20,14 +20,3 @@ Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 * added a front page to the GitHub repository (#69);
 * cleaned up the root directory of the repository (#70);
 * added system documentation to make contributions easy (#33);
-
-
-## <<add version number here>>
-<<add a description of the highlights of this release here>>
-
-### Release Details
-Date:       <<add release date here>>
-Maintainer: <<add name of maintainer that created the release>>
-
-### Issues Addressed
-<<list the issues addressed in this release here>>
