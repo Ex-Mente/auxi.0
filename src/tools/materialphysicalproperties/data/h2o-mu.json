@@ -1,0 +1,60 @@
+{
+    "_coeffs": [
+        -3.9576855369151983e-28,
+        1.9927922071799127e-24,
+        -4.53489957755581e-21,
+        6.156138091490682e-18,
+        -5.538938148158184e-15,
+        3.46822638782876e-12,
+        -1.5421790954399852e-09,
+        4.870077015784609e-07,
+        -0.00010704987432006421,
+        0.015601837795515728,
+        -1.3572740897938709,
+        53.41590211114753
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\mu",
+    "material": "Water",
+    "property": "",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
+    "symbol": "mu",
+    "units": "kg/m/s"
+}

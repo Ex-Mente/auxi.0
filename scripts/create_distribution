@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd ../doc/user
+sh deploy
+cd ../../scripts
+
+cp setup.py ../
+
+cd ..
+
+python3 setup.py sdist
+
+rm setup.py
+
+cd scripts

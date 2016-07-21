@@ -1,0 +1,59 @@
+{
+    "_coeffs": [
+        1.6247993986877288e-19,
+        -6.949469897200736e-16,
+        1.3281626298100944e-12,
+        -1.493367230148498e-09,
+        1.0938270577183833e-06,
+        -0.00054528364467918,
+        0.18734739472695122,
+        -43.80361670340635,
+        6670.084090414945,
+        -597325.8161267168,
+        23895321.144308947
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "C_p",
+    "material": "Water",
+    "property": "Specific Heat",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
+    "symbol": "Cp",
+    "units": "J/kg*K"
+}

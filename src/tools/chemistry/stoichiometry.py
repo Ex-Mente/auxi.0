@@ -9,7 +9,7 @@ import re
 from auxi.core.objects import Object
 
 
-__version__ = '0.2.3'
+__version__ = '0.3.0'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -490,6 +490,33 @@ def amount(compound, mass):
     return mass / molar_mass(_get_formula_(compound))
 
 
+def amounts(masses):
+    """
+    Calculate the amounts from the specified compound masses.
+
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+
+    :returns: [kmol] dictionary
+    """
+
+    return {compound: amount(compound, masses[compound])
+            for compound in masses.keys()}
+
+
+def amount_fractions(masses):
+    """
+    Calculate the mole fractions from the specified compound masses.
+
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+
+    :returns: [kg] dictionary
+    """
+
+    n = amounts(masses)
+    n_total = sum(n.values())
+    return {compound: n[compound]/n_total for compound in n.keys()}
+
+
 def mass(compound, amount):
     """
     Calculate the mass of the specified amount of a chemical compound.
@@ -502,6 +529,33 @@ def mass(compound, amount):
     """
 
     return amount * molar_mass(_get_formula_(compound))
+
+
+def masses(amounts):
+    """
+    Calculate the masses from the specified compound amounts.
+
+    :param masses: [kmol] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+
+    :returns: [kg] dictionary
+    """
+
+    return {compound: mass(compound, masses[compound])
+            for compound in masses.keys()}
+
+
+def mass_fractions(amounts):
+    """
+    Calculate the mole fractions from the specified compound masses.
+
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+
+    :returns: [kg] dictionary
+    """
+
+    m = masses(amounts)
+    m_total = sum(m.values())
+    return {compound: m[compound]/m_total for compound in m.keys()}
 
 
 def convert_compound(mass, source, target, element):

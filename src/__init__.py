@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 A toolkit to help metallurgical process engineers to rapidly do day-to-day
 calculations.
@@ -19,7 +20,7 @@ documentation at https://auxi.readthedocs.org/en/latest/.
 """
 
 
-__version__ = '0.2.3'
+__version__ = '0.3.0'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

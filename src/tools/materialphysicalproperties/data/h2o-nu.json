@@ -1,0 +1,60 @@
+{
+    "_coeffs": [
+        -3.276269721374497e-31,
+        1.6560465948984408e-27,
+        -3.7835940848643e-24,
+        5.157389921212368e-21,
+        -4.660109801914304e-18,
+        2.930851771749725e-15,
+        -1.3092210770255314e-12,
+        4.154203772561557e-10,
+        -9.177027189394479e-08,
+        1.3444821051657595e-05,
+        -0.0011760374896457638,
+        0.046550504728984254
+    ],
+    "datasets": [
+        "dataset-h2o-lienhard2015.csv"
+    ],
+    "display_symbol": "\\nu",
+    "material": "Water",
+    "property": "Kinematic Viscosity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 620.0,
+            "min": 273.16,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 620.0,
+                    "min": 273.16,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": null,
+        "_errors": {},
+        "allow_unknown": false,
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 620.0,
+                "min": 273.16,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false
+    },
+    "symbol": "nu",
+    "units": "m2 /s"
+}
