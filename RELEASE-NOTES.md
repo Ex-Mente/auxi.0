@@ -11,11 +11,15 @@ In this release a significant number of additions were made. These included:
 * added system documentation to make contributions easy (#33);
 
 ### Release Details
-Date:       <<add release date here>>
-Maintainer: <<add name of maintainer that created the release>>
+Date:       21 July 2016
+Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
-<<list the issues addressed in this release here>>
+* added a material physical property package under tools;
+* added a transport phenomena package under tools (#57);
+* added a front page to the GitHub repository (#69);
+* cleaned up the root directory of the repository (#70);
+* added system documentation to make contributions easy (#33);
 
 
 ## <<add version number here>>
