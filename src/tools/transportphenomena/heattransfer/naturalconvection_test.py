@@ -11,7 +11,7 @@ from auxi.tools.transportphenomena.heattransfer import naturalconvection as test
 from auxi.tools.materialphysicalproperties.gases import air
 
 
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
