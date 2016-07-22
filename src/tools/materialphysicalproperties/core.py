@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This module provides tools for calculating material physical properties.
 """
@@ -7,14 +8,13 @@ import csv
 import os
 import pandas as pd
 import webbrowser
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
+from cerberus import Validator, ValidationError
+from enum import Enum
 
 from auxi.core.objects import Object
 
 
-__version__ = '0.2.3'
+__version__ = '0.3.0'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Marno Grewar, Christoff Kok, Johan Zietsman'
@@ -22,6 +22,23 @@ __credits__ = ['Marno Grewar', 'Christoff Kok', 'Johan Zietsman']
 __maintainer__ = 'Johan Zietsman'
 __email__ = 'johan.zietsman@ex-mente.co.za'
 __status__ = 'Planning'
+
+
+class StateOfMatter(Enum):
+    unknown = 0
+    solid = 1
+    liquid = 2
+    solid_liquid = solid | liquid
+    gas = 4
+    solid_gas = solid | gas
+    solid_liquid_gas = solid | liquid | gas
+    plasma = 8
+    solid_plasma = solid | plasma
+    solid_liquid_plasma = solid | liquid | plasma
+    solid_liquid_gas_plasma = solid | liquid | gas | plasma
+    liquid_plasma = liquid | plasma
+    liquid_gas_plasma = liquid | gas | plasma
+    gas_plasma = gas | plasma
 
 
 class DataSet(object):
@@ -72,6 +89,19 @@ class DataSet(object):
         self._read_header_information()
         self._read_data()
 
+    def __str__(self):
+        result = 'Material:         %s\n' % self.material
+        result += 'Description:      %s\n' % self.description
+        result += 'References:       %s\n' % self.reference
+        result += 'Properties:       %s\n' % self.col_names
+        result += 'Symbols:          %s\n' % self.col_symbols
+        result += 'Display symbols:  %s\n' % self.col_display_symbols
+        result += 'Units:            %s\n' % self.col_units
+        result += 'Data:\n'
+        result += str(self.data)
+
+        return result
+
     def _read_header_information(self):
         with open(self._file_path, newline='') as file:
             lines = csv.reader(file, delimiter=',', quotechar='"')
@@ -113,7 +143,6 @@ class DataSet(object):
             self.units_dict = dict(zip(self.col_symbols, self.col_units))
             """A dictionary to translate a parameter's symbol to its units."""
 
-
     def _read_data(self):
         self.data = pd.read_csv(self._file_path, header=6)
 
@@ -136,7 +165,7 @@ class Model(Object):
     """
 
     def __init__(self, material, proprty, symbol, display_symbol, units,
-                 references, datasets):
+                 state_schema, references, datasets):
         self.material = material
         self.property = proprty
         self.symbol = symbol
@@ -144,166 +173,35 @@ class Model(Object):
         self.units = units
         self.references = references
         self.datasets = datasets
+        self.state_schema = state_schema
+        self._create_validator(self.state_schema)
 
-
-class ModelT(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature.
-    """
-
-    def __call__(self, T):
-        return self.calculate(T)
-
-    def calculate(self, T):
+    def __call__(self, **state):
         """
-        Calculate the property value.
-
-        :param T: [K] temperature
-
-        :returns: property value in the units specified for the model
+        For details about this method, please refer to the calculate method.
         """
-        raise NotImplementedError("This method has not yet been implemented.")
+        return self.calculate(**state)
 
-    def plot(self, dataset, path, show=False):
-        with PdfPages(path) as pdf:
-            x_vals = dataset.data['T'].tolist()
-            y_vals = dataset.data[self.symbol].tolist()
-            plt.plot(x_vals, y_vals, 'ro', alpha=0.4, markersize=4)
+    def _create_validator(self, state_schema):
+        self.state_schema = state_schema
+        self.state_validator = Validator(self.state_schema)
 
-            x_vals2 = np.linspace(min(x_vals), max(x_vals), 80)
-            fx = [self(T) for T in x_vals2]
-            plt.plot(x_vals2, fx, linewidth=0.3, label='')
-#                     label=_formula_string(self._coeffs, 'T'))
-
-            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
-            plt.legend(loc=3, bbox_to_anchor=(0, 0.8))
-#            plt.setp(plt.gca().get_legend().get_texts(), fontsize='5')
-            plt.title('$%s$ vs $T$' % self.display_symbol)
-            plt.xlabel('$T$ (K)')
-
-            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
-
-            fig = plt.gcf()
-            pdf.savefig(fig)
-            plt.close()
-
-        if show:
-            webbrowser.open_new(path)
-
-
-class ModelTx(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature, and composition expressed
-    in mole fraction.
-    """
-
-    def __call__(self, T, x):
-        return self.calculate(T, x)
-
-    def calculate(self, T, x):
+    def calculate(self, **state):
         """
-        Calculate the property value.
+        Base calculate method for models.
+        Validates the material state parameter(s).
 
-        :param T: [K] temperature
-        :param x: mole fraction dictionary, e.g. { 'N2': 0.79, 'O2': 0.21}
-
-        :returns: property value in the units specified for the model
+        :param **state: The material state
         """
-        raise NotImplementedError("This method has not yet been implemented.")
-
-
-class ModelTy(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature, and composition expressed
-    in mass fraction.
-    """
-
-    def __call__(self, T, y):
-        return self.calculate(T, y)
-
-    def calculate(self, T, y):
-        """
-        Calculate the property value.
-
-        :param T: [K] temperature
-        :param y: massfraction dictionary, e.g. { 'Fe2O3': 0.98, 'SiO2': 0.02}
-
-        :returns: property value in the units specified for the model
-        """
-        raise NotImplementedError("This method has not yet been implemented.")
-
-
-class ModelTP(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature and pressure.
-    """
-
-    def __call__(self, T, P):
-        return self.calculate(T, P)
-
-    def calculate(self, T, P):
-        """
-        Calculate the property value.
-
-        :param T: [K] temperature
-        :param P: [Pa] pressure
-
-        :returns: property value in the units specified for the model
-        """
-        raise NotImplementedError("This method has not yet been implemented.")
-
-
-class ModelTPx(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature, pressure, and composition
-    expressed in mole fraction.
-    """
-
-    def __call__(self, T, P, x):
-        return self.calculate(T, P, x)
-
-    def calculate(self, T, P, x):
-        """
-        Calculate the property value.
-
-        :param T: [K] temperature
-        :param P: [Pa] pressure
-        :param x: mole fraction dictionary, e.g. { 'N2': 0.79, 'O2': 0.21}
-
-        :returns: property value in the units specified for the model
-        """
-        raise NotImplementedError("This method has not yet been implemented.")
-
-
-class ModelTPy(Model):
-    """
-    Base class of models that describe the variation of a specific material
-    physical property as a function of temperature, pressure, and composition
-    expressed in mass fraction.
-    """
-
-    def __call__(self, T, P, y):
-        return self.calculate(T, P, y)
-
-    def calculate(self, T, P, y):
-        """
-        Calculate the property value.
-
-        :param T: [K] temperature
-        :param P: [Pa] pressure
-        :param y: mass fraction dictionary, e.g. { 'N2': 0.79, 'O2': 0.21}
-
-        :returns: property value in the units specified for the model
-        """
-        raise NotImplementedError("This method has not yet been implemented.")
+        if not self.state_validator.validate(state):
+            msg = 'The state description contains errors:'
+            for key, value in self.state_validator.errors.items():
+                msg += ' %s: %s;' % (key, value)
+            msg = msg[0:-1]+'.'
+            raise ValidationError(msg)
 
 
 if __name__ == "__main__":
     import unittest
-    from core_test import DataSetTester
+    from core_test import *
     unittest.main()

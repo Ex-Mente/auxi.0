@@ -12,7 +12,7 @@ from auxi.tools.materialphysicalproperties import polynomial as testee
 from auxi.tools.materialphysicalproperties.core import DataSet
 
 
-__version__ = '0.2.3'
+__version__ = '0.3.0'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -104,17 +104,32 @@ class PolynomialModelTTester(unittest.TestCase):
         model = testee.PolynomialModelT.read(file_path)
 
         T = 100.0
-        self.assertEqual(model.calculate(T), 3.6026669128620208)
+        # self.assertEqual(model.calculate(T=T), 3.6026669128620208)
+        self.assertEqual(model.calculate(T=T), 3.6049798036305774)
         T = 200.0
-        self.assertEqual(model.calculate(T), 1.7581685372604081)
+        self.assertEqual(model.calculate(T=T), 1.7581685372604081)
         T = 300.0
-        self.assertEqual(model.calculate(T), 1.1791874628593089)
+        self.assertEqual(model.calculate(T=T), 1.1791874628593089)
         T = 400.0
-        self.assertEqual(model.calculate(T), 0.87918802181468259)
+        self.assertEqual(model.calculate(T=T), 0.87918802181468259)
         T = 500.0
-        self.assertEqual(model.calculate(T), 0.70171039180794637)
+        self.assertEqual(model.calculate(T=T), 0.70171039180794637)
         T = 600.0
-        self.assertEqual(model.calculate(T), 0.59118824960721206)
+        self.assertEqual(model.calculate(T=T), 0.59118824960721206)
+
+    def test_plot(self):
+        """
+        Test whether the plots are created.
+        """
+        dataset_path = join(MODULE_PATH, 'data/dataset-air-lienhard2015.csv')
+        dataset = DataSet(dataset_path)
+        model = testee.PolynomialModelT.create(dataset, 'rho', 10)
+
+        pdf_path = join(MODULE_PATH, 'test.pdf')
+
+        model.plot(dataset, pdf_path)
+        self.assertTrue(isfile(pdf_path))
+        remove(pdf_path)
 
     def test_call(self):
         """
@@ -125,17 +140,17 @@ class PolynomialModelTTester(unittest.TestCase):
         model = testee.PolynomialModelT.read(file_path)
 
         T = 100.0
-        self.assertEqual(model(T), 3.6026669128620208)
+        self.assertEqual(model(T=T), 3.6026669128620208)
         T = 200.0
-        self.assertEqual(model(T), 1.7581685372604081)
+        self.assertEqual(model(T=T), 1.7581685372604081)
         T = 300.0
-        self.assertEqual(model(T), 1.1791874628593089)
+        self.assertEqual(model(T=T), 1.1791874628593089)
         T = 400.0
-        self.assertEqual(model(T), 0.87918802181468259)
+        self.assertEqual(model(T=T), 0.87918802181468259)
         T = 500.0
-        self.assertEqual(model(T), 0.70171039180794637)
+        self.assertEqual(model(T=T), 0.70171039180794637)
         T = 600.0
-        self.assertEqual(model(T), 0.59118824960721206)
+        self.assertEqual(model(T=T), 0.59118824960721206)
 
 
 if __name__ == '__main__':

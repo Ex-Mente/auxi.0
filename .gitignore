@@ -1,2 +1,6 @@
 __pycache__
 MANIFEST
+.ipynb_checkpoints
+.spyderworkspace
+auxi.sublime-project
+auxi.sublime-workspace
