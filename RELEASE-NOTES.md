@@ -1,6 +1,16 @@
 # `auxi` Release Notes
 This file reports the details of each `auxi` release from newest to oldest.
 
+## 0.3.1
+In this release a a hotfix was made to make Windows deployments work (#103).
+
+### Release Details
+Date:       22 July 2016
+Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
+
+### Issues Addressed
+* 0.3.0 Windows deployment fails. (#103)
+
 
 ## 0.3.0
 In this release a significant number of additions were made. These included:
