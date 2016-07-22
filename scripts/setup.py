@@ -9,7 +9,7 @@ from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
-      version='0.3.0',
+      version='0.3.1',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.md').read(),
@@ -44,12 +44,15 @@ setup(name='auxi',
                     'auxi.tools.materialphysicalproperties': [r'data/*.json',
                                                               r'data/*.csv'],
                     'auxi.examples': [],
-                    'auxi': [r'../*.md', r'doc/*.pdf', 'examples/*',
-                             'examples/temp', 'examples/data',
-                             'examples/modelling/*', 'examples/tools/*',
-                             'examples/tools/materialphysicalproperties/*',
-                             'examples/tools/transportphenomena/*',
-                             'examples/tools/transportphenomena/heattransfer/*'
+                    'auxi': [r'../*.md', r'doc/*.pdf',
+                             'examples/*.ipynb', 'examples/*.py',
+                             'examples/readme',
+                             'examples/temp/*.csv',
+                             'examples/modelling/readme',
+                             'examples/tools/readme',
+                             'examples/tools/materialphysicalproperties/*.ipynb',
+                             'examples/tools/materialphysicalproperties/data/readme',
+                             'examples/tools/transportphenomena/heattransfer/*.ipynb'
                              ]},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
                         'cerberus', 'pandas', 'bibtexparser']
