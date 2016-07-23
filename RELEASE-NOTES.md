@@ -2,7 +2,7 @@
 This file reports the details of each `auxi` release from newest to oldest.
 
 ## 0.3.1
-In this release a a hotfix was made to make Windows deployments work (#103).
+In this release a hotfix was made to make Windows deployment work (#103).
 
 ### Release Details
 Date:       22 July 2016
