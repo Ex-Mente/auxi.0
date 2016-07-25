@@ -1,17 +1,20 @@
 language: python
 python:
-- "2.7"
-- "3.4"
+  - "2.7"
+  - "3.4"
 compiler: gcc
 sudo: required
 dist: trusty
 before_install:
-- sudo apt-get -y install python-setuptools
-- sudo apt-get -y install python3-setuptools
+  - sudo apt-get -y install python-setuptools
+install:
+  - sudo pip install coveralls
 script:
-- cd $TRAVIS_BUILD_DIR
-- sudo python setup.py sdist
-- sudo python3 setup.py sdist
+  - cd $TRAVIS_BUILD_DIR
+  - sudo python setup.py sdist
+  - sudo coverage run --source=auxi setup.py test
+after_success:
+  - sudo coveralls
 deploy:
   provider: pypi
   user: emdev
