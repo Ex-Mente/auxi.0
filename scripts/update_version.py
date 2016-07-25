@@ -9,7 +9,7 @@ print("...")
 print("Updating the version number to: " + new_ver)
 
 # Find the previous version number:
-with open('setup.py', 'r') as f:
+with open('../setup.py', 'r') as f:
     content = f.read()
     v_ix = content.index("version='") + 9
     v_ix_end = v_ix + content[v_ix:].index("'")
@@ -18,7 +18,7 @@ with open('setup.py', 'r') as f:
 
 # Update setup.py
 print("Updating setup.py")
-with open('setup.py', 'w') as f:
+with open('../setup.py', 'w') as f:
     f.write(content)
 
 print("Old version = " + old_ver)
