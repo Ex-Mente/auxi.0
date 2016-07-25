@@ -10,6 +10,7 @@ before_install:
 - sudo apt-get -y install python3-setuptools
 script:
 - cd $TRAVIS_BUILD_DIR
+- cp scripts/setup.py .
 - sudo python setup.py sdist
 - sudo python3 setup.py sdist
 deploy:
@@ -20,4 +21,3 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    branch: master

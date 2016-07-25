@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import glob, os 
+import glob
+import os
 
 new_ver = input("Enter the new version number: ")
 
@@ -31,7 +32,7 @@ for file in glob.glob("*.sh"):
         f.write(content)
 
 # Update all the 'src' dirs .py file's __version__ field.
-for root, dirs, files in os.walk("./src"):
+for root, dirs, files in os.walk("../src"):
     for file in files:
         if file.endswith(".py"):
             file_path = os.path.join(root, file)
@@ -43,12 +44,23 @@ for root, dirs, files in os.walk("./src"):
                     "__version__ = '" + new_ver + "'")
             with open(file_path, 'w') as f:
                 f.write(content)
-            
+
 # Update the docs version
-for root, dirs, files in os.walk("./doc"):
+for root, dirs, files in os.walk("../doc"):
     for file in files:
         if file.endswith(".py"):
-             print(os.path.join(root, file))
-             
-print
-print("TODO: UPDATE DOCS")
+            file_path = os.path.join(root, file)
+            print("Updating " + file_path)
+            with open(file_path, 'r') as f:
+                content = f.read()
+                content = content.replace(
+                    "copyright = '2015-2016, " + old_ver + "'",
+                    "copyright = '2015-2016, " + new_ver + "'")
+                content = content.replace(
+                    "version = '" + old_ver + "'",
+                    "version = '" + new_ver + "'")
+                content = content.replace(
+                    "release = '" + old_ver + "'",
+                    "release = '" + new_ver + "'")
+            with open(file_path, 'w') as f:
+                f.write(content)

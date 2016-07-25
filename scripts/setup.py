@@ -9,7 +9,7 @@ from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
-      version='0.2.3',
+      version='0.3.1',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.md').read(),
@@ -36,15 +36,24 @@ setup(name='auxi',
                 'auxi.tools.chemistry',
                 'auxi.tools.materialphysicalproperties',
                 'auxi.tools.transportphenomena',
-                'auxi.tools.transportphenomena.heattransfer',
-                'auxi.examples'],
+                'auxi.tools.transportphenomena.heattransfer'],
       package_data={'auxi.tools.chemistry': [r'data/*.json',
                                              r'data/rao/*.json',
                                              r'data/nist/*.json'],
                     'auxi.modelling.process.materials': [r'data/*.txt'],
                     'auxi.tools.materialphysicalproperties': [r'data/*.json',
                                                               r'data/*.csv'],
-                    'auxi': [r'../*.md', r'doc/*.pdf']},
+                    'auxi.examples': [],
+                    'auxi': [r'../*.md', r'doc/*.pdf',
+                             'examples/*.ipynb', 'examples/*.py',
+                             'examples/readme',
+                             'examples/temp/*.csv',
+                             'examples/modelling/readme',
+                             'examples/tools/readme',
+                             'examples/tools/materialphysicalproperties/*.ipynb',
+                             'examples/tools/materialphysicalproperties/data/readme',
+                             'examples/tools/transportphenomena/heattransfer/*.ipynb'
+                             ]},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
                         'cerberus', 'pandas', 'bibtexparser']
       )
