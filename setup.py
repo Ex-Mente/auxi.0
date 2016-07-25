@@ -1,11 +1,11 @@
 # USAGE: you probably want 'setup.py install' - but execute 'setup.py --help'
 # for all the details.
 
-# from setuptools import setup, Extension, Command
-
-# from distutils.core import setup
+# NOTE: setup.py MUST exist in the `root` directory, not in the `script`
+#   directory. readthedocs.org expects it to be in the root directory.
 
 from setuptools import setup
+
 
 # build the distribution
 setup(name='auxi',
