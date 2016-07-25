@@ -40,7 +40,7 @@ class ThermoFunctionTester(unittest.TestCase):
     def test_load_data_auxi(self):
         thermo.compounds.clear()
         thermo.load_data_auxi()
-        self.assertEqual(len(thermo.compounds), 81)
+        self.assertEqual(len(thermo.compounds), 80)
 
     def test_compound_get_phase_list(self):
         phs = thermo.compounds["Ag"].get_phase_list()
