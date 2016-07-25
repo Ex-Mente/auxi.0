@@ -56,5 +56,5 @@ setup(name='auxi',
                              ]},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
                         'cerberus', 'pandas', 'bibtexparser'],
-      test_suite='tests'
+      test_suite='src.tests'
       )

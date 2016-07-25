@@ -6,6 +6,7 @@ compiler: gcc
 sudo: required
 dist: trusty
 before_install:
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo apt-get -y install python-setuptools
 install:
   - sudo pip install coveralls
