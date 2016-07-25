@@ -71,70 +71,69 @@ class CpRecord(Object):
 
         return result
 
-    def Cp(self, temperature):
+    def Cp(self, T):
         """
         Calculate the heat capacity of the compound phase.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol/K] Heat capacity.
         """
 
         result = 0.0
         for c, e in zip(self._coefficients, self._exponents):
-            result += c * temperature ** e
+            result += c*T**e
         return result
 
-    def H(self, temperature):
+    def H(self, T):
         """
         Calculate the portion of enthalpy of the compound phase covered by this
         Cp record.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol] Enthalpy.
         """
 
         result = 0.0
-        if temperature < self.Tmax:
-            T = temperature
+        if T < self.Tmax:
+            lT = T
         else:
-            T = self.Tmax
+            lT = self.Tmax
         Tref = self.Tmin
         for c, e in zip(self._coefficients, self._exponents):
             # Analytically integrate Cp(T).
             if e == -1.0:
-                result += c * (math.log(T) - math.log(Tref))
+                result += c * math.log(T/Tref)
             else:
-                result += c * (T ** (e + 1.0) - Tref ** (e + 1.0)) / (e + 1.0)
+                result += c * (lT**(e+1.0) - Tref**(e+1.0)) / (e+1.0)
         return result
 
-    def S(self, temperature):
+    def S(self, T):
         """
         Calculate the portion of entropy of the compound phase covered by this
         Cp record.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: Entropy. [J/mol/K]
         """
 
         result = 0.0
-        if temperature < self.Tmax:
-            T = temperature
+        if T < self.Tmax:
+            lT = T
         else:
-            T = self.Tmax
+            lT = self.Tmax
         Tref = self.Tmin
         for c, e in zip(self._coefficients, self._exponents):
             # Create a modified exponent to analytically integrate Cp(T)/T
             # instead of Cp(T).
             e_modified = e - 1.0
             if e_modified == -1.0:
-                result += c * (math.log(T) - math.log(Tref))
+                result += c * math.log(lT/Tref)
             else:
                 e_mod = e_modified + 1.0
-                result += c * (T ** (e_mod) - Tref ** (e_mod))  \
-                    / (e_mod)
+                result += c * (lT**e_mod - Tref**e_mod) / e_mod
         return result
 
 
@@ -185,30 +184,30 @@ class Phase(NamedObject):
 
         return result
 
-    def Cp(self, temperature):
+    def Cp(self, T):
         """
         Calculate the heat capacity of the compound phase at the specified
         temperature.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol/K] The heat capacity of the compound phase.
         """
 
         for Tmax in sorted(self._Cp_records.keys()):
-            if temperature < Tmax:
-                return self._Cp_records[Tmax].Cp(temperature)
+            if T < Tmax:
+                return self._Cp_records[Tmax].Cp(T)
 
         Tmax = max(self._Cp_records.keys())
 
         return self._Cp_records[Tmax].Cp(Tmax)
 
-    def H(self, temperature):
+    def H(self, T):
         """
         Calculate the enthalpy of the compound phase at the specified
         temperature.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol] The enthalpy of the compound phase.
         """
@@ -216,22 +215,22 @@ class Phase(NamedObject):
         result = self.DHref
 
         for Tmax in sorted(self._Cp_records.keys()):
-            result += self._Cp_records[Tmax].H(temperature)
-            if temperature <= Tmax:
+            result += self._Cp_records[Tmax].H(T)
+            if T <= Tmax:
                 return result
 
         # Extrapolate beyond the upper limit by using a constant heat capacity.
         Tmax = max(self._Cp_records.keys())
-        result += self.Cp(Tmax)*(temperature - Tmax)
+        result += self.Cp(Tmax)*(T - Tmax)
 
         return result
 
-    def S(self, temperature):
+    def S(self, T):
         """
         Calculate the entropy of the compound phase at the specified
         temperature.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol/K] The entropy of the compound phase.
         """
@@ -239,21 +238,21 @@ class Phase(NamedObject):
         result = self.Sref
 
         for Tmax in sorted(self._Cp_records.keys()):
-            result += self._Cp_records[Tmax].S(temperature)
-            if temperature <= Tmax:
+            result += self._Cp_records[Tmax].S(T)
+            if T <= Tmax:
                 return result
 
         # Extrapolate beyond the upper limit by using a constant heat capacity.
         Tmax = max(self._Cp_records.keys())
-        result += self.Cp(Tmax)*math.log(temperature / Tmax)
+        result += self.Cp(Tmax)*math.log(T / Tmax)
 
         return result
 
-    def G(self, temperature):
+    def G(self, T):
         """Calculate the heat capacity of the compound phase at the specified
         temperature.
 
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol] The Gibbs free energy of the compound phase.
         """
@@ -262,17 +261,17 @@ class Phase(NamedObject):
         s = self.Sref
 
         for Tmax in sorted(self._Cp_records.keys()):
-            h = h + self._Cp_records[Tmax].H(temperature)
-            s = s + self._Cp_records[Tmax].S(temperature)
-            if temperature <= Tmax:
-                return h - temperature * s
+            h = h + self._Cp_records[Tmax].H(T)
+            s = s + self._Cp_records[Tmax].S(T)
+            if T <= Tmax:
+                return h - T * s
 
         # Extrapolate beyond the upper limit by using a constant heat capacity.
         Tmax = max(self._Cp_records.keys())
-        h = h + self.Cp(Tmax)*(temperature - Tmax)
-        s = s + self.Cp(Tmax)*math.log(temperature / Tmax)
+        h = h + self.Cp(Tmax)*(T - Tmax)
+        s = s + self.Cp(Tmax)*math.log(T / Tmax)
 
-        return h - temperature * s
+        return h - T * s
 
 
 class Compound(Object):
@@ -326,70 +325,70 @@ class Compound(Object):
             return ""
         return get_datafile_references()[self.reference]
 
-    def Cp(self, phase, temperature):
+    def Cp(self, phase, T):
         """
         Calculate the heat capacity of a phase of the compound at a specified
         temperature.
 
         :param phase: A phase of the compound, e.g. 'S', 'L', 'G'.
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol/K] Heat capacity.
         """
 
         try:
-            return self._phases[phase].Cp(temperature)
+            return self._phases[phase].Cp(T)
         except KeyError:
             raise Exception("The phase '{}' was not found in compound '{}'."
                             .format(phase, self.formula))
 
-    def H(self, phase, temperature):
+    def H(self, phase, T):
         """
         Calculate the enthalpy of a phase of the compound at a specified
         temperature.
 
         :param phase: A phase of the compound, e.g. 'S', 'L', 'G'.
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol] Enthalpy.
         """
 
         try:
-            return self._phases[phase].H(temperature)
+            return self._phases[phase].H(T)
         except KeyError:
             raise Exception("The phase '{}' was not found in compound '{}'."
                             .format(phase, self.formula))
 
-    def S(self, phase, temperature):
+    def S(self, phase, T):
         """
         Calculate the enthalpy of a phase of the compound at a specified
         temperature.
 
         :param phase: A phase of the compound, e.g. 'S', 'L', 'G'.
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol/K] Entropy.
         """
 
         try:
-            return self._phases[phase].S(temperature)
+            return self._phases[phase].S(T)
         except KeyError:
             raise Exception("The phase '{}' was not found in compound '{}'."
                             .format(phase, self.formula))
 
-    def G(self, phase, temperature):
+    def G(self, phase, T):
         """
         Calculate the Gibbs free energy of a phase of the compound at a
         specified temperature.
 
         :param phase: A phase of the compound, e.g. 'S', 'L', 'G'.
-        :param temperature: [K]
+        :param T: [K] temperature
 
         :returns: [J/mol] Gibbs free energy.
         """
 
         try:
-            return self._phases[phase].G(temperature)
+            return self._phases[phase].G(T)
         except KeyError:
             raise Exception("The phase '{}' was not found in compound '{}'."
                             .format(phase, self.formula))
@@ -657,77 +656,77 @@ def molar_mass(compound):
     return mm(compound) / 1000.0
 
 
-def Cp(compound_string, temperature, mass=1.0):
+def Cp(compound_string, T, mass=1.0):
     """
     Calculate the heat capacity of the compound for the specified temperature
     and mass.
 
     :param compound_string: Formula and phase of chemical compound, e.g.
       'Fe2O3[S1]'.
-    :param temperature: [°C]
+    :param T: [°C] temperature
     :param mass: [kg]
 
     :returns: [kWh/K] Heat capacity.
     """
 
     formula, phase = _split_compound_string_(compound_string)
-    temperature_K = temperature + 273.15
+    TK = T + 273.15
     compound = compounds[formula]
-    result = compound.Cp(phase, temperature_K)
+    result = compound.Cp(phase, TK)
 
     return _finalise_result_(compound, result, mass)
 
 
-def H(compound_string, temperature, mass=1.0):
+def H(compound_string, T, mass=1.0):
     """
     Calculate the enthalpy of the compound for the specified temperature and
     mass.
 
     :param compound_string: Formula and phase of chemical compound, e.g.
       'Fe2O3[S1]'.
-    :param temperature: [°C]
+    :param T: [°C] temperature
     :param mass: [kg]
 
     :returns: [kWh] Enthalpy.
     """
 
     formula, phase = _split_compound_string_(compound_string)
-    temperature_K = temperature + 273.15
+    TK = T + 273.15
     compound = compounds[formula]
-    result = compound.H(phase, temperature_K)
+    result = compound.H(phase, TK)
 
     return _finalise_result_(compound, result, mass)
 
 
-def S(compound_string, temperature, mass=1.0):
+def S(compound_string, T, mass=1.0):
     """
     Calculate the entropy of the compound for the specified temperature and
     mass.
 
     :param compound_string: Formula and phase of chemical compound, e.g.
       'Fe2O3[S1]'.
-    :param temperature: [°C]
+    :param T: [°C] temperature
     :param mass: [kg]
 
     :returns: [kWh/K] Entropy.
     """
 
     formula, phase = _split_compound_string_(compound_string)
-    temperature_K = temperature + 273.15
+    TK = T + 273.15
     compound = compounds[formula]
-    result = compound.S(phase, temperature_K)
+    result = compound.S(phase, TK)
 
     return _finalise_result_(compound, result, mass)
 
 
-def G(compound_string, temperature, mass=1.0):
+def G(compound_string, T, mass=1.0):
     """
     Calculate the Gibbs free energy of the compound for the specified
     temperature and mass.
 
     :param compound_string: Formula and phase of chemical compound, e.g.
       'Fe2O3[S1]'.
-    :param temperature: [°C]
+    :param T: [°C] temperature
     :param mass: [kg]
 
 
@@ -735,9 +734,9 @@ def G(compound_string, temperature, mass=1.0):
     """
 
     formula, phase = _split_compound_string_(compound_string)
-    temperature_K = temperature + 273.15
+    TK = T + 273.15
     compound = compounds[formula]
-    result = compound.G(phase, temperature_K)
+    result = compound.G(phase, TK)
 
     return _finalise_result_(compound, result, mass)
 
