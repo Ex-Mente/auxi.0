@@ -12,9 +12,9 @@ install:
 script:
   - cd $TRAVIS_BUILD_DIR
   - sudo python setup.py sdist
-  coverage run --source=auxi setup.py test
+  - coverage run --source=auxi setup.py test
 after_success:
-  coveralls
+  - coveralls
 deploy:
   provider: pypi
   user: emdev
