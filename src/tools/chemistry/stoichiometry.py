@@ -509,7 +509,7 @@ def amount_fractions(masses):
 
     :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
 
-    :returns: [kg] dictionary
+    :returns: [mole fractions] dictionary
     """
 
     n = amounts(masses)
@@ -540,8 +540,8 @@ def masses(amounts):
     :returns: [kg] dictionary
     """
 
-    return {compound: mass(compound, masses[compound])
-            for compound in masses.keys()}
+    return {compound: mass(compound, amounts[compound])
+            for compound in amounts.keys()}
 
 
 def mass_fractions(amounts):
@@ -550,7 +550,7 @@ def mass_fractions(amounts):
 
     :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
 
-    :returns: [kg] dictionary
+    :returns: [mass fractions] dictionary
     """
 
     m = masses(amounts)
