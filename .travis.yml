@@ -16,8 +16,8 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo python setup.py sdist; fi
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo python3 setup.py sdist; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
-  - sudo coverage run --source=auxi setup.py test
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo coverage run --source=auxi setup.py test; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo coverage3 run --source=auxi setup.py test; fi
 after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo coveralls
