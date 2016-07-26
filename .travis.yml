@@ -9,7 +9,9 @@ before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo apt-get -y install python-setuptools; fi
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo apt-get -y install python3-setuptools; fi
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo pip3 install coveralls; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo pip install coveralls; fi
+  - pip --version
+  - python --version
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo pip3 install coveralls; fi
 script:
   - cd $TRAVIS_BUILD_DIR
