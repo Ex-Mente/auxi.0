@@ -6,15 +6,18 @@ compiler: gcc
 sudo: required
 dist: trusty
 before_install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
-  - sudo apt-get -y install python-setuptools
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; sudo apt-get -y install python-setuptools; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; sudo apt-get -y install python3-setuptools; fi
+  - 
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
-  - sudo pip install coveralls
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo pip3 install coveralls; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo pip3 install coveralls; fi
+  - 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - cd $TRAVIS_BUILD_DIR
-  - sudo python setup.py sdist
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then alias sudo python setup.py sdist; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias sudo python3 setup.py sdist; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo coverage run --source=auxi setup.py test
 after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
