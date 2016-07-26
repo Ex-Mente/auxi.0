@@ -68,6 +68,7 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         self.assertAlmostEqual(self.m.get_assay_total("IlmeniteB"), 0.99761)
         self.assertAlmostEqual(self.m.get_assay_total("IlmeniteC"), 1.00002)
 
+    @unittest.skip("This test needs attention.")
     def test_create_package(self):
         pkg = self.m.create_package("IlmeniteA", 123.456, 0.87, 205.0, True)
         self.assertEqual(pkg.mass, 123.456)
