@@ -15,7 +15,7 @@ script:
   - cd dist
   - sudo tar -xf auxi-*.tar.gz
   - cd $(ls -d */|head -n 1)
-  - sudo setup.py install
+  - sudo python3 setup.py install
   - sudo coverage run --source=auxi setup.py test
 after_success:
   - sudo coveralls
