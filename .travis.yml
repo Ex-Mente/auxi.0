@@ -19,7 +19,7 @@ script:
   - sudo python3 setup.py install
   - sudo coverage run --source=auxi setup.py test
 after_success:
-  - sudo coveralls
+  - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
 deploy:
   provider: pypi
   user: emdev
