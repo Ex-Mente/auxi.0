@@ -11,7 +11,8 @@ install:
   - sudo pip3 install coveralls
 script:
   - cd $TRAVIS_BUILD_DIR
-  - sudo python setup.py sdist
+  - sudo python3 setup.py sdist
+  - cd dist/auxi*
   - sudo coverage run --source=auxi setup.py test
 after_success:
   - sudo coveralls
