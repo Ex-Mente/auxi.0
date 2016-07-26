@@ -12,6 +12,7 @@ install:
 script:
   - cd $TRAVIS_BUILD_DIR
   - sudo python3 setup.py sdist
+  - cd dist
   - cd $(ls -d */|head -n 1)
   - sudo setup.py install
   - sudo coverage run --source=auxi setup.py test
