@@ -9,12 +9,15 @@ before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo apt-get -y install python-setuptools
 install:
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo pip install coveralls
 script:
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - cd $TRAVIS_BUILD_DIR
   - sudo python setup.py sdist
   - sudo coverage run --source=auxi setup.py test
 after_success:
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo coveralls
 deploy:
   provider: pypi
