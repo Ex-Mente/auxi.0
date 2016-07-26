@@ -20,7 +20,7 @@ script:
   - sudo coverage run --source=auxi setup.py test
 after_success:
   - echo "$TRAVIS, $TRAVIS_JOB_ID and $TRAVIS_BRANCH"
-  - sudo coveralls
+  - sudo coveralls debug
 deploy:
   provider: pypi
   user: emdev
