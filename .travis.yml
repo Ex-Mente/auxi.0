@@ -1,25 +1,18 @@
 language: python
 python:
-  - "2.7"
   - "3.4"
 compiler: gcc
 sudo: required
 dist: trusty
 before_install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo apt-get -y install python-setuptools; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo apt-get -y install python3-setuptools; fi
+  - sudo apt-get -y install python3-setuptools
 install:
-  - pip --version
-  - python --version
   - sudo pip install coveralls
 script:
   - cd $TRAVIS_BUILD_DIR
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo python setup.py sdist; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo python3 setup.py sdist; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo coverage run --source=auxi setup.py test; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo coverage3 run --source=auxi setup.py test; fi
+  - sudo python setup.py sdist
+  - sudo coverage run --source=auxi setup.py test
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then alias python=python3; fi
   - sudo coveralls
 deploy:
   provider: pypi
