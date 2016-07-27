@@ -62,16 +62,14 @@ class UrbainViscosityTx(Model):
         x_total = sum(x.values())
         x = {compound: x[compound]/x_total for compound in x.keys()}
 
-        xg = x.get('SiO2', .00) + x.get('P2O5', 0.0)
+        xg = x.get('SiO2', 0.0) + x.get('P2O5', 0.0)
         xm = x.get('CaO', 0.0) + x.get('MgO', 0.0) + x.get('Na2O', 0.0) + \
             x.get('K2O', 0.0) + 3.0*x.get('CaF2', 0.0) + x.get('FeO', 0.0) + \
             x.get('MnO', 0.0) + 2.0*x.get('TiO2', 0.0) + 2.0*x.get('ZrO2', 0.0)
 
         xa = x.get('Al2O3', 0.0) + x.get('Fe2O3', 0.0) + x.get('B2O3', 0.0)
 
-        # Note 2*XFeO1.5 = XFe2O3
-
-        norm = 1.0 + x.get('CaF2', 0.0) + x.get('Fe2O3', 0.0) + \
+        norm = 1.0 + x.get('CaF2', 0.0) + 2.0*x.get('Fe2O3', 0.0) + \
             x.get('TiO2', 0.0) + x.get('ZrO2', 0.0)
 
         xg_norm = xg / norm
