@@ -1,8 +1,23 @@
 # `auxi` Release Notes
 This file reports the details of each `auxi` release from newest to oldest.
 
+## 0.3.2
+In this release a couple of documentation changes where made and a modules test improved.
+
+### Release Details
+Date:       29 July 2016
+Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
+
+### Issues Addressed
+* Adding of test coverage checking on Travis.CI (#77)
+* (bug) Fixed the PyPi description format issue. (#99)
+* Added the procedure for testing different platforms to MAKE-RELEASES.md (#96)
+* (bug) Updated the Travis.CI deploy trigger procedure to MAKE-RELEASES.md (#100)
+* (bug) Fixed auxi's docs on readthedocs which failed to build. (#109)
+* Improved test coverage in auxi.tools.chemistry.stoichiometry. (#113)
+
 ## 0.3.1
-In this release a a hotfix was made to make Windows deployments work (#103).
+In this release a hotfix was made to make Windows deployment work (#103).
 
 ### Release Details
 Date:       22 July 2016
