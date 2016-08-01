@@ -9,5 +9,4 @@ The auxi.tools.chemistry sub-package provides you with modules, classes and func
 .. toctree::
    :maxdepth: 1
 
-   stoichiometry_calculations
    thermochemistry_calculations
