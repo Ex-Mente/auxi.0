@@ -14,9 +14,10 @@ We hope that `auxi` will help you spend less time focusing on searching for form
 
 Here are some of the other `auxi` resources:
 
-* documentation: http://auxi.readthedocs.io/en/latest/
+* Documentation: http://auxi.readthedocs.io/en/latest/
 * Youtube channel: https://www.youtube.com/channel/UCdklSCJ8S9wFyayLAO7iINQ
 * Discussion forum: https://groups.google.com/forum/#!forum/auxi-za
+* Waffle issue board: https://waffle.io/Ex-Mente/auxi.0
 
 To install auxi, use the following command: :: 
 
