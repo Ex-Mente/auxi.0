@@ -1,15 +1,15 @@
 # USAGE: you probably want 'setup.py install' - but execute 'setup.py --help'
 # for all the details.
 
-# from setuptools import setup, Extension, Command
-
-# from distutils.core import setup
+# NOTE: setup.py MUST exist in the `root` directory, not in the `script`
+#   directory. readthedocs.org expects it to be in the root directory.
 
 from setuptools import setup
 
+
 # build the distribution
 setup(name='auxi',
-      version='0.3.1',
+      version='0.3.2',
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.rst').read(),
@@ -55,5 +55,6 @@ setup(name='auxi',
                              'examples/tools/transportphenomena/heattransfer/*.ipynb'
                              ]},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
-                        'cerberus', 'pandas', 'bibtexparser']
+                        'cerberus', 'pandas', 'bibtexparser'],
+      test_suite='src.tests'
       )

@@ -1,6 +1,6 @@
-Master: |mastercoveralls|
+Master: |masterbuild| |mastercoveralls|
 
-Develop: |developcoveralls|
+Develop: |developbuild| |developcoveralls|
 
 Welcome to the `auxi` GitHub repository!
 ========================================
@@ -14,9 +14,10 @@ We hope that `auxi` will help you spend less time focusing on searching for form
 
 Here are some of the other `auxi` resources:
 
-* documentation: http://auxi.readthedocs.io/en/latest/
+* Documentation: http://auxi.readthedocs.io/en/latest/
 * Youtube channel: https://www.youtube.com/channel/UCdklSCJ8S9wFyayLAO7iINQ
 * Discussion forum: https://groups.google.com/forum/#!forum/auxi-za
+* Waffle issue board: https://waffle.io/Ex-Mente/auxi.0
 
 To install auxi, use the following command: :: 
 
@@ -73,6 +74,11 @@ The `auxi` high-level system documentation consists of the following files:
 * RELEASE-NOTES.md
 
   This document contains the details of what changed in each `auxi` release.
+
+.. |masterbuild| image:: https://travis-ci.org/Ex-Mente/auxi.0.svg?branch=master
+    :target: https://travis-ci.org/Ex-Mente/auxi.0
+.. |developbuild| image:: https://travis-ci.org/Ex-Mente/auxi.0.svg?branch=develop
+    :target: https://travis-ci.org/Ex-Mente/auxi.0
 
 .. |mastercoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
 .. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
