@@ -5,7 +5,7 @@ This file reports the details of each `auxi` release from newest to oldest.
 In this release new Jupyter notebooks were added, the thermo data file issue on Windows fixed, readtehdocs documentation fixed and the release procedure was updated.
 
 ### Release Details
-Date:       29 July 2016
+Date:       05 August 2016
 Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
