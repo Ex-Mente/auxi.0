@@ -1,6 +1,20 @@
 # `auxi` Release Notes
 This file reports the details of each `auxi` release from newest to oldest.
 
+## 0.3.3
+In this release new Jupyter notebooks were added, the thermo data file issue on Windows fixed, readtehdocs documentation fixed and the release procedure was updated.
+
+### Release Details
+Date:       29 July 2016
+Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
+
+### Issues Addressed
+* Added Jupyter notebooks for auxi.tools.chemistry.stoichiometry (#118)
+* Added Jupyter notebooks for auxi.tools.chemistry.thermochemistry (#119)
+* Fix RHO thermo data Compound\_CO, Co Windows naming issue. The Compound\_Co file is now named Compound_Cobalt. (#156)
+* Fixed an issue where the API api documentation was empty on readtehdocs. (#157)
+* Updated MAKE-RELEASES.md to add the documentation release procedure. (#158)
+
 ## 0.3.2
 In this release a couple of documentation changes where made and a modules test improved.
 
