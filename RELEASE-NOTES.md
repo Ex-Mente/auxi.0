@@ -6,6 +6,7 @@ In this release new Jupyter notebooks were added, the thermo data file issue on 
 
 ### Release Details
 Date:       05 August 2016
+
 Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
@@ -20,6 +21,7 @@ In this release a couple of documentation changes where made and a modules test 
 
 ### Release Details
 Date:       29 July 2016
+
 Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
@@ -35,6 +37,7 @@ In this release a hotfix was made to make Windows deployment work (#103).
 
 ### Release Details
 Date:       22 July 2016
+
 Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
@@ -51,6 +54,7 @@ In this release a significant number of additions were made. These included:
 
 ### Release Details
 Date:       21 July 2016
+
 Maintainer: Christoff Kok (christoff.kok@ex-mente.co.za)
 
 ### Issues Addressed
