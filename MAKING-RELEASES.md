@@ -55,7 +55,7 @@ Navigate to the deployment you created. Go to auxi.0/dist, extract the .zip or .
 In your command line shell, navigate into the extracted folder and run the following command:
 
 ```
-pip setup.py sdist upload
+python setup.py sdist upload
 ```
 
 You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
@@ -116,7 +116,6 @@ To create a on GitHub release, follow these instructions:
 
 GitHub will now create a tag on the last commit on `master`. Travis.CI will detect it and create and publish a new PyPi deployment for `auxi`.
 
-
 #### Step 12: Test the deployment
 Install `auxi` and run the tests.
 
@@ -132,3 +131,12 @@ python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.
 ```
 
 Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix.
+
+#### Step 13: Update the `readthedocs` documentation
+The `readtehdocs` documentation should be build and deployed again.
+
+* Go the https://readthedocs.org and log in.
+* Go to your auxi project, and at `Build`, at the dropdown, make sure that `latest` is selected.
+* Press on the `Build` button below the dropdown.
+* Go to the `Build` tab and monitor the build until it has passed.
+* Got to http://auxi.readthedocs.io/en/latest and make sure any documentation changes appears. Also check that the `api` generated. If there where any changes to the api, confirm that the changes are in the api documentation.
