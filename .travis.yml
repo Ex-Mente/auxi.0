@@ -20,6 +20,7 @@ script:
   - sudo coverage run --source=auxi setup.py test
 after_success:
   - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
+  - cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pypi
   user: emdev
