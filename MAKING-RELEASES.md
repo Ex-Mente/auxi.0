@@ -55,7 +55,7 @@ Navigate to the deployment you created. Go to auxi.0/dist, extract the .zip or .
 In your command line shell, navigate into the extracted folder and run the following command:
 
 ```
-pip setup.py sdist upload
+python setup.py sdist upload
 ```
 
 You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
