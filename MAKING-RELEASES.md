@@ -132,8 +132,8 @@ python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.
 
 Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix.
 
-#### Step 13: Update the readthedocs documentation
-The readtehdocs documentation should be build and deployed again.
+#### Step 13: Update the `readthedocs` documentation
+The `readtehdocs` documentation should be build and deployed again.
 
 * Go the https://readthedocs.org and log in.
 * Go to your auxi project, and at `Build`, at the dropdown, make sure that `latest` is selected.
