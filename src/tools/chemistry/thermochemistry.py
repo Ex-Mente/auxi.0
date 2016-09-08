@@ -8,6 +8,7 @@ import os
 import sys
 import glob
 import math
+import warnings
 
 from auxi.core.objects import Object, NamedObject
 from auxi.core.helpers import get_path_relative_to_module as get_path
@@ -591,7 +592,8 @@ def load_data_factsage(path=''):
     if path == '':
         path = default_data_path
     if not os.path.exists(path):
-        raise Exception('The path does not exist.')
+        warnings.warn('The specified data file path does not exist. (%s)' % path)
+        return
 
     files = glob.glob(os.path.join(path, 'Compound_*.txt'))
 
@@ -612,7 +614,8 @@ def load_data_auxi(path=''):
     if path == '':
         path = default_data_path
     if not os.path.exists(path):
-        raise Exception('The path does not exist.')
+        warnings.warn('The specified data file path does not exist. (%s)' % path)
+        return
 
     files = glob.glob(os.path.join(path, 'Compound_*.json'))
 
