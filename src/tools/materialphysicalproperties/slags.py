@@ -62,16 +62,14 @@ class UrbainViscosityTx(Model):
         x_total = sum(x.values())
         x = {compound: x[compound]/x_total for compound in x.keys()}
 
-        xg = x.get('SiO2', .00) + x.get('P2O5', 0.0)
+        xg = x.get('SiO2', 0.0) + x.get('P2O5', 0.0)
         xm = x.get('CaO', 0.0) + x.get('MgO', 0.0) + x.get('Na2O', 0.0) + \
             x.get('K2O', 0.0) + 3.0*x.get('CaF2', 0.0) + x.get('FeO', 0.0) + \
             x.get('MnO', 0.0) + 2.0*x.get('TiO2', 0.0) + 2.0*x.get('ZrO2', 0.0)
 
         xa = x.get('Al2O3', 0.0) + x.get('Fe2O3', 0.0) + x.get('B2O3', 0.0)
 
-        # Note 2*XFeO1.5 = XFe2O3
-
-        norm = 1.0 + x.get('CaF2', 0.0) + x.get('Fe2O3', 0.0) + \
+        norm = 1.0 + x.get('CaF2', 0.0) + 0.5*x.get('Fe2O3', 0.0) + \
             x.get('TiO2', 0.0) + x.get('ZrO2', 0.0)
 
         xg_norm = xg / norm
@@ -127,12 +125,129 @@ class UrbainViscosityTy(UrbainViscosityTx):
         x = amount_fractions(y)
         return super().calculate(T=T, x=x)
 
+class ModifiedUrbainViscosityTx(Model):
+    """
+    A model that describes the variation in the dynamic viscosity of liquid
+    slag as a function of temperature and composition expressed in mole
+    fraction. This "Modified" Urbain Model is more appropriate for Basic
+    Oxygen Steelmaking Slags than the standard, generic UrbainViscosity model.
+    """
+
+    def __init__(self):
+        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
+                        'x': {'required': True, 'type': 'dict'}}
+        super().__init__('Slag', 'Dynamic Viscosity', 'mu', '\\mu', 'Pa.s',
+                         state_schema, None, None)
+
+    def calculate(self, **state):
+        """
+        Calculate dynamic viscosity at the specified temperature and
+        composition:
+
+        :param T: [K] temperature
+        :param x: [mole fraction] composition dictionary , e.g. \
+        {'SiO2': 0.25, 'CaO': 0.25, 'MgO': 0.25, 'FeO': 0.25}
+
+        :returns: [Pa.s] dynamic viscosity
+
+        The **state parameter contains the keyword argument(s) specified above\
+        that are used to describe the state of the material.
+        """
+
+        T = state['T']
+        x = state['x']
+
+        # normalise mole fractions
+        x_total = sum(x.values())
+        x = {compound: x[compound]/x_total for compound in x.keys()}
+
+        xg = x.get('SiO2', 0.0) + x.get('P2O5', 0.0)
+        xm = x.get('CaO', 0.0) + x.get('MgO', 0.0) + x.get('Na2O', 0.0) + \
+            x.get('K2O', 0.0) + 3.0*x.get('CaF2', 0.0) + x.get('FeO', 0.0) + \
+            x.get('MnO', 0.0) + 2.0*x.get('TiO2', 0.0) + 2.0*x.get('ZrO2', 0.0)
+
+        xa = x.get('Al2O3', 0.0) + x.get('Fe2O3', 0.0) + x.get('B2O3', 0.0)
+
+        alpha = xm/(xm+xa)
+ 
+        BMgO0 = 13.2 + 15.9*alpha - 18.6*alpha**2
+        BMgO1 = 30.5 - 51.1*alpha + 33*alpha**2
+        BMgO2 = -40.4 + 138*alpha - 112*alpha**2
+        BMgO3 = 60.8 - 99.8*alpha + 97.9*alpha**2
+     
+        BMgO = BMgO0 + BMgO1*xg + BMgO2*xg**2 + BMgO3*xg**3
+     
+        BCaO0 = 13.2 + 41.5*alpha - 45*alpha**2
+        BCaO1 = 30.5 - 117.2*alpha + 130*alpha**2
+        BCaO2 = -40.4 + 232.1*alpha - 298.6*alpha**2
+        BCaO3 = 60.8 - 156.4*alpha + 213.6*alpha**2
+     
+        BCaO = BCaO0 + BCaO1*xg + BCaO2*xg**2 + BCaO3*xg**3
+         
+        BMnO0 = 13.2 + 20*alpha - 25.6*alpha**2
+        BMnO1 = 30.5 + 26*alpha - 56*alpha**2
+        BMnO2 = -40.4 - 110.3*alpha + 186.2*alpha**2
+        BMnO3 = 60.8 + 64.3*alpha - 104.6*alpha**2
+     
+        BMnO = BMnO0 + BMnO1*xg + BMnO2*xg**2 + BMnO3*xg**3
+     
+        xCaO = x.get('CaO',0.0)
+        xMgO = x.get('MgO',0.0)
+     
+# XMnO Calculated using Mills modification as documented in Slag Atlas 2nd ed
+        xMnO = x.get('MnO',0.0)+x.get('FeO',0.0)+x.get('CrO',0.0)+\
+        0.6*(x.get('Fe2O3',0.0)+x.get('Cr2O3',0.0))
+     
+        BGlobal = (xCaO*BCaO+xMgO*BMgO+xMnO*BMnO)/(xCaO+xMgO+xMnO)
+
+        A = exp(-0.2693*BGlobal - 11.6725)
+
+        result = A*T*exp(1000.0*BGlobal/T)  # [P]
+
+        return result / 10.0  # [Pa.s]
+
+
+class ModifiedUrbainViscosityTy(UrbainViscosityTx):
+    """
+    A model that describes the variation in the dynamic viscosity of liquid
+    slag as a function of temperature and composition expressed in mass
+    fraction. This "Modified" Urbain Model is more appropriate for Basic
+    Oxygen Steelmaking Slags than the standard, generic UrbainViscosity model.
+    """
+
+    def __init__(self):
+        super().__init__()
+        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
+                        'y': {'required': True, 'type': 'dict'}}
+        self._create_validator(state_schema)
+
+    def calculate(self, **state):
+        """
+        Calculate dynamic viscosity at the specified temperature and
+        composition:
+
+        :param T: [K] temperature
+        :param y: [mass fraction] composition dictionary , e.g. \
+        {'SiO2': 0.25, 'CaO': 0.25, 'MgO': 0.25, 'FeO': 0.25}
+
+        :returns: [Pa.s] dynamic viscosity
+
+        The **state parameter contains the keyword argument(s) specified above\
+        that are used to describe the state of the material.
+        """
+
+        T = state['T']
+        y = state['y']
+        x = amount_fractions(y)
+        return super().calculate(T=T, x=x)
 
 class RiboudViscosityTx(Model):
     """
     A model that describes the variation in the dynamic viscosity of liquid
     slag as a function of temperature and composition expressed in mole
-    fraction.
+    fraction. The RiboudViscosity model is used most often for calculating
+    the viscosity of mold fluxes (used for continuous casting of steel as 
+    lubricant).
     """
 
     def __init__(self):
@@ -200,7 +315,9 @@ class RiboudViscosityTy(RiboudViscosityTx):
     """
     A model that describes the variation in the dynamic viscosity of liquid
     slag as a function of temperature and composition expressed in mass
-    fraction.
+    fraction. The RiboudViscosity model is used most often for calculating
+    the viscosity of mold fluxes (used for continuous casting of steel as 
+    lubricant).
     """
 
     def __init__(self):
