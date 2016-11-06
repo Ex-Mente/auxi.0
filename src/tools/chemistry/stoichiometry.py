@@ -282,7 +282,8 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
     """
 
     if disallowed_chars.search(compound):
-        raise ValueError('Compound formula contains at least one character.')
+        raise ValueError('Compound formula (%s) contains at least one '
+                         'disallowed character.' % compound)
 
     c = str()
     while index < len(compound) and c != ')':

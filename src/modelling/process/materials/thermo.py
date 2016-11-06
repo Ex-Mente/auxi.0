@@ -11,7 +11,9 @@ import numpy
 
 from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
+from auxi.tools.chemistry.stoichiometry import convert_compound as cc
 from auxi.tools.chemistry import thermochemistry as thermo
+from auxi.tools.materialphysicalproperties import coals
 
 __version__ = '0.3.3'
 __license__ = 'LGPL v3'
@@ -65,6 +67,13 @@ class Material(NamedObject):
         V2O5[S]    0.00360    0.00800    0.00000
         #
         Price[USD/kg]  1.2        1.3        1.1
+
+    If you are dealing with a carbonatious material, nou must add the:
+    following custom properties:
+    * IsCoal: Set it equal to 1 for a carbonaceous material, and to 0
+      otherwise.
+    * HHV[MJ/kg]: Set it equal to the higher heating value of the material with
+      units of MJ/kg.
     """
 
     def __init__(self, name, file_path, description=None):
@@ -245,6 +254,15 @@ class Material(NamedObject):
         element_set = stoich.elements(self.compounds)
         return sorted(list(element_set))
 
+    def _isCoal(self, assay):
+        if 'IsCoal' in self.custom_properties and \
+           self.assay_custom_properties[assay].get('IsCoal', 0) == 1:
+            return True
+        return False
+
+    def _get_HHV(self, assay):
+        return self.assay_custom_properties[assay].get('HHV[MJ/kg]', None)
+
     def get_compound_index(self, compound):
         """
         Determine the specified compound's index.
@@ -324,7 +342,8 @@ class Material(NamedObject):
             assay_total = 1.0
 
         return MaterialPackage(self, mass * self.converted_assays[assay] /
-                               assay_total, P, T)
+                               assay_total, P, T, self._isCoal(assay),
+                               self._HHV(assay))
 
     def create_stream(self, assay=None, mfr=0.0, P=1.0, T=25.0,
                       normalise=True):
@@ -350,7 +369,8 @@ class Material(NamedObject):
             assay_total = 1.0
 
         return MaterialStream(self, mfr * self.converted_assays[assay] /
-                              assay_total, P, T)
+                              assay_total, P, T, self._isCoal(assay),
+                              self._get_HHV(assay))
 
 
 class MaterialPackage(Object):
@@ -358,12 +378,16 @@ class MaterialPackage(Object):
     Represents a quantity of material consisting of multiple chemical
     compounds, having a specific mass, pressure, temperature and enthalpy.
 
-    :param material:        A reference to the Material to which self belongs.
-    :param compound_masses: Package compound masses. [kg]
-    :param P:               Package pressure. [atm]
-    :param T:               Package temperature. [°C]"""
+    :param material: a reference to the Material to which self belongs
+    :param compound_masses: [kg] package compound masses
+    :param P: [atm] package pressure
+    :param T: [°C] package temperature
+    :param isCoal: a boolean that indicates whether the material is coal
+    :param HHV: [MJ/kg] higher heating value of the coal
+    """
 
-    def __init__(self, material, compound_masses, P=1.0, T=25.0):
+    def __init__(self, material, compound_masses, P=1.0, T=25.0, isCoal=False,
+                 HHV=None):
         # Confirm that the parameters are OK.
         if not type(material) is Material:
             raise TypeError("Invalid material type. Must be "
@@ -376,8 +400,12 @@ class MaterialPackage(Object):
         self.material = material
         self._P = P
         self._T = T
+        self.isCoal = isCoal
+        self.HHV = HHV
         self._compound_masses = compound_masses
         if self.mass > 0.0:
+            if self.isCoal:
+                self._DH298 = self._calculate_DH298_coal()
             self._H = self._calculate_H(T)
         else:
             self._H = 0.0
@@ -560,11 +588,119 @@ class MaterialPackage(Object):
         :returns: Enthalpy. [kWh]
         """
 
+        if self.isCoal:
+            return self._calculate_Hfr_coal(T)
+        
         H = 0.0
         for compound in self.material.compounds:
             index = self.material.get_compound_index(compound)
             dH = thermo.H(compound, T, self._compound_masses[index])
             H = H + dH
+        return H
+
+    def _calculate_DH298_coal(self):
+        """
+        Calculate the enthalpy of formation of the package at the specified temperature, in
+        case the material is coal.
+
+        :returns: [kWh/kg] enthalpy of formation of daf coal
+        """
+
+        m_C = 0  # kg
+        m_H = 0  # kg
+        m_O = 0  # kg
+        m_N = 0  # kg
+        m_S = 0  # kg
+
+        T = 25  # °C
+        Hin = 0.0  # kWh
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            if stoich.element_mass_fraction(compound, 'C') == 1.0:
+                m_C += self._compound_masses[index]
+                Hin = thermo.H(compound, T, self._compound_masses[index])
+            elif stoich.element_mass_fraction(compound, 'H') == 1.0:
+                m_H += self._compound_masses[index]
+                Hin = thermo.H(compound, T, self._compound_masses[index])
+            elif stoich.element_mass_fraction(compound, 'O') == 1.0:
+                m_O += self._compound_masses[index]
+                Hin = thermo.H(compound, T, self._compound_masses[index])
+            elif stoich.element_mass_fraction(compound, 'N') == 1.0:
+                m_N += self._compound_masses[index]
+                Hin = thermo.H(compound, T, self._compound_masses[index])
+            elif stoich.element_mass_fraction(compound, 'S') == 1.0:
+                m_S += self._compound_masses[index]
+                Hin = thermo.H(compound, T, self._compound_masses[index])
+
+        m_total = m_C + m_H + m_O + m_N + m_S  # kg
+
+        Hout = 0.0  # kWh
+        Hout += thermo.H('CO2[G]', T, cc(m_C, 'C', 'CO2', 'C'))
+        Hout += thermo.H('H2O[L]', T, cc(m_H, 'H', 'H2O', 'H'))
+        Hout += thermo.H('O2[G]', T, m_O)
+        Hout += thermo.H('N2[G]', T, m_N)
+        Hout += thermo.H('SO2[G]', T, cc(m_S, 'S', 'SO2', 'S'))
+
+        if self.HHV is None:
+            # If no HHV is specified, calculate it from the proximate assay
+            # using C-H-O-N-S.
+            HHV = Hout - Hin / m_total  # kWh/kg
+        else:
+            # If an HHV is specified, convert it from MJ/kg to kWh/kg.
+            HHV = self.HHV / 3.6  # kWh/kg
+
+        return HHV + Hout / m_total  # kWh/kg
+
+    def _calculate_H_coal(self, T):
+        """
+        Calculate the enthalpy of the package at the specified temperature, in
+        case the material is coal.
+
+        :param T: [°C] temperature
+
+        :returns: [kWh] enthalpy
+        """
+
+        m_C = 0  # kg
+        m_H = 0  # kg
+        m_O = 0  # kg
+        m_N = 0  # kg
+        m_S = 0  # kg
+
+        H = 0.0  # kWh/h
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            if stoich.element_mass_fraction(compound, 'C') == 1.0:
+                m_C += self._compound_masses[index]
+            elif stoich.element_mass_fraction(compound, 'H') == 1.0:
+                m_H += self._compound_masses[index]
+            elif stoich.element_mass_fraction(compound, 'O') == 1.0:
+                m_O += self._compound_masses[index]
+            elif stoich.element_mass_fraction(compound, 'N') == 1.0:
+                m_N += self._compound_masses[index]
+            elif stoich.element_mass_fraction(compound, 'S') == 1.0:
+                m_S += self._compound_masses[index]
+            else:
+                dH = thermo.H(compound, T, self._compound_masses[index])
+                H += dH
+
+        m_total = y_C + y_H + y_O + y_N + y_S  # kg/h
+        y_C = m_C / m_total
+        y_H = m_H / m_total
+        y_O = m_O / m_total
+        y_N = m_N / m_total
+        y_S = m_S / m_total
+
+        hmodel = coals.DafHTy()
+        H = hmodel.calculate(T=T+273.15, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N,
+                             y_S=y_S) / 3.6e6  # kWh/kg
+        H298 = hmodel.calculate(T=298.15, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N,
+                                y_S=y_S) / 3.6e6  # kWh/kg
+        Hdaf = H - H298 + self._DH298  # kWh/kg
+        Hdaf *= m_total  # kWh
+
+        H += Hdaf
+        
         return H
 
     def _calculate_T(self, H):
@@ -955,9 +1091,12 @@ class MaterialStream(Object):
     :param compound_mfrs: Compound mass flow rates. [kg/h]
     :param P: Stream pressure. [atm]
     :param T: Stream temperature. [°C]
+    :param isCoal: a boolean that indicates whether the material is coal
+    :param HHV: [MJ/kg] higher heating value of the coal
     """
 
-    def __init__(self, material, compound_mfrs, P=1.0, T=25.0):
+    def __init__(self, material, compound_mfrs, P=1.0, T=25.0, isCoal=False,
+                 HHV=None):
         # Confirm that the parameters are OK.
         if not type(material) is Material:
             raise TypeError("Invalid material type. Must be "
@@ -970,9 +1109,13 @@ class MaterialStream(Object):
         self.material = material
         self._P = P
         self._T = T
-        self.compound_mfrs = compound_mfrs
-        if self.rate > 0.0:
-            self._Hfr = self._calculate_H(T)
+        self.isCoal = isCoal
+        self.HHV = HHV
+        self._compound_mfrs = compound_mfrs
+        if self.isCoal:
+            self._DH298 = self._calculate_DH298_coal()
+        if self.mfr > 0.0:
+            self._Hfr = self._calculate_Hfr(T)
         else:
             self._Hfr = 0.0
 
@@ -982,7 +1125,7 @@ class MaterialStream(Object):
         b1 = '='*67 + '\n'
         b2 = '-'*67 + '\n'
         result = b1
-        result += "MaterialStream"
+        result += "MaterialStream\n"
         result += b1
         result += "Material".ljust(20) + self.material.name + "\n"
         result += "Mass Flow Rate".ljust(20) + '{:.8e}'.format(
@@ -1004,15 +1147,15 @@ class MaterialStream(Object):
         mfr = self.mfr
         compound_afrs = self.get_compound_afrs()
         total_afr = compound_afrs.sum()
-        if mass > 0.0:
+        if mfr > 0.0:
             for compound in self.material.compounds:
                 index = self.material.get_compound_index(compound)
                 result += compound.ljust(20) + '{:.8e}'.format(
-                    self._compound_masses[index])
+                    self._compound_mfrs[index])
                 result += "  " + \
-                          '{:.8e}'.format(self._compound_masses[index] / mass)
+                          '{:.8e}'.format(self._compound_mfrs[index] / mfr)
                 result += "  " + \
-                          '{:.8e}'.format(compound_moles[index] / total_moles)
+                          '{:.8e}'.format(compound_afrs[index] / total_afr)
                 result += "\n"
         else:
             for compound in self.material.compounds:
@@ -1040,78 +1183,76 @@ class MaterialStream(Object):
         """
         Addition operator (+).
 
-        Add this package (self) and 'other' together, return the result as a
-        new package, and leave self unchanged.
+        Add this stream (self) and 'other' together, return the result as a
+        new stream, and leave self unchanged.
 
         :param other: Can can be one of the following:
-                 1. MaterialPackage
-                    'other' is added to self to create a new package.
-                 2. tuple: (compound, mass)
-                    The specified mass of the specified compound is added to \
+                 1. MaterialStream
+                    'other' is added to self to create a new stream.
+                 2. tuple: (compound, mass flow rate)
+                    The specified mass flow rate of the specified compound is added to \
                     self, assuming the added material has the same \
                     temperature as self.
-                 3. tuple: (compound, mass, temperature)
-                    The specified mass of the specified compound at the \
+                 3. tuple: (compound, mass flow rate, temperature)
+                    The specified mass flow rate of the specified compound at the \
                     specified temperature is added to self.
 
-        :returns: A new Material package that is the sum of self and 'other'.
+        :returns: A new MaterialStream that is the sum of self and 'other'.
         """
 
-        # Add another package.
-        if type(other) is MaterialPackage:
-            if self.material == other.material:  # Packages of same material.
-                result = MaterialPackage(self.material,
-                                         self._compound_masses +
-                                         other._compound_masses)
-                result.H = self._H + other._H
+        # Add another stream.
+        if type(other) is MaterialStream:
+            if self.material == other.material:  # Streams of same material.
+                result = MaterialStream(self.material,
+                                         self._compound_mfrs +
+                                         other._compound_mfrs)
+                result.Hfr = self._Hfr + other._Hfr
                 result.P = self.P
                 return result
-            else:  # Packages of different materials.
-                H = self.H + other.H
+            else:  # Streams of different materials.
+                Hfr = self.Hfr + other.Hfr
                 result = self.clone()
                 for compound in other.material.compounds:
                     if compound not in self.material.compounds:
-                        raise Exception("Packages of '" + other.material.name +
-                                        "' cannot be added to packages of '" +
+                        raise Exception("Streams of '" + other.material.name +
+                                        "' cannot be added to streams of '" +
                                         self.material.name +
                                         "'. The compound '" + compound +
                                         "' was not found in '" +
                                         self.material.name + "'.")
                     result = result + (compound,
-                                       other.get_compound_mass(compound))
-                result.H = H
+                                       other.get_compound_mfr(compound))
+                result.Hfr = Hfr
                 return result
 
-        # Add the specified mass of the specified compound.
-        elif self._is_compound_mass_tuple(other):
-            # Added material varialbes.
+        # Add the specified mass flow rate of the specified compound.
+        elif self._is_compound_mfr_tuple(other):
+            # Added material variables.
             compound = other[0]
             index = self.material.get_compound_index(compound)
-            mass = other[1]
-            enthalpy = thermo.H(compound, self._T, mass)
+            mfr = other[1]
+            enthalpy = thermo.H(compound, self._T, mfr)
 
-            # Create the result package.
+            # Create the result stream.
             result = self.clone()
-            result._compound_masses[index] = result._compound_masses[index] + \
-                mass
-            result._H += enthalpy
+            result._compound_mfrs[index] += mfr
+            result._Hfr += enthalpy
             result._P = self._P
             return result
 
-        # Add the specified mass of 'compound' at the specified temperature.
-        elif self._is_compound_mass_temperature_tuple(other):
+        # Add the specified mass flow rate of 'compound' at the specified temperature.
+        elif self._is_compound_mfr_temperature_tuple(other):
             # Added material varialbes.
             compound = other[0]
             index = self.material.get_compound_index(compound)
-            mass = other[1]
+            mfr = other[1]
             temperature = other[2]
-            enthalpy = thermo.H(compound, temperature, mass)
+            enthalpy = thermo.H(compound, temperature, mfr)
 
-            # Create the result package.
+            # Create the result stream.
             result = self * 1.0
-            result._compound_masses[index] = result._compound_masses[index] + \
-                mass
-            result.H = self._H + enthalpy
+            result._compound_mfrs[index] += mfr
+            result.Hfr = self._Hfr + enthalpy
             result._P = self._P
             return result
 
@@ -1123,12 +1264,12 @@ class MaterialStream(Object):
         """
         The multiplication operator (*).
 
-        Create a new package by multiplying self with scalar.
+        Create a new stream by multiplying self with scalar.
 
-        :param scalar: The result is a new package with its content equal to
+        :param scalar: The result is a new stream with its content equal to
           self multiplied by a scalar, leaving self unchanged.
 
-        :returns: New MaterialPackage object.
+        :returns: New MaterialStream object.
         """
 
         # Multiply with a scalar floating point number.
@@ -1136,16 +1277,17 @@ class MaterialStream(Object):
            type(scalar) is numpy.float32:
             if scalar < 0.0:
                 raise Exception("Invalid multiplication operation. Cannot "
-                                "multiply package with negative number.")
-            result = MaterialPackage(self.material, self._compound_masses *
-                                     scalar, self._P, self._T)
+                                "multiply stream with negative number.")
+            result = MaterialStream(self.material, self._compound_mfrs *
+                                    scalar, self._P, self._T, self.isCoal,
+                                    self.HHV)
             return result
 
         # If not one of the above, it must be an invalid argument.
         else:
             raise TypeError("Invalid multiplication argument.")
 
-    def _calculate_H(self, T):
+    def _calculate_Hfr(self, T):
         """
         Calculate the enthalpy flow rate of the stream at the specified
         temperature.
@@ -1155,14 +1297,124 @@ class MaterialStream(Object):
         :returns: Enthalpy flow rate. [kWh/h]
         """
 
-        H = 0.0
+        if self.isCoal:
+            return self._calculate_Hfr_coal(T)
+
+        Hfr = 0.0
         for compound in self.material.compounds:
             index = self.material.get_compound_index(compound)
-            dH = thermo.H(compound, T, self._compound_masses[index])
-            H = H + dH
-        return H
+            dHfr = thermo.H(compound, T, self._compound_mfrs[index])
+            Hfr = Hfr + dHfr
+        return Hfr
 
-    def _calculate_T(self, H):
+    def _calculate_DH298_coal(self):
+        """
+        Calculate the enthalpy of formation of the package at the specified temperature, in
+        case the material is coal.
+
+        :returns: [kWh/kg] enthalpy of formation of daf coal
+        """
+
+        m_C = 0  # kg
+        m_H = 0  # kg
+        m_O = 0  # kg
+        m_N = 0  # kg
+        m_S = 0  # kg
+
+        T = 25  # °C
+        Hin = 0.0  # kWh
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            formula = compound.split('[')[0]
+            if stoich.element_mass_fraction(formula, 'C') == 1.0:
+                m_C += self._compound_mfrs[index]
+                Hin = thermo.H(compound, T, self._compound_mfrs[index])
+            elif stoich.element_mass_fraction(formula, 'H') == 1.0:
+                m_H += self._compound_mfrs[index]
+                Hin = thermo.H(compound, T, self._compound_mfrs[index])
+            elif stoich.element_mass_fraction(formula, 'O') == 1.0:
+                m_O += self._compound_mfrs[index]
+                Hin = thermo.H(compound, T, self._compound_mfrs[index])
+            elif stoich.element_mass_fraction(formula, 'N') == 1.0:
+                m_N += self._compound_mfrs[index]
+                Hin = thermo.H(compound, T, self._compound_mfrs[index])
+            elif stoich.element_mass_fraction(formula, 'S') == 1.0:
+                m_S += self._compound_mfrs[index]
+                Hin = thermo.H(compound, T, self._compound_mfrs[index])
+
+        m_total = m_C + m_H + m_O + m_N + m_S  # kg
+
+        Hout = 0.0  # kWh
+        Hout += thermo.H('CO2[G]', T, cc(m_C, 'C', 'CO2', 'C'))
+        Hout += thermo.H('H2O[L]', T, cc(m_H, 'H', 'H2O', 'H'))
+        Hout += thermo.H('O2[G]', T, m_O)
+        Hout += thermo.H('N2[G]', T, m_N)
+        Hout += thermo.H('SO2[G]', T, cc(m_S, 'S', 'SO2', 'S'))
+
+        if self.HHV is None:
+            # If no HHV is specified, calculate it from the proximate assay
+            # using C-H-O-N-S.
+            HHV = (Hout - Hin) / m_total  # kWh/kg
+        else:
+            # If an HHV is specified, convert it from MJ/kg to kWh/kg.
+            HHV = self.HHV / 3.6  # kWh/kg
+
+        return HHV + Hout / m_total  # kWh/kg
+
+    def _calculate_Hfr_coal(self, T):
+        """
+        Calculate the enthalpy flow rate of the stream at the specified
+        temperature, in the case of it being coal.
+
+        :param T: Temperature. [°C]
+
+        :returns: Enthalpy flow rate. [kWh/h]
+        """
+
+        m_C = 0  # kg/h
+        m_H = 0  # kg/h
+        m_O = 0  # kg/h
+        m_N = 0  # kg/h
+        m_S = 0  # kg/h
+
+        Hfr = 0.0  # kWh/h
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            formula = compound.split('[')[0]
+            if stoich.element_mass_fraction(formula, 'C') == 1.0:
+                m_C += self._compound_mfrs[index]
+            elif stoich.element_mass_fraction(formula, 'H') == 1.0:
+                m_H += self._compound_mfrs[index]
+            elif stoich.element_mass_fraction(formula, 'O') == 1.0:
+                m_O += self._compound_mfrs[index]
+            elif stoich.element_mass_fraction(formula, 'N') == 1.0:
+                m_N += self._compound_mfrs[index]
+            elif stoich.element_mass_fraction(formula, 'S') == 1.0:
+                m_S += self._compound_mfrs[index]
+            else:
+                dHfr = thermo.H(compound, T, self._compound_mfrs[index])
+                Hfr += dHfr
+
+        m_total = m_C + m_H + m_O + m_N + m_S  # kg/h
+        y_C = m_C / m_total
+        y_H = m_H / m_total
+        y_O = m_O / m_total
+        y_N = m_N / m_total
+        y_S = m_S / m_total
+
+        hmodel = coals.DafHTy()
+        H = hmodel.calculate(T=T+273.15, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N,
+                             y_S=y_S) / 3.6e6  # kWh/kg
+        H298 = hmodel.calculate(T=298.15, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N,
+                                y_S=y_S) / 3.6e6  # kWh/kg
+        Hdaf = H - H298 + self._DH298  # kWh/kg
+        Hdaf *= m_total  # kWh/h
+
+        Hfr += Hdaf
+        
+        return Hfr
+
+    def _calculate_T(self, Hfr):
         """
         Calculate the temperature of the stream given the specified
         enthalpy flow rate using a secant algorithm.
@@ -1179,22 +1431,22 @@ class MaterialStream(Object):
 
         # Evaluate the enthalpy for the initial guesses.
         y = list()
-        y.append(self._calculate_H(x[0]) - H)
-        y.append(self._calculate_H(x[1]) - H)
+        y.append(self._calculate_Hfr(x[0]) - Hfr)
+        y.append(self._calculate_Hfr(x[1]) - Hfr)
 
         # Solve for temperature.
         for i in range(2, 50):
             x.append(x[i-1] - y[i-1]*((x[i-1] - x[i-2])/(y[i-1] - y[i-2])))
-            y.append(self._calculate_H(x[i]) - H)
+            y.append(self._calculate_Hfr(x[i]) - Hfr)
             if abs(y[i-1]) < 1.0e-5:
                 break
 
         return x[len(x) - 1]
 
-    def _is_compound_mass_tuple(self, value):
+    def _is_compound_mfr_tuple(self, value):
         """
         Determines whether value is a tuple of the format
-        (compound(str), mass(float)).
+        (compound(str), mfr(float)).
 
         :param value: The value to be tested.
 
@@ -1214,9 +1466,9 @@ class MaterialStream(Object):
         else:
             return True
 
-    def _is_compound_mass_temperature_tuple(self, value):
+    def _is_compound_mfr_temperature_tuple(self, value):
         """Determines whether value is a tuple of the format
-        (compound(str), mass(float), temperature(float)).
+        (compound(str), mfr(float), temperature(float)).
 
         :param value: The value to be tested.
 
@@ -1274,18 +1526,18 @@ class MaterialStream(Object):
     @T.setter
     def T(self, T):
         """
-        Set the temperature of the package to the specified value, and
+        Set the temperature of the stream to the specified value, and
         recalculate it's enthalpy.
 
         :param T: Temperature. [°C]
         """
 
         self._T = T
-        self._H = self._calculate_H(T)
+        self._Hfr = self._calculate_Hfr(T)
 
     @property
     def P(self):
-        """Determine the pressure of the package.
+        """Determine the pressure of the stream.
 
         :returns: Pressure. [atm]"""
 
@@ -1293,7 +1545,7 @@ class MaterialStream(Object):
 
     @P.setter
     def P(self, P):
-        """Set the pressure of the package to the specified value.
+        """Set the pressure of the stream to the specified value.
 
         :param P: Pressure. [atm]"""
 
@@ -1303,33 +1555,33 @@ class MaterialStream(Object):
     # Public methods.
     # -------------------------------------------------------------------------
     def clone(self):
-        """Create a complete copy of the package.
+        """Create a complete copy of the stream.
 
-        :returns: A new MaterialPackage object."""
+        :returns: A new MaterialStream object."""
 
         result = copy.copy(self)
-        result._compound_masses = copy.deepcopy(self._compound_masses)
+        result._compound_mfrs = copy.deepcopy(self._compound_mfrs)
         return result
 
     def clear(self):
         """
-        Set all the compound masses in the package to zero.
+        Set all the compound mass flow rates in the stream to zero.
         Set the pressure to 1, the temperature to 25 and the enthalpy to zero.
         """
 
-        self._compound_masses = self._compound_masses * 0.0
+        self._compound_mfrs = self._compound_mfrs * 0.0
         self._P = 1.0
         self._T = 25.0
         self._H = 0.0
 
     def get_assay(self):
         """
-        Determine the assay of the package.
+        Determine the assay of the stream.
 
         :returns: Array of mass fractions.
         """
 
-        return self._compound_masses / self._compound_masses.sum()
+        return self._compound_mfrs / self._compound_mfrs.sum()
 
     @property
     def mfr(self):
@@ -1339,7 +1591,7 @@ class MaterialStream(Object):
         :returns: Mass flow rate. [kg/h]
         """
 
-        return self._compound_rates.sum()
+        return self._compound_mfrs.sum()
 
     def get_compound_mfr(self, compound):
         """
@@ -1396,7 +1648,7 @@ class MaterialStream(Object):
 
     def get_element_mfrs(self, elements=None):
         """
-        Determine the mass flow rates of elements in the package.
+        Determine the mass flow rates of elements in the stream.
 
         :returns: Array of element mass flow rates. [kg/h]
         """
@@ -1405,13 +1657,13 @@ class MaterialStream(Object):
             elements = self.material.elements
         result = numpy.zeros(len(elements))
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) *\
+            result += self.get_compound_mfr(compound) *\
                 stoich.element_mass_fractions(compound, elements)
         return result
 
     def get_element_mfr_dictionary(self):
         """
-        Determine the mass flow rates of elements in the package and return as
+        Determine the mass flow rates of elements in the stream and return as
         a dictionary.
 
         :returns: Dictionary of element symbols and mass flow rates. [kg/h]
@@ -1426,21 +1678,22 @@ class MaterialStream(Object):
 
     def get_element_mfr(self, element):
         """
-        Determine the mass flow rate of the specified elements in the package.
+        Determine the mass flow rate of the specified elements in the stream.
 
         :returns: Mass flow rates. [kg/h]
         """
 
-        result = numpy.zeros(1)
+        result = 0.0
         for compound in self.material.compounds:
+            formula = compound.split('[')[0]
             result += self.get_compound_mfr(compound) *\
-                stoich.element_mass_fractions(compound, [element])
-        return result[0]
+                stoich.element_mass_fraction(formula, element)
+        return result
 
     def extract(self, other):
         """
         Extract 'other' from this stream, modifying this stream and returning
-        the extracted material as a new package.
+        the extracted material as a new stream.
 
         :param other: Can be one of the following:
 
@@ -1489,7 +1742,7 @@ class MaterialStream(Object):
                             "mass flow rate larger than the streams's mass "
                             "flow rate.")
         fraction_to_subtract = mfr / self.mfr
-        result = MaterialPackage(
+        result = MaterialStream(
             self.material, self._compound_mfrs *
             fraction_to_subtract, self._P, self._T)
 
@@ -1522,7 +1775,7 @@ class MaterialStream(Object):
         index = self.material.get_compound_index(compound)
         if mfr > self._compound_mfrs[index]:
             raise Exception("Invalid extraction operation. Cannot extract a "
-                "compound mass flow rate larger than what the package "
+                "compound mass flow rate larger than what the stream "
                 "contains.")
         self._compound_mfrs[index] = self._compound_mfrs[index] - mfr
         self.T = self.T
