@@ -1,1 +1,1 @@
-{'Phases': {'S': {'DHref': -52300.0, 'Sref': 66.526, 'Symbol': 'S', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 44.35, 'Exponent': '0'}, {'Coefficient': 0.011046, 'Exponent': '1'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'CuS'}
+{"Phases": {"S": {"DHref": -52300.0, "Sref": 66.526, "Symbol": "S", "Cp_records": {"3000": {"Terms": [{"Coefficient": 44.35, "Exponent": "0"}, {"Coefficient": 0.011046, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "CuS"}
