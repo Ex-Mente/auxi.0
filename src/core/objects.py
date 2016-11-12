@@ -4,7 +4,7 @@ import json
 import jsonpickle
 
 
-__version__ = '0.3.0'
+__version__ = '0.3.3'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -31,6 +31,9 @@ class Object(object):
     def _validate_params_(self):
         pass
 
+    def _init(self):
+        pass
+
     def write(self, path):
         with open(path, 'w') as file:
             file.write(str(self))
@@ -38,7 +41,11 @@ class Object(object):
     def read(path):
         with open(path, 'r') as file:
             s = file.read()
-        return jsonpickle.decode(s)
+        result = jsonpickle.decode(s)
+#        print(type(result), dir(result))
+#        if '_init' in dir(result):
+        result._init()
+        return result
 
 
 class NamedObject(Object):

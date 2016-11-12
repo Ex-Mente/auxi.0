@@ -55,7 +55,7 @@ Navigate to the deployment you created. Go to auxi.0/dist, extract the .zip or .
 In your command line shell, navigate into the extracted folder and run the following command:
 
 ```
-pip setup.py sdist upload
+python setup.py sdist upload
 ```
 
 You will be prompted for a PyPi username and password. Use Ex Mente Dev's PyPi username and password (You can find it in the svn repository's passwords file). This will create the `auxi` distribution and upload it to PyPi.
@@ -71,6 +71,8 @@ Run auxi's test file. e.g.
 ```
 python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.py
 ```
+
+Test `auxi` both on Windows and on Linux. Make sure all the tests pass on both platforms.
 
 If there are any issues, fix it, and repeat steps 3,4, 5 and 6 until all issues has been fixed.
 
@@ -88,24 +90,33 @@ git commit -m "Release <<release number>>. This closes issue #<<issue number>>" 
 git push origin <<release number>>
 ```
 
-The last commit is an important point in our git History. We will mark this by creating a tag of the commit.
-
-```
-git tag -a Tag-<<release number>>
-git push origin Tag-<<release number>>
-```
-
 #### Step 9: Update [central `auxi` repository](https://github.com/Ex-Mente/auxi.0)'s release branch
 Create a pull request from your online fork repository's release branch to the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) release branch.
 
 In the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0), approve and merge the release branch ONLY if all of Travis.CI's checks passed. Else, fix the issues and go back to step 2.
 
 #### Step 10: Merge into `develop` and `master`
-The release is now ready to be deployed the world. Merging the release into master will automatically instruct Travis.CI to create a PyPi deployment for `auxi`. We will also have to merge it back into `develop`.
+The release is now ready to be deployed the world.  We will have to merge the release branch back into `develop` and merge it into `master`.
 
 In the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) create a pull request from the release branch to  `develop`. Approve and merge the pull request. Now, do the same for `master`.
 
-#### Step 11: Test the deployment
+#### Step 11: Create a new release
+Creating a new release will add a tag to the release which will automatically instruct Travis.CI to create a new PyPi deployment for `auxi`.
+
+To create a on GitHub release, follow these instructions:
+
+* Go to: https://github.com/Ex-Mente/auxi.0
+* There is a `releases` link, click on it.
+* Click on the `Draft a new release` button.
+* Insert the new tag number specified by a `v` plus the `release number` e.g. `v0.3.0`.
+* Make sure that the Tag's target is the master branch.
+* Give the release a title: `Release ` plus the `release number`. e.g. `Release v0.3.0`
+* Add the release notes to the description.
+* Click on the `Publish release` button.
+
+GitHub will now create a tag on the last commit on `master`. Travis.CI will detect it and create and publish a new PyPi deployment for `auxi`.
+
+#### Step 12: Test the deployment
 Install `auxi` and run the tests.
 
 ```
@@ -120,3 +131,12 @@ python /usr/local/lib/python3.4/dist-packages/auxi-0.3.0rc1-py3.4.egg/auxi/test.
 ```
 
 Any further issues discovered on this release will have to be treated as `hotfixes`. See the CONTRIBUTING.md file on how to create a hotfix.
+
+#### Step 13: Update the `readthedocs` documentation
+The `readtehdocs` documentation should be build and deployed again.
+
+* Go the https://readthedocs.org and log in.
+* Go to your auxi project, and at `Build`, at the dropdown, make sure that `latest` is selected.
+* Press on the `Build` button below the dropdown.
+* Go to the `Build` tab and monitor the build until it has passed.
+* Got to http://auxi.readthedocs.io/en/latest and make sure any documentation changes appears. Also check that the `api` generated. If there where any changes to the api, confirm that the changes are in the api documentation.

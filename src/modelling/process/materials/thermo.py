@@ -13,7 +13,7 @@ from auxi.core.objects import Object, NamedObject
 from auxi.tools.chemistry import stoichiometry as stoich
 from auxi.tools.chemistry import thermochemistry as thermo
 
-__version__ = '0.3.0'
+__version__ = '0.3.3'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -323,11 +323,34 @@ class Material(NamedObject):
         else:
             assay_total = 1.0
 
-        return MaterialPackage(
-            self,
-            mass * self.converted_assays[assay] / assay_total,
-            P,
-            T)
+        return MaterialPackage(self, mass * self.converted_assays[assay] /
+                               assay_total, P, T)
+
+    def create_stream(self, assay=None, mfr=0.0, P=1.0, T=25.0,
+                      normalise=True):
+        """
+        Create a MaterialStream based on the specified parameters.
+
+        :param assay: Name of the assay to be used to create the stream.
+        :param mfr: Stream mass flow rate. [kg/h]
+        :param P: Stream pressure. [atm]
+        :param T: Stream temperature. [°C]
+        :param normalise: Indicates whether the assay must be normalised
+        before creating the Stream.
+
+        :returns: MaterialStream object.
+        """
+
+        if assay is None:
+            return MaterialStream(self, self.create_empty_assay(), P, T)
+
+        if normalise:
+            assay_total = self.get_assay_total(assay)
+        else:
+            assay_total = 1.0
+
+        return MaterialStream(self, mfr * self.converted_assays[assay] /
+                              assay_total, P, T)
 
 
 class MaterialPackage(Object):
@@ -362,10 +385,8 @@ class MaterialPackage(Object):
         self.custom_properties = dict()
 
     def __str__(self):
-        b1 = "======================================================\
-        ============\n"
-        b2 = "-------------------------------------------------------\
-        -----------\n"
+        b1 = '='*67 + '\n'
+        b2 = '-'*67 + '\n'
         result = b1
         result += "MaterialPackage\n"
         result += b1
@@ -919,6 +940,603 @@ class MaterialPackage(Object):
         for compound in material.compounds:
             mass = self.get_compound_mass(compound)
             result += (compound, mass)
+            self.extract(compound)
+        result.T = self.T
+
+        return result
+
+
+class MaterialStream(Object):
+    """
+    Represents a flow of material consisting of multiple chemical compounds,
+    having a specific mass flow rate, pressure, temperature and enthalpy.
+
+    :param material: A reference to the Material to which the stream belongs.
+    :param compound_mfrs: Compound mass flow rates. [kg/h]
+    :param P: Stream pressure. [atm]
+    :param T: Stream temperature. [°C]
+    """
+
+    def __init__(self, material, compound_mfrs, P=1.0, T=25.0):
+        # Confirm that the parameters are OK.
+        if not type(material) is Material:
+            raise TypeError("Invalid material type. Must be "
+                            "thermomaterial.Material")
+        if not type(compound_mfrs) is numpy.ndarray:
+            raise TypeError("Invalid compound_mfrs type. Must be "
+                            "numpy.ndarray.")
+
+        # Initialise the object's properties.
+        self.material = material
+        self._P = P
+        self._T = T
+        self.compound_mfrs = compound_mfrs
+        if self.rate > 0.0:
+            self._Hfr = self._calculate_H(T)
+        else:
+            self._Hfr = 0.0
+
+        self.custom_properties = dict()
+
+    def __str__(self):
+        b1 = '='*67 + '\n'
+        b2 = '-'*67 + '\n'
+        result = b1
+        result += "MaterialStream"
+        result += b1
+        result += "Material".ljust(20) + self.material.name + "\n"
+        result += "Mass Flow Rate".ljust(20) + '{:.8e}'.format(
+            self.mfr).rjust(15) + " kg/h\n"
+        result += "Amount Flow Rate".ljust(20) + '{:.8e}'.format(
+            self.afr).rjust(15) + " kmol/h\n"
+        result += "Pressure".ljust(20) + '{:.8e}'.format(
+            self.P).rjust(15) + " atm\n"
+        result += "Temperature".ljust(20) + '{:.8e}'.format(
+            self.T).rjust(15) + " °C\n"
+        result += "Enthalpy Flow Rate".ljust(20) + '{:.8e}'.format(
+            self.Hfr).rjust(15) + " kWh/h\n"
+        result += b2
+        result += "Compound Details\n"
+        result += "Formula".ljust(20) + "Mass".ljust(16) + \
+                  "Mass Fraction".ljust(16) + \
+                  "Mole Fraction".ljust(16) + "\n"
+        result += b2
+        mfr = self.mfr
+        compound_afrs = self.get_compound_afrs()
+        total_afr = compound_afrs.sum()
+        if mass > 0.0:
+            for compound in self.material.compounds:
+                index = self.material.get_compound_index(compound)
+                result += compound.ljust(20) + '{:.8e}'.format(
+                    self._compound_masses[index])
+                result += "  " + \
+                          '{:.8e}'.format(self._compound_masses[index] / mass)
+                result += "  " + \
+                          '{:.8e}'.format(compound_moles[index] / total_moles)
+                result += "\n"
+        else:
+            for compound in self.material.compounds:
+                index = self.material.get_compound_index(compound)
+                result += compound.ljust(20) + '{:.8e}'.format(0.0)
+                result += "  " + '{:.8e}'.format(0.0)
+                result += "  " + '{:.8e}'.format(0.0)
+                result += "\n"
+
+        # Write the custom properties.
+        if len(self.custom_properties) > 0:
+            result += b2
+            result += "Custom Properties:\n"
+            result += b2
+            properties = list(sorted(self.custom_properties.keys()))
+            for prop in properties:
+                result += prop.ljust(20)
+                result += "{:.8e}".format(self.custom_properties[prop])
+                result += "\n"
+
+        result += b1
+        return result
+
+    def __add__(self, other):
+        """
+        Addition operator (+).
+
+        Add this package (self) and 'other' together, return the result as a
+        new package, and leave self unchanged.
+
+        :param other: Can can be one of the following:
+                 1. MaterialPackage
+                    'other' is added to self to create a new package.
+                 2. tuple: (compound, mass)
+                    The specified mass of the specified compound is added to \
+                    self, assuming the added material has the same \
+                    temperature as self.
+                 3. tuple: (compound, mass, temperature)
+                    The specified mass of the specified compound at the \
+                    specified temperature is added to self.
+
+        :returns: A new Material package that is the sum of self and 'other'.
+        """
+
+        # Add another package.
+        if type(other) is MaterialPackage:
+            if self.material == other.material:  # Packages of same material.
+                result = MaterialPackage(self.material,
+                                         self._compound_masses +
+                                         other._compound_masses)
+                result.H = self._H + other._H
+                result.P = self.P
+                return result
+            else:  # Packages of different materials.
+                H = self.H + other.H
+                result = self.clone()
+                for compound in other.material.compounds:
+                    if compound not in self.material.compounds:
+                        raise Exception("Packages of '" + other.material.name +
+                                        "' cannot be added to packages of '" +
+                                        self.material.name +
+                                        "'. The compound '" + compound +
+                                        "' was not found in '" +
+                                        self.material.name + "'.")
+                    result = result + (compound,
+                                       other.get_compound_mass(compound))
+                result.H = H
+                return result
+
+        # Add the specified mass of the specified compound.
+        elif self._is_compound_mass_tuple(other):
+            # Added material varialbes.
+            compound = other[0]
+            index = self.material.get_compound_index(compound)
+            mass = other[1]
+            enthalpy = thermo.H(compound, self._T, mass)
+
+            # Create the result package.
+            result = self.clone()
+            result._compound_masses[index] = result._compound_masses[index] + \
+                mass
+            result._H += enthalpy
+            result._P = self._P
+            return result
+
+        # Add the specified mass of 'compound' at the specified temperature.
+        elif self._is_compound_mass_temperature_tuple(other):
+            # Added material varialbes.
+            compound = other[0]
+            index = self.material.get_compound_index(compound)
+            mass = other[1]
+            temperature = other[2]
+            enthalpy = thermo.H(compound, temperature, mass)
+
+            # Create the result package.
+            result = self * 1.0
+            result._compound_masses[index] = result._compound_masses[index] + \
+                mass
+            result.H = self._H + enthalpy
+            result._P = self._P
+            return result
+
+        # If not one of the above, it must be an invalid argument.
+        else:
+            raise TypeError("Invalid addition argument.")
+
+    def __mul__(self, scalar):
+        """
+        The multiplication operator (*).
+
+        Create a new package by multiplying self with scalar.
+
+        :param scalar: The result is a new package with its content equal to
+          self multiplied by a scalar, leaving self unchanged.
+
+        :returns: New MaterialPackage object.
+        """
+
+        # Multiply with a scalar floating point number.
+        if type(scalar) is float or type(scalar) is numpy.float64 or \
+           type(scalar) is numpy.float32:
+            if scalar < 0.0:
+                raise Exception("Invalid multiplication operation. Cannot "
+                                "multiply package with negative number.")
+            result = MaterialPackage(self.material, self._compound_masses *
+                                     scalar, self._P, self._T)
+            return result
+
+        # If not one of the above, it must be an invalid argument.
+        else:
+            raise TypeError("Invalid multiplication argument.")
+
+    def _calculate_H(self, T):
+        """
+        Calculate the enthalpy flow rate of the stream at the specified
+        temperature.
+
+        :param T: Temperature. [°C]
+
+        :returns: Enthalpy flow rate. [kWh/h]
+        """
+
+        H = 0.0
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            dH = thermo.H(compound, T, self._compound_masses[index])
+            H = H + dH
+        return H
+
+    def _calculate_T(self, H):
+        """
+        Calculate the temperature of the stream given the specified
+        enthalpy flow rate using a secant algorithm.
+
+        :param H: Enthalpy flow rate. [kWh/h]
+
+        :returns: Temperature. [°C]
+        """
+
+        # Create the initial guesses for temperature.
+        x = list()
+        x.append(self._T)
+        x.append(self._T + 10.0)
+
+        # Evaluate the enthalpy for the initial guesses.
+        y = list()
+        y.append(self._calculate_H(x[0]) - H)
+        y.append(self._calculate_H(x[1]) - H)
+
+        # Solve for temperature.
+        for i in range(2, 50):
+            x.append(x[i-1] - y[i-1]*((x[i-1] - x[i-2])/(y[i-1] - y[i-2])))
+            y.append(self._calculate_H(x[i]) - H)
+            if abs(y[i-1]) < 1.0e-5:
+                break
+
+        return x[len(x) - 1]
+
+    def _is_compound_mass_tuple(self, value):
+        """
+        Determines whether value is a tuple of the format
+        (compound(str), mass(float)).
+
+        :param value: The value to be tested.
+
+        :returns: True or False
+        """
+
+        if not type(value) is tuple:
+            return False
+        elif not len(value) == 2:
+            return False
+        elif not type(value[0]) is str:
+            return False
+        elif not type(value[1]) is float and \
+                not type(value[1]) is numpy.float64 and \
+                not type(value[1]) is numpy.float32:
+            return False
+        else:
+            return True
+
+    def _is_compound_mass_temperature_tuple(self, value):
+        """Determines whether value is a tuple of the format
+        (compound(str), mass(float), temperature(float)).
+
+        :param value: The value to be tested.
+
+        :returns: True or False"""
+
+        if not type(value) is tuple:
+            return False
+        elif not len(value) == 3:
+            return False
+        elif not type(value[0]) is str:
+            return False
+        elif not type(value[1]) is float and \
+                not type(value[1]) is numpy.float64 and \
+                not type(value[1]) is numpy.float32:
+            return False
+        elif not type(value[1]) is float and \
+                not type(value[1]) is numpy.float64 and \
+                not type(value[1]) is numpy.float32:
+            return False
+        else:
+            return True
+
+    @property
+    def Hfr(self):
+        """
+        Get the enthalpy flow rate of the stream.
+
+        :returns: Enthalpy flow rate. [kWh/h]
+        """
+
+        return self._Hfr
+
+    @Hfr.setter
+    def Hfr(self, Hfr):
+        """
+        Set the enthalpy flow rate of the stream to the specified value, and
+        recalculate it's temperature.
+
+        :param H: The new enthalpy flow rate value. [kWh/h]
+        """
+
+        self._Hfr = Hfr
+        self._T = self._calculate_T(Hfr)
+
+    @property
+    def T(self):
+        """
+        Get the temperature of of the stream.
+
+        :returns: Temperature. [°C]
+        """
+
+        return self._T
+
+    @T.setter
+    def T(self, T):
+        """
+        Set the temperature of the package to the specified value, and
+        recalculate it's enthalpy.
+
+        :param T: Temperature. [°C]
+        """
+
+        self._T = T
+        self._H = self._calculate_H(T)
+
+    @property
+    def P(self):
+        """Determine the pressure of the package.
+
+        :returns: Pressure. [atm]"""
+
+        return self._P
+
+    @P.setter
+    def P(self, P):
+        """Set the pressure of the package to the specified value.
+
+        :param P: Pressure. [atm]"""
+
+        self._P = P
+
+    # -------------------------------------------------------------------------
+    # Public methods.
+    # -------------------------------------------------------------------------
+    def clone(self):
+        """Create a complete copy of the package.
+
+        :returns: A new MaterialPackage object."""
+
+        result = copy.copy(self)
+        result._compound_masses = copy.deepcopy(self._compound_masses)
+        return result
+
+    def clear(self):
+        """
+        Set all the compound masses in the package to zero.
+        Set the pressure to 1, the temperature to 25 and the enthalpy to zero.
+        """
+
+        self._compound_masses = self._compound_masses * 0.0
+        self._P = 1.0
+        self._T = 25.0
+        self._H = 0.0
+
+    def get_assay(self):
+        """
+        Determine the assay of the package.
+
+        :returns: Array of mass fractions.
+        """
+
+        return self._compound_masses / self._compound_masses.sum()
+
+    @property
+    def mfr(self):
+        """
+        Get the mass flow rate of the stream.
+
+        :returns: Mass flow rate. [kg/h]
+        """
+
+        return self._compound_rates.sum()
+
+    def get_compound_mfr(self, compound):
+        """
+        Determine the mass flow rate of the specified compound in the stream.
+
+        :param compound: Formula and phase of a compound, e.g. "Fe2O3[S1]".
+
+        :returns: Mass flow rate. [kg/h]
+        """
+
+        if compound in self.material.compounds:
+            return self._compound_mfrs[
+                self.material.get_compound_index(compound)]
+        else:
+            return 0.0
+
+    def get_compound_afrs(self):
+        """
+        Determine the amount flow rates of all the compounds.
+
+        :returns: List of amount flow rates. [kmol/h]
+        """
+
+        result = self._compound_mfrs * 1.0
+        for compound in self.material.compounds:
+            index = self.material.get_compound_index(compound)
+            result[index] = stoich.amount(compound, result[index])
+        return result
+
+    def get_compound_afr(self, compound):
+        """
+        Determine the amount flow rate of the specified compound.
+
+        :returns: Amount flow rate. [kmol/h]
+        """
+
+        index = self.material.get_compound_index(compound)
+        result = self._compound_mfrs[index]
+        result = stoich.amount(compound, result)
+        return result
+
+    @property
+    def afr(self):
+        """
+        Determine the sum of amount flow rates of all the compounds.
+
+        :returns: Amount flow rate. [kmol/h]
+        """
+
+        result = 0.0
+        for compound in self.material.compounds:
+            result += self.get_compound_afr(compound)
+        return result
+
+    def get_element_mfrs(self, elements=None):
+        """
+        Determine the mass flow rates of elements in the package.
+
+        :returns: Array of element mass flow rates. [kg/h]
+        """
+
+        if elements is None:
+            elements = self.material.elements
+        result = numpy.zeros(len(elements))
+        for compound in self.material.compounds:
+            result += self.get_compound_mass(compound) *\
+                stoich.element_mass_fractions(compound, elements)
+        return result
+
+    def get_element_mfr_dictionary(self):
+        """
+        Determine the mass flow rates of elements in the package and return as
+        a dictionary.
+
+        :returns: Dictionary of element symbols and mass flow rates. [kg/h]
+        """
+
+        element_symbols = self.material.elements
+        element_mfrs = self.get_element_mfrs()
+        result = dict()
+        for s, mfr in zip(element_symbols, element_mfrs):
+            result[s] = mfr
+        return result
+
+    def get_element_mfr(self, element):
+        """
+        Determine the mass flow rate of the specified elements in the package.
+
+        :returns: Mass flow rates. [kg/h]
+        """
+
+        result = numpy.zeros(1)
+        for compound in self.material.compounds:
+            result += self.get_compound_mfr(compound) *\
+                stoich.element_mass_fractions(compound, [element])
+        return result[0]
+
+    def extract(self, other):
+        """
+        Extract 'other' from this stream, modifying this stream and returning
+        the extracted material as a new package.
+
+        :param other: Can be one of the following:
+
+          * float: A mass flow rate equal to other is extracted from self. Self
+            is reduced by other and the extracted stream is returned as
+            a new stream.
+          * tuple (compound, mass): The other tuple specifies the mass flow
+            rate of a compound to be extracted. It is extracted from self and
+            the extracted mass flow rate is returned as a new stream.
+          * string: The 'other' string specifies the compound to be
+            extracted. All of the mass flow rate of that compound will be
+            removed from self and a new stream created with it.
+          * Material: The 'other' material specifies the list of
+            compounds to extract.
+
+
+        :returns: New MaterialStream object.
+        """
+
+        # Extract the specified mass flow rate.
+        if type(other) is float or \
+           type(other) is numpy.float64 or \
+           type(other) is numpy.float32:
+            return self._extract_mfr(other)
+
+        # Extract the specified mass flow rateof the specified compound.
+        elif self._is_compound_mfr_tuple(other):
+            return self._extract_compound_mfr(other[0], other[1])
+
+        # Extract all of the specified compound.
+        elif type(other) is str:
+            return self._extract_compound(other)
+
+        # TODO: Test
+        # Extract all of the compounds of the specified material.
+        elif type(other) is Material:
+            return self._extract_material(other)
+
+        # If not one of the above, it must be an invalid argument.
+        else:
+            raise TypeError("Invalid extraction argument.")
+
+    def _extract_mfr(self, mfr):
+        if mfr > self.mfr:
+            raise Exception("Invalid extraction operation. Cannot extract a "
+                            "mass flow rate larger than the streams's mass "
+                            "flow rate.")
+        fraction_to_subtract = mfr / self.mfr
+        result = MaterialPackage(
+            self.material, self._compound_mfrs *
+            fraction_to_subtract, self._P, self._T)
+
+        self._compound_mfrs = self._compound_mfrs * \
+            (1.0 - fraction_to_subtract)
+        self.T = self.T
+
+        return result
+
+    def _extract_compound(self, compound):
+        result = self.material.create_stream()
+
+        if compound not in self.material.compounds:
+            return result
+
+        index = self.material.get_compound_index(compound)
+        result._compound_mfrs[index] = self._compound_mfrs[index]
+        result.T = self.T
+        result.P = self.P
+
+        self._compound_mfrs[index] = 0.0
+        self.T = self.T
+
+        return result
+
+    def _extract_compound_mfr(self, compound, mfr):
+        if compound not in self.material.compounds:
+            return self.material.create_stream()
+
+        index = self.material.get_compound_index(compound)
+        if mfr > self._compound_mfrs[index]:
+            raise Exception("Invalid extraction operation. Cannot extract a "
+                "compound mass flow rate larger than what the package "
+                "contains.")
+        self._compound_mfrs[index] = self._compound_mfrs[index] - mfr
+        self.T = self.T
+
+        result = self.material.create_stream(P=self._P, T=self._T)
+        result += (compound, mfr)
+
+        return result
+
+    def _extract_material(self, material):
+        result = material.create_stream()
+        for compound in material.compounds:
+            mfr = self.get_compound_mfr(compound)
+            result += (compound, mfr)
             self.extract(compound)
         result.T = self.T
 

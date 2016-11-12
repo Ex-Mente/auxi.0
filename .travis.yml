@@ -1,18 +1,26 @@
 language: python
 python:
-- "2.7"
-- "3.4"
+  - "3.4"
 compiler: gcc
 sudo: required
 dist: trusty
 before_install:
-- sudo apt-get -y install python-setuptools
-- sudo apt-get -y install python3-setuptools
+  - sudo apt-get -y install python3-setuptools
+  - sudo apt-get -y install python3-pip
+  - sudo apt-get -y install python3-pandas
+install:
+  - sudo pip3 install coveralls
 script:
-- cd $TRAVIS_BUILD_DIR
-- cp scripts/setup.py .
-- sudo python setup.py sdist
-- sudo python3 setup.py sdist
+  - cd $TRAVIS_BUILD_DIR
+  - sudo python3 setup.py sdist
+  - cd dist
+  - sudo tar -xf auxi-*.tar.gz
+  - cd $(ls -d */|head -n 1)
+  - sudo python3 setup.py install
+  - sudo coverage run --source=auxi setup.py test
+after_success:
+  - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
+  - cd $TRAVIS_BUILD_DIR
 deploy:
   provider: pypi
   user: emdev
@@ -21,4 +29,3 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    branch: master

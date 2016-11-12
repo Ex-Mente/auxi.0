@@ -9,7 +9,7 @@ import unittest
 from auxi.tools.chemistry import stoichiometry as testee
 
 
-__version__ = '0.3.0'
+__version__ = '0.3.3'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -52,6 +52,8 @@ class StoichFunctionTester(unittest.TestCase):
 
         func = testee.molar_mass
 
+        self.assertAlmostEqual(func(None), 0.0)
+        self.assertAlmostEqual(func(''), 0.0)
         self.assertAlmostEqual(func('FeO'), 71.8444)
         self.assertAlmostEqual(func('Fe2O3'), 159.6882)
         self.assertAlmostEqual(func('SiO2'), 60.0843)
@@ -66,6 +68,36 @@ class StoichFunctionTester(unittest.TestCase):
 
         self.assertEqual(func('FeO', 1.0), 0.01391896932815919)
 
+    def test_amounts(self):
+        """
+        Test whether compound amounts are calculated correctly.
+        """
+
+        func = testee.amounts
+        mm = testee.molar_mass
+
+        compounds = ['SiO2', 'CaO', 'MgO', 'FeO']
+        ms = {compound: 1.0 for compound in compounds}
+        ns = {compound: ms[compound] / mm(compound) for compound in compounds}
+
+        self.assertEqual(func(ms), ns)
+
+    def test_amount_fractions(self):
+        """
+        Test whether compound amount fractions are calculated correctly.
+        """
+
+        func = testee.amount_fractions
+        mm = testee.molar_mass
+
+        compounds = ['SiO2', 'CaO', 'MgO', 'FeO']
+        ms = {compound: 1.0 for compound in compounds}
+        ns = {compound: ms[compound] / mm(compound) for compound in compounds}
+        n_tot = sum(ns.values())
+        xs = {compound: ns[compound]/n_tot for compound in compounds}
+
+        self.assertEqual(func(ms), xs)
+
     def test_mass(self):
         """
         Test whether the mass of a compound is calculated correctly.
@@ -74,6 +106,36 @@ class StoichFunctionTester(unittest.TestCase):
         func = testee.mass
 
         self.assertEqual(func('FeO', 1.0), 71.8444)
+
+    def test_masses(self):
+        """
+        Test whether compound masses are calculated correctly.
+        """
+
+        func = testee.masses
+        mm = testee.molar_mass
+
+        compounds = ['SiO2', 'CaO', 'MgO', 'FeO']
+        ns = {compound: 1.0 for compound in compounds}
+        ms = {compound: mm(compound) for compound in compounds}
+
+        self.assertEqual(func(ns), ms)
+
+    def test_mass_fractions(self):
+        """
+        Test whether compound mass fractions are calculated correctly.
+        """
+
+        func = testee.mass_fractions
+        mm = testee.molar_mass
+
+        compounds = ['SiO2', 'CaO', 'MgO', 'FeO']
+        ns = {compound: 1.0 for compound in compounds}
+        ms = {compound: mm(compound) for compound in compounds}
+        m_tot = sum(ms.values())
+        ys = {compound: ms[compound]/m_tot for compound in compounds}
+
+        self.assertEqual(func(ns), ys)
 
     def test_convert_compound(self):
         """
@@ -86,6 +148,8 @@ class StoichFunctionTester(unittest.TestCase):
         m_Fe2O3 = func(m_Fe, 'Fe', 'Fe2O3', 'Fe')
         self.assertAlmostEqual(m_Fe2O3, 1429.7448294386247)
         m_Fe2O3 = func(m_Fe, 'Fe', 'Fe2O3', 'O')
+        self.assertEqual(m_Fe2O3, 0.0)
+        m_Fe2O3 = func(m_Fe, 'Fe', 'Fe2O3', 'Si')
         self.assertEqual(m_Fe2O3, 0.0)
 
         m_FeTiO3 = 1000.0
