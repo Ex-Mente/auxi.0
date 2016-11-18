@@ -1,31 +1,25 @@
 language: python
 python:
   - "3.4"
-compiler: gcc
-sudo: required
-dist: trusty
+sudo: false
 before_install:
-  - sudo apt-get -y install python3-setuptools
-  - sudo apt-get -y install python3-pip
-  - sudo apt-get -y install python3-pandas
+  - apt-get -y install python3-setuptools
+  - apt-get -y install python3-pip
+  - apt-get -y install python3-pandas
 install:
-  - sudo pip3 install coveralls
+  - pip3 install coveralls
 script:
-  - cd $TRAVIS_BUILD_DIR
-  - sudo python3 setup.py sdist
+  - python3 setup.py sdist
   - cd dist
-  - sudo tar -xf auxi-*.tar.gz
-  - cd $(ls -d */|head -n 1)
-  - sudo python3 setup.py install
-  - sudo coverage run --source=auxi setup.py test
+  - coverage run --source=auxi setup.py test
 after_success:
   - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
   - cd $TRAVIS_BUILD_DIR
-deploy:
-  provider: pypi
-  user: emdev
-  password:
-    secure: BqD5GHrm1RMe3F69sdh7YdN2uXnYT0qBp40z40OYQb0efHB08zBD4ZJWMccjWm7pYwtefO2Jv7x3huKLLH8u811E5e50yJ3jiEJbjAB8VijDwQjWqzELe1jxITGoee0zECBjVgJPcJOkICSC38hamrlYOQGfqqg4rhTbVhUbTbSbPna8S84Cdm/N6kzi9hgdhqDetxXhSfDIhYxREJJScCUxfY8rK3o69qZHlffzboK25xkDhagpuUY/1mW1QOHvIxa/p6TnE9hS5nf4RSZnvvsQqehVjrlIlMP8qa9JlMBlIYcX13PQh34OEg0KbYUzkS0kRacE0Ol2AS7aFmA8erdAWOPvbixmffiTm2U3zsT7Rxc5aCDhBYQanocqpAmEzJ+dmi5yrzq++je0plS0v+WY5TTyh21RyROB6E+43JoSMenh0NDpvod3qsSjLCf8GEt/vDKuY3KRkQQbmirAv/J3H88rPIG6KH3UJIMTL0mXClbwU3HMmPQtJ4pit8Nwdhjg6L/jzSFa0zL801zQBiRLXIutBZK6kQDfwFwJ8HVe1ihAiy3AME8YBFrEPZdLOKr5y0gG0SvAvZ/pV7W1u0Yc1m7JXDRTUyhw5qMRq+uxMKjoBUM19mRAgxt2KLftVEjKGAMyUWknPIfgt9D5O6SJLtyxPUT1ixh9XDM0MXI=
-  skip_cleanup: true
-  on:
-    tags: true
+#deploy:
+#  provider: pypi
+#  user: emdev
+#  password:
+#    secure: BqD5GHrm1RMe3F69sdh7YdN2uXnYT0qBp40z40OYQb0efHB08zBD4ZJWMccjWm7pYwtefO2Jv7x3huKLLH8u811E5e50yJ3jiEJbjAB8VijDwQjWqzELe1jxITGoee0zECBjVgJPcJOkICSC38hamrlYOQGfqqg4rhTbVhUbTbSbPna8S84Cdm/N6kzi9hgdhqDetxXhSfDIhYxREJJScCUxfY8rK3o69qZHlffzboK25xkDhagpuUY/1mW1QOHvIxa/p6TnE9hS5nf4RSZnvvsQqehVjrlIlMP8qa9JlMBlIYcX13PQh34OEg0KbYUzkS0kRacE0Ol2AS7aFmA8erdAWOPvbixmffiTm2U3zsT7Rxc5aCDhBYQanocqpAmEzJ+dmi5yrzq++je0plS0v+WY5TTyh21RyROB6E+43JoSMenh0NDpvod3qsSjLCf8GEt/vDKuY3KRkQQbmirAv/J3H88rPIG6KH3UJIMTL0mXClbwU3HMmPQtJ4pit8Nwdhjg6L/jzSFa0zL801zQBiRLXIutBZK6kQDfwFwJ8HVe1ihAiy3AME8YBFrEPZdLOKr5y0gG0SvAvZ/pV7W1u0Yc1m7JXDRTUyhw5qMRq+uxMKjoBUM19mRAgxt2KLftVEjKGAMyUWknPIfgt9D5O6SJLtyxPUT1ixh9XDM0MXI=
+#  skip_cleanup: true
+#  on:
+#    tags: true
