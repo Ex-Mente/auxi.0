@@ -15,21 +15,25 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
+  # FIXME: The requirements should be read from a proper place, not here.
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas=0.17.0 matplotlib pytest pytest-cov coverage sphinx nose
   - source activate test
   - pip install -U codecov
-  - python setup.py install
+# FIXME: Ideallly we would test the installed version
+#  - python setup.py install
 script:
   - python setup.py sdist
-  - coverage run --source=auxi setup.py test
-#after_success:
-#  - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
-#  - cd $TRAVIS_BUILD_DIR
-#deploy:
-#  provider: pypi
-#  user: emdev
-#  password:
-#    secure: BqD5GHrm1RMe3F69sdh7YdN2uXnYT0qBp40z40OYQb0efHB08zBD4ZJWMccjWm7pYwtefO2Jv7x3huKLLH8u811E5e50yJ3jiEJbjAB8VijDwQjWqzELe1jxITGoee0zECBjVgJPcJOkICSC38hamrlYOQGfqqg4rhTbVhUbTbSbPna8S84Cdm/N6kzi9hgdhqDetxXhSfDIhYxREJJScCUxfY8rK3o69qZHlffzboK25xkDhagpuUY/1mW1QOHvIxa/p6TnE9hS5nf4RSZnvvsQqehVjrlIlMP8qa9JlMBlIYcX13PQh34OEg0KbYUzkS0kRacE0Ol2AS7aFmA8erdAWOPvbixmffiTm2U3zsT7Rxc5aCDhBYQanocqpAmEzJ+dmi5yrzq++je0plS0v+WY5TTyh21RyROB6E+43JoSMenh0NDpvod3qsSjLCf8GEt/vDKuY3KRkQQbmirAv/J3H88rPIG6KH3UJIMTL0mXClbwU3HMmPQtJ4pit8Nwdhjg6L/jzSFa0zL801zQBiRLXIutBZK6kQDfwFwJ8HVe1ihAiy3AME8YBFrEPZdLOKr5y0gG0SvAvZ/pV7W1u0Yc1m7JXDRTUyhw5qMRq+uxMKjoBUM19mRAgxt2KLftVEjKGAMyUWknPIfgt9D5O6SJLtyxPUT1ixh9XDM0MXI=
-#  skip_cleanup: true
-#  on:
-#    tags: true
+  # FIXME: this runs the tests in the code
+  # TODO: Change to use py.test
+  - PYTHONPATH=. coverage run --source=auxi auxi/tests.py
+after_success:
+  - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
+  - cd $TRAVIS_BUILD_DIR
+deploy:
+  provider: pypi
+  user: emdev
+  password:
+    secure: BqD5GHrm1RMe3F69sdh7YdN2uXnYT0qBp40z40OYQb0efHB08zBD4ZJWMccjWm7pYwtefO2Jv7x3huKLLH8u811E5e50yJ3jiEJbjAB8VijDwQjWqzELe1jxITGoee0zECBjVgJPcJOkICSC38hamrlYOQGfqqg4rhTbVhUbTbSbPna8S84Cdm/N6kzi9hgdhqDetxXhSfDIhYxREJJScCUxfY8rK3o69qZHlffzboK25xkDhagpuUY/1mW1QOHvIxa/p6TnE9hS5nf4RSZnvvsQqehVjrlIlMP8qa9JlMBlIYcX13PQh34OEg0KbYUzkS0kRacE0Ol2AS7aFmA8erdAWOPvbixmffiTm2U3zsT7Rxc5aCDhBYQanocqpAmEzJ+dmi5yrzq++je0plS0v+WY5TTyh21RyROB6E+43JoSMenh0NDpvod3qsSjLCf8GEt/vDKuY3KRkQQbmirAv/J3H88rPIG6KH3UJIMTL0mXClbwU3HMmPQtJ4pit8Nwdhjg6L/jzSFa0zL801zQBiRLXIutBZK6kQDfwFwJ8HVe1ihAiy3AME8YBFrEPZdLOKr5y0gG0SvAvZ/pV7W1u0Yc1m7JXDRTUyhw5qMRq+uxMKjoBUM19mRAgxt2KLftVEjKGAMyUWknPIfgt9D5O6SJLtyxPUT1ixh9XDM0MXI=
+  skip_cleanup: true
+  on:
+    tags: true
