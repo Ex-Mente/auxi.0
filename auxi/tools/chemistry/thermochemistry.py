@@ -182,8 +182,8 @@ class Phase(NamedObject):
 
         for k, v in dictionary['Cp_records'].items():
             tmax = k
-            if type(tmax) is not float:
-                tmax = float(tmax)
+            # TODO: Fix string/float conversion issue
+            tmax = str(float(tmax))
             self._Cp_records[tmax] = CpRecord(v)
 
         self._init()
@@ -235,6 +235,7 @@ class Phase(NamedObject):
         :returns: [J/mol/K] The heat capacity of the compound phase.
         """
 
+        # TODO: Fix str/float conversion
         for Tmax in sorted([float(TT) for TT in self._Cp_records.keys()]):
             if T < Tmax:
                 return self._Cp_records[str(Tmax)].Cp(T) + self.Cp_mag(T)
@@ -765,8 +766,8 @@ def load_data_auxi(path=''):
     files = glob.glob(os.path.join(path, 'Compound_*.json'))
 
     for file in files:
-#        compound = Compound(_read_compound_from_auxi_file_(file))
-        compound = Compound.read(file)
+        compound = Compound(_read_compound_from_auxi_file_(file))
+#        compound = Compound.read(file)
         compounds[compound.formula] = compound
 
 
@@ -893,8 +894,8 @@ def G(compound_string, T, mass=1.0):
 
 
 compounds = {}
-#default_data_path = _get_default_data_path_()
-#load_data_auxi()
+default_data_path = _get_default_data_path_()
+load_data_auxi()
 
 
 if __name__ == '__main__':
