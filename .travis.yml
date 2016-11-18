@@ -2,7 +2,6 @@ language: python
 python:
   - "3.4"
   - "3.5"
-  - "3.6"
 sudo: false
 # this is lifted from http://www.camillescott.org/2016/07/15/travis-pytest-scipyconf/
 install:
