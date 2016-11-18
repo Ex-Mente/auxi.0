@@ -1,1 +1,1 @@
-.. include:: ../../../src/examples/tools/transportphenomena/heattransfer/naturalconvection.IsothermalFlatSurface.ipynb
+.. include:: ../../../auxi/examples/tools/transportphenomena/heattransfer/naturalconvection.IsothermalFlatSurface.ipynb
