@@ -20,7 +20,8 @@ install:
   - source activate test
   - pip install -U codecov
 # FIXME: Ideallly we would test the installed version
-#  - python setup.py install
+# FIXME: At the moment, this is how the dependencies are installed
+  - python setup.py install
 script:
   - python setup.py sdist
   # FIXME: this runs the tests in the code
