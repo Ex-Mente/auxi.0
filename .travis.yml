@@ -1,6 +1,7 @@
 language: python
 python:
   - "3.4"
+  - "3.5"
 sudo: false
 # this is lifted from http://www.camillescott.org/2016/07/15/travis-pytest-scipyconf/
 install:
@@ -16,7 +17,7 @@ install:
   - conda update -q conda
   - conda info -a
   # FIXME: The requirements should be read from a proper place, not here.
-  - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas=0.17.0 matplotlib pytest pytest-cov coverage sphinx nose
+  - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas matplotlib coverage
   - source activate test
   - pip install -U codecov
 # FIXME: Ideallly we would test the installed version
@@ -25,7 +26,6 @@ install:
 script:
   - python setup.py sdist
   # FIXME: this runs the tests in the code
-  # TODO: Change to use py.test
   - PYTHONPATH=. coverage run --source=auxi auxi/tests.py
 after_success:
   - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
