@@ -31,8 +31,8 @@ for file in glob.glob("*.sh"):
     with open(file, 'w') as f:
         f.write(content)
 
-# Update all the 'src' dirs .py file's __version__ field.
-for root, dirs, files in os.walk("../src"):
+# Update all the 'auxi' dirs .py file's __version__ field.
+for root, dirs, files in os.walk("../auxi"):
     for file in files:
         if file.endswith(".py"):
             file_path = os.path.join(root, file)

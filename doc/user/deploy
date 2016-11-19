@@ -2,5 +2,5 @@
 
 make latexpdf
 
-cp build/latex/auxiUserManual.pdf ../../src/doc/
+cp build/latex/auxiUserManual.pdf ../../auxi/doc/
 

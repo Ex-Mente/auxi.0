@@ -24,7 +24,7 @@ setup(name='auxi',
                'engineering,mass balance,energy balance',
       platforms='Ubunutu 14.04,Ubuntu 15.04,Windows 7 (For the stoichiometry '
                 'and thermochemistry tools only.)',
-      package_dir={'auxi': 'src'},
+      package_dir={'auxi': 'auxi'},
       packages=['auxi',
                 'auxi.core',
                 'auxi.modelling',
@@ -56,5 +56,5 @@ setup(name='auxi',
                              ]},
       install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
                         'cerberus', 'pandas', 'bibtexparser'],
-      test_suite='src.tests'
+      test_suite='auxi.tests'
       )

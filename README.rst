@@ -45,7 +45,7 @@ The repository contains the following top-level directories:
 
   This directory contains scripts used to automate the build and release process.
 
-* src
+* auxi
 
   This directory contains the source files of the Python package.
 
