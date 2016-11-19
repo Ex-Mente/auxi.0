@@ -3,7 +3,7 @@
 This module provides a material class that can do thermochemical calculations.
 """
 
-from auxi.core.objects import NamedObject
+from auxi.core.objects import Object, NamedObject
 
 
 __version__ = '0.3.3'
@@ -27,6 +27,20 @@ class Project(NamedObject):
     def __init__(self, name, description=None):
         super().__init__(name, description)
 
+        self.process = Project.ProcessModellingContent()
+        self.business = Project.BusinessModellingContent()
+        self.investigations = Project.InvestigationContent()
+
+    class ProcessModellingContent(Object):
+
+        def __init__(self):
+            self.materials = {}
+
+    class BusinessModellingContent(Object):
+        pass
+
+    class InvestigationContent(Object):
+        pass
 
 class Variable(NamedObject):
     """

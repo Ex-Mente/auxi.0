@@ -8,7 +8,8 @@ import csv
 import os
 import pandas as pd
 import webbrowser
-from cerberus import Validator, ValidationError
+from cerberus import Validator
+from cerberus.errors import ValidationError
 from enum import Enum
 
 from auxi.core.objects import Object
