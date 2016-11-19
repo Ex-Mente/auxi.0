@@ -1,1 +1,1 @@
-{'Phases': {'Salpha': {'DHref': -100416.0, 'Sref': 60.291, 'Symbol': 'Salpha', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 21.715, 'Exponent': '0'}, {'Coefficient': 0.110458, 'Exponent': '1'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'FeS'}
+{"Phases": {"Salpha": {"DHref": -100416.0, "Sref": 60.291, "Symbol": "Salpha", "Cp_records": {"3000": {"Terms": [{"Coefficient": 21.715, "Exponent": "0"}, {"Coefficient": 0.110458, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "FeS"}

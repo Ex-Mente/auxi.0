@@ -1,1 +1,1 @@
-{'Phases': {'G': {'DHref': 0.0, 'Sref': 191.502, 'Symbol': 'G', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 27.865, 'Exponent': '0'}, {'Coefficient': 0.004268, 'Exponent': '1'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'N2'}
+{"Phases": {"G": {"DHref": 0.0, "Sref": 191.502, "Symbol": "G", "Cp_records": {"3000": {"Terms": [{"Coefficient": 27.865, "Exponent": "0"}, {"Coefficient": 0.004268, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "N2"}
