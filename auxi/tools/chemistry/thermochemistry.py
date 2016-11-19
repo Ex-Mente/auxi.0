@@ -9,6 +9,7 @@ import sys
 import glob
 import math
 import warnings
+import json
 
 from auxi.core.objects import Object, NamedObject
 from auxi.core.helpers import get_path_relative_to_module as get_path
@@ -709,8 +710,7 @@ def _read_compound_from_auxi_file_(file_name):
     """
 
     with open(file_name) as f:
-        content = eval(f.read())
-    return content
+        return json.load(f)
 
 
 def write_compound_to_auxi_file(directory, compound):
@@ -789,11 +789,8 @@ def get_datafile_references():
     """
     Retrieve all the references used by the datafiles.
     """
-
     with open(get_path(__file__, "data/references.json")) as f:
-        content = eval(f.read())
-
-    return content
+        return json.load(f)
 
 
 def molar_mass(compound):
