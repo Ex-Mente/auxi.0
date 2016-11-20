@@ -74,13 +74,11 @@ class Report(Object):
             return str(tabulate(table, headers="firstrow", tablefmt="simple"))
         elif format == ReportFormat.matplotlib:
             self._render_matplotlib_()
-            pass
         elif format == ReportFormat.png:
             if self.output_path is None:
                 self._render_matplotlib_()
             else:
                 self._render_matplotlib_(True)
-            pass
 
     def _render_latex_(self, table):
         if self.output_path is not None:
