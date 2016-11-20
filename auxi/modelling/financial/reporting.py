@@ -105,8 +105,7 @@ class TransactionList(Report):
         for t in sorted(tx_list, key=lambda v: v.tx_date):
             if not t.source.startswith(self.component_path):
                 continue
-            if t.tx_date >= self.start_date and \
-               t.tx_date <= self.end_date:
+            if self.start_date <= t.tx_date <= self.end_date:
                 if t.source.endswith(t.name):
                     name = ''
                 else:
@@ -263,7 +262,7 @@ class IncomeStatement(Report):
         for t in self.data_source.transactions:
             if not t.source.startswith(self.component_path):
                 continue
-            if t.tx_date >= self.start_date and t.tx_date <= self.end_date:
+            if self.start_date <= t.tx_date <= self.end_date:
                 cr_account_type = gls.get_account(t.cr_account).account_type
                 dt_account_type = gls.get_account(t.dt_account).account_type
                 if not t.is_closing_cr_account and \

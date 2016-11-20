@@ -125,7 +125,7 @@ def _parse_element_for_mass_(compound, index):
     else:
         code = 0
 
-    while code >= 97 and code <= 123:
+    while 97 <= code <= 123:
         element = element + compound[index:index+1]
         index = index + 1
         if index == len(compound):
@@ -134,7 +134,7 @@ def _parse_element_for_mass_(compound, index):
         code = ord(compound[index:index+1])
 
     multiplier = str()
-    while (code >= 48 and code <= 57) or code == 46:
+    while (48 <= code <= 57) or code == 46:
         multiplier = multiplier + compound[index:index+1]
         index = index + 1
         if index == len(compound):
@@ -166,7 +166,7 @@ def _parse_element_for_stoichiometry_(compound, index):
     else:
         b = 0
 
-    while b >= 97 and b <= 123:
+    while 97 <= b <= 123:
         element_symbol = element_symbol + compound[index:index+1]
         index = index + 1
         if index >= len(compound):
@@ -176,7 +176,7 @@ def _parse_element_for_stoichiometry_(compound, index):
 
     stoichiometry_coefficient = ''
 
-    while (b >= 48 and b <= 57) or b == 46:
+    while (48 <= b <= 57) or b == 46:
         stoichiometry_coefficient = stoichiometry_coefficient + \
             compound[index:index+1]
         index = index + 1
@@ -207,11 +207,11 @@ def _parse_formula_for_elements_(compound):
     # Do the search.
     while i < len(compound):
         c, b, i = _get_character_(compound, i)
-        if b >= 65 and b <= 90:  # Element found. Process it.
+        if 65 <= b <= 90:  # Element found. Process it.
             j = i
             element = c
             c, b, j = _get_character_(compound, j)
-            while b >= 97 and b <= 122:
+            while 97 <= b <= 122:
                 element = element + c
                 c, b, j = _get_character_(compound, j)
             result.add(element)
@@ -244,7 +244,7 @@ def _parse_formula_for_mass_(compound, index):
             index = index + 1
             dresult, index = _parse_formula_for_mass_(compound, index)
             result = result + dresult
-        elif b >= 65 and b <= 90:
+        elif 65 <= b <= 90:
             dresult, index = _parse_element_for_mass_(compound, index)
             result = result + dresult
 
@@ -256,7 +256,7 @@ def _parse_formula_for_mass_(compound, index):
     b = ord(compound[index:index+1])
 
     multiplier = str()
-    while (b >= 48 and b <= 57) or b == 46:
+    while (48 <= b <= 57) or b == 46:
         multiplier = multiplier + compound[index:index+1]
         index = index + 1
         if index == len(compound):
@@ -301,7 +301,7 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
                 else:
                     stoich_dict[k] = v
         else:
-            if b >= 65 and b <= 90:
+            if 65 <= b <= 90:
                 element, coefficient, index = \
                     _parse_element_for_stoichiometry_(compound, index)
                 if element in stoich_dict:
@@ -320,7 +320,7 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
     b = ord(c)
 
     multplier_string = str()
-    while (b >= 48 and b <= 57) or b == 46:
+    while (48 <= b <= 57) or b == 46:
         multplier_string = multplier_string + compound[index:index+1]
         index = index + 1
         if index == len(compound):

@@ -407,8 +407,7 @@ class Entity(NamedObject):
             cost_of_sales_accs = gls.get_account_decendants(gls._acci_cos_)
             year_taxes = []
             for tx in self.gl.transactions:
-                if tx.tx_date >= year_start_date and\
-                 tx.tx_date <= year_end_date:
+                if year_start_date <= tx.tx_date <= year_end_date:
                     year_taxes.append(tx)
             for tx in year_taxes:
                 cr_acc = gls.get_account(tx.cr_account)
