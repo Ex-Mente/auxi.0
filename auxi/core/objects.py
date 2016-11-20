@@ -38,6 +38,7 @@ class Object(object):
         with open(path, 'w') as file:
             file.write(str(self))
 
+    @staticmethod
     def read(path):
         with open(path, 'r') as file:
             s = file.read()

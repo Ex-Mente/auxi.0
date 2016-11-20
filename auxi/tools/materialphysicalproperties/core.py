@@ -49,6 +49,7 @@ class DataSet(object):
     :param csvfilepath: path to the csv file that contains the data
     """
 
+    @staticmethod
     def create_template(material, path, show=False):
         """
         Create a template csv file for a data set.

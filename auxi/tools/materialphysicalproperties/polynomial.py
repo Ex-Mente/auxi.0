@@ -60,6 +60,7 @@ class PolynomialModelT(Model):
     :param coeffs: polynomial coefficients sorted from highest to lowest power
     """
 
+    @staticmethod
     def create(dataset, symbol, degree):
         """
         Create a model object from the data set for the property specified by
