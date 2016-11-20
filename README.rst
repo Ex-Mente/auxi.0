@@ -1,13 +1,6 @@
 Master: |masterbuild| |mastercoveralls|
 
-.. image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master
-:target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
-
 Develop: |developbuild| |developcoveralls|
-
-.. image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop
-:target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
-
 
 Welcome to the `auxi` GitHub repository!
 ========================================
@@ -87,5 +80,7 @@ The `auxi` high-level system documentation consists of the following files:
 .. |developbuild| image:: https://travis-ci.org/Ex-Mente/auxi.0.svg?branch=develop
     :target: https://travis-ci.org/Ex-Mente/auxi.0
 
-.. |mastercoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
-.. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
+.. |mastercoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master
+    :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
+.. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop
+    :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
