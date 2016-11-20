@@ -21,7 +21,8 @@ To uninstall auxi::
 
 
 Importing auxi Components
-==========================
+=========================
+
 If you want to use auxi in one of your python modules, you need to import its components in the same way that you do for any other python package. For example, to use the stoichiometry tool, you will have to do the following::
 
   from auxi.tools.chemistry import stoichiometry

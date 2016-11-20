@@ -8,7 +8,8 @@ The purpose of this section is to explain a number of concepts and demonstrate t
 
 
 Basic Activity
----------------
+--------------
+
 A basic activity periodically create a transaction between two specified accounts.
 
 
