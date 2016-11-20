@@ -563,11 +563,10 @@ def _read_compound_from_factsage_file_(file_name):
     with open(file_name) as f:
         lines = f.readlines()
 
-    compound = {}
-    compound['Formula'] = lines[0].split(' ')[1]
+    compound = {'Formula': lines[0].split(' ')[1]}
+    # FIXME: replace with logging
     print(compound['Formula'])
-    compound['Phases'] = {}
-    phs = compound['Phases']
+    compound['Phases'] = phs = {}
 
     started = False
     phaseold = 'zz'
@@ -602,24 +601,20 @@ def _read_compound_from_factsage_file_(file_name):
                     cprecs[Tmax]['Tmin'] = float(strings[len(strings) - 2])
                     cprecs[Tmax]['Tmax'] = float(strings[len(strings) - 1])
                     cprecs[Tmax]['Terms'] = []
-                    t = {}
-                    t['Coefficient'] = float(strings[4])
-                    t['Exponent'] = float(strings[5])
+                    t = {'Coefficient': float(strings[4]),
+                         'Exponent': float(strings[5])}
                     cprecs[Tmax]['Terms'].append(t)
                     if len(strings) == 10:
-                        t = {}
-                        t['Coefficient'] = float(strings[6])
-                        t['Exponent'] = float(strings[7])
+                        t = {'Coefficient': float(strings[6]),
+                             'Exponent': float(strings[7])}
                         cprecs[Tmax]['Terms'].append(t)
                 else:  # old record detected
-                    t = {}
-                    t['Coefficient'] = float(strings[2])
-                    t['Exponent'] = float(strings[3])
+                    t = {'Coefficient': float(strings[2]),
+                         'Exponent': float(strings[3])}
                     cprecs[Tmax]['Terms'].append(t)
                     if len(strings) == 8:
-                        t = {}
-                        t['Coefficient'] = float(strings[4])
-                        t['Exponent'] = float(strings[5])
+                        t = {'Coefficient': float(strings[4]),
+                             'Exponent': float(strings[5])}
                         cprecs[Tmax]['Terms'].append(t)
             else:  # old phase detected
                 ph = phs[phase]
@@ -632,24 +627,20 @@ def _read_compound_from_factsage_file_(file_name):
                     cprecs[Tmax]['Tmin'] = float(strings[len(strings) - 2])
                     cprecs[Tmax]['Tmax'] = float(strings[len(strings) - 1])
                     cprecs[Tmax]['Terms'] = []
-                    t = {}
-                    t['Coefficient'] = float(strings[2])
-                    t['Exponent'] = float(strings[3])
+                    t = {'Coefficient': float(strings[2]),
+                         'Exponent': float(strings[3])}
                     cprecs[Tmax]['Terms'].append(t)
                     if len(strings) == 8:
-                        t = {}
-                        t['Coefficient'] = float(strings[4])
-                        t['Exponent'] = float(strings[5])
+                        t = {'Coefficient': float(strings[4]),
+                             'Exponent': float(strings[5])}
                         cprecs[Tmax]['Terms'].append(t)
                 else:  # old record detected
-                    t = {}
-                    t['Coefficient'] = float(strings[2])
-                    t['Exponent'] = float(strings[3])
+                    t = {'Coefficient': float(strings[2]),
+                         'Exponent': float(strings[3])}
                     cprecs[Tmax]['Terms'].append(t)
                     if len(strings) == 8:
-                        t = {}
-                        t['Coefficient'] = float(strings[4])
-                        t['Exponent'] = float(strings[5])
+                        t = {'Coefficient': float(strings[4]),
+                             'Exponent': float(strings[5])}
                         cprecs[Tmax]['Terms'].append(t)
         if line.startswith('_'):  # line indicating the start of the data
             started = True

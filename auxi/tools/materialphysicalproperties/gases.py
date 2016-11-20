@@ -44,11 +44,10 @@ air_dataset = DataSet(_path('data/dataset-air-lienhard2015.csv'))
 # _create_polynomial_model('mu', 8)
 # _create_polynomial_model('rho', 14)
 
-air_dict = {}
-air_dict['rho'] = IgRhoT(28.9645, 101325.0)
-air_dict['Cp'] = PolynomialModelT.read(_path(r'data/air-cp.json'))
-air_dict['mu'] = PolynomialModelT.read(_path(r'data/air-mu.json'))
-air_dict['k'] = PolynomialModelT.read(_path(r'data/air-k.json'))
-air_dict['beta'] = IgBetaT()
+air_dict = {'rho': IgRhoT(28.9645, 101325.0),
+            'Cp': PolynomialModelT.read(_path(r'data/air-cp.json')),
+            'mu': PolynomialModelT.read(_path(r'data/air-mu.json')),
+            'k': PolynomialModelT.read(_path(r'data/air-k.json')),
+            'beta': IgBetaT()}
 
 air = Material("Air", StateOfMatter.gas, air_dict)

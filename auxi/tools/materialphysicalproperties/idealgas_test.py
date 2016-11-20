@@ -164,12 +164,10 @@ class RhoTPxTester(unittest.TestCase):
     """
 
     def _create_x_and_mm(self):
-        x = {}
-
-        x['N2'] = random.uniform(0.0, 10.0)
-        x['O2'] = random.uniform(0.0, 10.0)
-        x['Ar'] = random.uniform(0.0, 10.0)
-        x['H2O'] = random.uniform(0.0, 10.0)
+        x = {'N2': random.uniform(0.0, 10.0),
+             'O2': random.uniform(0.0, 10.0),
+             'Ar': random.uniform(0.0, 10.0),
+             'H2O': random.uniform(0.0, 10.0)}
 
         total = sum(x.values())
 
