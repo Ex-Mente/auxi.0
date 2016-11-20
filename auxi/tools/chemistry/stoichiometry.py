@@ -719,7 +719,7 @@ def stoichiometry_coefficients(compound, elements):
 _element_dictionary_ = {}
 _molar_mass_dictionary_ = {}
 _stoichiometry_dictionary_ = {}
-disallowed_chars = re.compile('[^0-9A-Za-z\(\)\.]+')
+disallowed_chars = re.compile('[^0-9A-Za-z().]+')
 
 _populate_element_dictionary_()
 
