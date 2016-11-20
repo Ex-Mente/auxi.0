@@ -1,6 +1,6 @@
 Master: |masterbuild| |mastercoveralls|
 
-Develop: |developbuild| |developcoveralls|
+Develop: |developbuild| |developcoveralls| |developcodeclimate|
 
 Welcome to the `auxi` GitHub repository!
 ========================================
@@ -84,3 +84,7 @@ The `auxi` high-level system documentation consists of the following files:
     :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
 .. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop
     :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
+
+.. |developcodeclimage| image:: https://codeclimate.com/github/Ex-Mente/auxi.0/badges/gpa.svg
+   :target: https://codeclimate.com/github/Ex-Mente/auxi.0
+   :alt: Code Climate
