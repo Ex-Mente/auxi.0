@@ -85,6 +85,6 @@ The `auxi` high-level system documentation consists of the following files:
 .. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop
     :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
 
-.. |developcodeclimage| image:: https://codeclimate.com/github/Ex-Mente/auxi.0/badges/gpa.svg
+.. |developcodeclimate| image:: https://codeclimate.com/github/Ex-Mente/auxi.0/badges/gpa.svg
    :target: https://codeclimate.com/github/Ex-Mente/auxi.0
    :alt: Code Climate
