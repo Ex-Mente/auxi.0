@@ -140,7 +140,6 @@ class GeneralLedgerAccount(NamedObject):
             pass
         else:
             return self[account_name]
-        return None
 
 
 class Transaction(NamedObject):
@@ -297,7 +296,6 @@ class GeneralLedgerStructure(NamedObject):
             pass
         else:
             return self[account_name]
-        return None
 
     def get_account_decendants(self, account):
         """
