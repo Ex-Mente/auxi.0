@@ -62,20 +62,20 @@ class Report(Object):
         """
 
         table = self._generate_table_()
-        if(format == ReportFormat.printout):
+        if format == ReportFormat.printout:
             print(tabulate(table, headers="firstrow", tablefmt="simple"))
-        elif (format == ReportFormat.latex):
+        elif format == ReportFormat.latex:
             self._render_latex_(table)
-        elif (format == ReportFormat.txt):
+        elif format == ReportFormat.txt:
             self._render_txt_(table)
-        elif (format == ReportFormat.csv):
+        elif format == ReportFormat.csv:
             self._render_csv_(table)
-        elif (format == ReportFormat.string):
+        elif format == ReportFormat.string:
             return str(tabulate(table, headers="firstrow", tablefmt="simple"))
-        elif (format == ReportFormat.matplotlib):
+        elif format == ReportFormat.matplotlib:
             self._render_matplotlib_()
             pass
-        elif (format == ReportFormat.png):
+        elif format == ReportFormat.png:
             if self.output_path is None:
                 self._render_matplotlib_()
             else:

@@ -130,7 +130,7 @@ class GeneralLedgerAccount(NamedObject):
         :returns: The child account, if found, else None.
         """
 
-        if(r'/' in account_name):
+        if r'/' in account_name:
             accs_in_path = account_name.split(r'/', 1)
 
             curr_acc = self[accs_in_path[0]]
@@ -287,7 +287,7 @@ class GeneralLedgerStructure(NamedObject):
         :returns: The requested account, if found, else None.
         """
 
-        if(r'/' in account_name):
+        if r'/' in account_name:
             accs_in_path = account_name.split(r'/', 1)
 
             curr_acc = self[accs_in_path[0]]

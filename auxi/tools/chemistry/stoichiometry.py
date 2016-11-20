@@ -144,7 +144,7 @@ def _parse_element_for_mass_(compound, index):
         multiplier = '1'
 
     result = _element_dictionary_[element].molar_mass * float(multiplier)
-    return (result, index)
+    return result, index
 
 
 def _parse_element_for_stoichiometry_(compound, index):
@@ -166,17 +166,17 @@ def _parse_element_for_stoichiometry_(compound, index):
     else:
         b = 0
 
-    while (b >= 97 and b <= 123):
+    while b >= 97 and b <= 123:
         element_symbol = element_symbol + compound[index:index+1]
         index = index + 1
         if index >= len(compound):
-            return (element_symbol, 1.0, index)
+            return element_symbol, 1.0, index
         c = compound[index:index+1]
         b = ord(c)
 
     stoichiometry_coefficient = ''
 
-    while ((b >= 48 and b <= 57) or b == 46):
+    while (b >= 48 and b <= 57) or b == 46:
         stoichiometry_coefficient = stoichiometry_coefficient + \
             compound[index:index+1]
         index = index + 1
@@ -188,7 +188,7 @@ def _parse_element_for_stoichiometry_(compound, index):
     if stoichiometry_coefficient == '':
         stoichiometry_coefficient = '1.0'
 
-    return (element_symbol, float(stoichiometry_coefficient), index)
+    return element_symbol, float(stoichiometry_coefficient), index
 
 
 def _parse_formula_for_elements_(compound):
@@ -256,7 +256,7 @@ def _parse_formula_for_mass_(compound, index):
     b = ord(compound[index:index+1])
 
     multiplier = str()
-    while ((b >= 48 and b <= 57) or b == 46):
+    while (b >= 48 and b <= 57) or b == 46:
         multiplier = multiplier + compound[index:index+1]
         index = index + 1
         if index == len(compound):
@@ -268,7 +268,7 @@ def _parse_formula_for_mass_(compound, index):
         multiplier = '1'
 
     result = result * float(multiplier)
-    return (result, index)
+    return result, index
 
 
 def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
@@ -320,7 +320,7 @@ def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
     b = ord(c)
 
     multplier_string = str()
-    while ((b >= 48 and b <= 57) or b == 46):
+    while (b >= 48 and b <= 57) or b == 46:
         multplier_string = multplier_string + compound[index:index+1]
         index = index + 1
         if index == len(compound):
