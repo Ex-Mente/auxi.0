@@ -19,6 +19,7 @@ install:
   # FIXME: The requirements should be read from a proper place, not here.
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas matplotlib coverage
   - source activate test
+  - pip install -U coveralls
 # FIXME: Ideallly we would test the installed version
 # FIXME: At the moment, this is how the dependencies are installed
   - python setup.py install
