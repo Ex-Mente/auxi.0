@@ -20,7 +20,7 @@ __status__ = 'Planning'
 
 # TODO: Create tests for: write_compound_to_auxi_file, load_data_factsage,
 #   load_data_auxi, list_compounds, molar_mass
-# TODO: Test CpRecord, Phase and Compound classes sperately?
+# TODO: Test CpRecord, Phase and Compound classes separately?
 
 class ThermoFunctionTester(unittest.TestCase):
     """

@@ -37,8 +37,8 @@ class TimePeriod(Enum):
 
 class Clock(NamedObject):
     """
-    Represents a clock that provices functions to manage a ticking clock based
-    on a time period as well as retreive the current tick's date since the
+    Represents a clock that provides functions to manage a ticking clock based
+    on a time period as well as retrieve the current tick's date since the
     start date.
     """
 

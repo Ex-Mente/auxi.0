@@ -153,9 +153,9 @@ class Transaction(NamedObject):
     :param cr_account: The account to credit.
     :param source: The source that created the transaction.
     :param amount: The transaction's amount.
-    :param is_closing_dt_account: Specifies wether this is a closing debit
+    :param is_closing_dt_account: Specifies whether this is a closing debit
       account.
-    :param is_closing_cr_account: Specifies wether this is a closing credit
+    :param is_closing_cr_account: Specifies whether this is a closing credit
       account.
     """
 
@@ -297,9 +297,9 @@ class GeneralLedgerStructure(NamedObject):
         else:
             return self[account_name]
 
-    def get_account_decendants(self, account):
+    def get_account_descendants(self, account):
         """
-        Retrieves an account's decendants from the general ledger structure
+        Retrieves an account's descendants from the general ledger structure
         given the account name.
 
         :param account_name: The account name.
@@ -309,10 +309,10 @@ class GeneralLedgerStructure(NamedObject):
 
         result = []
         for child in account.accounts:
-            self._get_account_and_decendants_(child, result)
+            self._get_account_and_descendants_(child, result)
         return result
 
-    def _get_account_and_decendants_(self, account, result):
+    def _get_account_and_descendants_(self, account, result):
         """
         Returns the account and all of it's sub accounts.
 
@@ -322,15 +322,15 @@ class GeneralLedgerStructure(NamedObject):
 
         result.append(account)
         for child in account.accounts:
-            self._get_account_and_decendants_(child, result)
+            self._get_account_and_descendants_(child, result)
 
     def validate_account_names(self, names):
         """
-        Validates wether the accounts in a list of account names exists.
+        Validates whether the accounts in a list of account names exists.
 
         :param names: The names of the accounts.
 
-        :returns: The decendants of the account.
+        :returns: The descendants of the account.
         """
 
         for name in names:
@@ -346,7 +346,7 @@ class GeneralLedgerStructure(NamedObject):
         :param output_path: The path to the file the report is written to.
           If None, then the report is not written to a file.
 
-        :returns: The decendants of the account.
+        :returns: The descendants of the account.
         """
 
         rpt = GlsRpt(self, output_path)

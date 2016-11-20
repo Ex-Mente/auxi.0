@@ -147,7 +147,7 @@ class Material(NamedObject):
         Extract an alphabetically sorted list of elements from the compounds of
         the material.
 
-        :returns: An alphabeticall sorted list of elements.
+        :returns: An alphabetically sorted list of elements.
         """
 
         element_set = stoich.elements(self.compounds)
@@ -294,7 +294,7 @@ class MaterialPackage(Object):
 
         # Add the specified mass of the specified compound.
         elif self._is_compound_mass_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             compound_index = self.material.get_compound_index(compound)
             mass = other[1]
@@ -569,7 +569,7 @@ class MaterialPackage(Object):
 
         # Add the specified mass of the specified compound.
         elif self._is_compound_mass_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             compound_index = self.material.get_compound_index(compound)
             mass = other[1]

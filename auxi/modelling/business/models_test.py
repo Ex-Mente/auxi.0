@@ -66,7 +66,7 @@ class TimeBasedModelUnitTester(unittest.TestCase):
 
     def test_set_name(self):
         """
-        Test wether the name changes when it is set, that the model's path is
+        Test whether the name changes when it is set, that the model's path is
         updated and that the model's children's paths are updated correctly.
         """
         self.object.name = "NameAt"
@@ -110,7 +110,7 @@ class TimeBasedModelUnitTester(unittest.TestCase):
         """
         Test that the model's entities run is called when the
         model's run is called. Also test that the model was run for the
-        expected timeperiod.
+        expected time period.
         """
         self.object.run()
         # Test that the business entity has run for 13 days only

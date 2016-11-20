@@ -165,10 +165,10 @@ class Model(Object):
     based, e.g. ['dataset-air-lienhard2015.csv']
     """
 
-    def __init__(self, material, proprty, symbol, display_symbol, units,
+    def __init__(self, material, property, symbol, display_symbol, units,
                  state_schema, references, datasets):
         self.material = material
-        self.property = proprty
+        self.property = property
         self.symbol = symbol
         self.display_symbol = display_symbol
         self.units = units

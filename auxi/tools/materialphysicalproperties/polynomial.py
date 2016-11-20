@@ -88,10 +88,10 @@ class PolynomialModelT(Model):
 
         return result
 
-    def __init__(self, material, proprty, symbol, display_symbol, units,
+    def __init__(self, material, property, symbol, display_symbol, units,
                  references, datasets, coeffs):
         state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
-        super().__init__(material, proprty, symbol, display_symbol, units,
+        super().__init__(material, property, symbol, display_symbol, units,
                          state_schema, references, datasets)
         self._coeffs = [float(x) for x in coeffs]
 

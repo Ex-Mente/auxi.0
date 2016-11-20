@@ -299,7 +299,7 @@ class GeneralLedgerStructureUnitTester(unittest.TestCase):
         self.assertEqual(result.description, orig.description)
         self.assertEqual(result.number, orig.number)
 
-    def test_get_account_decendants(self):
+    def test_get_account_descendants(self):
         # Set up this test.
         self.sales_fish_acc = self.object["Sales"].create_account(
             "SalesFish",
@@ -314,7 +314,7 @@ class GeneralLedgerStructureUnitTester(unittest.TestCase):
             description="Sales of Nemos",
             number="020")
         # perform the test.
-        result = self.object.get_account_decendants(self.object["Sales"])
+        result = self.object.get_account_descendants(self.object["Sales"])
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0], self.sales_fish_acc)
         self.assertEqual(result[1], self.sales_barracuda_acc)

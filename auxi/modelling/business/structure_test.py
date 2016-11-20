@@ -59,7 +59,7 @@ class ActivityUnitTester(unittest.TestCase):
 
     def test_set_name(self):
         """
-        Test wether the name changes when it is set
+        Test whether the name changes when it is set
         and that the activity's path is updated correctly.
         """
         self.object.set_parent_path("entityA/componentA")
@@ -67,7 +67,7 @@ class ActivityUnitTester(unittest.TestCase):
         self.assertEqual(self.object.name, "NameAt")
         self.assertEqual(self.object.path, "entityA/componentA/NameAt")
 
-    def test__meet_exection_criteria(self):
+    def test__meet_execution_criteria(self):
         clock = Clock("NameA", start_datetime=datetime(2016, 1, 1))
         self.object.prepare_to_run(clock, 13)
         self.assertEqual(self.object._meet_execution_criteria(3), False)
@@ -81,7 +81,7 @@ class ActivityUnitTester(unittest.TestCase):
         self.assertEqual(self.object.end_period_ix, 14)
 
     def test_get_referenced_accounts(self):
-        self.assertEqual(len(self.object.get_referenced_accouts()), 0)
+        self.assertEqual(len(self.object.get_referenced_accounts()), 0)
 
 
 class ComponentUnitTester(unittest.TestCase):
@@ -125,7 +125,7 @@ class ComponentUnitTester(unittest.TestCase):
 
     def test_set_name(self):
         """
-        Test wether the name changes when it is set, that the component's
+        Test whether the name changes when it is set, that the component's
         name changes and that the component's children's paths are updated
         correctly.
         """

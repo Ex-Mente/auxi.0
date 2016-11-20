@@ -49,7 +49,7 @@ class BasicActivityUnitTester(unittest.TestCase):
         self.assertEqual(self.object.dt_account, "Bank")
         self.assertEqual(self.object.cr_account, "Sales")
 
-    def test__meet_exection_criteria(self):
+    def test__meet_execution_criteria(self):
         """
         Test that the activity only meets the execution criteria when
         it's amount is greater than 0.
@@ -138,7 +138,7 @@ class BasicLoanActivityUnitTester(unittest.TestCase):
         self.assertEqual(self.object.interval, 1)
         self.assertEqual(self.object.description, "Loan for Capital")
 
-    def test__meet_exection_criteria(self):
+    def test__meet_execution_criteria(self):
         """
         Test that the activity only meets the execution criteria when
         it's amount is greater than 0 and its duration is greater than 0.
@@ -177,7 +177,7 @@ class BasicLoanActivityUnitTester(unittest.TestCase):
         self.clock.tick()
         self.object.run(self.clock, self.gl)
         self.assertEqual(len(self.gl.transactions), 5)
-        # Test the intreset rate for the first month
+        # Test the interest rate for the first month
         # loan amount = 180000
         # First month's interest should be (180000 * 0.15) / 12 = 2250
         self.assertEqual(self.gl.transactions[1].amount, 2250)

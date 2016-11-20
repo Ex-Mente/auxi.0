@@ -107,7 +107,7 @@ class Activity(NamedObject):
         else:
             self.end_period_ix = self.start_period_ix + period_count
 
-    def get_referenced_accouts(self):
+    def get_referenced_accounts(self):
         """
         Retrieve the general ledger accounts referenced in this instance.
 
@@ -265,7 +265,7 @@ class Entity(NamedObject):
     """
     Represents an entity class. An entity consists of business components
     e.g. Sales department. It executes its components and performs
-    financial year end transcations.
+    financial year end transactions.
 
     :param name: The name.
     :param gl_structure: The general ledger structure the entity's
@@ -403,8 +403,8 @@ class Entity(NamedObject):
 
             gross_profit_write_off_accs = OrderedDict()
             inc_summary_write_off_accs = OrderedDict()
-            sales_accs = gls.get_account_decendants(gls._acci_sales_)
-            cost_of_sales_accs = gls.get_account_decendants(gls._acci_cos_)
+            sales_accs = gls.get_account_descendants(gls._acci_sales_)
+            cost_of_sales_accs = gls.get_account_descendants(gls._acci_cos_)
             year_taxes = []
             for tx in self.gl.transactions:
                 if year_start_date <= tx.tx_date <= year_end_date:

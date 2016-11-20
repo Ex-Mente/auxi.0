@@ -191,8 +191,8 @@ class BasicLoanActivity(Activity):
         self._months_executed = 0
         self._amount_left = amount
 
-    def _update_montly_payment_(self):
-        int_rate = self._montly_interest_rate
+    def _update_monthly_payment_(self):
+        int_rate = self._monthly_interest_rate
         val = (self.amount * int_rate)
         val = val / (1 - (1 / pow((1 + int_rate), self.duration)))
         self._monthly_payment = val
@@ -204,7 +204,7 @@ class BasicLoanActivity(Activity):
     @amount.setter
     def amount(self, value):
         self._amount = value
-        self._update_montly_payment_()
+        self._update_monthly_payment_()
 
     @property
     def interest_rate(self):
@@ -213,8 +213,8 @@ class BasicLoanActivity(Activity):
     @interest_rate.setter
     def interest_rate(self, value):
         self._interest_rate = value
-        self._montly_interest_rate = value / 12.0
-        self._update_montly_payment_()
+        self._monthly_interest_rate = value / 12.0
+        self._update_monthly_payment_()
 
     def _meet_execution_criteria(self, ix_period):
         return super(BasicLoanActivity, self)._meet_execution_criteria(

@@ -48,7 +48,7 @@ class CpRecord(Object):
             self.Tmax = float(self.Tmax)
 
         self._coefficients = []
-        """The coefficiencts of the terms in the Cp equation."""
+        """The coefficients of the terms in the Cp equation."""
 
         self._exponents = []
         """The exponents of the terms in the Cp equation."""

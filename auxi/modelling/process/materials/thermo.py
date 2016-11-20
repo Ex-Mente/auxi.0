@@ -490,7 +490,7 @@ class MaterialPackage(Object):
 
         # Add the specified mass of the specified compound.
         elif self._is_compound_mass_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             index = self.material.get_compound_index(compound)
             mass = other[1]
@@ -506,7 +506,7 @@ class MaterialPackage(Object):
 
         # Add the specified mass of 'compound' at the specified temperature.
         elif self._is_compound_mass_temperature_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             index = self.material.get_compound_index(compound)
             mass = other[1]
@@ -1084,7 +1084,7 @@ class MaterialStream(Object):
 
         # Add the specified mass of the specified compound.
         elif self._is_compound_mass_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             index = self.material.get_compound_index(compound)
             mass = other[1]
@@ -1100,7 +1100,7 @@ class MaterialStream(Object):
 
         # Add the specified mass of 'compound' at the specified temperature.
         elif self._is_compound_mass_temperature_tuple(other):
-            # Added material varialbes.
+            # Added material variables.
             compound = other[0]
             index = self.material.get_compound_index(compound)
             mass = other[1]

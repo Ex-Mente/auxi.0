@@ -34,7 +34,7 @@ class ReportingUnitTester(unittest.TestCase):
     def test_render_without_file(self):
         """
         Test whether a value is returned when a report is rendered in a
-        string format. And wether any of the other formats throw an error.
+        string format. And whether any of the other formats throw an error.
         """
 
         self.object.render(format=ReportFormat.printout)
@@ -52,7 +52,7 @@ class ReportingUnitTester(unittest.TestCase):
     def test_render_with_file(self):
         """
         Test whether a value is returned when a report is rendered in a
-        string format. And wether any of the other formats throw an error.
+        string format. And whether any of the other formats throw an error.
         """
 
         file_name = self.object_w_file.output_path
