@@ -19,7 +19,7 @@ install:
   # FIXME: The requirements should be read from a proper place, not here.
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas matplotlib coverage
   - source activate test
-  - pip install -U codecov
+  - pip install -U coveralls
 # FIXME: Ideallly we would test the installed version
 # FIXME: At the moment, this is how the dependencies are installed
   - python setup.py install
@@ -28,8 +28,7 @@ script:
   # FIXME: this runs the tests in the code
   - PYTHONPATH=. coverage run --source=auxi auxi/tests.py
 after_success:
-  - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
-  - cd $TRAVIS_BUILD_DIR
+  - coveralls
 deploy:
   provider: pypi
   user: emdev
