@@ -286,7 +286,7 @@ class EntityUnitTester(unittest.TestCase):
 
     def test_set_name(self):
         """
-        Test wether the name changes when it is set, that the entity's
+        Test whether the name changes when it is set, that the entity's
         name changes and that the component's children's paths are updated
         correctly.
         """

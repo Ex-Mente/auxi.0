@@ -43,4 +43,4 @@ __status__ = 'Planning'
 #TODO: Remove '# -*- coding: utf-8 -*-' from top of code files.
 #TODO: When running code file, run corresponding unit tests.
 #TODO: Use three regions of imports: builtin, third party and own.
-#TODO: Explictly state the purpose of each unit test in a docstring.
+#TODO: Explicitly state the purpose of each unit test in a docstring.

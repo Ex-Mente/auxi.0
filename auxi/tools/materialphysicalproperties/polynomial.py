@@ -48,7 +48,7 @@ class PolynomialModelT(Model):
     temperature.
 
     :param material: the name of the material being described, e.g. "Air"
-    :param proprty: the name of the property being described, e.g. "density"
+    :param property: the name of the property being described, e.g. "density"
     :param symbol: the symbol of the property being described, e.g. "rho"
     :param display symbol: the display symbol of the property being described,\
     e.g. "\rho"

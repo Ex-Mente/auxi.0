@@ -415,4 +415,4 @@ All the other capabilities of the :py:class:`auxi.modelling.process.materials.th
 * :ref:`section_psd_slurry_material_calculations`
 * :ref:`section_thermochemistry_material_calculations`
 
-The final point to make is that the classes in :py:mod:`auxi.modelling.process.materials` can assist you in perming large numbers of metallurgical calculations with very few lines of code. The purpose of this is to focus you on the process concepts rather than entagle you in the detail of tens or hundreds of stoichiometry and thermochemical calculations. This should keep your code clean and your mind clear, getting the job done well in a short space of time.
+The final point to make is that the classes in :py:mod:`auxi.modelling.process.materials` can assist you in perming large numbers of metallurgical calculations with very few lines of code. The purpose of this is to focus you on the process concepts rather than entangle you in the detail of tens or hundreds of stoichiometry and thermochemical calculations. This should keep your code clean and your mind clear, getting the job done well in a short space of time.

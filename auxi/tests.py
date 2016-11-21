@@ -19,7 +19,7 @@ from auxi.tools.materialphysicalproperties.polynomial_test \
 from auxi.tools.transportphenomena.heattransfer.naturalconvection_test \
     import IsothermalFlatSurface_RegionTester, IsothermalFlatSurfaceTester
 from auxi.tools.transportphenomena.dimensionlessquantities_test \
-    import DimensionlessQiantitiesTester
+    import DimensionlessQuantitiesTester
 
 from auxi.modelling.process.materials.chem_test \
     import ChemMaterialUnitTester, ChemMaterialPackageUnitTester

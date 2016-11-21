@@ -109,7 +109,7 @@ To submit an issue, follow these steps:
 4. Write a purpose statement for the issue. (required)
 5. Propose an approach to address the issue. (optional for initial submission)
 6. Specify the scope of the issue. (optional for initial submission)
-7. Submit the issue on Github. (required)
+7. Submit the issue on GitHub. (required)
 
 
 ## Code Contributions

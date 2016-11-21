@@ -27,7 +27,7 @@ __status__ = 'Planning'
 MODULE_PATH = dirname(realpath(__file__))
 
 
-class DimensionlessQiantitiesTester(unittest.TestCase):
+class DimensionlessQuantitiesTester(unittest.TestCase):
 
     def test_Gr(self):
         pass
