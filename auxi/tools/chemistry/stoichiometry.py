@@ -50,7 +50,7 @@ class Element(Object):
 
 
 def count_with_multiplier(groups, multiplier):
-    counts = collections.defaultdict(int)
+    counts = collections.defaultdict(float)
     for group in groups:
         for element, count in group.count().items():
             counts[element] += count*multiplier
@@ -794,20 +794,9 @@ def stoichiometry_coefficient(compound, element):
 
     compound = compound.strip()
 
-    parsed = parse_compound(compound)
+    stoichiometry = parse_compound(compound).count()
 
-    if compound not in _stoichiometry_dictionary_:
-        stoichiometry = {}
-        index = 0
-        _parse_formula_for_stoichiometry_(compound, index, stoichiometry)
-        _stoichiometry_dictionary_[_formula_code_(compound)] = stoichiometry
-
-    stoichiometry = _stoichiometry_dictionary_[_formula_code_(compound)]
-
-    if element in stoichiometry:
-        return stoichiometry[element]
-    else:
-        return 0.0
+    return stoichiometry[element]
 
 
 def stoichiometry_coefficients(compound, elements):
@@ -821,10 +810,8 @@ def stoichiometry_coefficients(compound, elements):
     :returns: List of stoichiometry coefficients.
     """
 
-    result = []
-    for i in range(0, len(elements)):
-        result.append(stoichiometry_coefficient(compound, elements[i]))
-    return result
+    stoichiometry = parse_compound(compound).count()
+    return [stoichiometry[element] for element in elements]
 
 
 # Initialise the module.
