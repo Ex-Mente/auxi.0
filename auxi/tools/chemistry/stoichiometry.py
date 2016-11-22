@@ -59,20 +59,26 @@ def count_with_multiplier(groups, multiplier):
 class PElement:
     def __init__(self, element):
         self.element = element
+
     def count(self):
         return {self.element: 1}
+
     def __repr__(self):
         return "PElement('{}')".format(self.element)
+
 
 class PGroup:
     def __init__(self, group, multiplier=1, dotted=False):
         self.group = group
         self.multiplier = multiplier
         self.dotted = dotted
+
     def count(self):
         return count_with_multiplier(self.group, self.multiplier)
+
     def __repr__(self):
         return "PGroup({}, multiplier={}, dotted={})".format(self.group, self.multiplier, self.dotted)
+
 
 class PCompound:
     def __init__(self, group, dottedgroup=None, phase=None):
@@ -80,6 +86,7 @@ class PCompound:
         if dottedgroup:
             self.group.append(dottedgroup)
         self.phase = phase
+
     def count(self):
         return count_with_multiplier(self.group, multiplier=1)
 
@@ -107,6 +114,8 @@ class CompoundVisitor(parsimonious.NodeVisitor):
 
     def visit_subscriptedgroup(self, node, subscriptedgroup):
         (_, group, _, number) = subscriptedgroup
+        if not number:
+            number = 1
         return PGroup([group], number)
 
     def visit_subscriptedelement(self, node, subscriptedelement):
@@ -132,7 +141,7 @@ grammar = parsimonious.grammar.Grammar(
     group = (subscriptedgroup / subscriptedelement / element)+
     phase = "[" string "]"
     dottedgroup = "." number? group
-    subscriptedgroup = "(" group ")" number
+    subscriptedgroup = "(" group ")" number?
     subscriptedelement = element number
     element = ~r"[A-Z][a-z]*"
     string = ~r"[A-Za-z]+"
@@ -142,7 +151,8 @@ grammar = parsimonious.grammar.Grammar(
 
 def parse_compound(string):
     visitor = CompoundVisitor()
-    return visitor.visit(grammar.parse(string))
+    parsed_tree = grammar.parse(string)
+    return visitor.visit(parsed_tree)
 
 
 def _formula_code_(formula):
@@ -783,6 +793,8 @@ def stoichiometry_coefficient(compound, element):
     """
 
     compound = compound.strip()
+
+    parsed = parse_compound(compound)
 
     if compound not in _stoichiometry_dictionary_:
         stoichiometry = {}
