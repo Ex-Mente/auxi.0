@@ -196,34 +196,6 @@ def _get_formula_(compound):
     return compound.split('[')[0]
 
 
-def _parse_formula_for_elements_(compound):
-    """
-    Determine the set of elements that occur in the specified formula.
-
-    :param compound: Formula of a chemical compound.
-
-    :returns: Set of elements.
-    """
-
-    # Initialise the search variables.
-    result = set()
-    i = 0  # The index of the current character in the string.
-
-    # Do the search.
-    while i < len(compound):
-        c, b, i = _get_character_(compound, i)
-        if 65 <= b <= 90:  # Element found. Process it.
-            j = i
-            element = c
-            c, b, j = _get_character_(compound, j)
-            while 97 <= b <= 122:
-                element = element + c
-                c, b, j = _get_character_(compound, j)
-            result.add(element)
-
-    return result
-
-
 def _populate_element_dictionary_():
     """
     Create all the elements of the periodic table and add them to the
@@ -525,11 +497,8 @@ def elements(compounds):
     :returns: List of elements.
     """
 
-    result = set()
-    for compound in compounds:
-        formula = _get_formula_(compound)
-        result = result.union(_parse_formula_for_elements_(formula))
-    return result
+    elementlist = [parse_compound(compound).count().keys() for compound in compounds]
+    return set().union(*elementlist)
 
 
 def molar_mass(compound=''):
