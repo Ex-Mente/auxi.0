@@ -5,6 +5,7 @@ calculations.
 """
 
 import collections
+import functools
 import re
 
 import parsimonious
@@ -152,7 +153,7 @@ grammar = parsimonious.grammar.Grammar(
     number = ~r"[0-9]+"
     """)
 
-
+@functools.lru_cache()
 def parse_compound(string):
     visitor = CompoundVisitor()
     parsed_tree = grammar.parse(string)
