@@ -4,9 +4,13 @@ This module provides a number of functions for doing stoichiometry
 calculations.
 """
 
+import collections
 import re
 
+import parsimonious
+
 from auxi.core.objects import Object
+
 
 
 __version__ = '0.3.3'
@@ -43,6 +47,102 @@ class Element(Object):
 
     def _validate_(self):
         pass
+
+
+def count_with_multiplier(groups, multiplier):
+    counts = collections.defaultdict(int)
+    for group in groups:
+        for element, count in group.count().items():
+            counts[element] += count*multiplier
+    return counts
+
+class PElement:
+    def __init__(self, element):
+        self.element = element
+    def count(self):
+        return {self.element: 1}
+    def __repr__(self):
+        return "PElement('{}')".format(self.element)
+
+class PGroup:
+    def __init__(self, group, multiplier=1, dotted=False):
+        self.group = group
+        self.multiplier = multiplier
+        self.dotted = dotted
+    def count(self):
+        return count_with_multiplier(self.group, self.multiplier)
+    def __repr__(self):
+        return "PGroup({}, multiplier={}, dotted={})".format(self.group, self.multiplier, self.dotted)
+
+class PCompound:
+    def __init__(self, group, dottedgroup=None, phase=None):
+        self.group = [group]
+        if dottedgroup:
+            self.group.append(dottedgroup)
+        self.phase = phase
+    def count(self):
+        return count_with_multiplier(self.group, multiplier=1)
+
+    def __repr__(self):
+        return "PCompound({}, {})".format(self.group, self.phase)
+
+
+class CompoundVisitor(parsimonious.NodeVisitor):
+    def visit_compound(self, node, compound):
+        (group, dottedgroup, phase) = compound
+        return PCompound(group, dottedgroup, phase)
+
+    def visit_group(self, node, group):
+        return PGroup(group)
+
+    def visit_phase(self, node, phase):
+        (_, string, _) = node
+        return string.text
+
+    def visit_dottedgroup(self, node, dottedgroup):
+        (_, number, group) = dottedgroup
+        if not number:
+            number = 1
+        return PGroup([group], number, dotted=True)
+
+    def visit_subscriptedgroup(self, node, subscriptedgroup):
+        (_, group, _, number) = subscriptedgroup
+        return PGroup([group], number)
+
+    def visit_subscriptedelement(self, node, subscriptedelement):
+        (element, number) = subscriptedelement
+        return PGroup([element], number)
+
+    def visit_element(self, node, element):
+        return PElement(node.text)
+
+    def visit_number(self, node, element):
+        return int(node.text)
+
+    def generic_visit(self, node, other):
+        try:
+            return other[0]
+        except:
+            return other
+
+
+grammar = parsimonious.grammar.Grammar(
+    """
+    compound = group dottedgroup? phase?
+    group = (subscriptedgroup / subscriptedelement / element)+
+    phase = "[" string "]"
+    dottedgroup = "." number? group
+    subscriptedgroup = "(" group ")" number
+    subscriptedelement = element number
+    element = ~r"[A-Z][a-z]*"
+    string = ~r"[A-Za-z]+"
+    number = ~r"[0-9]+"
+    """)
+
+
+def parse_compound(string):
+    visitor = CompoundVisitor()
+    return visitor.visit(grammar.parse(string))
 
 
 def _formula_code_(formula):

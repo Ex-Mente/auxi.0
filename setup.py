@@ -55,6 +55,6 @@ setup(name='auxi',
                              'examples/tools/transportphenomena/heattransfer/*.ipynb'
                              ]},
       install_requires=['jsonpickle', 'tabulate', 'python-dateutil',
-                        'cerberus<=0.9.2', 'pandas', 'bibtexparser'],
+                        'cerberus<=0.9.2', 'pandas', 'bibtexparser', 'parsimonious'],
       test_suite='auxi.tests'
       )
