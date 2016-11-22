@@ -13,7 +13,6 @@ import parsimonious
 from auxi.core.objects import Object
 
 
-
 __version__ = '0.3.3'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
@@ -53,7 +52,7 @@ class Element(Object):
         pass
 
     def __repr__(self):
-        return "Element('{}')".format(self.element)
+        return "Element('{}')".format(self.symbol)
 
 
 def count_with_multiplier(groups, multiplier):
@@ -90,7 +89,9 @@ class Group:
         return count_with_multiplier(self.group, self.multiplier)
 
     def __repr__(self):
-        return "Group({}, multiplier={}, dotted={})".format(self.group, self.multiplier, self.dotted)
+        return "Group({}, multiplier={}, dotted={})".format(self.group,
+                                                            self.multiplier,
+                                                            self.dotted)
 
 
 class Compound:
@@ -124,43 +125,43 @@ class CompoundVisitor(parsimonious.NodeVisitor):
 
         For parallels, check the grammar.
     """
-    def visit_compound(self, node, compound):
+    def visit_compound(self, _, compound):
         (group, dottedgroup, phase) = compound
         return Compound(group, dottedgroup, phase)
 
-    def visit_group(self, node, group):
+    def visit_group(self, _, group):
         return Group(group)
 
-    def visit_phase(self, node, phase):
+    def visit_phase(self, node, _):
         (_, string, _) = node
         return string.text
 
-    def visit_dottedgroup(self, node, dottedgroup):
+    def visit_dottedgroup(self, _, dottedgroup):
         (_, number, group) = dottedgroup
         if not number:
             number = 1
         return Group([group], number, dotted=True)
 
-    def visit_subscriptedgroup(self, node, subscriptedgroup):
+    def visit_subscriptedgroup(self, _, subscriptedgroup):
         (_, group, _, number) = subscriptedgroup
         if not number:
             number = 1
         return Group([group], number)
 
-    def visit_subscriptedelement(self, node, subscriptedelement):
+    def visit_subscriptedelement(self, _, subscriptedelement):
         (element, number) = subscriptedelement
         return Group([element], number)
 
-    def visit_element(self, node, element):
+    def visit_element(self, node, _):
         return _element_dictionary_[node.text]
 
-    def visit_number(self, node, element):
+    def visit_number(self, node, _):
         return int(node.text)
 
     def generic_visit(self, node, other):
         try:
             return other[0]
-        except:
+        except IndexError:
             return other
 
 
@@ -176,6 +177,7 @@ grammar = parsimonious.grammar.Grammar(
     string = ~r"[A-Za-z]+"
     number = ~r"[0-9]+"
     """)
+
 
 @functools.lru_cache()
 def parse_compound(string):
@@ -383,7 +385,7 @@ def masses(amounts):
     """
     Calculate the masses from the specified compound amounts.
 
-    :param masses: [kmol] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param amounts: [kmol] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
 
     :returns: [kg] dictionary
     """
@@ -396,7 +398,7 @@ def mass_fractions(amounts):
     """
     Calculate the mole fractions from the specified compound masses.
 
-    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param amounts: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
 
     :returns: [mass fractions] dictionary
     """
@@ -441,14 +443,14 @@ def element_mass_fraction(compound, element):
     :returns: Element mass fraction.
     """
 
-    elementStoichiometryCoefficient = stoichiometry_coefficient(compound,
-                                                                element)
-    if elementStoichiometryCoefficient == 0.0:
+    coeff = stoichiometry_coefficient(compound, element)
+
+    if coeff == 0.0:
         return 0.0
-    else:
-        formulaMass = molar_mass(compound)
-        elementMass = molar_mass(element)
-        return elementStoichiometryCoefficient * elementMass / formulaMass
+
+    formula_mass = molar_mass(compound)
+    element_mass = molar_mass(element)
+    return coeff * element_mass / formula_mass
 
 
 def element_mass_fractions(compound, elements):
@@ -478,7 +480,8 @@ def elements(compounds):
     :returns: List of elements.
     """
 
-    elementlist = [parse_compound(compound).count().keys() for compound in compounds]
+    elementlist = [parse_compound(compound).count().keys()
+                   for compound in compounds]
     return set().union(*elementlist)
 
 
@@ -486,13 +489,12 @@ def molar_mass(compound=''):
     """Determine the molar mass of a chemical compound.
 
     The molar mass is usually the mass of one mole of the substance, but here
-    it is the mass of 1000 moles, since the mass unit used in pmpy is kg.
+    it is the mass of 1000 moles, since the mass unit used in auxi is kg.
 
     :param compound: Formula of a chemical compound, e.g. 'Fe2O3'.
 
     :returns: Molar mass. [kg/kmol]
     """
-
 
     result = 0.0
     if compound is None or len(compound) == 0:
