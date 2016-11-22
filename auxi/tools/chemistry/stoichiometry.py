@@ -46,29 +46,41 @@ class Element(Object):
         self.molar_mass = molar_mass
         self._validate_()
 
+    def count(self):
+        return {self.symbol: 1}
+
     def _validate_(self):
         pass
 
+    def __repr__(self):
+        return "Element('{}')".format(self.element)
+
 
 def count_with_multiplier(groups, multiplier):
+    """ Update group counts with multiplier
+
+    This is for handling atom counts on groups like (OH)2
+
+    :param groups: iterable of Group/Element
+    :param multiplier: the number to multiply by
+
+    """
     counts = collections.defaultdict(float)
     for group in groups:
         for element, count in group.count().items():
             counts[element] += count*multiplier
     return counts
 
-class PElement:
-    def __init__(self, element):
-        self.element = element
 
-    def count(self):
-        return {self.element: 1}
+class Group:
+    """ Represent a part of a compound formula
 
-    def __repr__(self):
-        return "PElement('{}')".format(self.element)
+    :param group: iterable of Group/Element parts
+    :param multiplier: multiplier in subscript or prefix of group
+    :param dotted: True of the group is like '.2H2O'
 
+    """
 
-class PGroup:
     def __init__(self, group, multiplier=1, dotted=False):
         self.group = group
         self.multiplier = multiplier
@@ -78,10 +90,18 @@ class PGroup:
         return count_with_multiplier(self.group, self.multiplier)
 
     def __repr__(self):
-        return "PGroup({}, multiplier={}, dotted={})".format(self.group, self.multiplier, self.dotted)
+        return "Group({}, multiplier={}, dotted={})".format(self.group, self.multiplier, self.dotted)
 
 
-class PCompound:
+class Compound:
+    """ Represents a full compound formula
+
+    :param group: iterable of Group/Element
+    :param dottedgroup: A Group if there is a .H2O part, None otherwise
+    :param phase: The phase if there is a [phase] part, None otherwise
+
+    """
+
     def __init__(self, group, dottedgroup=None, phase=None):
         self.group = [group]
         if dottedgroup:
@@ -96,16 +116,20 @@ class PCompound:
                    for element, count in self.count().items())
 
     def __repr__(self):
-        return "PCompound({}, {})".format(self.group, self.phase)
+        return "Compound({}, {})".format(self.group, self.phase)
 
 
 class CompoundVisitor(parsimonious.NodeVisitor):
+    """ Visitor which takes parsed tree to useful groups.
+
+        For parallels, check the grammar.
+    """
     def visit_compound(self, node, compound):
         (group, dottedgroup, phase) = compound
-        return PCompound(group, dottedgroup, phase)
+        return Compound(group, dottedgroup, phase)
 
     def visit_group(self, node, group):
-        return PGroup(group)
+        return Group(group)
 
     def visit_phase(self, node, phase):
         (_, string, _) = node
@@ -115,20 +139,20 @@ class CompoundVisitor(parsimonious.NodeVisitor):
         (_, number, group) = dottedgroup
         if not number:
             number = 1
-        return PGroup([group], number, dotted=True)
+        return Group([group], number, dotted=True)
 
     def visit_subscriptedgroup(self, node, subscriptedgroup):
         (_, group, _, number) = subscriptedgroup
         if not number:
             number = 1
-        return PGroup([group], number)
+        return Group([group], number)
 
     def visit_subscriptedelement(self, node, subscriptedelement):
         (element, number) = subscriptedelement
-        return PGroup([element], number)
+        return Group([element], number)
 
     def visit_element(self, node, element):
-        return PElement(node.text)
+        return _element_dictionary_[node.text]
 
     def visit_number(self, node, element):
         return int(node.text)
