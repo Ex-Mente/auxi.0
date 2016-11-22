@@ -90,6 +90,10 @@ class PCompound:
     def count(self):
         return count_with_multiplier(self.group, multiplier=1)
 
+    def molar_mass(self):
+        return sum(_element_dictionary_[element].molar_mass*count
+                   for element, count in self.count().items())
+
     def __repr__(self):
         return "PCompound({}, {})".format(self.group, self.phase)
 
@@ -154,31 +158,6 @@ def parse_compound(string):
     parsed_tree = grammar.parse(string)
     return visitor.visit(parsed_tree)
 
-
-def _formula_code_(formula):
-    """
-    Calculate a unique formula code for a specified chemical compound formula.
-
-    :param formula: The formula.
-
-    :returns: The calculated formula code.
-    """
-
-    result = ''
-    if formula is None or len(formula) == 0:
-        return result
-
-    codeSum = 0
-    for i in range(len(formula)):
-        c = formula[i:i+1]
-        b = ord(c)
-        result = result + str(b)
-        codeSum = codeSum + b
-    result = result + '_' + str(codeSum)
-
-    return result
-
-
 def _get_character_(string, index=0):
     """
     Returns the character from a string at the specified index position, the
@@ -217,90 +196,6 @@ def _get_formula_(compound):
     return compound.split('[')[0]
 
 
-def _parse_element_for_mass_(compound, index):
-    """
-    Determine the atomic mass of the element at the specified index of the
-    chemical compound formula by parsing the formula.
-
-    :param compound: Formula of a chemical compound, e.g. 'Fe3O4'.
-    :param index: Index from which the formula should be parsed.
-
-    :returns: Atomic mass. [kg/kmol]
-    """
-
-    element = compound[index:index+1]
-    index = index + 1
-    if index < len(compound):
-        code = ord(compound[index:index+1])
-    else:
-        code = 0
-
-    while 97 <= code <= 123:
-        element = element + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            code = 0
-            break
-        code = ord(compound[index:index+1])
-
-    multiplier = str()
-    while (48 <= code <= 57) or code == 46:
-        multiplier = multiplier + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        code = ord(compound[index:index+1])
-    if multiplier == '':
-        multiplier = '1'
-
-    result = _element_dictionary_[element].molar_mass * float(multiplier)
-    return result, index
-
-
-def _parse_element_for_stoichiometry_(compound, index):
-    """
-    Determine the stoichiometry coefficient of the element at the specified
-    index of the formula by parsing the formula.
-
-    :param compound: Formula of a chemical compound, e.g. 'Fe3O4'.
-    :param index: Index from which the formula should be parsed.
-
-    :returns: Stoichiometric coefficient.
-    """
-
-    element_symbol = compound[index:index+1]
-    index = index + 1
-    if index < len(compound):
-        c = compound[index:index+1]
-        b = ord(c)
-    else:
-        b = 0
-
-    while 97 <= b <= 123:
-        element_symbol = element_symbol + compound[index:index+1]
-        index = index + 1
-        if index >= len(compound):
-            return element_symbol, 1.0, index
-        c = compound[index:index+1]
-        b = ord(c)
-
-    stoichiometry_coefficient = ''
-
-    while (48 <= b <= 57) or b == 46:
-        stoichiometry_coefficient = stoichiometry_coefficient + \
-            compound[index:index+1]
-        index = index + 1
-        if index >= len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if stoichiometry_coefficient == '':
-        stoichiometry_coefficient = '1.0'
-
-    return element_symbol, float(stoichiometry_coefficient), index
-
-
 def _parse_formula_for_elements_(compound):
     """
     Determine the set of elements that occur in the specified formula.
@@ -327,123 +222,6 @@ def _parse_formula_for_elements_(compound):
             result.add(element)
 
     return result
-
-
-def _parse_formula_for_mass_(compound, index):
-    """
-    Determine the molar mass of the chemical compound by recursively parsing
-    its formula from the specified index.
-
-    :param compound: Formula of chemical compound.
-    :param index: Index from which the formula should be parsed.
-
-    :returns: Molecular mass of the parsed portion of the formula.
-    """
-
-    if disallowed_chars.search(compound):
-        raise ValueError('Compound formula contains at least one character.')
-
-    result = 0.0
-
-    c = str()
-    while index < len(compound) and c != ')':
-        c = compound[index:index+1]
-        b = ord(c)
-
-        if c == '(':
-            index = index + 1
-            dresult, index = _parse_formula_for_mass_(compound, index)
-            result = result + dresult
-        elif 65 <= b <= 90:
-            dresult, index = _parse_element_for_mass_(compound, index)
-            result = result + dresult
-
-    if index >= len(compound):
-        return result
-
-    if c == ')':
-        index = index + 1
-    b = ord(compound[index:index+1])
-
-    multiplier = str()
-    while (48 <= b <= 57) or b == 46:
-        multiplier = multiplier + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if multiplier == '':
-        multiplier = '1'
-
-    result = result * float(multiplier)
-    return result, index
-
-
-def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
-    """
-    Determine the stoichiometry of the formula by recursively parsing it from
-    the specified index and storing the result in the specified dictionary.
-
-    :param compound: Formula of chemical compound.
-    :param index: Index from which the formula should be parsed.
-    :param stoich_dict: Stoichiometry dictionary.
-    """
-
-    if disallowed_chars.search(compound):
-        raise ValueError('Compound formula contains at least one character.')
-
-    c = str()
-    while index < len(compound) and c != ')':
-        c = compound[index:index+1]
-        b = ord(c)
-
-        if c == '(':
-            index = index + 1
-            new_stoich_records = {}
-            index = _parse_formula_for_stoichiometry_(compound, index,
-                                                      new_stoich_records)
-            for k, v in new_stoich_records.items():
-                if k in stoich_dict:
-                    stoich_dict[k] = stoich_dict[k] + \
-                        new_stoich_records[k]
-                else:
-                    stoich_dict[k] = v
-        else:
-            if 65 <= b <= 90:
-                element, coefficient, index = \
-                    _parse_element_for_stoichiometry_(compound, index)
-                if element in stoich_dict:
-                    stoich_dict[element] = stoich_dict[element] + coefficient
-                else:
-                    stoich_dict[element] = coefficient
-
-    if index >= len(compound):
-        return index
-
-    if c == ')':
-        index = index + 1
-        if index >= len(compound):
-            return index
-    c = compound[index:index+1]
-    b = ord(c)
-
-    multplier_string = str()
-    while (48 <= b <= 57) or b == 46:
-        multplier_string = multplier_string + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if multplier_string != '':
-        multiplier = float(multplier_string)
-        for k, v in stoich_dict.items():
-            stoich_dict[k] = stoich_dict[k] * multiplier
-
-    return index
 
 
 def _populate_element_dictionary_():
@@ -765,20 +543,16 @@ def molar_mass(compound=''):
     :returns: Molar mass. [kg/kmol]
     """
 
+
     result = 0.0
     if compound is None or len(compound) == 0:
         return result
 
     compound = compound.strip()
 
-    code = _formula_code_(compound)
-    if code not in _molar_mass_dictionary_:
-        index = 0
-        _molar_mass_dictionary_[code] = _parse_formula_for_mass_(compound,
-                                                                 index)
-    result = _molar_mass_dictionary_[code]
+    parsed = parse_compound(compound)
 
-    return result
+    return parsed.molar_mass()
 
 
 def stoichiometry_coefficient(compound, element):
@@ -792,9 +566,7 @@ def stoichiometry_coefficient(compound, element):
     :returns: Stoichiometry coefficient.
     """
 
-    compound = compound.strip()
-
-    stoichiometry = parse_compound(compound).count()
+    stoichiometry = parse_compound(compound.strip()).count()
 
     return stoichiometry[element]
 
@@ -810,14 +582,14 @@ def stoichiometry_coefficients(compound, elements):
     :returns: List of stoichiometry coefficients.
     """
 
-    stoichiometry = parse_compound(compound).count()
+    stoichiometry = parse_compound(compound.strip()).count()
+
     return [stoichiometry[element] for element in elements]
 
 
 # Initialise the module.
 _element_dictionary_ = {}
 _molar_mass_dictionary_ = {}
-_stoichiometry_dictionary_ = {}
 disallowed_chars = re.compile('[^0-9A-Za-z().]+')
 
 _populate_element_dictionary_()
