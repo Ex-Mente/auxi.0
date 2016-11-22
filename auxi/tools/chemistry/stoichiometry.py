@@ -158,43 +158,6 @@ def parse_compound(string):
     parsed_tree = grammar.parse(string)
     return visitor.visit(parsed_tree)
 
-def _get_character_(string, index=0):
-    """
-    Returns the character from a string at the specified index position, the
-    integer ordinal of the character, and an incremented index.
-
-    If index is at the end of the string, return an empty string, -1 for the
-    ordinal, and return index unchanged.
-
-    :param string: The string to search.
-    :param index:  Index at which the character should be located.
-
-    :returns: character at string[index]
-    :returns: ordinal of character
-    :returns: incremented index
-    """
-
-    if index == len(string):
-        return '', -1, index
-    else:
-        character = string[index:index+1]
-        ordinal = ord(character)
-        return character, ordinal, index + 1
-
-
-def _get_formula_(compound):
-    """
-    Remove the phase from a compound string if it exists and return only the
-    formula.
-
-    :param compound: Formula and phase of a chemical compound, e.g.
-      'Fe2O3[S1]'.
-
-    :returns: The chemical formula.
-    """
-
-    return compound.split('[')[0]
-
 
 def _populate_element_dictionary_():
     """
@@ -347,7 +310,7 @@ def amount(compound, mass):
     :returns: Amount. [kmol]
     """
 
-    return mass / molar_mass(_get_formula_(compound))
+    return mass / molar_mass(compound)
 
 
 def amounts(masses):
@@ -388,7 +351,7 @@ def mass(compound, amount):
     :returns: Mass. [kg]
     """
 
-    return amount * molar_mass(_get_formula_(compound))
+    return amount * molar_mass(compound)
 
 
 def masses(amounts):
@@ -433,17 +396,13 @@ def convert_compound(mass, source, target, element):
     :returns: Mass of target. [kg]
     """
 
-    # Convert compounds to formulas.
-    source_formula = _get_formula_(source)
-    target_formula = _get_formula_(target)
-
     # Perform the conversion.
-    target_mass_fraction = element_mass_fraction(target_formula, element)
+    target_mass_fraction = element_mass_fraction(target, element)
     if target_mass_fraction == 0.0:
         # If target_formula does not contain element, just return 0.0.
         return 0.0
     else:
-        source_mass_fraction = element_mass_fraction(source_formula, element)
+        source_mass_fraction = element_mass_fraction(source, element)
         return mass * source_mass_fraction / target_mass_fraction
 
 
@@ -478,11 +437,8 @@ def element_mass_fractions(compound, elements):
     :returns: Mass fractions.
     """
 
-    formula = _get_formula_(compound)
-    result = []
-    for i in range(0, len(elements)):
-        result.append(element_mass_fraction(formula, elements[i]))
-    return result
+    return [element_mass_fraction(compound, element)
+            for element in elements]
 
 
 def elements(compounds):
