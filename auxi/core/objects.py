@@ -64,15 +64,7 @@ class NamedObject(Object):
     def _validate_params_(self, name, description):
         # TODO: Enforce name format.
         pass
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, value):
-        self._name = value
-
+        
 
 if __name__ == "__main__":
     import unittest
