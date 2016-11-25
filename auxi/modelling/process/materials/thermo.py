@@ -3,9 +3,9 @@
 This module provides a material class that can do thermochemical calculations.
 """
 
+import copy
 import os
 import sys
-import copy
 
 import numpy
 
@@ -353,94 +353,11 @@ class Material(NamedObject):
                               assay_total, P, T)
 
 
-class MaterialPackage(Object):
-    """
-    Represents a quantity of material consisting of multiple chemical
-    compounds, having a specific mass, pressure, temperature and enthalpy.
+class MaterialInstance(Object):
+    """ Base class for MaterialPackage and MaterialStream"""
 
-    :param material:        A reference to the Material to which self belongs.
-    :param compound_masses: Package compound masses. [kg]
-    :param P:               Package pressure. [atm]
-    :param T:               Package temperature. [°C]"""
-
-    def __init__(self, material, compound_masses, P=1.0, T=25.0):
-        # Confirm that the parameters are OK.
-        if not type(material) is Material:
-            raise TypeError("Invalid material type. Must be "
-                            "thermomaterial.Material")
-        if not type(compound_masses) is numpy.ndarray:
-            raise TypeError("Invalid compound_masses type. Must be "
-                            "numpy.ndarray.")
-
-        # Initialise the object's properties.
-        self.material = material
-        self._P = P
-        self._T = T
-        self._compound_masses = compound_masses
-        if self.mass > 0.0:
-            self._H = self._calculate_H(T)
-        else:
-            self._H = 0.0
-
-        self.custom_properties = dict()
-
-    def __str__(self):
-        b1 = '='*67 + '\n'
-        b2 = '-'*67 + '\n'
-        result = b1
-        result += "MaterialPackage\n"
-        result += b1
-        result += "Material".ljust(20) + self.material.name + "\n"
-        result += "Mass".ljust(20) + '{:.8e}'.format(
-            self.mass).rjust(15) + " kg\n"
-        result += "Amount".ljust(20) + '{:.8e}'.format(
-            self.amount).rjust(15) + " kmol\n"
-        result += "Pressure".ljust(20) + '{:.8e}'.format(
-            self.P).rjust(15) + " atm\n"
-        result += "Temperature".ljust(20) + '{:.8e}'.format(
-            self.T).rjust(15) + " °C\n"
-        result += "Enthalpy".ljust(20) + '{:.8e}'.format(
-            self.H).rjust(15) + " kWh\n"
-        result += b2
-        result += "Compound Details\n"
-        result += "Formula".ljust(20) + "Mass".ljust(16) + \
-                  "Mass Fraction".ljust(16) + \
-                  "Mole Fraction".ljust(16) + "\n"
-        result += b2
-        mass = self.mass
-        compound_moles = self.get_compound_amounts()
-        total_moles = compound_moles.sum()
-        if mass > 0.0:
-            for compound in self.material.compounds:
-                index = self.material.get_compound_index(compound)
-                result += compound.ljust(20) + '{:.8e}'.format(
-                    self._compound_masses[index])
-                result += "  " + \
-                          '{:.8e}'.format(self._compound_masses[index] / mass)
-                result += "  " + \
-                          '{:.8e}'.format(compound_moles[index] / total_moles)
-                result += "\n"
-        else:
-            for compound in self.material.compounds:
-                index = self.material.get_compound_index(compound)
-                result += compound.ljust(20) + '{:.8e}'.format(0.0)
-                result += "  " + '{:.8e}'.format(0.0)
-                result += "  " + '{:.8e}'.format(0.0)
-                result += "\n"
-
-        # Write the custom properties.
-        if len(self.custom_properties) > 0:
-            result += b2
-            result += "Custom Properties:\n"
-            result += b2
-            properties = list(sorted(self.custom_properties.keys()))
-            for prop in properties:
-                result += prop.ljust(20)
-                result += "{:.8e}".format(self.custom_properties[prop])
-                result += "\n"
-
-        result += b1
-        return result
+    def __init__(self):
+        raise NotImplementedError
 
     def __add__(self, other):
         """
@@ -550,6 +467,96 @@ class MaterialPackage(Object):
         # If not one of the above, it must be an invalid argument.
         else:
             raise TypeError("Invalid multiplication argument.")
+
+
+class MaterialPackage(MaterialInstance):
+    """
+    Represents a quantity of material consisting of multiple chemical
+    compounds, having a specific mass, pressure, temperature and enthalpy.
+
+    :param material:        A reference to the Material to which self belongs.
+    :param compound_masses: Package compound masses. [kg]
+    :param P:               Package pressure. [atm]
+    :param T:               Package temperature. [°C]"""
+
+    def __init__(self, material, compound_masses, P=1.0, T=25.0):
+        # Confirm that the parameters are OK.
+        if not type(material) is Material:
+            raise TypeError("Invalid material type. Must be "
+                            "thermomaterial.Material")
+        if not type(compound_masses) is numpy.ndarray:
+            raise TypeError("Invalid compound_masses type. Must be "
+                            "numpy.ndarray.")
+
+        # Initialise the object's properties.
+        self.material = material
+        self._P = P
+        self._T = T
+        self._compound_masses = compound_masses
+        if self.mass > 0.0:
+            self._H = self._calculate_H(T)
+        else:
+            self._H = 0.0
+
+        self.custom_properties = dict()
+
+    def __str__(self):
+        b1 = '='*67 + '\n'
+        b2 = '-'*67 + '\n'
+        result = b1
+        result += "MaterialPackage\n"
+        result += b1
+        result += "Material".ljust(20) + self.material.name + "\n"
+        result += "Mass".ljust(20) + '{:.8e}'.format(
+            self.mass).rjust(15) + " kg\n"
+        result += "Amount".ljust(20) + '{:.8e}'.format(
+            self.amount).rjust(15) + " kmol\n"
+        result += "Pressure".ljust(20) + '{:.8e}'.format(
+            self.P).rjust(15) + " atm\n"
+        result += "Temperature".ljust(20) + '{:.8e}'.format(
+            self.T).rjust(15) + " °C\n"
+        result += "Enthalpy".ljust(20) + '{:.8e}'.format(
+            self.H).rjust(15) + " kWh\n"
+        result += b2
+        result += "Compound Details\n"
+        result += "Formula".ljust(20) + "Mass".ljust(16) + \
+                  "Mass Fraction".ljust(16) + \
+                  "Mole Fraction".ljust(16) + "\n"
+        result += b2
+        mass = self.mass
+        compound_moles = self.get_compound_amounts()
+        total_moles = compound_moles.sum()
+        if mass > 0.0:
+            for compound in self.material.compounds:
+                index = self.material.get_compound_index(compound)
+                result += compound.ljust(20) + '{:.8e}'.format(
+                    self._compound_masses[index])
+                result += "  " + \
+                          '{:.8e}'.format(self._compound_masses[index] / mass)
+                result += "  " + \
+                          '{:.8e}'.format(compound_moles[index] / total_moles)
+                result += "\n"
+        else:
+            for compound in self.material.compounds:
+                index = self.material.get_compound_index(compound)
+                result += compound.ljust(20) + '{:.8e}'.format(0.0)
+                result += "  " + '{:.8e}'.format(0.0)
+                result += "  " + '{:.8e}'.format(0.0)
+                result += "\n"
+
+        # Write the custom properties.
+        if len(self.custom_properties) > 0:
+            result += b2
+            result += "Custom Properties:\n"
+            result += b2
+            properties = list(sorted(self.custom_properties.keys()))
+            for prop in properties:
+                result += prop.ljust(20)
+                result += "{:.8e}".format(self.custom_properties[prop])
+                result += "\n"
+
+        result += b1
+        return result
 
     def _calculate_H(self, T):
         """
@@ -946,7 +953,7 @@ class MaterialPackage(Object):
         return result
 
 
-class MaterialStream(Object):
+class MaterialStream(MaterialInstance):
     """
     Represents a flow of material consisting of multiple chemical compounds,
     having a specific mass flow rate, pressure, temperature and enthalpy.
@@ -1035,115 +1042,6 @@ class MaterialStream(Object):
 
         result += b1
         return result
-
-    def __add__(self, other):
-        """
-        Addition operator (+).
-
-        Add this package (self) and 'other' together, return the result as a
-        new package, and leave self unchanged.
-
-        :param other: Can can be one of the following:
-                 1. MaterialPackage
-                    'other' is added to self to create a new package.
-                 2. tuple: (compound, mass)
-                    The specified mass of the specified compound is added to \
-                    self, assuming the added material has the same \
-                    temperature as self.
-                 3. tuple: (compound, mass, temperature)
-                    The specified mass of the specified compound at the \
-                    specified temperature is added to self.
-
-        :returns: A new Material package that is the sum of self and 'other'.
-        """
-
-        # Add another package.
-        if type(other) is MaterialPackage:
-            if self.material == other.material:  # Packages of same material.
-                result = MaterialPackage(self.material,
-                                         self._compound_masses +
-                                         other._compound_masses)
-                result.H = self._H + other._H
-                result.P = self.P
-                return result
-            else:  # Packages of different materials.
-                H = self.H + other.H
-                result = self.clone()
-                for compound in other.material.compounds:
-                    if compound not in self.material.compounds:
-                        raise Exception("Packages of '" + other.material.name +
-                                        "' cannot be added to packages of '" +
-                                        self.material.name +
-                                        "'. The compound '" + compound +
-                                        "' was not found in '" +
-                                        self.material.name + "'.")
-                    result = result + (compound,
-                                       other.get_compound_mass(compound))
-                result.H = H
-                return result
-
-        # Add the specified mass of the specified compound.
-        elif self._is_compound_mass_tuple(other):
-            # Added material variables.
-            compound = other[0]
-            index = self.material.get_compound_index(compound)
-            mass = other[1]
-            enthalpy = thermo.H(compound, self._T, mass)
-
-            # Create the result package.
-            result = self.clone()
-            result._compound_masses[index] = result._compound_masses[index] + \
-                mass
-            result._H += enthalpy
-            result._P = self._P
-            return result
-
-        # Add the specified mass of 'compound' at the specified temperature.
-        elif self._is_compound_mass_temperature_tuple(other):
-            # Added material variables.
-            compound = other[0]
-            index = self.material.get_compound_index(compound)
-            mass = other[1]
-            temperature = other[2]
-            enthalpy = thermo.H(compound, temperature, mass)
-
-            # Create the result package.
-            result = self * 1.0
-            result._compound_masses[index] = result._compound_masses[index] + \
-                mass
-            result.H = self._H + enthalpy
-            result._P = self._P
-            return result
-
-        # If not one of the above, it must be an invalid argument.
-        else:
-            raise TypeError("Invalid addition argument.")
-
-    def __mul__(self, scalar):
-        """
-        The multiplication operator (*).
-
-        Create a new package by multiplying self with scalar.
-
-        :param scalar: The result is a new package with its content equal to
-          self multiplied by a scalar, leaving self unchanged.
-
-        :returns: New MaterialPackage object.
-        """
-
-        # Multiply with a scalar floating point number.
-        if type(scalar) is float or type(scalar) is numpy.float64 or \
-           type(scalar) is numpy.float32:
-            if scalar < 0.0:
-                raise Exception("Invalid multiplication operation. Cannot "
-                                "multiply package with negative number.")
-            result = MaterialPackage(self.material, self._compound_masses *
-                                     scalar, self._P, self._T)
-            return result
-
-        # If not one of the above, it must be an invalid argument.
-        else:
-            raise TypeError("Invalid multiplication argument.")
 
     def _calculate_H(self, T):
         """
