@@ -78,7 +78,8 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         for phrase in checkphrases:
             self.assertIn(phrase, result)
 
-    @unittest.skip("This test needs attention.")
+    @unittest.skip("Material contains compound for which there is no data")
+    # See issue #18 on GitHub: https://github.com/Ex-Mente/auxi.0/issues/18
     def test_create_package(self):
         pkg = self.m.create_package("IlmeniteA", 123.456, 0.87, 205.0, True)
         self.assertEqual(pkg.mass, 123.456)
