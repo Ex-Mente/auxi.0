@@ -68,6 +68,16 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         self.assertAlmostEqual(self.m.get_assay_total("IlmeniteB"), 0.99761)
         self.assertAlmostEqual(self.m.get_assay_total("IlmeniteC"), 1.00002)
 
+    def test_str(self):
+        # TODO: This is probably a bit lax for a proper test
+        result = str(self.m)
+        checkphrases = ['Material', 'IlmeniteA', 'IlmeniteB', 'IlmeniteC',
+                        'Al2O3[S]', 'CaO[S]', 'Cr2O3[S]', 'Fe2O3[S]', 'Fe3O4[S]',
+                        'FeO[S]', 'K2O[S]', 'MgO[S]', 'MnO[S]', 'Na2O[S]', 'P4O10[S]',
+                        'SiO2[S]', 'TiO2[S]', 'V2O5[S]']
+        for phrase in checkphrases:
+            self.assertIn(phrase, result)
+
     @unittest.skip("This test needs attention.")
     def test_create_package(self):
         pkg = self.m.create_package("IlmeniteA", 123.456, 0.87, 205.0, True)
