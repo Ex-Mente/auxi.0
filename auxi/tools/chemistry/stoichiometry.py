@@ -203,7 +203,7 @@ def amounts(masses):
     """
     Calculate the amounts from the specified compound masses.
 
-    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO': 1.5}
 
     :returns: [kmol] dictionary
     """
@@ -216,7 +216,7 @@ def amount_fractions(masses):
     """
     Calculate the mole fractions from the specified compound masses.
 
-    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO': 1.5}
 
     :returns: [mole fractions] dictionary
     """
@@ -244,7 +244,7 @@ def masses(amounts):
     """
     Calculate the masses from the specified compound amounts.
 
-    :param amounts: [kmol] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param masses: [kmol] dictionary, e.g. {'SiO2': 3.0, 'FeO': 1.5}
 
     :returns: [kg] dictionary
     """
@@ -257,7 +257,7 @@ def mass_fractions(amounts):
     """
     Calculate the mole fractions from the specified compound masses.
 
-    :param amounts: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO', 1.5}
+    :param masses: [kg] dictionary, e.g. {'SiO2': 3.0, 'FeO': 1.5}
 
     :returns: [mass fractions] dictionary
     """

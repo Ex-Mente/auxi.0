@@ -80,7 +80,7 @@ Here is an example of the markdown text of an empty issue:
 
 ```
 ### System Details
-auxi version:   <<add your auxi verion here>>
+auxi version:   <<add your auxi version here>>
 Python version: <<add your Python version here>>
 OS details:     <<add your operating system details here>>
 
