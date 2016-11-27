@@ -970,8 +970,8 @@ class MaterialStream(Object):
         self.material = material
         self._P = P
         self._T = T
-        self.compound_mfrs = compound_mfrs
-        if self.rate > 0.0:
+        self._compound_mfrs = compound_mfrs
+        if self.mfr > 0.0:
             self._Hfr = self._calculate_H(T)
         else:
             self._Hfr = 0.0
@@ -1158,7 +1158,7 @@ class MaterialStream(Object):
         H = 0.0
         for compound in self.material.compounds:
             index = self.material.get_compound_index(compound)
-            dH = thermo.H(compound, T, self._compound_masses[index])
+            dH = thermo.H(compound, T, self._compound_mfrs[index])
             H = H + dH
         return H
 
@@ -1339,7 +1339,7 @@ class MaterialStream(Object):
         :returns: Mass flow rate. [kg/h]
         """
 
-        return self._compound_rates.sum()
+        return self._compound_mfrs.sum()
 
     def get_compound_mfr(self, compound):
         """

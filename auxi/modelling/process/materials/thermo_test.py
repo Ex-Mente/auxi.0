@@ -85,6 +85,13 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         self.assertAlmostEqual(pkg.H, -277.82600298002848)
 
 
+    def test_create_stream(self):
+        pkg = self.m.create_stream("IlmeniteA", 123.456, 0.87, 205.0, True)
+        self.assertAlmostEqual(pkg.mfr, 123.456)
+        self.assertAlmostEqual(pkg.P, 0.87)
+        self.assertAlmostEqual(pkg.T, 205.0)
+        self.assertAlmostEqual(pkg.Hfr, -277.82600298002848)
+
 class ThermoMaterialPackageUnitTester(unittest.TestCase):
     """
     Unit tester for the auxi.modelling.process.materials.thermo.MaterialPackage
