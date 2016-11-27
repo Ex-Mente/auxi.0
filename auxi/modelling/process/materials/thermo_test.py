@@ -38,19 +38,18 @@ class ThermoMaterialUnitTester(unittest.TestCase):
 
     def test_constructor(self):
         self.assertEqual(self.m.name, "material")
-        self.assertEqual(len(self.m.compounds), 14)
-        self.assertEqual(self.m.compound_count, 14)
+        self.assertEqual(len(self.m.compounds), 8)
+        self.assertEqual(self.m.compound_count, 8)
         self.assertEqual(len(self.m.converted_assays), 3)
 
     def test_get_compound_index(self):
         self.assertEqual(self.m.get_compound_index("Al2O3[S]"), 0)
-        self.assertEqual(self.m.get_compound_index("K2O[S]"), 6)
-        self.assertEqual(self.m.get_compound_index("P4O10[S]"), 10)
-        self.assertEqual(self.m.get_compound_index("V2O5[S]"), 13)
+        self.assertEqual(self.m.get_compound_index("Fe3O4[S]"), 3)
+        self.assertEqual(self.m.get_compound_index("TiO2[S]"), 7)
 
     def test_create_empty_assay(self):
         empty_assay = self.m.create_empty_assay()
-        self.assertEqual(len(empty_assay), 14)
+        self.assertEqual(len(empty_assay), 8)
         self.assertEqual(empty_assay.sum(), 0.0)
         self.assertEqual(empty_assay.sum(), 0.0)
         self.assertEqual(empty_assay.sum(), 0.0)
@@ -64,17 +63,17 @@ class ThermoMaterialUnitTester(unittest.TestCase):
             np.all(self.m.converted_assays["new_assay"] == new_assay), True)
 
     def test_get_assay_total(self):
-        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteA"), 0.99792)
-        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteB"), 0.99761)
-        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteC"), 1.00002)
+        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteA"), 1.0)
+        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteB"), 1.0)
+        self.assertAlmostEqual(self.m.get_assay_total("IlmeniteC"), 1.0)
 
     def test_str(self):
         # TODO: This is probably a bit lax for a proper test
         result = str(self.m)
         checkphrases = ['Material', 'IlmeniteA', 'IlmeniteB', 'IlmeniteC',
-                        'Al2O3[S]', 'CaO[S]', 'Cr2O3[S]', 'Fe2O3[S]', 'Fe3O4[S]',
-                        'FeO[S]', 'K2O[S]', 'MgO[S]', 'MnO[S]', 'Na2O[S]', 'P4O10[S]',
-                        'SiO2[S]', 'TiO2[S]', 'V2O5[S]']
+                        'Al2O3[S]', 'CaO[S]', 'Fe2O3[S]', 'Fe3O4[S]',
+                        'FeO[S]', 'MgO[S]',
+                        'SiO2[S]', 'TiO2[S]']
         for phrase in checkphrases:
             self.assertIn(phrase, result)
 
