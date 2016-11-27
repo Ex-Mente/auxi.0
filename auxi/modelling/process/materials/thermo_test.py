@@ -44,8 +44,8 @@ class ThermoMaterialUnitTester(unittest.TestCase):
 
     def test_get_compound_index(self):
         self.assertEqual(self.m.get_compound_index("Al2O3[S]"), 0)
-        self.assertEqual(self.m.get_compound_index("Fe3O4[S]"), 3)
-        self.assertEqual(self.m.get_compound_index("TiO2[S]"), 7)
+        self.assertEqual(self.m.get_compound_index("Fe3O4[Salpha]"), 3)
+        self.assertEqual(self.m.get_compound_index("TiO2[Srutile]"), 7)
 
     def test_create_empty_assay(self):
         empty_assay = self.m.create_empty_assay()
@@ -71,20 +71,18 @@ class ThermoMaterialUnitTester(unittest.TestCase):
         # TODO: This is probably a bit lax for a proper test
         result = str(self.m)
         checkphrases = ['Material', 'IlmeniteA', 'IlmeniteB', 'IlmeniteC',
-                        'Al2O3[S]', 'CaO[S]', 'Fe2O3[S]', 'Fe3O4[S]',
+                        'Al2O3[S]', 'CaO[S]', 'Fe2O3[Salpha]', 'Fe3O4[Salpha]',
                         'FeO[S]', 'MgO[S]',
-                        'SiO2[S]', 'TiO2[S]']
+                        'SiO2[S]', 'TiO2[Srutile]']
         for phrase in checkphrases:
             self.assertIn(phrase, result)
 
-    @unittest.skip("Material contains compound for which there is no data")
-    # See issue #18 on GitHub: https://github.com/Ex-Mente/auxi.0/issues/18
     def test_create_package(self):
         pkg = self.m.create_package("IlmeniteA", 123.456, 0.87, 205.0, True)
-        self.assertEqual(pkg.mass, 123.456)
-        self.assertEqual(pkg.P, 0.87)
-        self.assertEqual(pkg.T, 205.0)
-        self.assertEqual(pkg.H, -278.35680682442677)
+        self.assertAlmostEqual(pkg.mass, 123.456)
+        self.assertAlmostEqual(pkg.P, 0.87)
+        self.assertAlmostEqual(pkg.T, 205.0)
+        self.assertAlmostEqual(pkg.H, -277.82600298002848)
 
 
 class ThermoMaterialPackageUnitTester(unittest.TestCase):
