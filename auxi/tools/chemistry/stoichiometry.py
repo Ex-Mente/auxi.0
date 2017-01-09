@@ -4,7 +4,10 @@ This module provides a number of functions for doing stoichiometry
 calculations.
 """
 
-import re
+import collections
+import functools
+
+import parsimonious
 
 from auxi.core.objects import Object
 
@@ -41,439 +44,145 @@ class Element(Object):
         self.molar_mass = molar_mass
         self._validate_()
 
+    def count(self):
+        return {self.symbol: 1}
+
     def _validate_(self):
         pass
 
+    def __repr__(self):
+        return "Element('{}')".format(self.symbol)
 
-def _formula_code_(formula):
+
+def count_with_multiplier(groups, multiplier):
+    """ Update group counts with multiplier
+
+    This is for handling atom counts on groups like (OH)2
+
+    :param groups: iterable of Group/Element
+    :param multiplier: the number to multiply by
+
     """
-    Calculate a unique formula code for a specified chemical compound formula.
-
-    :param formula: The formula.
-
-    :returns: The calculated formula code.
-    """
-
-    result = ''
-    if formula is None or len(formula) == 0:
-        return result
-
-    codeSum = 0
-    for i in range(len(formula)):
-        c = formula[i:i+1]
-        b = ord(c)
-        result = result + str(b)
-        codeSum = codeSum + b
-    result = result + '_' + str(codeSum)
-
-    return result
+    counts = collections.defaultdict(float)
+    for group in groups:
+        for element, count in group.count().items():
+            counts[element] += count*multiplier
+    return counts
 
 
-def _get_character_(string, index=0):
-    """
-    Returns the character from a string at the specified index position, the
-    integer ordinal of the character, and an incremented index.
+class Group:
+    """ Represent a part of a compound formula
 
-    If index is at the end of the string, return an empty string, -1 for the
-    ordinal, and return index unchanged.
+    :param group: iterable of Group/Element parts
+    :param multiplier: multiplier in subscript or prefix of group
+    :param dotted: True of the group is like '.2H2O'
 
-    :param string: The string to search.
-    :param index:  Index at which the character should be located.
-
-    :returns: character at string[index]
-    :returns: ordinal of character
-    :returns: incremented index
     """
 
-    if index == len(string):
-        return '', -1, index
-    else:
-        character = string[index:index+1]
-        ordinal = ord(character)
-        return character, ordinal, index + 1
+    def __init__(self, group, multiplier=1, dotted=False):
+        self.group = group
+        self.multiplier = multiplier
+        self.dotted = dotted
+
+    def count(self):
+        return count_with_multiplier(self.group, self.multiplier)
+
+    def __repr__(self):
+        return "Group({}, multiplier={}, dotted={})".format(self.group,
+                                                            self.multiplier,
+                                                            self.dotted)
 
 
-def _get_formula_(compound):
-    """
-    Remove the phase from a compound string if it exists and return only the
-    formula.
+class Compound:
+    """ Represents a full compound formula
 
-    :param compound: Formula and phase of a chemical compound, e.g.
-      'Fe2O3[S1]'.
+    :param group: iterable of Group/Element
+    :param dottedgroup: A Group if there is a .H2O part, None otherwise
+    :param phase: The phase if there is a [phase] part, None otherwise
 
-    :returns: The chemical formula.
-    """
-
-    return compound.split('[')[0]
-
-
-def _parse_element_for_mass_(compound, index):
-    """
-    Determine the atomic mass of the element at the specified index of the
-    chemical compound formula by parsing the formula.
-
-    :param compound: Formula of a chemical compound, e.g. 'Fe3O4'.
-    :param index: Index from which the formula should be parsed.
-
-    :returns: Atomic mass. [kg/kmol]
     """
 
-    element = compound[index:index+1]
-    index = index + 1
-    if index < len(compound):
-        code = ord(compound[index:index+1])
-    else:
-        code = 0
+    def __init__(self, group, dottedgroup=None, phase=None):
+        self.group = [group]
+        if dottedgroup:
+            self.group.append(dottedgroup)
+        self.phase = phase
 
-    while 97 <= code <= 123:
-        element = element + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            code = 0
-            break
-        code = ord(compound[index:index+1])
+    def count(self):
+        return count_with_multiplier(self.group, multiplier=1)
 
-    multiplier = str()
-    while (48 <= code <= 57) or code == 46:
-        multiplier = multiplier + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        code = ord(compound[index:index+1])
-    if multiplier == '':
-        multiplier = '1'
+    def molar_mass(self):
+        return sum(_element_dictionary_[element].molar_mass*count
+                   for element, count in self.count().items())
 
-    result = _element_dictionary_[element].molar_mass * float(multiplier)
-    return result, index
+    def __repr__(self):
+        return "Compound({}, {})".format(self.group, self.phase)
 
 
-def _parse_element_for_stoichiometry_(compound, index):
+class CompoundVisitor(parsimonious.NodeVisitor):
+    """ Visitor which takes parsed tree to useful groups.
+
+        For parallels, check the grammar.
     """
-    Determine the stoichiometry coefficient of the element at the specified
-    index of the formula by parsing the formula.
+    def visit_compound(self, _, compound):
+        (group, dottedgroup, phase) = compound
+        return Compound(group, dottedgroup, phase)
 
-    :param compound: Formula of a chemical compound, e.g. 'Fe3O4'.
-    :param index: Index from which the formula should be parsed.
+    def visit_group(self, _, group):
+        return Group(group)
 
-    :returns: Stoichiometric coefficient.
+    def visit_phase(self, node, _):
+        (_, string, _) = node
+        return string.text
+
+    def visit_dottedgroup(self, _, dottedgroup):
+        (_, number, group) = dottedgroup
+        if not number:
+            number = 1
+        return Group([group], number, dotted=True)
+
+    def visit_subscriptedgroup(self, _, subscriptedgroup):
+        (_, group, _, number) = subscriptedgroup
+        if not number:
+            number = 1
+        return Group([group], number)
+
+    def visit_subscriptedelement(self, _, subscriptedelement):
+        (element, number) = subscriptedelement
+        return Group([element], number)
+
+    def visit_element(self, node, _):
+        return _element_dictionary_[node.text]
+
+    def visit_number(self, node, _):
+        return int(node.text)
+
+    def generic_visit(self, node, other):
+        try:
+            return other[0]
+        except IndexError:
+            return other
+
+
+grammar = parsimonious.grammar.Grammar(
     """
-
-    element_symbol = compound[index:index+1]
-    index = index + 1
-    if index < len(compound):
-        c = compound[index:index+1]
-        b = ord(c)
-    else:
-        b = 0
-
-    while 97 <= b <= 123:
-        element_symbol = element_symbol + compound[index:index+1]
-        index = index + 1
-        if index >= len(compound):
-            return element_symbol, 1.0, index
-        c = compound[index:index+1]
-        b = ord(c)
-
-    stoichiometry_coefficient = ''
-
-    while (48 <= b <= 57) or b == 46:
-        stoichiometry_coefficient = stoichiometry_coefficient + \
-            compound[index:index+1]
-        index = index + 1
-        if index >= len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if stoichiometry_coefficient == '':
-        stoichiometry_coefficient = '1.0'
-
-    return element_symbol, float(stoichiometry_coefficient), index
+    compound = group dottedgroup? phase?
+    group = (subscriptedgroup / subscriptedelement / element)+
+    phase = "[" string "]"
+    dottedgroup = "." number? group
+    subscriptedgroup = "(" group ")" number?
+    subscriptedelement = element number
+    element = ~r"[A-Z][a-z]*"
+    string = ~r"[A-Za-z]+"
+    number = ~r"[0-9]+"
+    """)
 
 
-def _parse_formula_for_elements_(compound):
-    """
-    Determine the set of elements that occur in the specified formula.
-
-    :param compound: Formula of a chemical compound.
-
-    :returns: Set of elements.
-    """
-
-    # Initialise the search variables.
-    result = set()
-    i = 0  # The index of the current character in the string.
-
-    # Do the search.
-    while i < len(compound):
-        c, b, i = _get_character_(compound, i)
-        if 65 <= b <= 90:  # Element found. Process it.
-            j = i
-            element = c
-            c, b, j = _get_character_(compound, j)
-            while 97 <= b <= 122:
-                element = element + c
-                c, b, j = _get_character_(compound, j)
-            result.add(element)
-
-    return result
-
-
-def _parse_formula_for_mass_(compound, index):
-    """
-    Determine the molar mass of the chemical compound by recursively parsing
-    its formula from the specified index.
-
-    :param compound: Formula of chemical compound.
-    :param index: Index from which the formula should be parsed.
-
-    :returns: Molecular mass of the parsed portion of the formula.
-    """
-
-    if disallowed_chars.search(compound):
-        raise ValueError('Compound formula contains at least one character.')
-
-    result = 0.0
-
-    c = str()
-    while index < len(compound) and c != ')':
-        c = compound[index:index+1]
-        b = ord(c)
-
-        if c == '(':
-            index = index + 1
-            dresult, index = _parse_formula_for_mass_(compound, index)
-            result = result + dresult
-        elif 65 <= b <= 90:
-            dresult, index = _parse_element_for_mass_(compound, index)
-            result = result + dresult
-
-    if index >= len(compound):
-        return result
-
-    if c == ')':
-        index = index + 1
-    b = ord(compound[index:index+1])
-
-    multiplier = str()
-    while (48 <= b <= 57) or b == 46:
-        multiplier = multiplier + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if multiplier == '':
-        multiplier = '1'
-
-    result = result * float(multiplier)
-    return result, index
-
-
-def _parse_formula_for_stoichiometry_(compound, index, stoich_dict):
-    """
-    Determine the stoichiometry of the formula by recursively parsing it from
-    the specified index and storing the result in the specified dictionary.
-
-    :param compound: Formula of chemical compound.
-    :param index: Index from which the formula should be parsed.
-    :param stoich_dict: Stoichiometry dictionary.
-    """
-
-    if disallowed_chars.search(compound):
-        raise ValueError('Compound formula contains at least one character.')
-
-    c = str()
-    while index < len(compound) and c != ')':
-        c = compound[index:index+1]
-        b = ord(c)
-
-        if c == '(':
-            index = index + 1
-            new_stoich_records = {}
-            index = _parse_formula_for_stoichiometry_(compound, index,
-                                                      new_stoich_records)
-            for k, v in new_stoich_records.items():
-                if k in stoich_dict:
-                    stoich_dict[k] = stoich_dict[k] + \
-                        new_stoich_records[k]
-                else:
-                    stoich_dict[k] = v
-        else:
-            if 65 <= b <= 90:
-                element, coefficient, index = \
-                    _parse_element_for_stoichiometry_(compound, index)
-                if element in stoich_dict:
-                    stoich_dict[element] = stoich_dict[element] + coefficient
-                else:
-                    stoich_dict[element] = coefficient
-
-    if index >= len(compound):
-        return index
-
-    if c == ')':
-        index = index + 1
-        if index >= len(compound):
-            return index
-    c = compound[index:index+1]
-    b = ord(c)
-
-    multplier_string = str()
-    while (48 <= b <= 57) or b == 46:
-        multplier_string = multplier_string + compound[index:index+1]
-        index = index + 1
-        if index == len(compound):
-            break
-        c = compound[index:index+1]
-        b = ord(c)
-
-    if multplier_string != '':
-        multiplier = float(multplier_string)
-        for k, v in stoich_dict.items():
-            stoich_dict[k] = stoich_dict[k] * multiplier
-
-    return index
-
-
-def _populate_element_dictionary_():
-    """
-    Create all the elements of the periodic table and add them to the
-    element dictionary.
-    """
-
-    # period 1
-    _element_dictionary_['H'] = Element(1, 1, 1, 'H', 1.00794)
-    _element_dictionary_['He'] = Element(1, 18, 2, 'He', 4.002602)
-
-    # period 2
-    _element_dictionary_['Li'] = Element(2, 1, 3, 'Li', 6.941)
-    _element_dictionary_['Be'] = Element(2, 2, 4, 'Be', 9.012182)
-    _element_dictionary_['B'] = Element(2, 13, 5, 'B', 10.811)
-    _element_dictionary_['C'] = Element(2, 14, 6, 'C', 12.0107)
-    _element_dictionary_['N'] = Element(2, 15, 7, 'N', 14.00674)
-    _element_dictionary_['O'] = Element(2, 16, 8, 'O', 15.9994)
-    _element_dictionary_['F'] = Element(2, 17, 9, 'F', 18.9984032)
-    _element_dictionary_['Ne'] = Element(2, 18, 10, 'Ne', 20.1797)
-
-    # period 3
-    _element_dictionary_['Na'] = Element(3, 1, 11, 'Na', 22.98977)
-    _element_dictionary_['Mg'] = Element(3, 2, 12, 'Mg', 24.305)
-    _element_dictionary_['Al'] = Element(3, 13, 13, 'Al', 26.981538)
-    _element_dictionary_['Si'] = Element(3, 14, 14, 'Si', 28.0855)
-    _element_dictionary_['P'] = Element(3, 15, 15, 'P', 30.973762)
-    _element_dictionary_['S'] = Element(3, 16, 16, 'S', 32.066)
-    _element_dictionary_['Cl'] = Element(3, 17, 17, 'Cl', 35.4527)
-    _element_dictionary_['Ar'] = Element(3, 18, 18, 'Ar', 39.948)
-
-    # period 4
-    _element_dictionary_['K'] = Element(4, 1, 19, 'K', 39.0983)
-    _element_dictionary_['Ca'] = Element(4, 2, 20, 'Ca', 40.078)
-    _element_dictionary_['Sc'] = Element(4, 3, 21, 'Sc', 44.95591)
-    _element_dictionary_['Ti'] = Element(4, 4, 22, 'Ti', 47.867)
-    _element_dictionary_['V'] = Element(4, 5, 23, 'V', 50.9415)
-    _element_dictionary_['Cr'] = Element(4, 6, 24, 'Cr', 51.9961)
-    _element_dictionary_['Mn'] = Element(4, 7, 25, 'Mn', 54.938049)
-    _element_dictionary_['Fe'] = Element(4, 8, 26, 'Fe', 55.845)
-    _element_dictionary_['Co'] = Element(4, 9, 27, 'Co', 58.9332)
-    _element_dictionary_['Ni'] = Element(4, 10, 28, 'Ni', 58.6934)
-    _element_dictionary_['Cu'] = Element(4, 11, 29, 'Cu', 63.546)
-    _element_dictionary_['Zn'] = Element(4, 12, 30, 'Zn', 65.39)
-    _element_dictionary_['Ga'] = Element(4, 13, 31, 'Ga', 69.723)
-    _element_dictionary_['Ge'] = Element(4, 14, 32, 'Ge', 72.61)
-    _element_dictionary_['As'] = Element(4, 15, 33, 'As', 74.9216)
-    _element_dictionary_['Se'] = Element(4, 16, 34, 'Se', 78.96)
-    _element_dictionary_['Br'] = Element(4, 17, 35, 'Br', 79.904)
-    _element_dictionary_['Kr'] = Element(4, 18, 36, 'Kr', 83.8)
-
-    # period 5
-    _element_dictionary_['Rb'] = Element(5, 1, 37, 'Rb', 85.4678)
-    _element_dictionary_['Sr'] = Element(5, 2, 38, 'Sr', 87.62)
-    _element_dictionary_['Y'] = Element(5, 3, 39, 'Y', 88.90585)
-    _element_dictionary_['Zr'] = Element(5, 4, 40, 'Zr', 91.224)
-    _element_dictionary_['Nb'] = Element(5, 5, 41, 'Nb', 92.90638)
-    _element_dictionary_['Mo'] = Element(5, 6, 42, 'Mo', 95.94)
-    _element_dictionary_['Tc'] = Element(5, 7, 43, 'Tc', 98.0)
-    _element_dictionary_['Ru'] = Element(5, 8, 44, 'Ru', 101.07)
-    _element_dictionary_['Rh'] = Element(5, 9, 45, 'Rh', 102.9055)
-    _element_dictionary_['Pd'] = Element(5, 10, 46, 'Pd', 106.42)
-    _element_dictionary_['Ag'] = Element(5, 11, 47, 'Ag', 107.8682)
-    _element_dictionary_['Cd'] = Element(5, 12, 48, 'Cd', 112.411)
-    _element_dictionary_['In'] = Element(5, 13, 49, 'In', 114.818)
-    _element_dictionary_['Sn'] = Element(5, 14, 50, 'Sn', 118.71)
-    _element_dictionary_['Sb'] = Element(5, 15, 51, 'Sb', 121.76)
-    _element_dictionary_['Te'] = Element(5, 16, 52, 'Te', 127.6)
-    _element_dictionary_['I'] = Element(5, 17, 53, 'I', 126.90447)
-    _element_dictionary_['Xe'] = Element(5, 18, 54, 'Xe', 131.29)
-
-    # period 6
-    _element_dictionary_['Cs'] = Element(6, 1, 55, 'Cs', 132.90545)
-    _element_dictionary_['Ba'] = Element(6, 2, 56, 'Ba', 137.327)
-    _element_dictionary_['La'] = Element(6, 0, 57, 'La', 138.9055)
-    _element_dictionary_['Ce'] = Element(6, 0, 58, 'Ce', 140.116)
-    _element_dictionary_['Pr'] = Element(6, 0, 59, 'Pr', 140.90765)
-    _element_dictionary_['Nd'] = Element(6, 0, 60, 'Nd', 144.24)
-    _element_dictionary_['Pm'] = Element(6, 0, 61, 'Pm', 145.0)
-    _element_dictionary_['Sm'] = Element(6, 0, 62, 'Sm', 150.36)
-    _element_dictionary_['Eu'] = Element(6, 0, 63, 'Eu', 151.964)
-    _element_dictionary_['Gd'] = Element(6, 0, 64, 'Gd', 157.25)
-    _element_dictionary_['Tb'] = Element(6, 0, 65, 'Tb', 158.92534)
-    _element_dictionary_['Dy'] = Element(6, 0, 66, 'Dy', 162.5)
-    _element_dictionary_['Ho'] = Element(6, 0, 67, 'Ho', 164.93032)
-    _element_dictionary_['Er'] = Element(6, 0, 68, 'Er', 167.26)
-    _element_dictionary_['Tm'] = Element(6, 0, 69, 'Tm', 168.93421)
-    _element_dictionary_['Yb'] = Element(6, 0, 70, 'Yb', 173.04)
-    _element_dictionary_['Lu'] = Element(6, 0, 71, 'Lu', 174.967)
-    _element_dictionary_['Hf'] = Element(6, 4, 72, 'Hf', 178.49)
-    _element_dictionary_['Ta'] = Element(6, 5, 73, 'Ta', 180.9479)
-    _element_dictionary_['W'] = Element(6, 6, 74, 'W', 183.84)
-    _element_dictionary_['Re'] = Element(6, 7, 75, 'Re', 186.207)
-    _element_dictionary_['Os'] = Element(6, 8, 76, 'Os', 190.23)
-    _element_dictionary_['Ir'] = Element(6, 9, 77, 'Ir', 192.217)
-    _element_dictionary_['Pt'] = Element(6, 10, 78, 'Pt', 195.078)
-    _element_dictionary_['Au'] = Element(6, 11, 79, 'Au', 196.96655)
-    _element_dictionary_['Hg'] = Element(6, 12, 80, 'Hg', 200.59)
-    _element_dictionary_['Tl'] = Element(6, 13, 81, 'Tl', 204.3833)
-    _element_dictionary_['Pb'] = Element(6, 14, 82, 'Pb', 207.2)
-    _element_dictionary_['Bi'] = Element(6, 15, 83, 'Bi', 208.98038)
-    _element_dictionary_['Po'] = Element(6, 16, 84, 'Po', 210.0)
-    _element_dictionary_['At'] = Element(6, 17, 85, 'At', 210.0)
-    _element_dictionary_['Rn'] = Element(6, 18, 86, 'Rn', 222.0)
-
-    # period 7
-    _element_dictionary_['Fr'] = Element(7, 1, 87, 'Fr', 223.0)
-    _element_dictionary_['Ra'] = Element(7, 2, 88, 'Ra', 226.0)
-    _element_dictionary_['Ac'] = Element(7, 0, 89, 'Ac', 227.0)
-    _element_dictionary_['Th'] = Element(7, 0, 90, 'Th', 232.0381)
-    _element_dictionary_['Pa'] = Element(7, 0, 91, 'Pa', 231.03588)
-    _element_dictionary_['U'] = Element(7, 0, 92, 'U', 238.0289)
-    _element_dictionary_['Np'] = Element(7, 0, 93, 'Np', 237.0)
-    _element_dictionary_['Pu'] = Element(7, 0, 94, 'Pu', 244.0)
-    _element_dictionary_['Am'] = Element(7, 0, 95, 'Am', 243.0)
-    _element_dictionary_['Cm'] = Element(7, 0, 96, 'Cm', 247.0)
-    _element_dictionary_['Bk'] = Element(7, 0, 97, 'Bk', 247.0)
-    _element_dictionary_['Cf'] = Element(7, 0, 98, 'Cf', 251.0)
-    _element_dictionary_['Es'] = Element(7, 0, 99, 'Es', 252.0)
-    _element_dictionary_['Fm'] = Element(7, 0, 100, 'Fm', 257.0)
-    _element_dictionary_['Md'] = Element(7, 0, 101, 'Md', 258.0)
-    _element_dictionary_['No'] = Element(7, 0, 102, 'No', 259.0)
-    _element_dictionary_['Lr'] = Element(7, 0, 103, 'Lr', 262.0)
-    _element_dictionary_['Rf'] = Element(7, 4, 104, 'Rf', 261.0)
-    _element_dictionary_['Db'] = Element(7, 5, 105, 'Db', 262.0)
-    _element_dictionary_['Sg'] = Element(7, 6, 106, 'Sg', 266.0)
-    _element_dictionary_['Bh'] = Element(7, 7, 107, 'Bh', 264.0)
-    _element_dictionary_['Hs'] = Element(7, 8, 108, 'Hs', 269.0)
-    _element_dictionary_['Mt'] = Element(7, 9, 109, 'Mt', 268.0)
-    _element_dictionary_['Ds'] = Element(7, 10, 110, 'Ds', 269.0)
-    _element_dictionary_['Rg'] = Element(7, 11, 111, 'Rg', 272.0)
-    # Cn missing
-    # Uut missing
-    # Fl missing
-    # Uup missing
-    # Lv missing
-    # Uus missing
-    # Uuo missing
-    # actinides
+@functools.lru_cache()
+def parse_compound(string):
+    visitor = CompoundVisitor()
+    parsed_tree = grammar.parse(string)
+    return visitor.visit(parsed_tree)
 
 
 def amount(compound, mass):
@@ -487,7 +196,7 @@ def amount(compound, mass):
     :returns: Amount. [kmol]
     """
 
-    return mass / molar_mass(_get_formula_(compound))
+    return mass / molar_mass(compound)
 
 
 def amounts(masses):
@@ -528,7 +237,7 @@ def mass(compound, amount):
     :returns: Mass. [kg]
     """
 
-    return amount * molar_mass(_get_formula_(compound))
+    return amount * molar_mass(compound)
 
 
 def masses(amounts):
@@ -573,17 +282,13 @@ def convert_compound(mass, source, target, element):
     :returns: Mass of target. [kg]
     """
 
-    # Convert compounds to formulas.
-    source_formula = _get_formula_(source)
-    target_formula = _get_formula_(target)
-
     # Perform the conversion.
-    target_mass_fraction = element_mass_fraction(target_formula, element)
+    target_mass_fraction = element_mass_fraction(target, element)
     if target_mass_fraction == 0.0:
         # If target_formula does not contain element, just return 0.0.
         return 0.0
     else:
-        source_mass_fraction = element_mass_fraction(source_formula, element)
+        source_mass_fraction = element_mass_fraction(source, element)
         return mass * source_mass_fraction / target_mass_fraction
 
 
@@ -597,14 +302,14 @@ def element_mass_fraction(compound, element):
     :returns: Element mass fraction.
     """
 
-    elementStoichiometryCoefficient = stoichiometry_coefficient(compound,
-                                                                element)
-    if elementStoichiometryCoefficient == 0.0:
+    coeff = stoichiometry_coefficient(compound, element)
+
+    if coeff == 0.0:
         return 0.0
-    else:
-        formulaMass = molar_mass(compound)
-        elementMass = molar_mass(element)
-        return elementStoichiometryCoefficient * elementMass / formulaMass
+
+    formula_mass = molar_mass(compound)
+    element_mass = molar_mass(element)
+    return coeff * element_mass / formula_mass
 
 
 def element_mass_fractions(compound, elements):
@@ -618,11 +323,8 @@ def element_mass_fractions(compound, elements):
     :returns: Mass fractions.
     """
 
-    formula = _get_formula_(compound)
-    result = []
-    for i in range(0, len(elements)):
-        result.append(element_mass_fraction(formula, elements[i]))
-    return result
+    return [element_mass_fraction(compound, element)
+            for element in elements]
 
 
 def elements(compounds):
@@ -637,18 +339,16 @@ def elements(compounds):
     :returns: List of elements.
     """
 
-    result = set()
-    for compound in compounds:
-        formula = _get_formula_(compound)
-        result = result.union(_parse_formula_for_elements_(formula))
-    return result
+    elementlist = [parse_compound(compound).count().keys()
+                   for compound in compounds]
+    return set().union(*elementlist)
 
 
 def molar_mass(compound=''):
     """Determine the molar mass of a chemical compound.
 
     The molar mass is usually the mass of one mole of the substance, but here
-    it is the mass of 1000 moles, since the mass unit used in pmpy is kg.
+    it is the mass of 1000 moles, since the mass unit used in auxi is kg.
 
     :param compound: Formula of a chemical compound, e.g. 'Fe2O3'.
 
@@ -661,14 +361,9 @@ def molar_mass(compound=''):
 
     compound = compound.strip()
 
-    code = _formula_code_(compound)
-    if code not in _molar_mass_dictionary_:
-        index = 0
-        _molar_mass_dictionary_[code] = _parse_formula_for_mass_(compound,
-                                                                 index)
-    result = _molar_mass_dictionary_[code]
+    parsed = parse_compound(compound)
 
-    return result
+    return parsed.molar_mass()
 
 
 def stoichiometry_coefficient(compound, element):
@@ -682,20 +377,9 @@ def stoichiometry_coefficient(compound, element):
     :returns: Stoichiometry coefficient.
     """
 
-    compound = compound.strip()
+    stoichiometry = parse_compound(compound.strip()).count()
 
-    if compound not in _stoichiometry_dictionary_:
-        stoichiometry = {}
-        index = 0
-        _parse_formula_for_stoichiometry_(compound, index, stoichiometry)
-        _stoichiometry_dictionary_[_formula_code_(compound)] = stoichiometry
-
-    stoichiometry = _stoichiometry_dictionary_[_formula_code_(compound)]
-
-    if element in stoichiometry:
-        return stoichiometry[element]
-    else:
-        return 0.0
+    return stoichiometry[element]
 
 
 def stoichiometry_coefficients(compound, elements):
@@ -709,20 +393,149 @@ def stoichiometry_coefficients(compound, elements):
     :returns: List of stoichiometry coefficients.
     """
 
-    result = []
-    for i in range(0, len(elements)):
-        result.append(stoichiometry_coefficient(compound, elements[i]))
-    return result
+    stoichiometry = parse_compound(compound.strip()).count()
+
+    return [stoichiometry[element] for element in elements]
 
 
 # Initialise the module.
-_element_dictionary_ = {}
-_molar_mass_dictionary_ = {}
-_stoichiometry_dictionary_ = {}
-disallowed_chars = re.compile('[^0-9A-Za-z().]+')
+# Create all the elements of the periodic table and add them to the
+# element dictionary.
 
-_populate_element_dictionary_()
+_element_dictionary_ = {
+    # period 1
+    'H': Element(1, 1, 1, 'H', 1.00794),
+    'He': Element(1, 18, 2, 'He', 4.002602),
 
+    # period 2
+    'Li': Element(2, 1, 3, 'Li', 6.941),
+    'Be': Element(2, 2, 4, 'Be', 9.012182),
+    'B': Element(2, 13, 5, 'B', 10.811),
+    'C': Element(2, 14, 6, 'C', 12.0107),
+    'N': Element(2, 15, 7, 'N', 14.00674),
+    'O': Element(2, 16, 8, 'O', 15.9994),
+    'F': Element(2, 17, 9, 'F', 18.9984032),
+    'Ne': Element(2, 18, 10, 'Ne', 20.1797),
+
+    # period 3
+    'Na': Element(3, 1, 11, 'Na', 22.98977),
+    'Mg': Element(3, 2, 12, 'Mg', 24.305),
+    'Al': Element(3, 13, 13, 'Al', 26.981538),
+    'Si': Element(3, 14, 14, 'Si', 28.0855),
+    'P': Element(3, 15, 15, 'P', 30.973762),
+    'S': Element(3, 16, 16, 'S', 32.066),
+    'Cl': Element(3, 17, 17, 'Cl', 35.4527),
+    'Ar': Element(3, 18, 18, 'Ar', 39.948),
+
+    # period 4
+    'K': Element(4, 1, 19, 'K', 39.0983),
+    'Ca': Element(4, 2, 20, 'Ca', 40.078),
+    'Sc': Element(4, 3, 21, 'Sc', 44.95591),
+    'Ti': Element(4, 4, 22, 'Ti', 47.867),
+    'V': Element(4, 5, 23, 'V', 50.9415),
+    'Cr': Element(4, 6, 24, 'Cr', 51.9961),
+    'Mn': Element(4, 7, 25, 'Mn', 54.938049),
+    'Fe': Element(4, 8, 26, 'Fe', 55.845),
+    'Co': Element(4, 9, 27, 'Co', 58.9332),
+    'Ni': Element(4, 10, 28, 'Ni', 58.6934),
+    'Cu': Element(4, 11, 29, 'Cu', 63.546),
+    'Zn': Element(4, 12, 30, 'Zn', 65.39),
+    'Ga': Element(4, 13, 31, 'Ga', 69.723),
+    'Ge': Element(4, 14, 32, 'Ge', 72.61),
+    'As': Element(4, 15, 33, 'As', 74.9216),
+    'Se': Element(4, 16, 34, 'Se', 78.96),
+    'Br': Element(4, 17, 35, 'Br', 79.904),
+    'Kr': Element(4, 18, 36, 'Kr', 83.8),
+
+    # period 5
+    'Rb': Element(5, 1, 37, 'Rb', 85.4678),
+    'Sr': Element(5, 2, 38, 'Sr', 87.62),
+    'Y': Element(5, 3, 39, 'Y', 88.90585),
+    'Zr': Element(5, 4, 40, 'Zr', 91.224),
+    'Nb': Element(5, 5, 41, 'Nb', 92.90638),
+    'Mo': Element(5, 6, 42, 'Mo', 95.94),
+    'Tc': Element(5, 7, 43, 'Tc', 98.0),
+    'Ru': Element(5, 8, 44, 'Ru', 101.07),
+    'Rh': Element(5, 9, 45, 'Rh', 102.9055),
+    'Pd': Element(5, 10, 46, 'Pd', 106.42),
+    'Ag': Element(5, 11, 47, 'Ag', 107.8682),
+    'Cd': Element(5, 12, 48, 'Cd', 112.411),
+    'In': Element(5, 13, 49, 'In', 114.818),
+    'Sn': Element(5, 14, 50, 'Sn', 118.71),
+    'Sb': Element(5, 15, 51, 'Sb', 121.76),
+    'Te': Element(5, 16, 52, 'Te', 127.6),
+    'I': Element(5, 17, 53, 'I', 126.90447),
+    'Xe': Element(5, 18, 54, 'Xe', 131.29),
+
+    # period 6
+    'Cs': Element(6, 1, 55, 'Cs', 132.90545),
+    'Ba': Element(6, 2, 56, 'Ba', 137.327),
+    'La': Element(6, 0, 57, 'La', 138.9055),
+    'Ce': Element(6, 0, 58, 'Ce', 140.116),
+    'Pr': Element(6, 0, 59, 'Pr', 140.90765),
+    'Nd': Element(6, 0, 60, 'Nd', 144.24),
+    'Pm': Element(6, 0, 61, 'Pm', 145.0),
+    'Sm': Element(6, 0, 62, 'Sm', 150.36),
+    'Eu': Element(6, 0, 63, 'Eu', 151.964),
+    'Gd': Element(6, 0, 64, 'Gd', 157.25),
+    'Tb': Element(6, 0, 65, 'Tb', 158.92534),
+    'Dy': Element(6, 0, 66, 'Dy', 162.5),
+    'Ho': Element(6, 0, 67, 'Ho', 164.93032),
+    'Er': Element(6, 0, 68, 'Er', 167.26),
+    'Tm': Element(6, 0, 69, 'Tm', 168.93421),
+    'Yb': Element(6, 0, 70, 'Yb', 173.04),
+    'Lu': Element(6, 0, 71, 'Lu', 174.967),
+    'Hf': Element(6, 4, 72, 'Hf', 178.49),
+    'Ta': Element(6, 5, 73, 'Ta', 180.9479),
+    'W': Element(6, 6, 74, 'W', 183.84),
+    'Re': Element(6, 7, 75, 'Re', 186.207),
+    'Os': Element(6, 8, 76, 'Os', 190.23),
+    'Ir': Element(6, 9, 77, 'Ir', 192.217),
+    'Pt': Element(6, 10, 78, 'Pt', 195.078),
+    'Au': Element(6, 11, 79, 'Au', 196.96655),
+    'Hg': Element(6, 12, 80, 'Hg', 200.59),
+    'Tl': Element(6, 13, 81, 'Tl', 204.3833),
+    'Pb': Element(6, 14, 82, 'Pb', 207.2),
+    'Bi': Element(6, 15, 83, 'Bi', 208.98038),
+    'Po': Element(6, 16, 84, 'Po', 210.0),
+    'At': Element(6, 17, 85, 'At', 210.0),
+    'Rn': Element(6, 18, 86, 'Rn', 222.0),
+
+    # period 7
+    'Fr': Element(7, 1, 87, 'Fr', 223.0),
+    'Ra': Element(7, 2, 88, 'Ra', 226.0),
+    'Ac': Element(7, 0, 89, 'Ac', 227.0),
+    'Th': Element(7, 0, 90, 'Th', 232.0381),
+    'Pa': Element(7, 0, 91, 'Pa', 231.03588),
+    'U': Element(7, 0, 92, 'U', 238.0289),
+    'Np': Element(7, 0, 93, 'Np', 237.0),
+    'Pu': Element(7, 0, 94, 'Pu', 244.0),
+    'Am': Element(7, 0, 95, 'Am', 243.0),
+    'Cm': Element(7, 0, 96, 'Cm', 247.0),
+    'Bk': Element(7, 0, 97, 'Bk', 247.0),
+    'Cf': Element(7, 0, 98, 'Cf', 251.0),
+    'Es': Element(7, 0, 99, 'Es', 252.0),
+    'Fm': Element(7, 0, 100, 'Fm', 257.0),
+    'Md': Element(7, 0, 101, 'Md', 258.0),
+    'No': Element(7, 0, 102, 'No', 259.0),
+    'Lr': Element(7, 0, 103, 'Lr', 262.0),
+    'Rf': Element(7, 4, 104, 'Rf', 261.0),
+    'Db': Element(7, 5, 105, 'Db', 262.0),
+    'Sg': Element(7, 6, 106, 'Sg', 266.0),
+    'Bh': Element(7, 7, 107, 'Bh', 264.0),
+    'Hs': Element(7, 8, 108, 'Hs', 269.0),
+    'Mt': Element(7, 9, 109, 'Mt', 268.0),
+    'Ds': Element(7, 10, 110, 'Ds', 269.0),
+    'Rg': Element(7, 11, 111, 'Rg', 272.0),
+    # Cn missing
+    # Uut missing
+    # Fl missing
+    # Uup missing
+    # Lv missing
+    # Uus missing
+    # Uuo missing
+    # actinides
+}
 
 if __name__ == '__main__':
     import unittest
