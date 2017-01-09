@@ -25,8 +25,8 @@ from auxi.modelling.process.materials.chem_test \
     import ChemMaterialUnitTester, ChemMaterialPackageUnitTester
 from auxi.modelling.process.materials.thermo_test \
     import ThermoMaterialUnitTester
-# from auxi.modelling.process.materials.thermo_test \
-#   import ThermoMaterialPackageUnitTester
+from auxi.modelling.process.materials.thermo_test \
+  import ThermoMaterialPackageUnitTester
 from auxi.modelling.process.materials.psd_test \
     import PsdMaterialUnitTester, PsdMaterialPackageUnitTester
 from auxi.modelling.process.materials.slurry_test \
