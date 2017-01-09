@@ -220,6 +220,18 @@ class StoichFunctionTester(unittest.TestCase):
         elements = func(compounds)
         self.assertEqual(elements, {'O', 'C'})
 
+
+    def test_phase(self):
+        """
+        Test whether the phase of a compound is parsed correctly
+        """
+
+        compounds = ['C[S1]', 'CaCl[S]']
+        phases = ['S1', 'S']
+        for compound, phase in zip(compounds, phases):
+            self.assertEqual(testee.parse_compound(compound).phase, phase)
+
+
     def test_stoichiometry_coefficient(self):
         """
         Test whether the stoichiometry coefficient of a specified element in a

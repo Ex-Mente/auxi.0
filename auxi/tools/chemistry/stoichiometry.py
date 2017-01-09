@@ -173,7 +173,7 @@ grammar = parsimonious.grammar.Grammar(
     subscriptedgroup = "(" group ")" number?
     subscriptedelement = element number
     element = ~r"[A-Z][a-z]*"
-    string = ~r"[A-Za-z]+"
+    string = ~r"[A-Za-z0-9]+"
     number = ~r"[0-9]+"
     """)
 
