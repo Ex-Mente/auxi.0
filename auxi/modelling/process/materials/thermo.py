@@ -808,10 +808,14 @@ class MaterialPackage(Object):
 
         if elements is None:
             elements = self.material.elements
+
         result = numpy.zeros(len(elements))
+
         for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) *\
-                stoich.element_mass_fractions(compound, elements)
+            mass = self.get_compound_mass(compound)
+            mass_fractions = stoich.element_mass_fractions(compound, elements)
+            result += mass * numpy.asarray(mass_fractions)
+
         return result
 
     def get_element_mass_dictionary(self):
@@ -831,16 +835,12 @@ class MaterialPackage(Object):
 
     def get_element_mass(self, element):
         """
-        Determine the mass of the specified elements in the package.
+        Determine the mass of the specified element in the package.
 
-        :returns: Masses. [kg]
+        :returns: Mass. [kg]
         """
 
-        result = numpy.zeros(1)
-        for compound in self.material.compounds:
-            result += self.get_compound_mass(compound) *\
-                stoich.element_mass_fractions(compound, [element])
-        return result[0]
+        return self.get_element_masses(elements=[element])[0]
 
     def extract(self, other):
         """

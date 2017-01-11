@@ -361,7 +361,6 @@ class ThermoMaterialPackageUnitTester(unittest.TestCase):
     def test_get_P(self):
         self.assertEqual(self.ilm_pkg_a.P, self.ilm_pkg_a._P)
 
-    @unittest.skip('Breaking due to downstream error')
     def test_get_element_masses(self):
         x = self.ilm_pkg_a.get_element_masses()
         y = self.ilm_pkg_a.get_element_mass("Ti")
