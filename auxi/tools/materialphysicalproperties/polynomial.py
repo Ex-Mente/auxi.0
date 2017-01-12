@@ -22,25 +22,6 @@ __email__ = 'christoff.kok@ex-mente.co.za'
 __status__ = 'Planning'
 
 
-def _formula_string(coeffs, variable="x"):
-    """
-    Create a string representation of a polynomial formula.
-    """
-    template0 = "%.3E"
-    template1 = "%+.3E%s"
-    templaten = "%+.3E%s^%.0f"
-
-    result = ""
-    for power, coeff in enumerate(reversed(coeffs)):
-        if power == 0:
-            result += template0 % coeff
-        elif power == 1:
-            result += " " + template1 % (coeff, variable)
-        else:
-            result += " " + templaten % (coeff, variable, power)
-    return "$%s$" % result
-
-
 class PolynomialModelT(Model):
     """
     A model that uses polynomial fits on experimental data to describe the
