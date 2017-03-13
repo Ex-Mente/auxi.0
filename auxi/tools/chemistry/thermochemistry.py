@@ -757,8 +757,9 @@ def load_data_auxi(path=''):
     files = glob.glob(os.path.join(path, 'Compound_*.json'))
 
     for file in files:
-        compound = Compound(_read_compound_from_auxi_file_(file))
-#        compound = Compound.read(file)
+        # compound = Compound(_read_compound_from_auxi_file_(file))
+        print(file)
+        compound = Compound.read(file)
         compounds[compound.formula] = compound
 
 

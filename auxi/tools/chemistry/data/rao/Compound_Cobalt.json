@@ -1,1 +1,77 @@
-{"Phases": {"L": {"DHref": 18004.0, "Sref": 40.97, "Symbol": "L", "Cp_records": {"3000": {"Terms": [{"Coefficient": 40.376, "Exponent": "0"}], "Tmin": "298.15", "Tmax": "3000"}}}, "Sbeta": {"DHref": 1288.0, "Sref": 32.655, "Symbol": "Sbeta", "Cp_records": {"3000": {"Terms": [{"Coefficient": 13.807, "Exponent": "0"}, {"Coefficient": 0.024518, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}, "Salpha": {"DHref": 0.0, "Sref": 30.041, "Symbol": "Salpha", "Cp_records": {"3000": {"Terms": [{"Coefficient": 21.38, "Exponent": "0"}, {"Coefficient": 0.014309, "Exponent": "1"}, {"Coefficient": -87900.0, "Exponent": "-2"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "Co"}
+{
+    "_phases": {
+        "L": {
+            "DHref": 18004.0,
+            "Sref": 40.97,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        40.376
+                    ],
+                    "_exponents": [
+                        0.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "Salpha": {
+            "DHref": 0.0,
+            "Sref": 30.041,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        21.38,
+                        0.014309,
+                        -87900.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Salpha",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Salpha"
+        },
+        "Sbeta": {
+            "DHref": 1288.0,
+            "Sref": 32.655,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        13.807,
+                        0.024518
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sbeta",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sbeta"
+        }
+    },
+    "formula": "Co",
+    "molar_mass": 0.0589332,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

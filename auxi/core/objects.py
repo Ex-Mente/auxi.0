@@ -4,7 +4,7 @@ import json
 import jsonpickle
 
 
-__version__ = '0.3.4'
+__version__ = '0.3.5'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -43,7 +43,7 @@ class Object(object):
         with open(path, 'r') as file:
             s = file.read()
         result = jsonpickle.decode(s)
-#        print(type(result), dir(result))
+        # print(type(result), dir(result))
 #        if '_init' in dir(result):
         result._init()
         return result
