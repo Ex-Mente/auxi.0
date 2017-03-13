@@ -43,8 +43,6 @@ class Object(object):
         with open(path, 'r') as file:
             s = file.read()
         result = jsonpickle.decode(s)
-        # print(type(result), dir(result))
-#        if '_init' in dir(result):
         result._init()
         return result
 
