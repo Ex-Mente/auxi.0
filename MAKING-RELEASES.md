@@ -16,7 +16,7 @@ A release consists of one or more release candidates. Each release candidate rep
 Create a issue for the new release. As specified in the CONTRIBUTING.md file, the issue should have a `background` and `purpose`. Specifying `scope` is important as well. Make sure that the purpose for this release comes through clearly. Specify the addressed issues highlights in the `scope`.
 
 #### Step 2: Create Release Branch
-When making a release the first thing that needs to be done is to create a new release branch from `develop`.
+The next thing that needs to be done is to create a new release branch from `develop`.
 
 First, create the release branch on the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) from `develop`.
 The name of the release branch should be the version number of the release e.g. "0.3.0".
