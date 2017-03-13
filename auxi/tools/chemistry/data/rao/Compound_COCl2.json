@@ -1,1 +1,33 @@
-{"Phases": {"G": {"DHref": -223007.0, "Sref": 289.114, "Symbol": "G", "Cp_records": {"3000": {"Terms": [{"Coefficient": 71.002, "Exponent": "0"}, {"Coefficient": 0.006862, "Exponent": "1"}, {"Coefficient": -1104600.0, "Exponent": "-2"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "COCl2"}
+{
+    "_phases": {
+        "G": {
+            "DHref": -223007.0,
+            "Sref": 289.114,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        71.002,
+                        0.006862,
+                        -1104600.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
+        }
+    },
+    "formula": "COCl2",
+    "molar_mass": 0.0989155,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

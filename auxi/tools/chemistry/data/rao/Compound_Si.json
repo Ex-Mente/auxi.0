@@ -1,1 +1,54 @@
-{"Phases": {"L": {"DHref": 48472.0, "Sref": 44.459, "Symbol": "L", "Cp_records": {"3000": {"Terms": [{"Coefficient": 27.196, "Exponent": "0"}], "Tmin": "298.15", "Tmax": "3000"}}}, "S": {"DHref": 0.0, "Sref": 18.81, "Symbol": "S", "Cp_records": {"3000": {"Terms": [{"Coefficient": 23.933, "Exponent": "0"}, {"Coefficient": 0.002469, "Exponent": "1"}, {"Coefficient": -414200.0, "Exponent": "-2"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "Si"}
+{
+    "_phases": {
+        "L": {
+            "DHref": 48472.0,
+            "Sref": 44.459,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        27.196
+                    ],
+                    "_exponents": [
+                        0.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "S": {
+            "DHref": 0.0,
+            "Sref": 18.81,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        23.933,
+                        0.002469,
+                        -414200.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
+        }
+    },
+    "formula": "Si",
+    "molar_mass": 0.0280855,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

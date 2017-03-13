@@ -1,31 +1,33 @@
 {
-  "Phases": {
-    "S1": {
-      "DHref": -1100810.0,
-      "Sref": 50.71,
-      "Symbol": "S1",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 69.622,
-              "Exponent": "0"
+    "_phases": {
+        "S1": {
+            "DHref": -1100810.0,
+            "Sref": 50.71,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        69.622,
+                        0.007531,
+                        -1405800.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.007531,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -1405800.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "S1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "ZrO2"
+    },
+    "formula": "ZrO2",
+    "molar_mass": 0.12322280000000001,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

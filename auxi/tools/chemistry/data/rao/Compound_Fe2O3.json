@@ -1,31 +1,33 @@
 {
-  "Phases": {
-    "Salpha": {
-      "DHref": -821319.0,
-      "Sref": 87.446,
-      "Symbol": "Salpha",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 98.282,
-              "Exponent": "0"
+    "_phases": {
+        "Salpha": {
+            "DHref": -821319.0,
+            "Sref": 87.446,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        98.282,
+                        0.077822,
+                        -1485300.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.077822,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -1485300.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "Salpha",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Salpha"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "Fe2O3"
+    },
+    "formula": "Fe2O3",
+    "molar_mass": 0.1596882,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

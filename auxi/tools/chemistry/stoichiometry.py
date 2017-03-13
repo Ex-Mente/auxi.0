@@ -12,7 +12,7 @@ import parsimonious
 from auxi.core.objects import Object
 
 
-__version__ = '0.3.3'
+__version__ = '0.3.4'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

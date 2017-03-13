@@ -1,1 +1,33 @@
-{"Phases": {"S": {"DHref": -580740.0, "Sref": 52.3, "Symbol": "S", "Cp_records": {"3000": {"Terms": [{"Coefficient": 73.889, "Exponent": "0"}, {"Coefficient": 0.010042, "Exponent": "1"}, {"Coefficient": -2158900.0, "Exponent": "-2"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "SnO2"}
+{
+    "_phases": {
+        "S": {
+            "DHref": -580740.0,
+            "Sref": 52.3,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        73.889,
+                        0.010042,
+                        -2158900.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
+        }
+    },
+    "formula": "SnO2",
+    "molar_mass": 0.1507088,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}
