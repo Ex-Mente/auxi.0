@@ -1,1 +1,54 @@
-{"Phases": {"Sbeta": {"DHref": 6587.0, "Sref": 38.38, "Symbol": "Sbeta", "Cp_records": {"3000": {"Terms": [{"Coefficient": 19.832, "Exponent": "0"}, {"Coefficient": 0.00795, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}, "Salpha": {"DHref": 0.0, "Sref": 30.627, "Symbol": "Salpha", "Cp_records": {"3000": {"Terms": [{"Coefficient": 22.092, "Exponent": "0"}, {"Coefficient": 0.010042, "Exponent": "1"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "Ti"}
+{
+    "_phases": {
+        "Salpha": {
+            "DHref": 0.0,
+            "Sref": 30.627,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        22.092,
+                        0.010042
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Salpha",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Salpha"
+        },
+        "Sbeta": {
+            "DHref": 6587.0,
+            "Sref": 38.38,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        19.832,
+                        0.00795
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sbeta",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sbeta"
+        }
+    },
+    "formula": "Ti",
+    "molar_mass": 0.047867,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

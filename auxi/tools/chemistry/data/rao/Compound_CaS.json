@@ -1,27 +1,31 @@
 {
-  "Phases": {
-    "S": {
-      "DHref": -476139.0,
-      "Sref": 56.484,
-      "Symbol": "S",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 45.187,
-              "Exponent": "0"
+    "_phases": {
+        "S": {
+            "DHref": -476139.0,
+            "Sref": 56.484,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        45.187,
+                        0.00774
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.00774,
-              "Exponent": "1"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "CaS"
+    },
+    "formula": "CaS",
+    "molar_mass": 0.072144,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

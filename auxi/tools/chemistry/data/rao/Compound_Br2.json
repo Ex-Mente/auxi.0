@@ -1,31 +1,33 @@
 {
-  "Phases": {
-    "G": {
-      "DHref": 30910.0,
-      "Sref": 245.35,
-      "Symbol": "G",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 37.363,
-              "Exponent": "0"
+    "_phases": {
+        "G": {
+            "DHref": 30910.0,
+            "Sref": 245.35,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        37.363,
+                        0.00046,
+                        -129700.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.00046,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -129700.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "Br2"
+    },
+    "formula": "Br2",
+    "molar_mass": 0.159808,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

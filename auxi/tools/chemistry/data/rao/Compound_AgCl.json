@@ -1,48 +1,54 @@
 {
-  "Phases": {
-    "L": {
-      "DHref": -117430.0,
-      "Sref": 106.365,
-      "Symbol": "L",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 66.944,
-              "Exponent": "0"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+    "_phases": {
+        "L": {
+            "DHref": -117430.0,
+            "Sref": 106.365,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        66.944
+                    ],
+                    "_exponents": [
+                        0.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "S": {
+            "DHref": -127070.0,
+            "Sref": 96.23,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        62.258,
+                        0.004184,
+                        -1129700.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
         }
-      }
     },
-    "S": {
-      "DHref": -127070.0,
-      "Sref": 96.23,
-      "Symbol": "S",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 62.258,
-              "Exponent": "0"
-            },
-            {
-              "Coefficient": 0.004184,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -1129700.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
-        }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "AgCl"
+    "formula": "AgCl",
+    "molar_mass": 0.1433209,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

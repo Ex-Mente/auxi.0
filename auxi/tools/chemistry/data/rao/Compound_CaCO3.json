@@ -1,31 +1,33 @@
 {
-  "Phases": {
-    "S": {
-      "DHref": -1207126.0,
-      "Sref": 88.701,
-      "Symbol": "S",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 104.516,
-              "Exponent": "0"
+    "_phases": {
+        "S": {
+            "DHref": -1207126.0,
+            "Sref": 88.701,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        104.516,
+                        0.021924,
+                        -2594100.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.021924,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -2594100.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "CaCO3"
+    },
+    "formula": "CaCO3",
+    "molar_mass": 0.1000869,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

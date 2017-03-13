@@ -1,31 +1,33 @@
 {
-  "Phases": {
-    "S": {
-      "DHref": -1675700.0,
-      "Sref": 50.92,
-      "Symbol": "S",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 106.608,
-              "Exponent": "0"
+    "_phases": {
+        "S": {
+            "DHref": -1675700.0,
+            "Sref": 50.92,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        106.608,
+                        0.017782,
+                        -2853500.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.017782,
-              "Exponent": "1"
-            },
-            {
-              "Coefficient": -2853500.0,
-              "Exponent": "-2"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "Al2O3"
+    },
+    "formula": "Al2O3",
+    "molar_mass": 0.101961276,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

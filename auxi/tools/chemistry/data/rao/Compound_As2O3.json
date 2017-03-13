@@ -1,27 +1,31 @@
 {
-  "Phases": {
-    "S": {
-      "DHref": -653332.0,
-      "Sref": 122.717,
-      "Symbol": "S",
-      "Cp_records": {
-        "3000": {
-          "Terms": [
-            {
-              "Coefficient": 59.831,
-              "Exponent": "0"
+    "_phases": {
+        "S": {
+            "DHref": -653332.0,
+            "Sref": 122.717,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        59.831,
+                        0.175728
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
             },
-            {
-              "Coefficient": 0.175728,
-              "Exponent": "1"
-            }
-          ],
-          "Tmin": "298.15",
-          "Tmax": "3000"
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
         }
-      }
-    }
-  },
-  "Reference": "rao1985",
-  "Formula": "As2O3"
+    },
+    "formula": "As2O3",
+    "molar_mass": 0.1978414,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
 }

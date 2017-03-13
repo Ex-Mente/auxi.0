@@ -1,1 +1,33 @@
-{"Phases": {"Salpha": {"DHref": 0.0, "Sref": 50.2, "Symbol": "Salpha", "Cp_records": {"3000": {"Terms": [{"Coefficient": 10.92, "Exponent": "0"}, {"Coefficient": 0.037447, "Exponent": "1"}, {"Coefficient": 489500.0, "Exponent": "-2"}], "Tmin": "298.15", "Tmax": "3000"}}}}, "Reference": "rao1985", "Formula": "U"}
+{
+    "_phases": {
+        "Salpha": {
+            "DHref": 0.0,
+            "Sref": 50.2,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        10.92,
+                        0.037447,
+                        489500.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Salpha",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Salpha"
+        }
+    },
+    "formula": "U",
+    "molar_mass": 0.2380289,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}
