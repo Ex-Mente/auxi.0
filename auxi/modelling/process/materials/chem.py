@@ -12,7 +12,7 @@ from auxi.tools.chemistry.stoichiometry import element_mass_fractions as emf
 from auxi.tools.chemistry import stoichiometry as stoich
 
 
-__version__ = '0.3.4'
+__version__ = '0.3.5'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

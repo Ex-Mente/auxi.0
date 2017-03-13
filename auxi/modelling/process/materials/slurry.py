@@ -13,7 +13,7 @@ import numpy
 from auxi.core.objects import Object
 from auxi.core.objects import NamedObject
 
-__version__ = '0.3.4'
+__version__ = '0.3.5'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
