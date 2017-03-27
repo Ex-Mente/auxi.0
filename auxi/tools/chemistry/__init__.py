@@ -3,7 +3,7 @@ This package provides chemistry-related tools to make various tasks quick, easy
 and accurate.
 """
 
-__version__ = '0.3.5'
+__version__ = '0.3.6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

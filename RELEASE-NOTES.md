@@ -1,6 +1,9 @@
 # `auxi` Release Notes
 This file reports the details of each `auxi` release from newest to oldest.
 
+## 0.3.6
+The auxi/tools/materialphysicalproperties/coal.py file were added. There was a bug in the auxi/modelling/process/materials/thermo.py file's get_element_mass_fraction(s) method that caused tests to fail. That is fixed now.
+
 ## 0.3.5
 There were also issues with `auxi`'s thermochemistry data file format that were fixed. The data files written by Compound.write() could not be read by load_data_auxi. The Rao and NIST data were also incorrectly formatted. These were all fixed.
 
