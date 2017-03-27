@@ -15,7 +15,7 @@ from auxi.tools.chemistry.stoichiometry import convert_compound as cc
 from auxi.tools.chemistry import thermochemistry as thermo
 from auxi.tools.materialphysicalproperties import coals
 
-__version__ = '0.3.3'
+__version__ = '0.3.6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -343,7 +343,7 @@ class Material(NamedObject):
 
         return MaterialPackage(self, mass * self.converted_assays[assay] /
                                assay_total, P, T, self._isCoal(assay),
-                               self._HHV(assay))
+                               self._get_HHV(assay))
 
     def create_stream(self, assay=None, mfr=0.0, P=1.0, T=25.0,
                       normalise=True):
@@ -590,7 +590,7 @@ class MaterialPackage(Object):
 
         if self.isCoal:
             return self._calculate_Hfr_coal(T)
-        
+
         H = 0.0
         for compound in self.material.compounds:
             index = self.material.get_compound_index(compound)
@@ -700,7 +700,7 @@ class MaterialPackage(Object):
         Hdaf *= m_total  # kWh
 
         H += Hdaf
-        
+
         return H
 
     def _calculate_T(self, H):
@@ -945,9 +945,10 @@ class MaterialPackage(Object):
         if elements is None:
             elements = self.material.elements
         result = numpy.zeros(len(elements))
+
         for compound in self.material.compounds:
             result += self.get_compound_mass(compound) *\
-                stoich.element_mass_fractions(compound, elements)
+                numpy.array(stoich.element_mass_fractions(compound, elements))
         return result
 
     def get_element_mass_dictionary(self):
@@ -975,7 +976,7 @@ class MaterialPackage(Object):
         result = numpy.zeros(1)
         for compound in self.material.compounds:
             result += self.get_compound_mass(compound) *\
-                stoich.element_mass_fractions(compound, [element])
+                numpy.array(stoich.element_mass_fractions(compound, [element]))
         return result[0]
 
     def extract(self, other):
