@@ -19,12 +19,7 @@ If you need more information about how to use auxi, please refer the
 documentation at https://auxi.readthedocs.org/en/latest/.
 """
 
-
-<<<<<<< HEAD:src/__init__.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/__init__.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

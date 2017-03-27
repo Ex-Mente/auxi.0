@@ -10,11 +10,7 @@ from math import exp
 from auxi.tools.materialphysicalproperties.core import Model, DataSet
 from auxi.tools.chemistry.stoichiometry import amount_fractions
 
-<<<<<<< HEAD:src/tools/materialphysicalproperties/slags.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/tools/materialphysicalproperties/slags.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Markus Erwee, Johan Zietsman'

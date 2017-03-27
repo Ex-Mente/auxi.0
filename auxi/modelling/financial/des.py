@@ -10,12 +10,7 @@ from enum import Enum
 from auxi.core.objects import NamedObject
 from auxi.core.reporting import ReportFormat
 
-
-<<<<<<< HEAD:src/modelling/financial/des.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/modelling/financial/des.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

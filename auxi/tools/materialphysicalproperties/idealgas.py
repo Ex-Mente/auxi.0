@@ -8,12 +8,7 @@ from auxi.tools.materialphysicalproperties.core import Model
 from auxi.tools.physicalconstants import R
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
-
-<<<<<<< HEAD:src/tools/materialphysicalproperties/idealgas.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/tools/materialphysicalproperties/idealgas.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Johan Zietsman'

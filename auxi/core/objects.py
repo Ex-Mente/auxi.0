@@ -3,12 +3,7 @@ import json
 
 import jsonpickle
 
-
-<<<<<<< HEAD:src/core/objects.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/core/objects.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
@@ -66,7 +61,7 @@ class NamedObject(Object):
     def _validate_params_(self, name, description):
         # TODO: Enforce name format.
         pass
-        
+
 
 if __name__ == "__main__":
     import unittest

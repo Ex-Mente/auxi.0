@@ -14,11 +14,7 @@ from auxi.modelling.business.basic import BasicLoanActivity
 from auxi.modelling.financial.des import GeneralLedger
 from auxi.modelling.financial.des import GeneralLedgerStructure
 
-<<<<<<< HEAD:src/modelling/business/basic_test.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/modelling/business/basic_test.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

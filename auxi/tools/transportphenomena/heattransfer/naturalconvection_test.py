@@ -10,12 +10,7 @@ from os.path import realpath, dirname
 from auxi.tools.transportphenomena.heattransfer import naturalconvection as testee
 from auxi.tools.materialphysicalproperties.gases import air
 
-
-<<<<<<< HEAD:src/tools/transportphenomena/heattransfer/naturalconvection_test.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/tools/transportphenomena/heattransfer/naturalconvection_test.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

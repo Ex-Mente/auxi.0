@@ -9,11 +9,7 @@ from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
-<<<<<<< HEAD
-      version='0.3.3',
-=======
       version='0.3.6',
->>>>>>> 0.3.6
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.rst').read(),

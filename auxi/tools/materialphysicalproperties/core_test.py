@@ -11,12 +11,7 @@ from os.path import realpath, dirname, join, isfile
 
 from auxi.tools.materialphysicalproperties import core as testee
 
-
-<<<<<<< HEAD:src/tools/materialphysicalproperties/core_test.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/tools/materialphysicalproperties/core_test.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'

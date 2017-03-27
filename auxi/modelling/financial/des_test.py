@@ -14,11 +14,7 @@ from auxi.modelling.financial.des import GeneralLedgerStructure
 from auxi.modelling.financial.des import GeneralLedger
 from auxi.core.reporting import ReportFormat
 
-<<<<<<< HEAD:src/modelling/financial/des_test.py
-__version__ = '0.3.3'
-=======
 __version__ = '0.3.6'
->>>>>>> 0.3.6:auxi/modelling/financial/des_test.py
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Christoff Kok, Johan Zietsman'
