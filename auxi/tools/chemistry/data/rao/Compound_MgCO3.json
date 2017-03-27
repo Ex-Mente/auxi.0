@@ -1,0 +1,33 @@
+{
+    "_phases": {
+        "S": {
+            "DHref": -1111689.0,
+            "Sref": 65.856,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        77.906,
+                        0.057739,
+                        -1740500.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
+        }
+    },
+    "formula": "MgCO3",
+    "molar_mass": 0.0843139,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

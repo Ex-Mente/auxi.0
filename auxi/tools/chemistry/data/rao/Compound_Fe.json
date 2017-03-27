@@ -1,0 +1,123 @@
+{
+    "_phases": {
+        "G": {
+            "DHref": 416308.0,
+            "Sref": 180.381,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        15.715,
+                        0.003473
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
+        },
+        "L": {
+            "DHref": 13129.0,
+            "Sref": 34.288,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        35.4,
+                        0.003745
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "Salpha": {
+            "DHref": 0.0,
+            "Sref": 27.28,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        17.489,
+                        0.024769
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Salpha",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Salpha"
+        },
+        "Sbeta": {
+            "DHref": 3893.0,
+            "Sref": 29.711,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        28.284,
+                        0.007531
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sbeta",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sbeta"
+        },
+        "Sgamma": {
+            "DHref": 6778.0,
+            "Sref": 33.655,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        26.61,
+                        0.006276
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sgamma",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sgamma"
+        }
+    },
+    "formula": "Fe",
+    "molar_mass": 0.055845,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

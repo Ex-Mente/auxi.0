@@ -1,0 +1,95 @@
+{
+    "_phases": {
+        "G": {
+            "DHref": 581576.0,
+            "Sref": 276.99,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "6000.0": {
+                    "Tmax": 6000.0,
+                    "Tmin": 5000.0,
+                    "_coefficients": [
+                        33.1953,
+                        0.001944521,
+                        -2.06813e-07,
+                        2.0861e-11,
+                        33867400.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
+        },
+        "L": {
+            "DHref": -5326106,
+            "Sref": 93.74712,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "5000.0": {
+                    "Tmax": 5000.0,
+                    "Tmin": 3105.0,
+                    "_coefficients": [
+                        66.944,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "S": {
+            "DHref": -6012408,
+            "Sref": 76.46176,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3105.0": {
+                    "Tmax": 3105.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        47.25995,
+                        0.005681621,
+                        -8.72665e-07,
+                        1.043e-10,
+                        -1053955.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S"
+        }
+    },
+    "formula": "MgO",
+    "molar_mass": 0.040304400000000004,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

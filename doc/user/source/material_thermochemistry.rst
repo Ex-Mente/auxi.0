@@ -105,7 +105,7 @@ Now that we have created a few material description files, we can create materia
     mix = Material("Mix", "./materials/mix.txt")
     print(mix)
 
-The :py:class:`~.auxi.modelling.process.materials.thermo.Material` class is imported on line 1. On line 3 a :py:class:`~.auxi.modelling.process.materials.thermo.Material` object is created, specifying the name of the object as the first parameter, and the location and name of the material description file as the second parameter. Two more :py:class:`~.auxi.modelling.process.materials.thermo.Material` objects are created on lines 6 and 9. The materials are preted out after creation, with the following result:
+The :py:class:`~.auxi.modelling.process.materials.thermo.Material` class is imported on line 1. On line 3 a :py:class:`~.auxi.modelling.process.materials.thermo.Material` object is created, specifying the name of the object as the first parameter, and the location and name of the material description file as the second parameter. Two more :py:class:`~.auxi.modelling.process.materials.thermo.Material` objects are created on lines 6 and 9. The materials are printed out after creation, with the following result:
 
 .. code-block:: none
 
@@ -584,7 +584,7 @@ This, however, does not work. See the last two lines of the error message below.
     Exception: Packages of 'Reductant' cannot be added to packages of 'Ilmenite'.
         The compound 'C[S1]' was not found in 'Ilmenite'.
 
-Let's try it by swopping the two material packages around.
+Let's try it by swapping the two material packages around.
 
 ::
 

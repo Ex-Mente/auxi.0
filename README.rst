@@ -1,6 +1,6 @@
 Master: |masterbuild| |mastercoveralls|
 
-Develop: |developbuild| |developcoveralls|
+Develop: |developbuild| |developcoveralls| |developcodeclimate|
 
 Welcome to the `auxi` GitHub repository!
 ========================================
@@ -45,7 +45,7 @@ The repository contains the following top-level directories:
 
   This directory contains scripts used to automate the build and release process.
 
-* src
+* auxi
 
   This directory contains the source files of the Python package.
 
@@ -77,8 +77,16 @@ The `auxi` high-level system documentation consists of the following files:
 
 .. |masterbuild| image:: https://travis-ci.org/Ex-Mente/auxi.0.svg?branch=master
     :target: https://travis-ci.org/Ex-Mente/auxi.0
+
 .. |developbuild| image:: https://travis-ci.org/Ex-Mente/auxi.0.svg?branch=develop
     :target: https://travis-ci.org/Ex-Mente/auxi.0
 
-.. |mastercoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
-.. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
+.. |mastercoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=master
+    :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=master
+
+.. |developcoveralls| image:: https://coveralls.io/repos/github/Ex-Mente/auxi.0/badge.svg?branch=develop
+    :target: https://coveralls.io/github/Ex-Mente/auxi.0?branch=develop
+
+.. |developcodeclimate| image:: https://codeclimate.com/github/Ex-Mente/auxi.0/badges/gpa.svg
+   :target: https://codeclimate.com/github/Ex-Mente/auxi.0
+   :alt: Code Climate

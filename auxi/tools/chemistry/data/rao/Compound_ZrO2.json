@@ -1,0 +1,33 @@
+{
+    "_phases": {
+        "S1": {
+            "DHref": -1100810.0,
+            "Sref": 50.71,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        69.622,
+                        0.007531,
+                        -1405800.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1"
+        }
+    },
+    "formula": "ZrO2",
+    "molar_mass": 0.12322280000000001,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

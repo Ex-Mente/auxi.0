@@ -1,0 +1,211 @@
+{
+    "_phases": {
+        "G": {
+            "DHref": 4154716,
+            "Sref": 206.3591,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "6000.0": {
+                    "Tmax": 6000.0,
+                    "Tmin": 3133.345,
+                    "_coefficients": [
+                        11.29253,
+                        0.006989707,
+                        -1.110305e-06,
+                        1.22354e-10,
+                        5689278.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
+        },
+        "L": {
+            "DHref": 123950.2,
+            "Sref": 72.54094,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3133.345": {
+                    "Tmax": 3133.345,
+                    "Tmin": 1809.0,
+                    "_coefficients": [
+                        46.024,
+                        -1.884667e-11,
+                        6.09475e-15,
+                        -6.640301e-19,
+                        -0.008246121
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "S (gamma)": {
+            "DHref": 77880.15,
+            "Sref": 62.06336,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1809.0": {
+                    "Tmax": 1809.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        23.97449,
+                        0.00836775,
+                        2.77e-10,
+                        -8.6e-14,
+                        -5.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S (gamma)",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S (gamma)"
+        },
+        "S1 (alp - delt)": {
+            "DHref": 0.0,
+            "Sref": 42.51488,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "700.0": {
+                    "Tmax": 700.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        18.42868,
+                        0.02464301,
+                        -8.91372e-06,
+                        9.664706e-09,
+                        -12643.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S1 (alp - delt)",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1 (alp - delt)"
+        },
+        "S2 (alp - delt)": {
+            "DHref": 0.0,
+            "Sref": -87364.01,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1042.0": {
+                    "Tmax": 1042.0,
+                    "Tmin": 700.0,
+                    "_coefficients": [
+                        -57767.65,
+                        137.9197,
+                        -0.1227732,
+                        3.868242e-05,
+                        3993080000.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S2 (alp - delt)",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S2 (alp - delt)"
+        },
+        "S3 (alp - delt)": {
+            "DHref": 0.0,
+            "Sref": 241.8766,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1100.0": {
+                    "Tmax": 1100.0,
+                    "Tmin": 1042.0,
+                    "_coefficients": [
+                        -325.8859,
+                        0.02892876,
+                        0.0,
+                        0.0,
+                        411962900.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S3 (alp - delt)",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S3 (alp - delt)"
+        },
+        "S4 (alp - delt)": {
+            "DHref": 0.0,
+            "Sref": -558.3674,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1809.0": {
+                    "Tmax": 1809.0,
+                    "Tmin": 1100.0,
+                    "_coefficients": [
+                        -776.7387,
+                        0.9194005,
+                        -0.0003837184,
+                        5.708148e-08,
+                        242136900.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S4 (alp - delt)",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S4 (alp - delt)"
+        }
+    },
+    "formula": "Fe",
+    "molar_mass": 0.055845,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

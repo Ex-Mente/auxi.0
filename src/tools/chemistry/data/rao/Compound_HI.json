@@ -1,1 +1,0 @@
-{'Phases': {'G': {'DHref': 26359.0, 'Sref': 206.48, 'Symbol': 'G', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 26.317, 'Exponent': '0'}, {'Coefficient': 0.005941, 'Exponent': '1'}, {'Coefficient': 92100.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'HI'}

@@ -1,0 +1,33 @@
+{
+    "_phases": {
+        "Sgr": {
+            "DHref": 0.0,
+            "Sref": 5.74,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        17.154,
+                        0.004268,
+                        -878600.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sgr",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sgr"
+        }
+    },
+    "formula": "C",
+    "molar_mass": 0.0120107,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

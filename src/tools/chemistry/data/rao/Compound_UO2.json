@@ -1,1 +1,0 @@
-{'Phases': {'S': {'DHref': -1085000.0, 'Sref': 77.03, 'Symbol': 'S', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 80.333, 'Exponent': '0'}, {'Coefficient': 0.006778, 'Exponent': '1'}, {'Coefficient': -1656900.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'UO2'}

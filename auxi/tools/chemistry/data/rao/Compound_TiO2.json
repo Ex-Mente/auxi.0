@@ -1,0 +1,33 @@
+{
+    "_phases": {
+        "Srutile": {
+            "DHref": -944747.0,
+            "Sref": 50.334,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        75.187,
+                        0.001172,
+                        -1820000.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Srutile",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Srutile"
+        }
+    },
+    "formula": "TiO2",
+    "molar_mass": 0.07986579999999999,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

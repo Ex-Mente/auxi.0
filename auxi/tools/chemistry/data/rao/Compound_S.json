@@ -1,0 +1,56 @@
+{
+    "_phases": {
+        "Smono": {
+            "DHref": 335.0,
+            "Sref": 32.97,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        68.354,
+                        -0.118545
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Smono",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Smono"
+        },
+        "Sortho": {
+            "DHref": 0.0,
+            "Sref": 32.054,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        14.811,
+                        0.024058,
+                        72800.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sortho",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sortho"
+        }
+    },
+    "formula": "S",
+    "molar_mass": 0.032066000000000004,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

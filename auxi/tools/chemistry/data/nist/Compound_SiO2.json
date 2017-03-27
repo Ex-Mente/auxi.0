@@ -1,0 +1,66 @@
+{
+    "_phases": {
+        "S1": {
+            "DHref": -9108568,
+            "Sref": -27.96962,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "847.0": {
+                    "Tmax": 847.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        -6.076591,
+                        0.2516755,
+                        -0.0003247964,
+                        1.685604e-07,
+                        2548.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1"
+        },
+        "S2": {
+            "DHref": -9108568,
+            "Sref": 105.8092,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1996.0": {
+                    "Tmax": 1996.0,
+                    "Tmin": 847.0,
+                    "_coefficients": [
+                        58.7534,
+                        0.01027925,
+                        -1.31384e-07,
+                        2.521e-11,
+                        25601.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S2",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S2"
+        }
+    },
+    "formula": "SiO2",
+    "molar_mass": 0.0600843,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

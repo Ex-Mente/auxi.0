@@ -1,0 +1,75 @@
+{
+    "_phases": {
+        "L": {
+            "DHref": -195443.0,
+            "Sref": 85.965,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        65.0
+                    ],
+                    "_exponents": [
+                        0.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "Sred": {
+            "DHref": -219283.0,
+            "Sref": 65.27,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        38.2,
+                        0.025522
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sred",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sred"
+        },
+        "Syellow": {
+            "DHref": -217861.0,
+            "Sref": 67.362,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        45.089,
+                        0.01223
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Syellow",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Syellow"
+        }
+    },
+    "formula": "PbO",
+    "molar_mass": 0.2231994,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

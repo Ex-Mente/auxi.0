@@ -1,0 +1,75 @@
+{
+    "_phases": {
+        "L": {
+            "DHref": 10904.0,
+            "Sref": 50.647,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        30.125
+                    ],
+                    "_exponents": [
+                        0.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "S1": {
+            "DHref": 0.0,
+            "Sref": 41.6,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        25.507,
+                        0.002605
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1"
+        },
+        "S2": {
+            "DHref": 490.0,
+            "Sref": 42.468,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        16.795,
+                        0.022175
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S2",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S2"
+        }
+    },
+    "formula": "Ca",
+    "molar_mass": 0.040078,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}

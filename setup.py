@@ -9,7 +9,11 @@ from setuptools import setup
 
 # build the distribution
 setup(name='auxi',
+<<<<<<< HEAD
       version='0.3.3',
+=======
+      version='0.3.6',
+>>>>>>> 0.3.6
       description='A toolkit to help metallurgical process engineers to '
                   'rapidly do day-to-day calculations.',
       long_description=open('README.rst').read(),
@@ -24,7 +28,7 @@ setup(name='auxi',
                'engineering,mass balance,energy balance',
       platforms='Ubunutu 14.04,Ubuntu 15.04,Windows 7 (For the stoichiometry '
                 'and thermochemistry tools only.)',
-      package_dir={'auxi': 'src'},
+      package_dir={'auxi': 'auxi'},
       packages=['auxi',
                 'auxi.core',
                 'auxi.modelling',
@@ -54,7 +58,7 @@ setup(name='auxi',
                              'examples/tools/materialphysicalproperties/data/readme',
                              'examples/tools/transportphenomena/heattransfer/*.ipynb'
                              ]},
-      install_requires=['jsonpickle', 'tabulate', 'enum34', 'python-dateutil',
-                        'cerberus', 'pandas', 'bibtexparser'],
-      test_suite='src.tests'
+      install_requires=['jsonpickle', 'tabulate', 'python-dateutil',
+                        'cerberus<=0.9.2', 'pandas', 'bibtexparser', 'parsimonious'],
+      test_suite='auxi.tests'
       )

@@ -1,0 +1,66 @@
+{
+    "_phases": {
+        "S1": {
+            "DHref": -11208940,
+            "Sref": 212.0585,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "900.0": {
+                    "Tmax": 900.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        104.2096,
+                        0.1785108,
+                        1.06151e-05,
+                        1.132534e-09,
+                        -994202.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S1"
+        },
+        "S2": {
+            "DHref": -11208940,
+            "Sref": 388.079,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 900.0,
+                    "_coefficients": [
+                        200.832,
+                        1.586435e-10,
+                        -6.661682e-14,
+                        9.452452e-18,
+                        0.0318602
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "S2",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "S2"
+        }
+    },
+    "formula": "Fe3O4",
+    "molar_mass": 0.2315326,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

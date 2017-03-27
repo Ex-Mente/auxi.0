@@ -1,0 +1,95 @@
+{
+    "_phases": {
+        "G1": {
+            "DHref": 0.0,
+            "Sref": 172.707974,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "1000.0": {
+                    "Tmax": 1000.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        33.066178,
+                        -0.011363417,
+                        1.1432816e-05,
+                        -2.772874e-09,
+                        -158558.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G1",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G1"
+        },
+        "G2": {
+            "DHref": 0.0,
+            "Sref": 156.288133,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "2500.0": {
+                    "Tmax": 2500.0,
+                    "Tmin": 1000.0,
+                    "_coefficients": [
+                        18.563083,
+                        0.012257357,
+                        -2.859786e-06,
+                        2.68238e-10,
+                        1977990.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G2",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G2"
+        },
+        "G3": {
+            "DHref": 0.0,
+            "Sref": 162.081354,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "6000.0": {
+                    "Tmax": 6000.0,
+                    "Tmin": 2500.0,
+                    "_coefficients": [
+                        43.41356,
+                        -0.004293079,
+                        1.272428e-06,
+                        -9.6876e-11,
+                        -20533862.0
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G3",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G3"
+        }
+    },
+    "formula": "H2",
+    "molar_mass": 0.0020158800000000003,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

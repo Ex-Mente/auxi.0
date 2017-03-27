@@ -6,7 +6,7 @@ A high quality release is of utmost importance to `auxi`. This includes well tes
 ## Git Branching Strategy
 The two main branches in `auxi` are `develop` and `master`. The `master` branch contains the latest release available on PyPi (pip install auxi). The `develop` branch contains the most up-to-date work that includes all the additions and changes from completed issue branches merged into `develop` since the latest release.
 
-For a new release, a release branch must be created from the develop branch. Once this is done, the release is feature frozen, and it will not be influenced if further issue branches are merged into `develop`. To maintain this feature fronzen status, the release branch must not be updated or rebased from `develop`. The release branch must be tested and checked against `auxi`'s standards. (See the STANDARDS.md file) Once all bugs and shortcomings are fixed, the release branch may be merged into the develop and master branches. Each release on the master branch must be tagged with the release number.
+For a new release, a release branch must be created from the develop branch. Once this is done, the release is feature frozen, and it will not be influenced if further issue branches are merged into `develop`. To maintain this feature frozen status, the release branch must not be updated or rebased from `develop`. The release branch must be tested and checked against `auxi`'s standards. (See the STANDARDS.md file) Once all bugs and shortcomings are fixed, the release branch may be merged into the develop and master branches. Each release on the master branch must be tagged with the release number.
 
 
 ## Release Procedures
@@ -16,7 +16,7 @@ A release consists of one or more release candidates. Each release candidate rep
 Create a issue for the new release. As specified in the CONTRIBUTING.md file, the issue should have a `background` and `purpose`. Specifying `scope` is important as well. Make sure that the purpose for this release comes through clearly. Specify the addressed issues highlights in the `scope`.
 
 #### Step 2: Create Release Branch
-When making a release the first thing that needs to be done is to create a new release branch from `develop`.
+The next thing that needs to be done is to create a new release branch from `develop`.
 
 First, create the release branch on the [central `auxi` repository](https://github.com/Ex-Mente/auxi.0) from `develop`.
 The name of the release branch should be the version number of the release e.g. "0.3.0".

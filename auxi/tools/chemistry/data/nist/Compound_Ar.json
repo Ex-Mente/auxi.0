@@ -1,0 +1,37 @@
+{
+    "_phases": {
+        "G": {
+            "DHref": 0.0,
+            "Sref": 179.999,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "6000.0": {
+                    "Tmax": 6000.0,
+                    "Tmin": 298.0,
+                    "_coefficients": [
+                        20.786,
+                        2.825911e-10,
+                        -1.464191e-13,
+                        1.092131e-17,
+                        -0.03661371
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0,
+                        2.0,
+                        3.0,
+                        -2.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "G",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "G"
+        }
+    },
+    "formula": "Ar",
+    "molar_mass": 0.039948,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "chase1998"
+}

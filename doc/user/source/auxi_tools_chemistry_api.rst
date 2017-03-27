@@ -1,5 +1,5 @@
 auxi tools chemistry package
-=============================
+============================
 
 .. toctree::
    :maxdepth: 1

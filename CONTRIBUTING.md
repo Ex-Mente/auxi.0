@@ -51,7 +51,7 @@ The simplest way to contribute to `auxi` is to raise an issue, especially if you
 
 * Enhancement requests
 
-   If you have an idea of somethign new that could improve `auxi`, or of some changes that would make it better, you can also submit an issue.
+   If you have an idea of something new that could improve `auxi`, or of some changes that would make it better, you can also submit an issue.
 
 ### Content
 An issue must be properly documented to enable other contributors and maintainers to understand it clearly, and to implement code that will effectively address the issue. A submitted issue must provide the following information:
@@ -80,7 +80,7 @@ Here is an example of the markdown text of an empty issue:
 
 ```
 ### System Details
-auxi version:   <<add your auxi verion here>>
+auxi version:   <<add your auxi version here>>
 Python version: <<add your Python version here>>
 OS details:     <<add your operating system details here>>
 
@@ -107,9 +107,9 @@ To submit an issue, follow these steps:
 2. Write system details if your issue is a bug. (required for bug)
 3. Write background about your issue. (required)
 4. Write a purpose statement for the issue. (required)
-5. Propose an approach to address the issue. (optional for initial submition)
-6. Specify the scope of the issue. (optional for initial submition)
-7. Submit the issue on Github. (required)
+5. Propose an approach to address the issue. (optional for initial submission)
+6. Specify the scope of the issue. (optional for initial submission)
+7. Submit the issue on GitHub. (required)
 
 
 ## Code Contributions
@@ -174,7 +174,7 @@ git pull upstream develop
 ```
 
 ### Step 4: Implementation
-Now you are ready to get rolling. You can write code, tests, documentation, examples, and user docs to your hearts content. Make sure you adress all the aspects of the issue as thoroughly as possible. Also, make sure that everything you do are in line with the `auxi` standards and procedures.
+Now you are ready to get rolling. You can write code, tests, documentation, examples, and user docs to your hearts content. Make sure you address all the aspects of the issue as thoroughly as possible. Also, make sure that everything you do are in line with the `auxi` standards and procedures.
 
 You can add and submit your changes using the `git add` and `git commit` commands. Once you have done that, make sure that you comply with the standards, and make sure that your tests all run successfully.
 

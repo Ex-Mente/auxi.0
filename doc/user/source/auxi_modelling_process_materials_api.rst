@@ -10,7 +10,7 @@ chemistry material module
 ..    :show-inheritance:
 
 psd material module
-------------------
+-------------------
 
 .. automodule:: auxi.modelling.process.materials.psd
     :members:

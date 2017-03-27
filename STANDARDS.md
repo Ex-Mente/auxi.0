@@ -166,7 +166,7 @@ Tests are executed during continuous integration. If any test fails, the pull re
 Test files have exactly the same formatting requirements as code files.
 
 ### File Header
-Test files have exatctly the same header requirements as code files.
+Test files have exactly the same header requirements as code files.
 
 ### File Footer
 Test files must have the following footer:

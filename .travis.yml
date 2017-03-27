@@ -1,26 +1,39 @@
 language: python
 python:
   - "3.4"
-compiler: gcc
-sudo: required
-dist: trusty
-before_install:
-  - sudo apt-get -y install python3-setuptools
-  - sudo apt-get -y install python3-pip
-  - sudo apt-get -y install python3-pandas
+  - "3.5"
+sudo: false
+# this is lifted from http://www.camillescott.org/2016/07/15/travis-pytest-scipyconf/
 install:
-  - sudo pip3 install coveralls
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+    else
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+    fi
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a
+  # FIXME: The requirements should be read from a proper place, not here.
+  - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy scipy pandas matplotlib coverage
+  - source activate test
+  - pip install -U coveralls
+# FIXME: Ideallly we would test the installed version
+# FIXME: At the moment, this is how the dependencies are installed
+  - python setup.py install
 script:
-  - cd $TRAVIS_BUILD_DIR
-  - sudo python3 setup.py sdist
-  - cd dist
-  - sudo tar -xf auxi-*.tar.gz
-  - cd $(ls -d */|head -n 1)
-  - sudo python3 setup.py install
-  - sudo coverage run --source=auxi setup.py test
+  - python setup.py sdist
+  # FIXME: this runs the tests in the code
+  - PYTHONPATH=. coverage run --source=auxi auxi/tests.py
 after_success:
+<<<<<<< HEAD
   - COVERALLS_REPO_TOKEN=5cvUGPA0qpWaBn0QCuSf7Fw9r7IWLYrOC coveralls
   - cd $TRAVIS_BUILD_DIR
+=======
+  - coveralls
+>>>>>>> 0.3.6
 deploy:
   provider: pypi
   user: emdev

@@ -1,1 +1,0 @@
-{'Phases': {'S': {'DHref': -1634909.0, 'Sref': 82.006, 'Symbol': 'S', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 108.156, 'Exponent': '0'}, {'Coefficient': 0.016485, 'Exponent': '1'}, {'Coefficient': -2364000.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'CaSiO3'}

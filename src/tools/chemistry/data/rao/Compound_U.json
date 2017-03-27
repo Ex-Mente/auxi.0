@@ -1,1 +1,0 @@
-{'Phases': {'Salpha': {'DHref': 0.0, 'Sref': 50.2, 'Symbol': 'Salpha', 'Cp_records': {'3000': {'Terms': [{'Coefficient': 10.92, 'Exponent': '0'}, {'Coefficient': 0.037447, 'Exponent': '1'}, {'Coefficient': 489500.0, 'Exponent': '-2'}], 'Tmin': '298.15', 'Tmax': '3000'}}}}, 'Reference': 'rao1985', 'Formula': 'U'}

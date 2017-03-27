@@ -1,0 +1,71 @@
+{
+    "_phases": {
+        "L": {
+            "DHref": 6634.0,
+            "Sref": 63.97,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        34.685,
+                        -0.009205
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "L",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "L"
+        },
+        "Sgray": {
+            "DHref": -1967.0,
+            "Sref": 44.141,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [],
+                    "_exponents": [],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Sgray",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Sgray"
+        },
+        "Swhite": {
+            "DHref": 0.0,
+            "Sref": 51.212,
+            "Tref": 298.15,
+            "_Cp_records": {
+                "3000.0": {
+                    "Tmax": 3000.0,
+                    "Tmin": 298.15,
+                    "_coefficients": [
+                        21.589,
+                        0.018159
+                    ],
+                    "_exponents": [
+                        0.0,
+                        1.0
+                    ],
+                    "py/object": "auxi.tools.chemistry.thermochemistry.CpRecord"
+                }
+            },
+            "name": "Swhite",
+            "py/object": "auxi.tools.chemistry.thermochemistry.Phase",
+            "symbol": "Swhite"
+        }
+    },
+    "formula": "Sn",
+    "molar_mass": 0.11871,
+    "py/object": "auxi.tools.chemistry.thermochemistry.Compound",
+    "reference": "rao1985"
+}
