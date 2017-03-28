@@ -1,6 +1,6 @@
-Master: |masterbuild| |mastercoveralls|
+Master: |masterbuild| |mastercoveralls| checked on |Python34| |Python35|
 
-Develop: |developbuild| |developcoveralls| |developcodeclimate|
+Develop: |developbuild| |developcoveralls| |developcodeclimate| checked on |Python34| |Python35| |Python36|
 
 Welcome to the `auxi` GitHub repository!
 ========================================
@@ -90,3 +90,10 @@ The `auxi` high-level system documentation consists of the following files:
 .. |developcodeclimate| image:: https://codeclimate.com/github/Ex-Mente/auxi.0/badges/gpa.svg
    :target: https://codeclimate.com/github/Ex-Mente/auxi.0
    :alt: Code Climate
+
+
+.. |Python34| image:: https://img.shields.io/badge/python-3.4-blue.svg
+
+.. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
+
+.. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
