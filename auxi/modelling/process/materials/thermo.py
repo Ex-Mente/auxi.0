@@ -918,9 +918,7 @@ class MaterialPackage(Object):
         """
 
         index = self.material.get_compound_index(compound)
-        result = self._compound_masses[index]
-        result = stoich.amount(compound, result)
-        return result
+        return stoich.amount(compound, self._compound_masses[index])
 
     @property
     def amount(self):
@@ -930,10 +928,7 @@ class MaterialPackage(Object):
         :returns: Amount. [kmol]
         """
 
-        result = 0.0
-        for compound in self.material.compounds:
-            result += self.get_compound_amount(compound)
-        return result
+        return sum(self.get_compound_amount(c) for c in self.material.compounds)
 
     def get_element_masses(self, elements=None):
         """
@@ -961,10 +956,8 @@ class MaterialPackage(Object):
 
         element_symbols = self.material.elements
         element_masses = self.get_element_masses()
-        result = dict()
-        for s, m in zip(element_symbols, element_masses):
-            result[s] = m
-        return result
+
+        return {s: m for s, m in zip(element_symbols, element_masses)}
 
     def get_element_mass(self, element):
         """
@@ -1667,9 +1660,7 @@ class MaterialStream(Object):
         """
 
         index = self.material.get_compound_index(compound)
-        result = self._compound_mfrs[index]
-        result = stoich.amount(compound, result)
-        return result
+        return stoich.amount(compound, self._compound_mfrs[index])
 
     @property
     def afr(self):
