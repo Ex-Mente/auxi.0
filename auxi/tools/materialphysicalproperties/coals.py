@@ -171,21 +171,23 @@ class DafHTy(DafThermoTy):
 
 
 if __name__ == '__main__':
-    y_C = 0.8271423317
-    y_H = 0.0442564668
-    y_O = 0.1034694128
-    y_N = 0.020228025
-    y_S = 0.0049037636
+    composition = {'y_C': 0.8271423317,
+                   'y_H': 0.0442564668,
+                   'y_O': 0.1034694128,
+                   'y_N': 0.020228025,
+                   'y_S': 0.0049037636}
 
     cp = DafCpTy()
     h = DafHTy()
+
+    def H(T):
+        return h.calculate(T=T, **composition)
+
+    def Cp(T):
+        return cp.calculate(T=T, **composition)
+
     dT = 1
     for T in range(0, 810, 10):
         TK = T + 273.15
-        dH = (h.calculate(T=TK+dT/2, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N, y_S=y_S) -\
-             h.calculate(T=TK-dT/2, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N, y_S=y_S)) /\
-             dT
-        H = h.calculate(T=TK, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N, y_S=y_S)
-        print(T,
-              cp.calculate(T=TK, y_C=y_C, y_H=y_H, y_O=y_O, y_N=y_N, y_S=y_S),
-              dH, H)
+        dH = (H(TK + dT/2) - H(TK - dT/2))/dT
+        print(T, Cp(TK), dH, H(TK))
