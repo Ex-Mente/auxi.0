@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 This module provides physical property data sets and models for gases.
+
+Abbreviations:
+ds: dataset
+ds_dict: datasets
 """
 
 from sys import modules
@@ -38,21 +42,22 @@ def _path(relative_path):
     return join(path, relative_path)
 
 
-def _create_dataset_dict(name_list):
+def _create_ds_dict(namelist):
     """
     Create a data set dictionary from the provided list of data set names.
 
-    :param name_list: list of data set names (str).
+    :param namelist: list of data set names (str).
     :return: {str: DataSet}
     """
-    return {n: DataSet(_path(f"data/{n}")) for n in name_list}
+    return {n: DataSet(_path(f"data/{n}.csv")) for n in namelist}
 
 
 def _create_polynomial_model(
     name: str,
     symbol: str,
     degree: int,
-    dataset: DataSet):
+    ds: DataSet,
+    dss: dict):
     """
     Create a polynomial model to describe the specified property based on the
     specified data set, and save it to a .json file.
@@ -60,38 +65,53 @@ def _create_polynomial_model(
     :param name: material name.
     :param symbol: property symbol.
     :param degree: polynomial degree.
-    :param dataset: the source data set.
+    :param ds: the source data set.
+    :param dss: dictionary of all datasets.
     """
-    newmod = PolynomialModelT.create(dataset, symbol, degree)
-    newmod.plot(dataset, _path("temp.pdf"), False)
-    newmod.write(_path(f"data/{name.lower()}-{symbol.lower()}.json")
+    ds_name = ds.name.split(".")[0].lower()
+    file_name = f"{name.lower()}-{symbol.lower()}-polynomialmodelt-{ds_name}"
+    newmod = PolynomialModelT.create(ds, symbol, degree)
+    newmod.plot(dss, _path(f"data/{file_name}.pdf"), False)
+    newmod.write(_path(f"data/{file_name}.json"))
 
 
 def _create_air():
-    name = "air"
+    """
+    Create a dictionary of datasets and a material object for air.
 
-    datasets = _create_dataset_dict([
-        "dataset-air-lienhard2015.csv",
-        "dataset-air-lienhard2018.csv"])
-    active_dataset = "dataset-air-lienhard2018.csv"
+    :return: (Material, {str, DataSet})
+    """
+    name = "Air"
+    namel = name.lower()
+    mm = 28.9645  # g/mol
+
+    ds_dict = _create_ds_dict([
+        "dataset-air-lienhard2015",
+        "dataset-air-lienhard2018"])
+    active_ds = "dataset-air-lienhard2018"
 
     # create polynomial models to describe material properties
     #   comment it out after model creation is complete, so that it does not
     #   run every time during use.
-    # _create_polynomial_model("Air", "Cp", 14, datasets[active_dataset])
-    # _create_polynomial_model("Air", "k", 8, datasets[active_dataset])
-    # _create_polynomial_model("Air", "mu", 8, datasets[active_dataset])
-    # _create_polynomial_model("Air", "rho", 14, datasets[active_dataset])
+    _create_polynomial_model(name, "Cp", 13, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "k", 8, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "mu", 8, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "rho", 14, ds_dict[active_ds], ds_dict)
 
-    material_dict = {"rho": IgRhoT(28.9645, 101325.0),
-                "Cp": PolynomialModelT.read(_path(r"data/air-cp.json")),
-                "mu": PolynomialModelT.read(_path(r"data/air-mu.json")),
-                "k": PolynomialModelT.read(_path(r"data/air-k.json")),
-                "beta": IgBetaT()}
+    IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
 
-    material = Material("Air", StateOfMatter.gas, air_dict)
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
 
-    return material, datasets
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
 
 
 air, air_datasets = _create_air()

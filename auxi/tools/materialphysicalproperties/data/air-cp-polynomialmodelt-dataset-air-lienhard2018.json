@@ -1,0 +1,114 @@
+{
+    "_coeffs": [
+        -1.3012109843801189e-34,
+        1.357064561574007e-30,
+        -6.3592590548685695e-27,
+        1.7696366708542497e-23,
+        -3.2566331611405986e-20,
+        4.177493628764052e-17,
+        -3.8360132071693334e-14,
+        2.5487223155782104e-11,
+        -1.223255814900594e-08,
+        4.180380314008743e-06,
+        -0.000986280210361308,
+        0.15207679644226813,
+        -13.789942147727643,
+        1565.7531289598076
+    ],
+    "datasets": [
+        "dataset-air-lienhard2018.csv"
+    ],
+    "display_symbol": "C_p",
+    "material": "Air",
+    "property": "Heat Capacity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1500.0,
+            "min": 100.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1500.0,
+                    "min": 100.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": {
+            "T": {
+                "py/reduce": [
+                    {
+                        "py/function": "numpy.core.multiarray.scalar"
+                    },
+                    {
+                        "py/tuple": [
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/type": "numpy.dtype"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "f8",
+                                            0,
+                                            1
+                                        ]
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            3,
+                                            "<",
+                                            null,
+                                            null,
+                                            null,
+                                            -1,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    null,
+                                    null
+                                ]
+                            },
+                            {
+                                "py/b64": "AAAAAABwl0A=\n"
+                            }
+                        ]
+                    },
+                    null,
+                    null,
+                    null
+                ]
+            }
+        },
+        "_errors": {},
+        "allow_unknown": false,
+        "document": {
+            "T": {
+                "py/id": 4
+            }
+        },
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1500.0,
+                "min": 100.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false,
+        "update": false
+    },
+    "symbol": "Cp",
+    "units": "J/kg/K"
+}

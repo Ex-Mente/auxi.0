@@ -1,0 +1,115 @@
+{
+    "_coeffs": [
+        2.7848317463647863e-39,
+        -3.095372015517031e-35,
+        1.5601159580824342e-31,
+        -4.719588575771609e-28,
+        9.560609838452457e-25,
+        -1.3700914174259245e-21,
+        1.4306947943211052e-18,
+        -1.1049545315109531e-15,
+        6.341001074868738e-13,
+        -2.6933114640023694e-10,
+        8.361407404938945e-08,
+        -1.8539622630399854e-05,
+        0.0028246964674756595,
+        -0.2768093203135351,
+        15.37384128987613
+    ],
+    "datasets": [
+        "dataset-air-lienhard2018.csv"
+    ],
+    "display_symbol": "\\rho",
+    "material": "Air",
+    "property": "Density",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1500.0,
+            "min": 100.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1500.0,
+                    "min": 100.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": {
+            "T": {
+                "py/reduce": [
+                    {
+                        "py/function": "numpy.core.multiarray.scalar"
+                    },
+                    {
+                        "py/tuple": [
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/type": "numpy.dtype"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "f8",
+                                            0,
+                                            1
+                                        ]
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            3,
+                                            "<",
+                                            null,
+                                            null,
+                                            null,
+                                            -1,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    null,
+                                    null
+                                ]
+                            },
+                            {
+                                "py/b64": "AAAAAABwl0A=\n"
+                            }
+                        ]
+                    },
+                    null,
+                    null,
+                    null
+                ]
+            }
+        },
+        "_errors": {},
+        "allow_unknown": false,
+        "document": {
+            "T": {
+                "py/id": 4
+            }
+        },
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1500.0,
+                "min": 100.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false,
+        "update": false
+    },
+    "symbol": "rho",
+    "units": "kg/m3"
+}

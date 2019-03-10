@@ -88,18 +88,29 @@ class PolynomialModelT(Model):
         super().calculate(**state)
         return np.polyval(self._coeffs, state['T'])
 
-    def plot(self, dataset, path, show=False):
+    def plot(self, datasets, path, show=False):
         with PdfPages(path) as pdf:
-            x_vals = dataset.data['T'].tolist()
-            y_vals = dataset.data[self.symbol].tolist()
-            plt.plot(x_vals, y_vals, 'ro', alpha=0.4, markersize=4)
+            x_min = 1.0e100
+            x_max = -1.0e100
 
-            x_vals2 = np.linspace(min(x_vals), max(x_vals), 80)
-            fx = np.polyval(self._coeffs, x_vals2)
-            plt.plot(x_vals2, fx, linewidth=0.3, label='')
+            for ds in datasets.values():
+                x_vals = ds.data['T'].tolist()
+                y_vals = ds.data[self.symbol].tolist()
+                plt.plot(
+                    x_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
+
+                x_min = min(min(x_vals), x_min)
+                x_max = max(max(x_vals), x_max)
+
+            x_min = max(x_min, self.state_schema["T"]["min"])
+            x_max = min(x_max, self.state_schema["T"]["max"])
+
+            x_vals2 = np.linspace(x_min, x_max, 80)
+            fx = [self(T=x) for x in x_vals2]
+            plt.plot(x_vals2, fx, linewidth=0.3, label='model')
 
             plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
-            plt.legend(loc=3, bbox_to_anchor=(0, 0.8))
+            plt.legend(loc=0)
             plt.title('$%s$ vs $T$' % self.display_symbol)
             plt.xlabel('$T$ (K)')
 

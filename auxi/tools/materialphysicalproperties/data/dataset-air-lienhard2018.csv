@@ -5,6 +5,7 @@ Temperature,Density,Heat Capacity,Dynamic Viscosity,Kinematic Viscosity,Thermal 
 T,\rho,C_p,\mu,\nu,k,\alpha,Pr
 K,kg/m3,J/kg/K,kg/m/s,m2/s,W/m/K,m2/s,None
 T,rho,Cp,mu,nu,k,alpha,Pr
+100,3.605,1039,0.711E-5,0.197E−5,0.00941,0.251E−5,0.784
 150,2.368,1012,1.035E-05,4.37E-06,0.01406,5.87E-06,0.745
 200,1.769,1007,1.333E-05,7.54E-06,0.01836,1.031E-05,0.731
 250,1.412,1006,1.606E-05,1.137E-05,0.02241,1.578E-05,0.721

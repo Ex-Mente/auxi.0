@@ -2,6 +2,10 @@
 """
 This module provides tools for calculating physical properties of an ideal gas.
 """
+from matplotlib.backends.backend_pdf import PdfPages
+import webbrowser
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 from auxi.tools.materialphysicalproperties.core import Model
@@ -78,6 +82,40 @@ class RhoT(Model):
         """
         super().calculate(**state)
         return self.mm * self.P / R / state['T']
+
+    def plot(self, datasets, path, show=False):
+        with PdfPages(path) as pdf:
+            x_min = 1.0e100
+            x_max = -1.0e100
+
+            for ds in datasets.values():
+                x_vals = ds.data['T'].tolist()
+                y_vals = ds.data[self.symbol].tolist()
+                plt.plot(
+                    x_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
+
+                x_min = min(min(x_vals), x_min)
+                x_max = max(max(x_vals), x_max)
+
+            x_min = max(x_min, self.state_schema["T"]["min"])
+
+            x_vals2 = np.linspace(x_min, x_max, 80)
+            fx = [self(T=x) for x in x_vals2]
+            plt.plot(x_vals2, fx, linewidth=0.3, label='model')
+
+            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
+            plt.legend(loc=0)
+            plt.title('$%s$ vs $T$' % self.display_symbol)
+            plt.xlabel('$T$ (K)')
+
+            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
+
+            fig = plt.gcf()
+            pdf.savefig(fig)
+            plt.close()
+
+        if show:
+            webbrowser.open_new(path)
 
 
 class RhoTP(Model):

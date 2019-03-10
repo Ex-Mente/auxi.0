@@ -51,4 +51,4 @@ R = 8.3144621
 # Other Constants
 
 g = 9.80665
-"""[m.s-2] standard acceleration of gravity"""
+"""[m.s-2] standard acceleration of gravity on earth"""
