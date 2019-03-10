@@ -1,0 +1,18 @@
+Material Name,Carbon Monoxide
+Description,Thermophysical properties of carbon monoxide at 1 atm pressure.
+Reference,lienhard2018
+Temperature,Density,Heat Capacity,Dynamic Viscosity,Kinematic Viscosity,Thermal Conductivity,Thermal Diffusivity,Prandtl Number
+T,\rho,C_p,\mu,\nu,k,\alpha,Pr
+K,kg/m3,J/kg/K,kg/m/s,m2/s,W/m/K,m2/s,None
+T,rho,Cp,mu,nu,k,alpha,Pr
+250,1.367,1042,1.54E-5,1.13E-5,0.02306,1.62E-5,0.697
+300,1.138,1040,1.77E-5,1.56E-5,0.02656,2.24E-5,0.694
+350,0.975,1040,1.99E-5,2.04E-5,0.02981,2.94E-5,0.693
+400,0.853,1039,2.19E-5,2.56E-5,0.03285,3.70E-5,0.692
+450,0.758,1039,2.38E-5,3.13E-5,0.03571,4.53E-5,0.691
+500,0.682,1040,2.55E-5,3.74E-5,0.03844,5.42E-5,0.691
+600,0.5687,1041,2.89E-5,5.08E-5,0.04357,7.36E-5,0.690
+700,0.4874,1043,3.20E-5,6.56E-5,0.04838,9.52E-5,0.689
+800,0.4265,1046,3.49E-5,8.18E-5,0.05297,11.9E-5,0.689
+900,0.3791,1049,3.77E-5,9.94E-5,0.05738,14.4E-5,0.689
+1000,0.3412,1052,4.04E-5,11.8E-5,0.06164,17.2E-5,0.689

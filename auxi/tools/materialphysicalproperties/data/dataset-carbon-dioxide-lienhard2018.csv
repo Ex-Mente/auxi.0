@@ -1,0 +1,16 @@
+Material Name,Carbon Dioxide
+Description,Thermophysical properties of carbon dioxide at 1 atm pressure.
+Reference,lienhard2018
+Temperature,Density,Heat Capacity,Dynamic Viscosity,Kinematic Viscosity,Thermal Conductivity,Thermal Diffusivity,Prandtl Number
+T,\rho,C_p,\mu,\nu,k,\alpha,Pr
+K,kg/m3,J/kg/K,kg/m/s,m2/s,W/m/K,m2/s,None
+T,rho,Cp,mu,nu,k,alpha,Pr
+220,2.4733,783,11.06E-6,4.472E-6,0.01090,0.05628E-4,0.795
+250,2.1657,804,12.57E-6,5.804E-6,0.01295,0.07437E-4,0.780
+300,1.7973,853,15.02E-6,8.357E-6,0.01677,0.1094E-4,0.764
+350,1.5362,900,17.40E-6,11.33E-6,0.02092,0.1513E-4,0.749
+400,1.3424,942,19.70E-6,14.68E-6,0.02515,0.1989E-4,0.738
+450,1.1918,980,21.88E-6,18.36E-6,0.02938,0.2516E-4,0.730
+500,1.0732,1013,24.02E-6,22.38E-6,0.03354,0.3085E-4,0.725
+550,0.9739,1047,26.05E-6,26.75E-6,0.03761,0.3688E-4,0.725
+600,0.8938,1076,28.00E-6,31.33E-6,0.04159,0.4325E-4,0.724

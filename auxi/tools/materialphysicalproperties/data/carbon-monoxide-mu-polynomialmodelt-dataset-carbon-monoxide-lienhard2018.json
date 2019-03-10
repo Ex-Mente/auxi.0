@@ -1,0 +1,104 @@
+{
+    "_coeffs": [
+        1.421010272169202e-14,
+        -3.937137966456053e-11,
+        6.388404467229647e-08,
+        1.7007742468307098e-06
+    ],
+    "datasets": [
+        "dataset-carbon-monoxide-lienhard2018.csv"
+    ],
+    "display_symbol": "\\mu",
+    "material": "Carbon Monoxide",
+    "property": "Dynamic Viscosity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1000.0,
+            "min": 250.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1000.0,
+                    "min": 250.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": {
+            "T": {
+                "py/reduce": [
+                    {
+                        "py/function": "numpy.core.multiarray.scalar"
+                    },
+                    {
+                        "py/tuple": [
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/type": "numpy.dtype"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "f8",
+                                            0,
+                                            1
+                                        ]
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            3,
+                                            "<",
+                                            null,
+                                            null,
+                                            null,
+                                            -1,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    null,
+                                    null
+                                ]
+                            },
+                            {
+                                "py/b64": "AAAAAABAj0A=\n"
+                            }
+                        ]
+                    },
+                    null,
+                    null,
+                    null
+                ]
+            }
+        },
+        "_errors": {},
+        "allow_unknown": false,
+        "document": {
+            "T": {
+                "py/id": 4
+            }
+        },
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1000.0,
+                "min": 250.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false,
+        "update": false
+    },
+    "symbol": "mu",
+    "units": "kg/m/s"
+}

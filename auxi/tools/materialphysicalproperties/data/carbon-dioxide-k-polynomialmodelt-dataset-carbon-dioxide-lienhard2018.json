@@ -1,0 +1,104 @@
+{
+    "_coeffs": [
+        -1.1781632473119422e-10,
+        1.5196640596783172e-07,
+        1.9856843019308228e-05,
+        0.0003784715661992478
+    ],
+    "datasets": [
+        "dataset-carbon-dioxide-lienhard2018.csv"
+    ],
+    "display_symbol": "k",
+    "material": "Carbon Dioxide",
+    "property": "Thermal Conductivity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 600.0,
+            "min": 220.0,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 600.0,
+                    "min": 220.0,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": {
+            "T": {
+                "py/reduce": [
+                    {
+                        "py/function": "numpy.core.multiarray.scalar"
+                    },
+                    {
+                        "py/tuple": [
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/type": "numpy.dtype"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "f8",
+                                            0,
+                                            1
+                                        ]
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            3,
+                                            "<",
+                                            null,
+                                            null,
+                                            null,
+                                            -1,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    null,
+                                    null
+                                ]
+                            },
+                            {
+                                "py/b64": "AAAAAADAgkA=\n"
+                            }
+                        ]
+                    },
+                    null,
+                    null,
+                    null
+                ]
+            }
+        },
+        "_errors": {},
+        "allow_unknown": false,
+        "document": {
+            "T": {
+                "py/id": 4
+            }
+        },
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 600.0,
+                "min": 220.0,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false,
+        "update": false
+    },
+    "symbol": "k",
+    "units": "W/m/K"
+}

@@ -132,12 +132,238 @@ def _create_argon():
     # create polynomial models to describe material properties
     #   comment it out after model creation is complete, so that it does not
     #   run every time during use.
-    _create_polynomial_model(name, "Cp", 7, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "k", 3, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "mu", 3, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "rho", 6, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "Cp", 7, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "k", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "mu", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "rho", 6, ds_dict[active_ds], ds_dict)
 
-    IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_ammonia():
+    """
+    Create a dictionary of datasets and a material object for ammonia.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Ammonia"
+    namel = name.lower()
+    mm = MM("NH3")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(name, "Cp", 5, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "k", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "mu", 2, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "rho", 6, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["rho", "Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_carbon_dioxide():
+    """
+    Create a dictionary of datasets and a material object for carbon dioxide.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Carbon Dioxide"
+    namel = name.lower().replace(" ", "-")
+    mm = MM("CO2")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(namel, "Cp", 5, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "k", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "mu", 2, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "rho", 6, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["rho", "Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_carbon_monoxide():
+    """
+    Create a dictionary of datasets and a material object for carbon monoxide.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Carbon Monoxide"
+    namel = name.lower().replace(" ", "-")
+    mm = MM("CO")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(namel, "Cp", 5, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "k", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "mu", 3, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "rho", 6, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_nitrogen():
+    """
+    Create a dictionary of datasets and a material object for nitrogen.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Nitrogen"
+    namel = name.lower().replace(" ", "-")
+    mm = MM("N2")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(namel, "Cp", 5, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "k", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "mu", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "rho", 8, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_oxygen():
+    """
+    Create a dictionary of datasets and a material object for oxygen.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Oxygen"
+    namel = name.lower().replace(" ", "-")
+    mm = MM("O2")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(namel, "Cp", 5, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "k", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "mu", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "rho", 8, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_water_vapour():
+    """
+    Create a dictionary of datasets and a material object for water vapour.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Water Vapour"
+    namel = name.lower().replace(" ", "-")
+    mm = MM("H2O")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        f"dataset-{namel}-lienhard2018"])
+    active_ds = f"dataset-{namel}-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    # _create_polynomial_model(namel, "Cp", 7, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "k", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "mu", 4, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(namel, "rho", 8, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
 
     model_dict = {
         "rho": IgRhoT(mm, 101325.0),
@@ -155,3 +381,9 @@ def _create_argon():
 
 air, air_datasets = _create_air()
 argon, argon_datasets = _create_argon()
+ammonia, ammonia_datasets = _create_ammonia()
+carbon_dioxide, carbon_dioxide_datasets = _create_carbon_dioxide()
+carbon_monoxide, carbon_monoxide_datasets = _create_carbon_monoxide()
+nitrogen, nitrogen_datasets = _create_nitrogen()
+oxygen, oxygen_datasets = _create_oxygen()
+water_vapour, water_vapour_datasets = _create_water_vapour()

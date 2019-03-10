@@ -1,0 +1,109 @@
+{
+    "_coeffs": [
+        2.1851575081576384e-18,
+        -1.2649095926564125e-14,
+        3.163902697541588e-11,
+        -4.466768172804574e-08,
+        3.894002043074775e-05,
+        -0.02147525017638811,
+        7.3227598394290645,
+        -1412.7797059872105,
+        120128.03865512747
+    ],
+    "datasets": [
+        "dataset-water-vapour-lienhard2018.csv"
+    ],
+    "display_symbol": "C_p",
+    "material": "Water Vapour",
+    "property": "Heat Capacity",
+    "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
+    "references": null,
+    "state_schema": {
+        "T": {
+            "max": 1073.15,
+            "min": 373.15,
+            "required": true,
+            "type": "float"
+        }
+    },
+    "state_validator": {
+        "_Validator__config": {
+            "schema": {
+                "T": {
+                    "max": 1073.15,
+                    "min": 373.15,
+                    "required": true,
+                    "type": "float"
+                }
+            }
+        },
+        "_current": {
+            "T": {
+                "py/reduce": [
+                    {
+                        "py/function": "numpy.core.multiarray.scalar"
+                    },
+                    {
+                        "py/tuple": [
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/type": "numpy.dtype"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "f8",
+                                            0,
+                                            1
+                                        ]
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            3,
+                                            "<",
+                                            null,
+                                            null,
+                                            null,
+                                            -1,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    null,
+                                    null
+                                ]
+                            },
+                            {
+                                "py/b64": "mpmZmZnEkEA=\n"
+                            }
+                        ]
+                    },
+                    null,
+                    null,
+                    null
+                ]
+            }
+        },
+        "_errors": {},
+        "allow_unknown": false,
+        "document": {
+            "T": {
+                "py/id": 4
+            }
+        },
+        "ignore_none_values": false,
+        "py/object": "cerberus.cerberus.Validator",
+        "schema": {
+            "T": {
+                "max": 1073.15,
+                "min": 373.15,
+                "required": true,
+                "type": "float"
+            }
+        },
+        "transparent_schema_rules": false,
+        "update": false
+    },
+    "symbol": "Cp",
+    "units": "J/kg/K"
+}
