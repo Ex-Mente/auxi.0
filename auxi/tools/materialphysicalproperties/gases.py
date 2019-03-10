@@ -10,6 +10,7 @@ ds_dict: datasets
 from sys import modules
 from os.path import realpath, dirname, join
 
+from auxi.tools.chemistry.stoichiometry import molar_mass as MM
 from auxi.tools.materialphysicalproperties.core import DataSet
 from auxi.tools.materialphysicalproperties.polynomial import PolynomialModelT
 from auxi.tools.materialphysicalproperties.idealgas import \
@@ -93,10 +94,48 @@ def _create_air():
     # create polynomial models to describe material properties
     #   comment it out after model creation is complete, so that it does not
     #   run every time during use.
-    _create_polynomial_model(name, "Cp", 13, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "k", 8, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "mu", 8, ds_dict[active_ds], ds_dict)
-    _create_polynomial_model(name, "rho", 14, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "Cp", 13, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "k", 8, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "mu", 8, ds_dict[active_ds], ds_dict)
+    # _create_polynomial_model(name, "rho", 14, ds_dict[active_ds], ds_dict)
+
+    # IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
+
+    model_dict = {
+        "rho": IgRhoT(mm, 101325.0),
+        "beta": IgBetaT()}
+
+    model_type = "polynomialmodelt"
+    for property in ["Cp", "mu", "k"]:
+        name = f"data/{namel}-{property.lower()}-{model_type}-{active_ds}.json"
+        model_dict[property] = PolynomialModelT.read(_path(name))
+
+    material = Material(name, StateOfMatter.gas, model_dict)
+
+    return material, ds_dict
+
+
+def _create_argon():
+    """
+    Create a dictionary of datasets and a material object for argon.
+
+    :return: (Material, {str, DataSet})
+    """
+    name = "Argon"
+    namel = name.lower()
+    mm = MM("Ar")  # g/mol
+
+    ds_dict = _create_ds_dict([
+        "dataset-argon-lienhard2018"])
+    active_ds = "dataset-argon-lienhard2018"
+
+    # create polynomial models to describe material properties
+    #   comment it out after model creation is complete, so that it does not
+    #   run every time during use.
+    _create_polynomial_model(name, "Cp", 7, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "k", 3, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "mu", 3, ds_dict[active_ds], ds_dict)
+    _create_polynomial_model(name, "rho", 6, ds_dict[active_ds], ds_dict)
 
     IgRhoT(mm, 101325.0).plot(ds_dict, _path(f"data/{namel}-rho-igrhot.pdf"))
 
@@ -115,3 +154,4 @@ def _create_air():
 
 
 air, air_datasets = _create_air()
+argon, argon_datasets = _create_argon()
