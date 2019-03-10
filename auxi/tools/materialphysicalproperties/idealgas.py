@@ -39,7 +39,7 @@ class BetaT(Model):
 
         :returns: [1/K] thermal expansion coefficient
 
-        The **state parameter contains the keyword argument(s) specified above\
+        The **state parameter contains the keyword argument(s) specified above
         that are used to describe the state of the material.
         """
         super().calculate(**state)

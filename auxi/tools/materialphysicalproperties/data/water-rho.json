@@ -1,24 +1,20 @@
 {
     "_coeffs": [
-        -3.276269721374497e-31,
-        1.6560465948984408e-27,
-        -3.7835940848643e-24,
-        5.157389921212368e-21,
-        -4.660109801914304e-18,
-        2.930851771749725e-15,
-        -1.3092210770255314e-12,
-        4.154203772561557e-10,
-        -9.177027189394479e-08,
-        1.3444821051657595e-05,
-        -0.0011760374896457638,
-        0.046550504728984254
+        -2.489949217401472e-15,
+        6.8457785202978654e-12,
+        -7.910174083201054e-09,
+        4.941601559444423e-06,
+        -0.0017826134754078127,
+        0.3622930530620232,
+        -36.772566820772624,
+        2301.1927270572223
     ],
     "datasets": [
-        "dataset-h2o-lienhard2015.csv"
+        "dataset-water-lienhard2015.csv"
     ],
-    "display_symbol": "\\nu",
+    "display_symbol": "\\rho",
     "material": "Water",
-    "property": "Kinematic Viscosity",
+    "property": " Density",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
     "state_schema": {
@@ -55,6 +51,6 @@
         },
         "transparent_schema_rules": false
     },
-    "symbol": "nu",
-    "units": "m2 /s"
+    "symbol": "rho",
+    "units": "kg/m3"
 }

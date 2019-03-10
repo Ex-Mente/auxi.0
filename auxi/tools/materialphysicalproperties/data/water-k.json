@@ -1,20 +1,21 @@
 {
     "_coeffs": [
-        -2.489949217401472e-15,
-        6.8457785202978654e-12,
-        -7.910174083201054e-09,
-        4.941601559444423e-06,
-        -0.0017826134754078127,
-        0.3622930530620232,
-        -36.772566820772624,
-        2301.1927270572223
+        4.014203387792431e-20,
+        -1.4725504184644487e-16,
+        2.354004072747528e-13,
+        -2.1391433541830797e-10,
+        1.2064709128396774e-07,
+        -4.3148928997117895e-05,
+        0.009526236891261555,
+        -1.181149910785125,
+        63.149462236055705
     ],
     "datasets": [
-        "dataset-h2o-lienhard2015.csv"
+        "dataset-water-lienhard2015.csv"
     ],
-    "display_symbol": "\\rho",
+    "display_symbol": "k",
     "material": "Water",
-    "property": " Density",
+    "property": "Thermal Conductivity",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
     "state_schema": {
@@ -51,6 +52,6 @@
         },
         "transparent_schema_rules": false
     },
-    "symbol": "rho",
-    "units": "kg/m3"
+    "symbol": "k",
+    "units": "W/m*K"
 }

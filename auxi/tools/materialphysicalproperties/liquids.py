@@ -34,7 +34,7 @@ def _create_polynomial_model(symbol, degree):
     newmod.write(_path('data/h2o-%s.json' % symbol.lower()))
 
 
-h2o_dataset = DataSet(_path('data/dataset-h2o-lienhard2015.csv'))
+h2o_dataset = DataSet(_path('data/dataset-water-lienhard2015.csv'))
 
 # _create_polynomial_model('beta', 11)
 # _create_polynomial_model('Cp', 10)
@@ -43,11 +43,11 @@ h2o_dataset = DataSet(_path('data/dataset-h2o-lienhard2015.csv'))
 # _create_polynomial_model('nu', 11)
 # _create_polynomial_model('rho', 7)
 
-h2o_dict = {'beta': PolynomialModelT.read(_path('data/h2o-beta.json')),
-            'Cp': PolynomialModelT.read(_path('data/h2o-cp.json')),
-            'k': PolynomialModelT.read(_path('data/h2o-k.json')),
-            'mu': PolynomialModelT.read(_path('data/h2o-mu.json')),
-            'nu': PolynomialModelT.read(_path('data/h2o-nu.json')),
-            'rho': PolynomialModelT.read(_path('data/h2o-rho.json'))}
+h2o_dict = {'beta': PolynomialModelT.read(_path('data/water-beta.json')),
+            'Cp': PolynomialModelT.read(_path('data/water-cp.json')),
+            'k': PolynomialModelT.read(_path('data/water-k.json')),
+            'mu': PolynomialModelT.read(_path('data/water-mu.json')),
+            'nu': PolynomialModelT.read(_path('data/water-nu.json')),
+            'rho': PolynomialModelT.read(_path('data/water-rho.json'))}
 
 h2o = Material('Water', StateOfMatter.liquid, h2o_dict)

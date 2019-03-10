@@ -1,0 +1,12 @@
+Material Name,Ammonia
+Description,Thermophysical properties of ammonia at 1 atm pressure.
+Reference,lienhard2018
+Temperature,Density,Heat Capacity,Dynamic Viscosity,Kinematic Viscosity,Thermal Conductivity,Thermal Diffusivity,Prandtl Number
+T,\rho,C_p,\mu,\nu,k,\alpha,Pr
+K,kg/m3,J/kg/K,kg/m/s,m2/s,W/m/K,m2/s,None
+T,rho,Cp,mu,nu,k,alpha,Pr
+273,0.7719,2180,9.19E-05,1.19E-05,0.0229,1.361E-06,0.874
+323,0.6475,2176,0.0001101,1.7E-05,0.0274,1.943E-06,0.876
+373,0.5589,2238,0.0001292,2.31E-05,0.0334,2.671E-06,0.866
+423,0.492,2326,0.0001487,3.01E-05,0.0407,3.554E-06,0.85
+473,0.4396,2425,0.0001682,3.82E-05,0.0487,4.565E-06,0.838

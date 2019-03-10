@@ -1,21 +1,24 @@
 {
     "_coeffs": [
-        4.014203387792431e-20,
-        -1.4725504184644487e-16,
-        2.354004072747528e-13,
-        -2.1391433541830797e-10,
-        1.2064709128396774e-07,
-        -4.3148928997117895e-05,
-        0.009526236891261555,
-        -1.181149910785125,
-        63.149462236055705
+        -3.276269721374497e-31,
+        1.6560465948984408e-27,
+        -3.7835940848643e-24,
+        5.157389921212368e-21,
+        -4.660109801914304e-18,
+        2.930851771749725e-15,
+        -1.3092210770255314e-12,
+        4.154203772561557e-10,
+        -9.177027189394479e-08,
+        1.3444821051657595e-05,
+        -0.0011760374896457638,
+        0.046550504728984254
     ],
     "datasets": [
-        "dataset-h2o-lienhard2015.csv"
+        "dataset-water-lienhard2015.csv"
     ],
-    "display_symbol": "k",
+    "display_symbol": "\\nu",
     "material": "Water",
-    "property": "Thermal Conductivity",
+    "property": "Kinematic Viscosity",
     "py/object": "auxi.tools.materialphysicalproperties.polynomial.PolynomialModelT",
     "references": null,
     "state_schema": {
@@ -52,6 +55,6 @@
         },
         "transparent_schema_rules": false
     },
-    "symbol": "k",
-    "units": "W/m*K"
+    "symbol": "nu",
+    "units": "m2 /s"
 }
