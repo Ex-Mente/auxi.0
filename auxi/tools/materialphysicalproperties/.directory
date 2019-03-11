@@ -1,0 +1,6 @@
+[Dolphin]
+HeaderColumnWidths=430,72,141,89,72,86
+Timestamp=2019,3,10,15,1,34
+Version=4
+ViewMode=1
+VisibleRoles=Details_text,Details_size,Details_modificationtime,Details_permissions,Details_owner,Details_group,CustomizedDetails

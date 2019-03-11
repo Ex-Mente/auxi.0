@@ -7,11 +7,16 @@ ds: dataset
 ds_dict: datasets
 """
 
+from math import sqrt
 from sys import modules
 from os.path import realpath, dirname, join
+from matplotlib.backends.backend_pdf import PdfPages
+import webbrowser
+import matplotlib.pyplot as plt
+import numpy as np
 
-from auxi.tools.chemistry.stoichiometry import molar_mass as MM
-from auxi.tools.materialphysicalproperties.core import DataSet
+from auxi.tools.chemistry.stoichiometry import molar_mass as M
+from auxi.tools.materialphysicalproperties.core import DataSet, Model
 from auxi.tools.materialphysicalproperties.polynomial import PolynomialModelT
 from auxi.tools.materialphysicalproperties.idealgas import \
     BetaT as IgBetaT, RhoT as IgRhoT
@@ -123,7 +128,7 @@ def _create_argon():
     """
     name = "Argon"
     namel = name.lower()
-    mm = MM("Ar")  # g/mol
+    mm = M("Ar")  # g/mol
 
     ds_dict = _create_ds_dict([
         "dataset-argon-lienhard2018"])
@@ -161,7 +166,7 @@ def _create_ammonia():
     """
     name = "Ammonia"
     namel = name.lower()
-    mm = MM("NH3")  # g/mol
+    mm = M("NH3")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -198,7 +203,7 @@ def _create_carbon_dioxide():
     """
     name = "Carbon Dioxide"
     namel = name.lower().replace(" ", "-")
-    mm = MM("CO2")  # g/mol
+    mm = M("CO2")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -235,7 +240,7 @@ def _create_carbon_monoxide():
     """
     name = "Carbon Monoxide"
     namel = name.lower().replace(" ", "-")
-    mm = MM("CO")  # g/mol
+    mm = M("CO")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -273,7 +278,7 @@ def _create_nitrogen():
     """
     name = "Nitrogen"
     namel = name.lower().replace(" ", "-")
-    mm = MM("N2")  # g/mol
+    mm = M("N2")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -311,7 +316,7 @@ def _create_oxygen():
     """
     name = "Oxygen"
     namel = name.lower().replace(" ", "-")
-    mm = MM("O2")  # g/mol
+    mm = M("O2")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -349,7 +354,7 @@ def _create_water_vapour():
     """
     name = "Water Vapour"
     namel = name.lower().replace(" ", "-")
-    mm = MM("H2O")  # g/mol
+    mm = M("H2O")  # g/mol
 
     ds_dict = _create_ds_dict([
         f"dataset-{namel}-lienhard2018"])
@@ -387,3 +392,204 @@ carbon_monoxide, carbon_monoxide_datasets = _create_carbon_monoxide()
 nitrogen, nitrogen_datasets = _create_nitrogen()
 oxygen, oxygen_datasets = _create_oxygen()
 water_vapour, water_vapour_datasets = _create_water_vapour()
+
+materials = {
+    "Air": air,
+    "Ar": argon,
+    "NH3": ammonia,
+    "CO2": carbon_dioxide,
+    "CO": carbon_monoxide,
+    "N2": nitrogen,
+    "O2": oxygen,
+    "H2O": water_vapour}
+
+
+class WilkeMuTx(Model):
+    """
+    A model that describes the variation in the dynamic viscosity of a gas
+    mixture as a function of temperature and composition expressed in mole
+    fraction.
+
+    Source: davidson1993, page 2, equations 2 and 3.
+    """
+
+    def __init__(self):
+        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
+                        'x': {'required': True, 'type': 'dict'}}
+        super().__init__('Gas', 'Dynamic Viscosity', 'mu', '\\mu', 'Pa.s',
+                         state_schema, None, None)
+
+    def calculate(self, **state):
+        """
+        Calculate dynamic viscosity at the specified temperature and
+        composition:
+
+        :param T: [K] temperature
+        :param x: [mole fraction] composition dictionary , e.g.
+          {'CO': 0.25, 'CO2': 0.25, 'N2': 0.25, 'O2': 0.25}
+
+        :returns: [Pa.s] dynamic viscosity
+
+        The **state parameter contains the keyword argument(s) specified above
+        that are used to describe the state of the material.
+        """
+
+        def phi(i, j, mu_i, mu_j):
+            M_i = M(i)
+            M_j = M(j)
+
+            result = (1.0 + (mu_i / mu_j)**0.5 * (M_j / M_i)**0.25)**2.0
+            result /= (4.0 / sqrt(2.0))
+            result /= (1.0 + M_i / M_j)**0.5
+
+            return result
+
+        T = state['T']
+        x = state['x']
+
+        # normalise mole fractions
+        x_total = sum([
+            x for compound, x in x.items()
+            if compound in materials])
+        x = {
+            compound: x[compound]/x_total
+            for compound in x.keys()
+            if compound in materials}
+
+        result = 0.0  # Pa.s
+        mu = {i: materials[i].mu(T=T) for i in x.keys()}
+        for i in x.keys():
+            sum_i = 0.0
+            for j in x.keys():
+                if j == i: continue
+                sum_i += x[j] * phi(i, j, mu[i], mu[j])
+
+            result += x[i] * mu[i] / (x[i] + sum_i)
+
+        return result  # [Pa.s]
+
+    def plot(self, xs, datasets, path, show=False):
+        with PdfPages(path) as pdf:
+            T_min = 1.0e100
+            T_max = -1.0e100
+
+            for compound, ds in datasets.items():
+                T_vals = ds.data['T'].tolist()
+                y_vals = ds.data[self.symbol].tolist()
+                plt.plot(
+                    T_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
+
+                T_min = min(min(T_vals), T_min)
+                T_max = max(max(T_vals), T_max)
+
+                # T_vals2 = np.linspace(T_min, T_max, 80)
+                T_vals2 = np.linspace(T_min, 1000.0, 80)
+                fx = [self(T=T, x=xs[compound]) for T in T_vals2]
+                plt.plot(T_vals2, fx, linewidth=0.3, label=f"{compound} model")
+
+            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
+            plt.legend(loc=0)
+            plt.title('$%s$ vs $T$' % self.display_symbol)
+            plt.xlabel('$T$ (K)')
+
+            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
+
+            fig = plt.gcf()
+            pdf.savefig(fig)
+            plt.close()
+
+        if show:
+            webbrowser.open_new(path)
+
+
+class HerningZippererMuTx(Model):
+    """
+    A model that describes the variation in the dynamic viscosity of a gas
+    mixture as a function of temperature and composition expressed in mole
+    fraction.
+
+    Source: davidson1993, page 2, equations 4.
+    """
+
+    def __init__(self):
+        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
+                        'x': {'required': True, 'type': 'dict'}}
+        super().__init__('Gas', 'Dynamic Viscosity', 'mu', '\\mu', 'Pa.s',
+                         state_schema, None, None)
+
+    def calculate(self, **state):
+        """
+        Calculate dynamic viscosity at the specified temperature and
+        composition:
+
+        :param T: [K] temperature
+        :param x: [mole fraction] composition dictionary , e.g.
+          {'CO': 0.25, 'CO2': 0.25, 'N2': 0.25, 'O2': 0.25}
+
+        :returns: [Pa.s] dynamic viscosity
+
+        The **state parameter contains the keyword argument(s) specified above
+        that are used to describe the state of the material.
+        """
+
+        T = state['T']
+        x = state['x']
+
+        # normalise mole fractions
+        x_total = sum([
+            x for compound, x in x.items()
+            if compound in materials])
+        x = {
+            compound: x[compound]/x_total
+            for compound in x.keys()
+            if compound in materials}
+
+        mu = {i: materials[i].mu(T=T) for i in x.keys()}
+
+        result = sum([mu[i] * x[i] * sqrt(M(i)) for i in x.keys()])
+        result /= sum([x[i] * sqrt(M(i)) for i in x.keys()])
+
+        return result  # [Pa.s]
+
+    def plot(self, xs, datasets, path, show=False):
+        with PdfPages(path) as pdf:
+            T_min = 1.0e100
+            T_max = -1.0e100
+
+            for compound, ds in datasets.items():
+                T_vals = ds.data['T'].tolist()
+                y_vals = ds.data[self.symbol].tolist()
+                plt.plot(
+                    T_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
+
+                T_min = min(min(T_vals), T_min)
+                T_max = max(max(T_vals), T_max)
+
+                # T_vals2 = np.linspace(T_min, T_max, 80)
+                T_vals2 = np.linspace(T_min, 1000.0, 80)
+                fx = [self(T=T, x=xs[compound]) for T in T_vals2]
+                plt.plot(T_vals2, fx, linewidth=0.3, label=f"{compound} model")
+
+            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
+            plt.legend(loc=0)
+            plt.title('$%s$ vs $T$' % self.display_symbol)
+            plt.xlabel('$T$ (K)')
+
+            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
+
+            fig = plt.gcf()
+            pdf.savefig(fig)
+            plt.close()
+
+        if show:
+            webbrowser.open_new(path)
+
+
+# WilkeMuTx().plot(
+#     {"Air": {"N2": 0.79, "O2": 0.21}},
+#     {"Air": air_datasets["dataset-air-lienhard2018"]},
+#     "data/gas-mixture-mu-wilket.pdf")
+# HerningZippererMuTx().plot(
+#     {"Air": {"N2": 0.79, "O2": 0.21}},
+#     {"Air": air_datasets["dataset-air-lienhard2018"]},
+#     "data/gas-mixture-mu-herningzipperert.pdf")

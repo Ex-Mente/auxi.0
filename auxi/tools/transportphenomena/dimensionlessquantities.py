@@ -80,7 +80,7 @@ def Re(L: float, v: float, nu: float) -> float:
 def Ra(L: float, Ts: float, Tf: float, alpha: float, beta: float, nu: float
        ) -> float:
     """
-    Calculate the Grashof number.
+    Calculate the Ralleigh number.
 
     :param L: [m] heat transfer surface characteristic length.
     :param Ts: [K] heat transfer surface temperature.
