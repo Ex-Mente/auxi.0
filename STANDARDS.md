@@ -54,8 +54,8 @@ __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2015-2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = '<<add the list of authors here>>'
 __credits__ = [<<add the list of credits here>>]
-__maintainer__ = 'Christoff Kok'
-__email__ = 'christoff.kok@ex-mente.co.za'
+__maintainer__ = 'Johan Zietsman'
+__email__ = 'johan.zietsman@ex-mente.co.za'
 __status__ = 'Planning'
 
 <<Add your code from this point.>>
