@@ -15,10 +15,10 @@ from auxi.core.objects import Object
 __version__ = '0.3.6'
 __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
-__author__ = 'Christoff Kok, Johan Zietsman'
-__credits__ = ['Christoff Kok', 'Johan Zietsman']
-__maintainer__ = 'Christoff Kok'
-__email__ = 'christoff.kok@ex-mente.co.za'
+__author__ = 'Johan Zietsman'
+__credits__ = ['Johan Zietsman', 'Carl Sandrock']
+__maintainer__ = 'Johan Zietsman'
+__email__ = 'johan.zietsman@ex-mente.co.za'
 __status__ = 'Planning'
 
 

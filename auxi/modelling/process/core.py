@@ -11,8 +11,8 @@ __license__ = 'LGPL v3'
 __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Johan Zietsman'
 __credits__ = ['Johan Zietsman']
-__maintainer__ = 'Christoff Kok'
-__email__ = 'christoff.kok@ex-mente.co.za'
+__maintainer__ = 'Johan Zietsman'
+__email__ = 'johan.zietsman@ex-mente.co.za'
 __status__ = 'Planning'
 
 

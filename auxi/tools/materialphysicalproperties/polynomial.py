@@ -18,7 +18,7 @@ __copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
 __author__ = 'Marno Grewar, Christoff Kok, Johan Zietsman'
 __credits__ = ['Marno Grewar', 'Christoff Kok', 'Johan Zietsman']
 __maintainer__ = 'Marno Grewar'
-__email__ = 'christoff.kok@ex-mente.co.za'
+__email__ = 'johan.zietsman@ex-mente.co.za'
 __status__ = 'Planning'
 
 

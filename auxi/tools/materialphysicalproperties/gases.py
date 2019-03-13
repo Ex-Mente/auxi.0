@@ -585,6 +585,87 @@ class HerningZippererMuTx(Model):
             webbrowser.open_new(path)
 
 
+class IdealCpTx(Model):
+    """
+    A model that describes the variation in heat capacity of a gas mixture at
+    1 atmosphere pressure as a function of temperature and composition
+    expressed in mole fraction.
+    """
+
+    def __init__(self):
+        state_schema = {"T": {"required": True, "type": "float", "min": 0.0},
+                        "x": {"required": True, "type": "dict"}}
+        super().__init__("Gas", "Heat Capacity", "Cp", "C_p", "J/kg/K",
+                         state_schema, None, None)
+
+    def calculate(self, **state):
+        """
+        Calculate dynamic viscosity at the specified temperature and
+        composition:
+
+        :param T: [K] temperature
+        :param x: [mole fraction] composition dictionary , e.g.
+          {"CO": 0.25, "CO2": 0.25, "N2": 0.25, "O2": 0.25}
+
+        :returns: [J/kg/K] heat capacity
+
+        The **state parameter contains the keyword argument(s) specified above
+        that are used to describe the state of the material.
+        """
+
+        T = state["T"]
+        x = state["x"]
+
+        # normalise mole fractions
+        x_total = sum([
+            x for compound, x in x.items()
+            if compound in materials])
+        x = {
+            compound: x[compound]/x_total
+            for compound in x.keys()
+            if compound in materials}
+
+        Cp = {i: materials[i].Cp(T=T) for i in x.keys()}
+
+        result = sum([Cp[i] * x[i] * M(i) for i in x.keys()])
+        result /= sum([x[i] * M(i) for i in x.keys()])
+
+        return result  # [Pa.s]
+
+    def plot(self, xs, datasets, path, show=False):
+        with PdfPages(path) as pdf:
+            T_min = 1.0e100
+            T_max = -1.0e100
+
+            for compound, ds in datasets.items():
+                T_vals = ds.data["T"].tolist()
+                y_vals = ds.data[self.symbol].tolist()
+                plt.plot(
+                    T_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
+
+                T_min = min(min(T_vals), T_min)
+                T_max = max(max(T_vals), T_max)
+
+                # T_vals2 = np.linspace(T_min, T_max, 80)
+                T_vals2 = np.linspace(T_min, 1000.0, 80)
+                fx = [self(T=T, x=xs[compound]) for T in T_vals2]
+                plt.plot(T_vals2, fx, linewidth=0.3, label=f"{compound} model")
+
+            plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 4))
+            plt.legend(loc=0)
+            plt.title("$%s$ vs $T$" % self.display_symbol)
+            plt.xlabel("$T$ (K)")
+
+            plt.ylabel("$%s$ (%s)" % (self.display_symbol, self.units))
+
+            fig = plt.gcf()
+            pdf.savefig(fig)
+            plt.close()
+
+        if show:
+            webbrowser.open_new(path)
+
+
 # WilkeMuTx().plot(
 #     {"Air": {"N2": 0.79, "O2": 0.21}},
 #     {"Air": air_datasets["dataset-air-lienhard2018"]},
@@ -593,3 +674,7 @@ class HerningZippererMuTx(Model):
 #     {"Air": {"N2": 0.79, "O2": 0.21}},
 #     {"Air": air_datasets["dataset-air-lienhard2018"]},
 #     "data/gas-mixture-mu-herningzipperert.pdf")
+# IdealCpTx().plot(
+#     {"Air": {"N2": 0.79, "O2": 0.21}},
+#     {"Air": air_datasets["dataset-air-lienhard2018"]},
+#     "data/gas-mixture-cp-idealxt.pdf")

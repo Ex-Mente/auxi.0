@@ -13,14 +13,14 @@ from auxi.tools.physicalconstants import R
 from auxi.tools.chemistry.stoichiometry import molar_mass as mm
 
 
-__version__ = '0.3.6'
-__license__ = 'LGPL v3'
-__copyright__ = 'Copyright 2016, Ex Mente Technologies (Pty) Ltd'
-__author__ = 'Johan Zietsman'
-__credits__ = ['Johan Zietsman']
-__maintainer__ = 'Johan Zietsman'
-__email__ = 'johan.zietsman@ex-mente.co.za'
-__status__ = 'Planning'
+__version__ = "0.3.6"
+__license__ = "LGPL v3"
+__copyright__ = "Copyright 2016, Ex Mente Technologies (Pty) Ltd"
+__author__ = "Johan Zietsman"
+__credits__ = ["Johan Zietsman"]
+__maintainer__ = "Johan Zietsman"
+__email__ = "johan.zietsman@ex-mente.co.za"
+__status__ = "Planning"
 
 
 class BetaT(Model):
@@ -30,9 +30,9 @@ class BetaT(Model):
     """
 
     def __init__(self):
-        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
-        super().__init__('Ideal Gas', 'Thermal Expansion Coefficient', 'beta',
-                         '\\beta', '1/K', state_schema, None, None)
+        state_schema = {"T": {"required": True, "type": "float", "min": 0.0}}
+        super().__init__("Ideal Gas", "Thermal Expansion Coefficient", "beta",
+                         "\\beta", "1/K", state_schema, None, None)
 
     def calculate(self, **state):
         """
@@ -47,7 +47,7 @@ class BetaT(Model):
         that are used to describe the state of the material.
         """
         super().calculate(**state)
-        return 1.0 / state['T']
+        return 1.0 / state["T"]
 
 
 class RhoT(Model):
@@ -60,8 +60,8 @@ class RhoT(Model):
     """
 
     def __init__(self, molar_mass, P):
-        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0}}
-        super().__init__('Ideal Gas', 'Density', 'rho', '\\rho', 'kg/m3',
+        state_schema = {"T": {"required": True, "type": "float", "min": 0.0}}
+        super().__init__("Ideal Gas", "Density", "rho", "\\rho", "kg/m3",
                          state_schema, None, None)
 
         self.mm = molar_mass / 1000.0
@@ -81,7 +81,7 @@ class RhoT(Model):
         that are used to describe the state of the material.
         """
         super().calculate(**state)
-        return self.mm * self.P / R / state['T']
+        return self.mm * self.P / R / state["T"]
 
     def plot(self, datasets, path, show=False):
         with PdfPages(path) as pdf:
@@ -89,7 +89,7 @@ class RhoT(Model):
             x_max = -1.0e100
 
             for ds in datasets.values():
-                x_vals = ds.data['T'].tolist()
+                x_vals = ds.data["T"].tolist()
                 y_vals = ds.data[self.symbol].tolist()
                 plt.plot(
                     x_vals, y_vals, "o", alpha=0.4, markersize=4, label=ds.name)
@@ -101,14 +101,14 @@ class RhoT(Model):
 
             x_vals2 = np.linspace(x_min, x_max, 80)
             fx = [self(T=x) for x in x_vals2]
-            plt.plot(x_vals2, fx, linewidth=0.3, label='model')
+            plt.plot(x_vals2, fx, linewidth=0.3, label="model")
 
-            plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 4))
+            plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 4))
             plt.legend(loc=0)
-            plt.title('$%s$ vs $T$' % self.display_symbol)
-            plt.xlabel('$T$ (K)')
+            plt.title("$%s$ vs $T$" % self.display_symbol)
+            plt.xlabel("$T$ (K)")
 
-            plt.ylabel('$%s$ (%s)' % (self.display_symbol, self.units))
+            plt.ylabel("$%s$ (%s)" % (self.display_symbol, self.units))
 
             fig = plt.gcf()
             pdf.savefig(fig)
@@ -127,9 +127,9 @@ class RhoTP(Model):
     """
 
     def __init__(self, molar_mass):
-        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
-                        'P': {'required': True, 'type': 'float', 'min': 0.0}}
-        super().__init__('Ideal Gas', 'Density', 'rho', '\\rho', 'kg/m3',
+        state_schema = {"T": {"required": True, "type": "float", "min": 0.0},
+                        "P": {"required": True, "type": "float", "min": 0.0}}
+        super().__init__("Ideal Gas", "Density", "rho", "\\rho", "kg/m3",
                          state_schema, None, None)
 
         self.mm = molar_mass / 1000.0
@@ -148,7 +148,7 @@ class RhoTP(Model):
         that are used to describe the state of the material.
         """
         super().calculate(**state)
-        return self.mm * state['P'] / R / state['T']
+        return self.mm * state["P"] / R / state["T"]
 
 
 class RhoTPx(Model):
@@ -158,10 +158,10 @@ class RhoTPx(Model):
     """
 
     def __init__(self):
-        state_schema = {'T': {'required': True, 'type': 'float', 'min': 0.0},
-                        'P': {'required': True, 'type': 'float', 'min': 0.0},
-                        'x': {'required': True, 'type': 'dict'}}
-        super().__init__('Ideal Gas', 'Density', 'rho', '\\rho', 'kg/m3',
+        state_schema = {"T": {"required": True, "type": "float", "min": 0.0},
+                        "P": {"required": True, "type": "float", "min": 0.0},
+                        "x": {"required": True, "type": "dict"}}
+        super().__init__("Ideal Gas", "Density", "rho", "\\rho", "kg/m3",
                          state_schema, None, None)
 
     def calculate(self, **state):
@@ -180,14 +180,14 @@ class RhoTPx(Model):
         """
         super().calculate(**state)
         mm_average = 0.0
-        for compound, molefraction in state['x'].items():
+        for compound, molefraction in state["x"].items():
             mm_average += molefraction * mm(compound)
         mm_average /= 1000.0
 
-        return mm_average * state['P'] / R / state['T']
+        return mm_average * state["P"] / R / state["T"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import unittest
     from idealgas_test import *
     unittest.main()
