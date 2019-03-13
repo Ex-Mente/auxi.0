@@ -12,6 +12,7 @@ __maintainer__ = "Johan Zietsman"
 __email__ = "johan.zietsman@ex-mente.co.za"
 __status__ = "Planning"
 
+import sys
 
 from math import log10, sqrt
 from scipy.optimize import root
@@ -103,7 +104,7 @@ def f_tr_Colebrook(Re_D, ɛ, D):
         return -2 * log10(term1 + term2) - 1 / sqrt(f)
 
     # find the roots of the Colebrook equation
-    return = root(cb, 0.02, args=(Re_D, ɛ, D)).x[0]
+    return root(cb, 0.02, args=(Re_D, ɛ, D)).x[0]
 
 
 def D_h(A, P):
