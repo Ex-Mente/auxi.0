@@ -52,3 +52,15 @@ R = 8.3144621
 
 g = 9.80665
 """[m.s-2] standard acceleration of gravity on earth"""
+
+T_NTP = 293.15
+"""[K] Temperature under normal temperature and pressure (NTP) conditions."""
+
+P_NTP = 101325.0
+"""[Pa] Pressure under normal temperature and pressure (NTP) conditions."""
+
+T_STP = 273.15
+"""[K] Temperature under standard temperature and pressure (NTP) conditions."""
+
+P_STP = 100000.0
+"""[Pa] Pressure under standard temperature and pressure (NTP) conditions."""
