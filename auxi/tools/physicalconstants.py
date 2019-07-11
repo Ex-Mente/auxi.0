@@ -17,17 +17,17 @@ __status__ = 'Planning'
 
 # Universal Constants
 
-c = 299792458
-"""[m·s-1] speed of light in vacuum"""
+c = 299792458.0
+"""[m·s-1] speed of light in vacuum, from nist2018-constants"""
 
-G = 6.67408E-11
-"""[m3.kg-1.s-2] Newtonian constant of gravitation"""
+G = 6.67403E-11
+"""[m3.kg-1.s-2] Newtonian constant of gravitation, from nist2018-constants"""
 
-h = 6.626070040E-34
+h = 6.626070150E-34
 """[J.s] Planck constant"""
 
-h_bar = 1.054571800E-34
-"""[J.s] reduced Planck constant (h/(2pi))"""
+h_bar = 1.054571817E-34
+"""[J.s] reduced Planck constant (h/(2pi)), from nist2018-constants"""
 
 
 # Physico-chemical Constants
@@ -35,23 +35,26 @@ h_bar = 1.054571800E-34
 m_u = 1.660538921E-27
 """[kg] atomic mass constant"""
 
-N_A = 6.02214129E23
-"""[mol-1] Avogadro's number"""
+N_A = 6.02214076E23
+"""[mol-1] Avogadro's number, from nist2018-constants"""
 
-k_B = 1.3806488E-23
-"""[J.K-1] Boltzmann constant"""
+k_B = 1.380649E-23
+"""[J.K-1] Boltzmann constant, from nist2018-constants"""
 
-F = 96485.3365
-"""[C·mol-1] Faraday constant"""
+F = 96485.33212
+"""[C·mol-1] Faraday constant, from nist2018-constants"""
 
-R = 8.3144621
-"""[J.K-1.mol-1] gas constant"""
+R = 8.314462618
+"""[J.K-1.mol-1] molar gas constant, from nist2018-constants"""
+
+σ = 5.670374419E-8
+"""[W.m-2.K-4] Stefan-Boltzmann constant, from nist2018-constants"""
 
 
 # Other Constants
 
 g = 9.80665
-"""[m.s-2] standard acceleration of gravity on earth"""
+"""[m.s-2] standard acceleration of gravity on earth, from nist2018-constants"""
 
 T_NTP = 293.15
 """[K] Temperature under normal temperature and pressure (NTP) conditions."""
