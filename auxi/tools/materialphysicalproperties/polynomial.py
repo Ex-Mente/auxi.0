@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import webbrowser
-from cerberus import Validator, ValidationError
+from cerberus import Validator
 
 from auxi.tools.materialphysicalproperties.core import Model
 

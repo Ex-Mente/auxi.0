@@ -117,7 +117,7 @@ def _create_air():
 
     material = Material(name, StateOfMatter.gas, model_dict)
 
-    return material, ds_dict
+    return material, ds_dict, model_dict
 
 
 def _create_argon():
@@ -384,7 +384,7 @@ def _create_water_vapour():
     return material, ds_dict
 
 
-air, air_datasets = _create_air()
+air, air_datasets, air_dict = _create_air()
 argon, argon_datasets = _create_argon()
 ammonia, ammonia_datasets = _create_ammonia()
 carbon_dioxide, carbon_dioxide_datasets = _create_carbon_dioxide()

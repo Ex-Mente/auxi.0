@@ -8,7 +8,7 @@ import csv
 import os
 import pandas as pd
 import webbrowser
-from cerberus import Validator, ValidationError
+from cerberus import Validator
 from enum import Enum
 
 from auxi.core.objects import Object
@@ -187,6 +187,15 @@ class Model(Object):
         self.state_schema = state_schema
         self.state_validator = Validator(self.state_schema)
 
+    def _init(self):
+        """
+        Reinitialize the model after deserialization.
+        This recreates the validator from the state_schema to ensure
+        compatibility with the current cerberus version.
+        """
+        if hasattr(self, 'state_schema'):
+            self._create_validator(self.state_schema)
+
     def calculate(self, **state):
         """
         Base calculate method for models.
@@ -200,7 +209,7 @@ class Model(Object):
             for key, value in self.state_validator.errors.items():
                 msg += ' %s: %s;' % (key, value)
             msg = msg[0:-1]+'.'
-            raise ValidationError(msg)
+            raise ValueError(msg)
 
 
 if __name__ == "__main__":

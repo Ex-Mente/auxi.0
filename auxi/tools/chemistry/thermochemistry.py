@@ -166,15 +166,15 @@ class Phase(NamedObject):
         """[J/mol/K] The standard entropy of the phase at Tref."""
 
         if 'magnetic' in dictionary:
-            self.Tc_mag = ['magnetic']['Tc']
+            self.Tc_mag = dictionary['magnetic']['Tc']
             """The critical temperature, which is the Curie temperature for
             ferromagnetic materials or the Neel temperature for
             antiferromagnetic materials."""
 
-            self.beta0_mag = ['magnetic']['beta0']
+            self.beta0_mag = dictionary['magnetic']['beta0']
             """The average magnetic moment per atom."""
 
-            self.p_mag = ['magnetic']['p']
+            self.p_mag = dictionary['magnetic']['p']
             """This value can be thought of as the fraction of the magnetic
             enthalpy absorbed above the critical. It depends on structure."""
 

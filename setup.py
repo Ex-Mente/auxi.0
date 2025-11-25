@@ -60,6 +60,7 @@ setup(name='auxi',
             'examples/tools/materialphysicalproperties/data/readme',
             'examples/tools/transportphenomena/heattransfer/*.ipynb']},
       install_requires=['jsonpickle', 'tabulate', 'python-dateutil',
-                        'cerberus<=0.9.2', 'pandas', 'bibtexparser', 'parsimonious'],
+                        'cerberus>=1.3', 'pandas', 'bibtexparser', 'parsimonious'],
+      python_requires='>=3.8',
       test_suite='auxi.tests'
       )

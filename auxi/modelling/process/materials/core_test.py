@@ -25,10 +25,10 @@ class MaterialTester(unittest.TestCase):
     """
 
     def test_constructor(self):
-        Material('Test Material', air_dict, 'Test material.')
+        Material('Test Material', property_models=air_dict, description='Test material.')
 
     def test_beta(self):
-        m = Material('Test Material', air_dict, 'Test material.')
+        m = Material('Test Material', property_models=air_dict, description='Test material.')
 
         T = 300.0
         self.assertEqual(m.beta(T=T), 1.0/T)
